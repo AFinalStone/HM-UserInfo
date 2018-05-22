@@ -1,3 +1,51 @@
 <resources>
-    <string name="app_name">library</string>
+    <string name="dialog_tvLogoutMsg">确认退出当前账号吗?</string>
+    <string name="dialog_tvLogoutOk">确定</string>
+    <string name="dialog_tvLogoutCancel">取消</string>
+    <string name="dialog_systemTipTitle">温馨提示</string>
+    <!--个人中心-->
+    <string name="personal_actionQRCode">二维码</string>
+    <string name="personal_signature">本人签名</string>
+    <string name="personal_signatureMake">定制</string>
+    <string name="personal_phoneOrWxChat">手机／微信</string>
+    <string name="personal_livePlace">常住城市</string>
+    <string name="personal_nameAndSex">昵称／性别</string>
+    <string name="personal_mainIncome">主要收入</string>
+    <string name="personal_changePassword">变更密码</string>
+    <string name="personal_helpAndTickling">帮助与反馈</string>
+    <string name="personal_moreSetting">更多设置</string>
+    <string name="personal_aboutUs">关于我们</string>
+    <string name="personal_logoutSafely">安全退出</string>
+    <string name="personal_currentVersion">当前版本</string>
+    <string name="personal_changeLoginPassword">变更登录密码</string>
+    <string name="personal_changeSignaturePassword">变更签约密码</string>
+    <string name="personal_changePasswordChangeSuccess">密码修改成功</string>
+    <string name="personal_changePasswordChangeFailed">密码修改失败</string>
+    <string name="personal_changeAddressSuccess">修改成功</string>
+    <string name="personal_changeAddressFailed">修改失败</string>
+    <string name="personal_unBindPhone">更换手机</string>
+    <string name="personal_bindWX">绑定微信</string>
+    <string name="personal_bindWXSuccess">成功绑定微信</string>
+    <string name="personal_bindWXFailed">绑定微信失败</string>
+    <string name="personal_wxHaveBindPhone">当前微信已经绑定过手机号</string>
+    <string name="personal_pleaseNeedAuthentication">您还没有设置签约密码</string>
+    <string name="personal_unBindWX">解绑微信</string>
+    <string name="personal_dialogNeedAuthenticationOK">实名认证</string>
+    <string name="personal_dialogNeedAuthenticationTitle">设置手写签名</string>
+    <string name="personal_dialogNeedAuthenticationMsg">通过实名认证后的账户，才能设置手写签名，是否立即实名认证？</string>
+    <string name="personal_dialogByNotEnoughTimesTitle">实名认证</string>
+    <string name="personal_dialogByNotEnoughTimesMsg">每个账号每天只有3次实名校验的机会，您今日的试用次数已满，请改日再来，如有疑问请咨询客服QQ</string>
+
+    <!--我的收入-->
+    <string name="myIncome_title">我的收入</string>
+    <string name="myIncome_homeMainIncome">家庭主要收入</string>
+    <string name="myIncome_homeSubIncome">家庭次要收入</string>
+    <string name="myIncome_nothing">无</string>
+    <string name="myIncome_salary">工资</string>
+    <string name="myIncome_business">生意</string>
+    <string name="myIncome_invest">投资</string>
+    <string name="myIncome_ParentsSupport">父母资助</string>
+    <string name="myIncome_other">其他</string>
+    <string name="myIncome_uploadPicDesc">上传职业经历证明名片、工牌、学生证等任一材料</string>
+
 </resources>

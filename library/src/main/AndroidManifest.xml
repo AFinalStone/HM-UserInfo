@@ -1,2 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hm.iou.library" />
+    package="com.hm.iou.userinfo">
+
+
+    <application>
+
+        <activity
+            android:name=".business.view.PersonalActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+
+</manifest>
