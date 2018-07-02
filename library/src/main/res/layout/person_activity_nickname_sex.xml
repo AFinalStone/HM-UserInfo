@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleText="昵称/性别"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="1px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="昵称"
+            android:textColor="#ff222222"
+            android:textSize="@dimen/textFontSize_15" />
+
+        <com.hm.iou.uikit.ClearEditText
+            android:id="@+id/tv_nickName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:maxLength="15"
+            android:paddingStart="20dp"
+            android:paddingEnd="50dp"
+            android:textColor="#ff666666"
+            android:textSize="@dimen/textFontSize_15" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@drawable/uikit_comm_divider_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="性别"
+            android:textColor="#ff222222"
+            android:textSize="@dimen/textFontSize_15" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="50dp"
+            android:text="未知"
+            android:textColor="#ff666666"
+            android:textSize="@dimen/textFontSize_15" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@drawable/uikit_comm_divider_gray" />
+
+    <Button
+        android:id="@+id/btn_nickname_submit"
+        android:layout_width="305dip"
+        android:layout_height="48dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dip"
+        android:text="保存"
+        style="@style/UikitButton.Bottom"
+        />
+    
+</LinearLayout>

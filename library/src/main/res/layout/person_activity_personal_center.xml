@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:HMApplication="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F6F6F6"
+    android:background="@color/white"
     android:fitsSystemWindows="false">
 
 
@@ -13,48 +13,18 @@
         android:scaleType="fitXY"
         android:src="@mipmap/background_personal_header" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout_title"
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="@dimen/uikit_status_bar_height"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/iv_menuBack"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="50dp"
-            android:paddingTop="10dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/uikit_ic_menu_back_black" />
-
-        <ImageView
-            android:id="@+id/iv_action"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingLeft="50dp"
-            android:paddingRight="18.5dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/icon_personal_qr_code" />
-
-    </RelativeLayout>
-
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleBackground="#00000000"
+        app:titleText="个人中心" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/relativeLayout_title"
-        HMApplication:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_below="@id/topbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +45,7 @@
                     android:layout_marginTop="40dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/uikit_icon_header_unknow"
-                    HMApplication:shape_mode="circle" />
+                    app:shape_mode="circle" />
 
                 <TextView
                     android:id="@+id/tv_userNickName"
@@ -86,9 +56,10 @@
                     android:layout_toRightOf="@id/iv_header"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="昵称"
+                    android:text=""
                     android:textColor="#ff222222"
-                    android:textSize="@dimen/textFontSize_18" />
+                    android:textSize="@dimen/textFontSize_18"
+                    tools:text="昵称" />
 
                 <TextView
                     android:id="@+id/tv_userId"
@@ -97,9 +68,10 @@
                     android:layout_marginLeft="21dp"
                     android:layout_marginTop="84dp"
                     android:layout_toRightOf="@id/iv_header"
-                    android:text="用户ID"
+                    android:text=""
                     android:textColor="#ffa3a3a3"
-                    android:textSize="@dimen/textFontSize_14" />
+                    android:textSize="@dimen/textFontSize_14"
+                    tools:text="用户ID" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -120,14 +92,12 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"
-                        android:src="@mipmap/icon_personal_zmxy_h"
                         android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/iv_03"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:src="@mipmap/icon_personal_zfb_h"
                         android:visibility="gone" />
 
                 </LinearLayout>
@@ -180,8 +150,9 @@
                 <RelativeLayout
                     android:id="@+id/relativeLayout_phoneAndWx"
                     android:layout_width="0dp"
-                    android:layout_height="43dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:paddingLeft="40dp">
 
@@ -210,15 +181,17 @@
                 </RelativeLayout>
 
                 <View
-                    style="@style/UikitDivider"
                     android:layout_width="1px"
-                    android:layout_height="80dp" />
+                    android:layout_height="80dp"
+                    style="@style/UikitDivider.Horizontal"
+                    />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout_livePlace"
                     android:layout_width="0dp"
-                    android:layout_height="43dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:paddingLeft="40dp">
 
@@ -247,7 +220,9 @@
 
             </LinearLayout>
 
-            <View style="@style/UikitDivider.Horizontal" />
+            <View
+                style="@style/UikitDivider.Horizontal"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -259,8 +234,9 @@
                 <RelativeLayout
                     android:id="@+id/relativeLayout_nameAndSex"
                     android:layout_width="0dp"
-                    android:layout_height="43dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:paddingLeft="40dp">
 
@@ -290,15 +266,17 @@
                 </RelativeLayout>
 
                 <View
-                    style="@style/UikitDivider"
                     android:layout_width="1px"
-                    android:layout_height="80dp" />
+                    android:layout_height="80dp"
+                    style="@style/UikitDivider.Horizontal"
+                    />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout_mainIncome"
                     android:layout_width="0dp"
-                    android:layout_height="43dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:paddingLeft="40dp">
 
@@ -332,7 +310,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffffff"
+                android:background="@drawable/uikit_bg_item_ripple"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
@@ -352,13 +330,16 @@
                     android:background="@mipmap/uikit_ic_arrow_right" />
             </LinearLayout>
 
-            <View style="@style/UikitDivider.Horizontal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                style="@style/UikitDivider.Horizontal"/>
 
             <LinearLayout
                 android:id="@+id/ll_person_favorite"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="#ffffffff"
+                android:background="@drawable/uikit_bg_item_ripple"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
@@ -383,11 +364,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="10dip"
-                android:background="#ffffffff"
+                android:background="@drawable/uikit_bg_item_ripple"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
-                android:paddingRight="19dp">
+                android:paddingRight="19dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -403,24 +385,23 @@
                     android:background="@mipmap/uikit_ic_arrow_right" />
             </LinearLayout>
 
-            <View style="@style/UikitDivider.Horizontal" />
-
             <LinearLayout
-                android:id="@+id/linearLayout_moreSeting"
+                android:id="@+id/ll_person_center_about"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="#ffffffff"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/uikit_bg_item_ripple"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
                 android:paddingRight="19dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="21dp"
                     android:layout_weight="1"
-                    android:text="@string/personal_moreSetting"
+                    android:text="关于我们"
                     android:textColor="#ff222222"
                     android:textSize="@dimen/textFontSize_15" />
 
@@ -430,7 +411,7 @@
                     android:background="@mipmap/uikit_ic_arrow_right" />
             </LinearLayout>
 
-            <View style="@style/UikitDivider.Horizontal" />
+
 
             <TextView
                 android:id="@+id/btn_logoutSafely"
@@ -453,7 +434,8 @@
                 android:gravity="center"
                 android:text="当前版本1.0.0"
                 android:textColor="#ff858585"
-                android:textSize="@dimen/textFontSize_12" />
+                android:textSize="@dimen/textFontSize_12"
+                android:visibility="invisible" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

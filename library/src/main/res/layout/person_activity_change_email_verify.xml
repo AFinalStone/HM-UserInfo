@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uikit_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:bottomDividerIsShow="false"
+        app:titleBackground="@color/transparent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="变更邮箱"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/textFontSize_22" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_email_black" />
+
+
+        <com.hm.iou.uikit.ClearEditText
+            android:id="@+id/et_phone"
+            style="@style/UikitEditText"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:hint=""
+            android:minHeight="40dip" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/uikit_icon_password" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.hm.iou.uikit.ShowHidePasswordEditText
+                android:id="@+id/et_password"
+                style="@style/UikitEditText.Password"
+                android:hint="请输入原密码" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp" />
+
+    <Button
+        android:id="@+id/btn_checkPassword"
+        style="@style/UikitButton.Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="校验密码"
+        android:textSize="@dimen/textFontSize_18" />
+
+</LinearLayout>

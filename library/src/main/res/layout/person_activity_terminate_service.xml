@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/uikit_background"
+    android:fitsSystemWindows="false"
+    android:paddingBottom="20dip"
+    >
+
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleBackground="#ffffff"
+        app:titleText="终止服务" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topbar"
+        android:layout_above="@+id/btn_terminate_delete"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="如果选择终止服务，我们将对您的个人资料，所有非电子借条，非电子收条的所有数据，一周以后进行永久销毁处理。即使以后使用相同的手机号或者微信重 新注册时，依旧无法再次恢复数据。\n\n请谨慎处理。\n\n如果您对我们的服务有任何不满，请联系客服。\n\n微信投诉号：jietiaoguanjia2018，我们愿意倾听您的心声。"
+            android:textColor="#ff111111"
+            android:textSize="14sp"
+            android:layout_margin="20dip"
+            android:lineSpacingExtra="3dip"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:gravity="center_vertical"
+            >
+            <com.hm.iou.uikit.SmoothCheckBox
+                android:id="@+id/scb_terminate_agree"
+                android:layout_width="22dip"
+                android:layout_height="22dip"
+                app:color_checked="#55AC48"
+                />
+            <TextView
+                android:id="@+id/tv_terminate_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我同意删除上述提及的所有数据。"
+                android:textColor="#ff111111"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dip"
+                android:paddingTop="10dip"
+                android:paddingBottom="10dip"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        style="@style/UikitButton.Red"
+        android:id="@+id/btn_terminate_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="永久删除数据"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="34dip"
+        android:layout_marginRight="34dip"
+        android:enabled="false"
+        />
+
+</RelativeLayout>
