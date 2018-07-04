@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="21dp"
-            android:text="@string/myIncome_homeMainIncome"
+            android:text="@string/person_myIncome_homeMainIncome"
             android:textColor="#ff222222"
             android:textSize="@dimen/textFontSize_15" />
 
@@ -37,7 +37,7 @@
             android:layout_marginRight="9dip"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:hint="@string/myIncome_nothing"
+            android:hint="@string/person_myIncome_nothing"
             android:textColor="#ff222222"
             android:textColorHint="#ffa3a3a3"
             android:textSize="@dimen/textFontSize_14" />
@@ -63,7 +63,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="21dp"
-            android:text="@string/myIncome_homeSubIncome"
+            android:text="@string/person_myIncome_homeSubIncome"
             android:textColor="#ff222222"
             android:textSize="@dimen/textFontSize_15" />
 
@@ -74,7 +74,7 @@
             android:layout_marginRight="9dip"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:hint="@string/myIncome_nothing"
+            android:hint="@string/person_myIncome_nothing"
             android:textColor="#ff222222"
             android:textColorHint="#ffa3a3a3"
             android:textSize="@dimen/textFontSize_14" />
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="@string/myIncome_uploadPicDesc"
+            android:text="@string/person_myIncome_uploadPicDesc"
             android:textColor="#ffa3a3a3"
             android:textSize="@dimen/textFontSize_14" />
 

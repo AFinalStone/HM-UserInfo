@@ -97,7 +97,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
      * 显示用户已经实名过
      */
     private void showUserHasAuthDialog() {
-        String noChangeSex02 = getString(R.string.userNameSex_noChangeSex02);
+        String noChangeSex02 = getString(R.string.person_userNameSex_noChangeSex02);
         String ok = "确定";
         new IOSAlertDialog
                 .Builder(mContext)
@@ -111,7 +111,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
      * 已修改过的用户，不能再次修改
      */
     private void showCannotModifySexDialog() {
-        String noChangeSex03 = getString(R.string.userNameSex_noChangeSex03);
+        String noChangeSex03 = getString(R.string.person_userNameSex_noChangeSex03);
         String ok = "确定";
         new IOSAlertDialog
                 .Builder(mContext)

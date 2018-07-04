@@ -132,7 +132,7 @@
                     android:id="@+id/iv_profile_auth"
                     android:layout_width="14dip"
                     android:layout_height="14dip"
-                    android:src="@mipmap/icon_authentication_have"
+                    android:src="@mipmap/person_ic_authentication_have"
                     android:layout_marginRight="10dp"
                     />
 
@@ -259,7 +259,7 @@
                 android:layout_marginRight="34dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="40dip"
-                android:background="@drawable/shape_background_personal_logout"
+                android:background="@drawable/person_bg_logout"
                 android:gravity="center"
                 android:text="@string/personal_logoutSafely"
                 android:textColor="#ff666666"

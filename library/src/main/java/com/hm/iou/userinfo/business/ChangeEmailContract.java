@@ -6,9 +6,9 @@ import com.hm.iou.base.mvp.BaseContract;
  * Created by hjy on 2018/5/23.
  */
 
-public class ChangeEmailContract {
+public interface ChangeEmailContract {
 
-    public interface View extends BaseContract.BaseView {
+    interface View extends BaseContract.BaseView {
 
         /**
          * 开始倒计时
@@ -18,7 +18,7 @@ public class ChangeEmailContract {
         void showVerifyCodeSendSuccDialog(String msg);
     }
 
-    public interface Presenter extends BaseContract.BasePresenter {
+    interface Presenter extends BaseContract.BasePresenter {
 
         /**
          * 校验原邮箱、密码

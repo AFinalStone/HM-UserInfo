@@ -128,7 +128,7 @@
     {
       "url": "hmiou://m.54jietiao.com/person/index",
       "iclass": "",
-      "aclass": "com.hm.iou.userinfo.business.view.PersonalCenterActivity"
+      "aclass": "com.hm.iou.userinfo.business.view.PersonalCenterFragment"
     },
     {
       "url": "hmiou://m.54jietiao.com/person/modify_nickname_sex",

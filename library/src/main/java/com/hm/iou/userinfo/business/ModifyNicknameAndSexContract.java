@@ -6,16 +6,16 @@ import com.hm.iou.base.mvp.BaseContract;
  * Created by hjy on 2018/5/23.
  */
 
-public class ModifyNicknameAndSexContract {
+public interface ModifyNicknameAndSexContract {
 
-    public interface View extends BaseContract.BaseView {
+    interface View extends BaseContract.BaseView {
 
         void showNickname(String nickname);
 
         void showSex(String sexStr);
     }
 
-    public interface Presenter extends BaseContract.BasePresenter {
+    interface Presenter extends BaseContract.BasePresenter {
 
         void init();
 

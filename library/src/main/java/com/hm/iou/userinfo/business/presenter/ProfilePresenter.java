@@ -13,7 +13,6 @@ import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
-import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.event.LogoutEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
@@ -430,22 +429,4 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             toBindWeixin(code);
         }
     }
-
-    /**
-     * 签约密码校验结果
-     *
-     * @param commBizEvent
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvenBusCommBiz(CommBizEvent commBizEvent) {
-        if ("Signature_checkSignPsdResult".equals(commBizEvent.key)) {
-            if ("true".equals(commBizEvent.content)) {
-                Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/signature/signature_list")
-                        .navigation(mContext);
-            } else if ("false".equals(commBizEvent.content)) {
-
-            }
-        }
-    }
-
 }

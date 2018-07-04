@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.hm.iou.base.mvp.MvpFragmentPresenter;
+import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
@@ -30,16 +31,19 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenterContract.View> implements PersonalCenterContract.Presenter {
 
-    private static final String EVENT_KEY_BIND_WX = "person_bind_weixin";
-
     public PersonalCenterPresenter(@NonNull Context context, @NonNull PersonalCenterContract.View view) {
         super(context, view);
+    }
+
+    @Override
+    public void onViewCreated() {
+        super.onViewCreated();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
 
@@ -53,12 +57,12 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
 
         int customerTypeEnum = userInfo.getType();
         if (UserDataUtil.isCClass(customerTypeEnum)) {
-            mView.showAuthenticationImg(R.mipmap.icon_authentication_not_have);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have);
             mView.showAuthName("定制签名");
         } else {
             String name = userInfo.getName();
             mView.showAuthName(name);
-            mView.showAuthenticationImg(R.mipmap.icon_authentication_have);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have);
         }
 
         String nickname = userInfo.getNickName();
@@ -188,6 +192,9 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventRealName(RealNameEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        String name = userInfo.getName();
+        mView.showAuthName(name);
+        mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have);
         getProfileProgress();
     }
 
@@ -200,6 +207,11 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         if ("feedback_read_detail".equals(commBizEvent.key)) {
             //阅读过反馈
 
+        } else if ("Signature_checkSignPsdResult".equals(commBizEvent.key)) {
+            if ("true".equals(commBizEvent.content)) {
+                Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/signature/signature_list")
+                        .navigation(mContext);
+            }
         }
     }
 

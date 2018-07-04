@@ -6,13 +6,13 @@ import com.hm.iou.base.mvp.BaseContract;
  * Created by hjy on 2018/5/23.
  */
 
-public class CloseAccountContract {
+public interface CloseAccountContract {
 
-    public interface View extends BaseContract.BaseView {
+    interface View extends BaseContract.BaseView {
 
     }
 
-    public interface Presenter extends BaseContract.BasePresenter {
+    interface Presenter extends BaseContract.BasePresenter {
 
         /**
          * 注销登录

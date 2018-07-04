@@ -211,12 +211,12 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
 
     private void showDialogSelectIncome() {
         if (mDialog == null) {
-            String menu01 = getString(R.string.myIncome_nothing);
-            String menu02 = getString(R.string.myIncome_salary);
-            String menu03 = getString(R.string.myIncome_business);
-            String menu04 = getString(R.string.myIncome_invest);
-            String menu05 = getString(R.string.myIncome_ParentsSupport);
-            String menu06 = getString(R.string.myIncome_other);
+            String menu01 = getString(R.string.person_myIncome_nothing);
+            String menu02 = getString(R.string.person_myIncome_salary);
+            String menu03 = getString(R.string.person_myIncome_business);
+            String menu04 = getString(R.string.person_myIncome_invest);
+            String menu05 = getString(R.string.person_myIncome_ParentsSupport);
+            String menu06 = getString(R.string.person_myIncome_other);
             mDialog = new IOSActionSheetTitleDialog.Builder(mContext)
                     .addSheetItem(IOSActionSheetItem.create(menu01).setItemClickListener(new DialogInterface.OnClickListener() {
                         @Override

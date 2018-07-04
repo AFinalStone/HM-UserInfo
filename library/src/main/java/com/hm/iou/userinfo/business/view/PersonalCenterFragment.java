@@ -31,9 +31,6 @@ import butterknife.OnClick;
 
 public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter> implements PersonalCenterContract.View {
 
-    private static final int REQ_SELECT_CITY = 100;
-    private static final int REQ_CHECK_SIGNTURE_PASSWORD = 101;
-
     @BindView(R2.id.topbar)
     HMTopBarView mTopBarView;
 
@@ -73,6 +70,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     protected void initEventAndData(Bundle bundle) {
         mTopBarView.setRightIcon(R.mipmap.person_ic_personal_qr_code);
         mTopBarView.showDivider(false);
+        mTopBarView.hideBackIcon();
         mTopBarView.setOnMenuClickListener(new HMTopBarView.OnTopBarMenuClickListener() {
             @Override
             public void onClickTextMenu() {
@@ -91,23 +89,15 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     }
 
 
-    @OnClick({R2.id.iv_header, R2.id.tv_signatureMake, R2.id.tv_personalSignature,
-        R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_changepwd,
+    @OnClick({R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_changepwd,
         R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.iv_header) {
-/*
-            Intent intent = new Intent(this, UserHeaderDetailActivity.class);
-            startActivity(intent);
-*/
-        } else if (id == R.id.tv_signatureMake || id == R.id.tv_personalSignature) {
+        if (id == R.id.ll_person_signature) {
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
             int customerType = userInfo.getType();
             if (UserDataUtil.isCClass(customerType)) {
-                Router.getInstance()
-                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
-                        .navigation(getActivity());
+                showNoAuthWhenSetSignature();
             } else {
                 Router.getInstance()
                         .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
@@ -184,6 +174,32 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             mTvUnReadCount.setVisibility(View.VISIBLE);
             mTvUnReadCount.setText(feedbackUnreadCount);
         }
+    }
+
+    /**
+     * 当设置签名时，如果没有实名，弹出实名提醒
+     */
+    private void showNoAuthWhenSetSignature() {
+        new IOSAlertDialog.Builder(mActivity)
+                .setTitle("设置手写签名")
+                .setMessage("通过实名认证后的账户，才能设置手写签名，是否立即认证实名？")
+                .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Router.getInstance()
+                                .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
+                                .navigation(getActivity());
+                    }
+                })
+                .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
+
     }
 
     /**
