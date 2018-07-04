@@ -48,4 +48,8 @@
     <string name="myIncome_other">其他</string>
     <string name="myIncome_uploadPicDesc">上传职业经历证明名片、工牌、学生证等任一材料</string>
 
+    <string name="userNameSex_noChangeSex02">已经实名过的用户不允许修改性别</string>
+    <string name="userNameSex_noChangeSex03">如果性别有误，请点“返回”，再通过“实名认证”，认证通过后自动修复</string>
+
+
 </resources>

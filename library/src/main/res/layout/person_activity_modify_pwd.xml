@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleText="" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="变更登录密码"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/textFontSize_22" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/uikit_icon_password" />
+
+        <EditText
+            android:id="@+id/et_oldPassword"
+            style="@style/UikitEditText.Password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="输入旧密码"
+
+            />
+
+        <ImageView
+            android:id="@+id/iv_eyeOld"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/uikit_icon_password_eye_close" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/uikit_icon_password" />
+
+        <EditText
+            android:id="@+id/et_newPassword"
+            style="@style/UikitEditText.Password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="输入新密码" />
+
+        <ImageView
+            android:id="@+id/iv_eyeNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/uikit_icon_password_eye_close" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_queryChange"
+        style="@style/UikitButton.Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="校验密码" />
+</LinearLayout>

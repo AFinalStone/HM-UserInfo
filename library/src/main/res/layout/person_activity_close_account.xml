@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleText="身份确认" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_phone_black" />
+
+
+        <com.hm.iou.uikit.ClearEditText
+            android:id="@+id/et_phone"
+            style="@style/UikitEditText.InputMobile"
+            android:hint="当前账户的手机号码" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        style="@style/UikitDivider.Horizontal"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/uikit_icon_password" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.hm.iou.uikit.ShowHidePasswordEditText
+                android:id="@+id/et_password"
+                style="@style/UikitEditText.Password"
+                android:hint="请输入密码"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        style="@style/UikitDivider.Horizontal"
+        />
+
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/UikitButton.Bottom"
+        android:layout_marginTop="40dp"
+        android:text="退出并注销"
+        />
+
+    <Button
+        android:id="@+id/btn_close_account"
+        style="@style/UikitButton.Red"
+        android:layout_marginTop="10dp"
+        android:text="注销并删除数据"
+        />
+
+</LinearLayout>
