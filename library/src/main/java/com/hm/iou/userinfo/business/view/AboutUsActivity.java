@@ -1,5 +1,6 @@
 package com.hm.iou.userinfo.business.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +17,10 @@ import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
-
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.HMGrayDividerItemDecoration;
+import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.api.PersonApi;
@@ -59,7 +60,6 @@ public class AboutUsActivity extends BaseActivity {
         mRecyclerView.addItemDecoration(new HMGrayDividerItemDecoration(this, LinearLayout.VERTICAL));
         List<String> list = new ArrayList<>();
         list.add("检测更新");
-        list.add("帮助与反馈");
         list.add("隐私条款");
         list.add("注册与使用协议");
         list.add("终止服务");
@@ -71,12 +71,10 @@ public class AboutUsActivity extends BaseActivity {
                 if (position == 0) {
                     checkUpdate();
                 } else if (position == 1) {
-                    toHelpCenter();
-                } else if (position == 2) {
                     toPrivacyPage();
-                } else if (position == 3) {
+                } else if (position == 2) {
                     toUserAgreementPage();
-                } else if (position == 4) {
+                } else if (position == 3) {
                     Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/terminate_service")
                             .navigation(AboutUsActivity.this);
                 }
@@ -93,11 +91,11 @@ public class AboutUsActivity extends BaseActivity {
                     public void handleResult(UpdateResultBean data) {
                         dismissLoadingView();
                         if (data == null || TextUtils.isEmpty(data.getDownloadUrl())) {
-                            toastMessage("已是最新版本");
+                            showNewestVersionDialog();
                             return;
                         }
                         if (data.getType() != 2 && data.getType() != 3) {
-                            toastMessage("已是最新版本");
+                            showNewestVersionDialog();
                             return;
                         }
                         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/homedialog")
@@ -117,9 +115,15 @@ public class AboutUsActivity extends BaseActivity {
                 });
     }
 
-    private void toHelpCenter() {
-        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
-                .navigation(this);
+    private void showNewestVersionDialog() {
+        new IOSAlertDialog.Builder(this)
+                .setMessage("已是最新版本")
+                .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     private void toPrivacyPage() {

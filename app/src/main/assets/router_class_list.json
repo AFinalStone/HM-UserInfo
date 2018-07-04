@@ -184,6 +184,21 @@
       "url": "hmiou://m.54jietiao.com/person/close_account",
       "iclass": "",
       "aclass": "com.hm.iou.userinfo.business.view.CloseAccountActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/my_profile",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.ProfileActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/user_avatar",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.UserHeaderDetailActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/my_income",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.MyIncomeActivity"
     }
   ],
   "message": [

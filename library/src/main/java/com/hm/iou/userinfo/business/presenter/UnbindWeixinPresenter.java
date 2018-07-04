@@ -6,14 +6,16 @@ import android.support.annotation.NonNull;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
-
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.UnbindWeixinContract;
+import com.hm.iou.userinfo.event.UpdateWeixinEvent;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by hjy on 2018/5/23.
@@ -44,7 +46,7 @@ public class UnbindWeixinPresenter extends MvpActivityPresenter<UnbindWeixinCont
                             userDataBean.setType(newCustomerType);
                         }
                         UserManager.getInstance(mContext).updateOrSaveUserInfo(userDataBean);
-
+                        EventBus.getDefault().post(new UpdateWeixinEvent(false));
                         mView.toastMessage("解绑成功");
                         mView.closeCurrPage();
                     }

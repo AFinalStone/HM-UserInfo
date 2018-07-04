@@ -37,7 +37,7 @@ public class ModifyPasswordPresenter extends MvpActivityPresenter<ModifyPassword
                     @Override
                     public void handleResult(Object data) {
                         mView.dismissLoadingView();
-                        mView.toastMessage("密码修改成功");
+                        mView.toastMessage("变更成功");
                         mView.closeCurrPage();
                     }
 

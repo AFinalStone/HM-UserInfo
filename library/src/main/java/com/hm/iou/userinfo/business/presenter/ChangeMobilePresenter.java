@@ -110,7 +110,7 @@ public class ChangeMobilePresenter extends MvpActivityPresenter<ChangeMobileCont
                         UserManager.getInstance(mContext).updateOrSaveUserInfo(userInfo);
                         EventBus.getDefault().post(new UpdateMobileEvent());
 
-                        mView.toastMessage("手机号更换成功");
+                        mView.toastMessage("更换成功");
                         mView.closeCurrPage();
                     }
 

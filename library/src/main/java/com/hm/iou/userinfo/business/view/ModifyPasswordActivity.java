@@ -75,6 +75,9 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
                 showSoftKeyboard();
             }
         }, 300);
+
+        //默认新密码显示
+        changeEyeNew();
     }
 
     private void checkValue() {

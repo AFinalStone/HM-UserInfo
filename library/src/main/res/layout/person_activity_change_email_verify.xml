@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uikit_background"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:text="变更邮箱"
+        android:text="验证账号密码"
         android:textColor="#ff222222"
         android:textSize="@dimen/textFontSize_22" />
 
@@ -44,7 +44,8 @@
             style="@style/UikitEditText"
             android:layout_width="match_parent"
             android:background="@null"
-            android:hint=""
+            android:hint="输入当前绑定的邮箱地址"
+            android:maxLines="1"
             android:minHeight="40dip" />
 
     </LinearLayout>
@@ -77,7 +78,7 @@
             <com.hm.iou.uikit.ShowHidePasswordEditText
                 android:id="@+id/et_password"
                 style="@style/UikitEditText.Password"
-                android:hint="请输入原密码" />
+                android:hint="输入登录密码" />
         </LinearLayout>
     </LinearLayout>
 
@@ -95,7 +96,7 @@
         android:layout_marginRight="35dp"
         android:layout_marginTop="90dp"
         android:gravity="center"
-        android:text="校验密码"
+        android:text="更换邮箱"
         android:textSize="@dimen/textFontSize_18" />
 
 </LinearLayout>

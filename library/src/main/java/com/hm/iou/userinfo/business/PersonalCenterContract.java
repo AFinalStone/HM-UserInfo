@@ -47,39 +47,32 @@ public class PersonalCenterContract {
         void showAuthName(String name);
 
         /**
-         * 显示用户手机号
+         * 显示"我的资料"进度
          *
-         * @param mobile
+         * @param progressStr
          */
-        void showModuleMobile(String mobile);
+        void showProfileProgress(String progressStr);
 
         /**
-         * 显示用户城市
+         * 显示我的收藏篇数
          *
-         * @param city
+         * @param favoriteCount
          */
-        void showModuleLocation(String city);
+        void showNewsFavoriteCount(String favoriteCount);
 
         /**
-         * 显示用户性别图标
+         * 显示云存储空间
          *
-         * @param resId
+         * @param space
          */
-        void showModuleSexImage(int resId);
+        void showCloudSpace(String space);
 
         /**
-         * 显示用户收入
+         * 显示帮助与反馈里未读消息数
          *
-         * @param income
+         * @param feedbackUnreadCount
          */
-        void showModuleMainIncome(String income);
-
-        /**
-         * 显示APP版本号
-         *
-         * @param version
-         */
-        void showAppVersion(String version);
+        void showHelpAndFeedbackCount(String feedbackUnreadCount);
     }
 
     public interface Presenter extends BaseContract.BasePresenter {
@@ -87,19 +80,9 @@ public class PersonalCenterContract {
         void init();
 
         /**
-         * 注销登录
+         * 获取资料完整度
          */
-        void doLogout();
-
-        /**
-         * 更换城市
-         *
-         * @param location
-         */
-        void updateLocation(String location);
-
-        void toBindWeixin();
-
+        void getProfileProgress();
     }
 
 }

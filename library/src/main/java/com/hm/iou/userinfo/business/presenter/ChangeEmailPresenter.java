@@ -84,8 +84,8 @@ public class ChangeEmailPresenter extends MvpActivityPresenter<ChangeEmailContra
                     @Override
                     public void handleResult(String data) {
                         mView.dismissLoadingView();
-                        mView.startCountDown();
-                        mView.toastMessage("验证码发送成功");
+                        String msg = "邮箱验证码已发送到您的" + email + "邮箱里。\n请到邮箱里查看";
+                        mView.showVerifyCodeSendSuccDialog(msg);
                     }
 
                     @Override
@@ -112,7 +112,7 @@ public class ChangeEmailPresenter extends MvpActivityPresenter<ChangeEmailContra
 
                         EventBus.getDefault().post(new UpdateEmailEvent());
 
-                        mView.toastMessage("邮箱变更成功");
+                        mView.toastMessage("绑定成功");
                         mView.closeCurrPage();
                     }
 

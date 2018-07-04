@@ -15,6 +15,7 @@ public class ChangeEmailContract {
          */
         void startCountDown();
 
+        void showVerifyCodeSendSuccDialog(String msg);
     }
 
     public interface Presenter extends BaseContract.BasePresenter {

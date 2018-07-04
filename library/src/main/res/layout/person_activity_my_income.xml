@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uikit_background"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleText="我的收入" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_income_main"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/uikit_bg_item_ripple"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:text="@string/myIncome_homeMainIncome"
+            android:textColor="#ff222222"
+            android:textSize="@dimen/textFontSize_15" />
+
+        <TextView
+            android:id="@+id/tv_income_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="9dip"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:hint="@string/myIncome_nothing"
+            android:textColor="#ff222222"
+            android:textColorHint="#ffa3a3a3"
+            android:textSize="@dimen/textFontSize_14" />
+
+        <ImageView
+            android:layout_width="8.5dip"
+            android:layout_height="17dip"
+            android:src="@mipmap/uikit_ic_arrow_right" />
+    </LinearLayout>
+
+    <View style="@style/UikitDivider.Horizontal" />
+
+    <LinearLayout
+        android:id="@+id/ll_income_second"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/uikit_bg_item_ripple"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:text="@string/myIncome_homeSubIncome"
+            android:textColor="#ff222222"
+            android:textSize="@dimen/textFontSize_15" />
+
+        <TextView
+            android:id="@+id/tv_income_second"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="9dip"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:hint="@string/myIncome_nothing"
+            android:textColor="#ff222222"
+            android:textColorHint="#ffa3a3a3"
+            android:textSize="@dimen/textFontSize_14" />
+
+        <ImageView
+            android:layout_width="8.5dip"
+            android:layout_height="17dip"
+            android:src="@mipmap/uikit_ic_arrow_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/myIncome_uploadPicDesc"
+            android:textColor="#ffa3a3a3"
+            android:textSize="@dimen/textFontSize_14" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_income"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dip"
+            />
+    </LinearLayout>
+</LinearLayout>

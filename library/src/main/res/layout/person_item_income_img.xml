@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.ShapedImageView
+        android:id="@+id/iv_income_prove"
+        android:layout_width="74dip"
+        android:layout_height="74dip"
+        android:src="@mipmap/person_ic_add_photo"
+        app:shape_mode="round_rect"
+        app:round_radius="6dip"
+        android:layout_marginRight="10dip"
+        android:scaleType="centerCrop"
+        />
+
+</FrameLayout>
+
