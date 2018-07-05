@@ -21,7 +21,7 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         maven { url 'file:///Users/hjy/.m2/repository/' }
-//        maven { url 'file:///Users/syl/.m2/repository/' }
+        maven { url 'file:///Users/syl/.m2/repository/' }
     }
 }
 
