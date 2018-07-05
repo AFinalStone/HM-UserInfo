@@ -79,7 +79,7 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 .subscribeWith(new CommSubscriber<List<IOUCountBean>>(mView) {
                     @Override
                     public void handleResult(List<IOUCountBean> list) {
-                        generateIOUCountData(list);
+                        generateIOUCountData(list == null ? new ArrayList<>() : list);
                     }
 
                     @Override
@@ -99,7 +99,7 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 });
     }
 
-    private void generateIOUCountData(List<IOUCountBean> list) {
+    private void generateIOUCountData(final List<IOUCountBean> list) {
         List<ICloudSpaceItem> dataList = new ArrayList<>();
         final Map<Integer, IOUCountBean> map = new HashMap<>();
         if (list != null) {
@@ -142,7 +142,11 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                     if (bean != null) {
                         return bean.getSum() + "张";
                     } else {
-                        return "--张";
+                        if (list == null) {
+                            return "--张";
+                        } else {
+                            return "0张";
+                        }
                     }
                 }
             });
