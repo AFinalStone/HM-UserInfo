@@ -3,16 +3,22 @@ package com.hm.iou.userinfo.business.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.hm.iou.base.mvp.MvpFragmentPresenter;
+import com.hm.iou.base.utils.CommSubscriber;
+import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
+import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.IncomeEnum;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.userinfo.R;
+import com.hm.iou.userinfo.api.PersonApi;
+import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.business.PersonalCenterContract;
 import com.hm.iou.userinfo.event.UpdateAvatarEvent;
 import com.hm.iou.userinfo.event.UpdateIncomeEvent;
@@ -20,16 +26,21 @@ import com.hm.iou.userinfo.event.UpdateLocationEvent;
 import com.hm.iou.userinfo.event.UpdateMobileEvent;
 import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
 import com.hm.iou.userinfo.event.UpdateWeixinEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by hjy on 2018/5/23.
  */
 
 public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenterContract.View> implements PersonalCenterContract.Presenter {
+
+    private Disposable mStatisticDisposable;
 
     public PersonalCenterPresenter(@NonNull Context context, @NonNull PersonalCenterContract.View view) {
         super(context, view);
@@ -57,21 +68,17 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
 
         int customerTypeEnum = userInfo.getType();
         if (UserDataUtil.isCClass(customerTypeEnum)) {
-            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have, View.GONE);
             mView.showAuthName("定制签名");
         } else {
             String name = userInfo.getName();
             mView.showAuthName(name);
-            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have, View.VISIBLE);
         }
 
         String nickname = userInfo.getNickName();
         mView.showUserNickname(TextUtils.isEmpty(nickname) ? "无" : nickname);
         showUserAvatar(userInfo);
-
-        mView.showNewsFavoriteCount("10篇");
-        mView.showCloudSpace("1024GB");
-        mView.showHelpAndFeedbackCount("28");
 
         getProfileProgress();
     }
@@ -117,6 +124,39 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
             int progress = count * 15;
             mView.showProfileProgress(progress + "%");
         }
+    }
+
+    @Override
+    public void getStatisticData() {
+        if (mStatisticDisposable != null && !mStatisticDisposable.isDisposed()) {
+            mStatisticDisposable.dispose();
+            mStatisticDisposable = null;
+        }
+        mStatisticDisposable = PersonApi.getUserCenterStatistic()
+                .compose(getProvider().<BaseResponse<UserCenterStatisticBean>>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+                .map(RxUtil.<UserCenterStatisticBean>handleResponse())
+                .subscribeWith(new CommSubscriber<UserCenterStatisticBean>(mView) {
+                    @Override
+                    public void handleResult(UserCenterStatisticBean data) {
+                        mView.showNewsFavoriteCount(data.getMyCollect() == 0 ? "" : data.getMyCollect() + "篇");
+                        mView.showCloudSpace(UserDataUtil.formatUserCloudSpace(data.getUserSpaceSize()));
+                        mView.showHelpAndFeedbackCount(data.getNoReadComplain() == 0 ? "" : data.getNoReadComplain() + "");
+                    }
+
+                    @Override
+                    public void handleException(Throwable throwable, String s, String s1) {
+                    }
+
+                    @Override
+                    public boolean isShowCommError() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isShowBusinessError() {
+                        return false;
+                    }
+                });
     }
 
     /**
@@ -194,7 +234,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         String name = userInfo.getName();
         mView.showAuthName(name);
-        mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have);
+        mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have, View.VISIBLE);
         getProfileProgress();
     }
 

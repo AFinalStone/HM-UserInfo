@@ -37,7 +37,7 @@ public interface PersonalCenterContract {
          *
          * @param resId
          */
-        void showAuthenticationImg(int resId);
+        void showAuthenticationImg(int resId, int visibility);
 
         /**
          * 显示实名名字
@@ -83,6 +83,11 @@ public interface PersonalCenterContract {
          * 获取资料完整度
          */
         void getProfileProgress();
+
+        /**
+         * 获取个人中心首页收藏数、云存储量、未读帮助数
+         */
+        void getStatisticData();
     }
 
 }

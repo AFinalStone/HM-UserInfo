@@ -28,8 +28,8 @@ public class UserDataUtil {
     }
 
     /**
-     *
      * 根据收入类型获取对应的收入名称
+     *
      * @param incomeType
      * @return
      */
@@ -76,7 +76,7 @@ public class UserDataUtil {
     /**
      * 判断用户是否是A级用户
      *
-      * @param userType
+     * @param userType
      * @return
      */
     public static boolean isAClass(int userType) {
@@ -145,6 +145,25 @@ public class UserDataUtil {
             type = CustomerTypeEnum.APlus.getValue();
         }
         return type;
+    }
+
+    /**
+     * 将用户已使用存储空间转换为合适的单位
+     * 如果超过1M，单位为MB；如果超过1KB，单位为KB；如果不超过1KB，则显示0MB
+     *
+     * @param usedSpace 单位byte
+     * @return
+     */
+    public static String formatUserCloudSpace(long usedSpace) {
+        if (usedSpace >= 1048576) {
+            int s = (int) (usedSpace / 1048576d + 0.5);
+            return s + "MB";
+        } else if (usedSpace >= 1024) {
+            int s = (int) (usedSpace / 1024d + 0.5);
+            return s + "KB";
+        } else {
+            return "0MB";
+        }
     }
 
 }

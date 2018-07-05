@@ -2,8 +2,11 @@ package com.hm.iou.userinfo.api;
 
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
+import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.UpdateResultBean;
+import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
+import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
@@ -70,5 +73,14 @@ public interface PersonService {
 
     @GET("/api/iou/user/v1/checkVersion")
     Flowable<BaseResponse<UpdateResultBean>> checkVersion();
+
+    @GET("/api/iou/front/v1/iou/countIOUByKind")
+    Flowable<BaseResponse<List<IOUCountBean>>> getIOUCountByKind();
+
+    @GET("/api/iou/user/v1/userCenter")
+    Flowable<BaseResponse<UserCenterStatisticBean>> getUserCenterStatistic();
+
+    @GET("/api/iou/user/v1/userCenterUserSpace")
+    Flowable<BaseResponse<UserSpaceBean>> getUserSpace();
 
 }

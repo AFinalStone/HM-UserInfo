@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/uikit_background"
+    android:orientation="vertical"
+    >
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:titleBackground="#ffffff"
+        app:titleText="云存储空间" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="108dip"
+        android:orientation="vertical"
+        android:layout_marginTop="20dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:background="@color/white"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dip"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="云存储空间"
+                android:textColor="#ff222222"
+                android:textSize="16dp"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/tv_cloud_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff999999"
+                android:textSize="14dp"
+                android:text="已使用--/--"
+                tools:text="已使用10GB/1024GB"
+                />
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/pb_cloud_progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginTop="18dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/person_layer_list_progress_cloud_space" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="明细"
+        android:textColor="#ff999999"
+        android:textSize="13sp"
+        android:layout_marginTop="18dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginBottom="8dip"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_cloud_space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

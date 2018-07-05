@@ -14,11 +14,10 @@
         app:titleBackground="#ffffdd4a"
         app:titleText="个人中心" />
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_below="@id/topbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,8 +28,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dip"
-                android:background="@color/white"
-                >
+                android:background="@color/white">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -41,8 +39,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dip"
-                    android:background="@mipmap/person_bg_personal_header"
-                    >
+                    android:background="@mipmap/person_bg_personal_header">
+
                     <com.hm.iou.uikit.ShapedImageView
                         android:id="@+id/iv_header"
                         android:layout_width="72dp"
@@ -57,44 +55,52 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dip"
-                        android:layout_alignTop="@id/iv_header"
                         android:layout_alignBottom="@id/iv_header"
+                        android:layout_alignTop="@id/iv_header"
+                        android:layout_marginLeft="20dip"
                         android:layout_toRightOf="@id/iv_header"
-                        android:orientation="vertical"
                         android:gravity="center_vertical"
-                        >
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_userNickName"
-                            android:layout_width="130dp"
-                            android:layout_height="25dp"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:text=""
-                            android:textColor="#ff222222"
-                            android:textSize="@dimen/textFontSize_18"
-                            tools:text="昵称" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginRight="20dip"
+                            >
 
-                        <ImageView
-                            android:id="@+id/iv_authentication"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@mipmap/person_ic_authentication_have"
-                            android:layout_toRightOf="@id/tv_userNickName"
-                            android:layout_alignBottom="@id/tv_userNickName"
-                            android:visibility="gone"
-                            />
+                            <TextView
+                                android:id="@+id/tv_userNickName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text=""
+                                android:textColor="#ff222222"
+                                android:textSize="@dimen/textFontSize_18"
+                                android:maxLength="16"
+                                android:layout_weight="1"
+                                tools:text="昵称" />
+
+                            <ImageView
+                                android:id="@+id/iv_authentication"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@mipmap/person_ic_authentication_have"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="3dip"
+                                />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_userId"
                             android:layout_width="wrap_content"
-                            android:layout_height="16dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dip"
                             android:text=""
                             android:textColor="#ffa3a3a3"
                             android:textSize="@dimen/textFontSize_14"
-                            android:layout_marginTop="9dip"
+                            android:maxLines="1"
                             tools:text="用户ID" />
 
 
@@ -123,15 +129,14 @@
                             android:id="@+id/tv_signatureMake"
                             android:layout_width="wrap_content"
                             android:layout_height="21dp"
+                            android:ellipsize="end"
                             android:gravity="center"
+                            android:maxLength="5"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
                             android:text="定制签名"
                             android:textColor="#858585"
-                            android:textSize="@dimen/textFontSize_16"
-                            android:maxLength="5"
-                            android:ellipsize="end"
-                            />
+                            android:textSize="@dimen/textFontSize_16" />
 
                         <ImageView
                             android:layout_width="8.5dp"
@@ -148,9 +153,9 @@
                 android:id="@+id/ll_person_profile"
                 style="@style/PersonMenuListItem">
 
-                <ImageView style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_profile"
-                    />
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_profile" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -171,9 +176,9 @@
                 android:id="@+id/ll_person_favorite"
                 style="@style/PersonMenuListItem">
 
-                <ImageView style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_favorite"
-                    />
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_favorite" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -196,9 +201,9 @@
                 android:id="@+id/ll_person_changepwd"
                 style="@style/PersonMenuListItem">
 
-                <ImageView style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_change_pwd"
-                    />
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_change_pwd" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -216,9 +221,9 @@
                 android:id="@+id/ll_person_cloud_space"
                 style="@style/PersonMenuListItem">
 
-                <ImageView style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_cloud_space"
-                    />
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_cloud_space" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -241,9 +246,9 @@
                 android:id="@+id/ll_person_helpcenter"
                 style="@style/PersonMenuListItem">
 
-                <ImageView style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_help"
-                    />
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_help" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -253,12 +258,13 @@
                     android:id="@+id/tv_person_unread"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/person_bg_red_round_circle"
+                    android:gravity="center"
+                    android:minWidth="16dip"
                     android:textColor="#ffffffff"
                     android:textSize="12dp"
-                    android:background="@drawable/person_bg_red_round_circle"
-                    android:minWidth="16dip"
-                    android:gravity="center"
-                    android:layout_marginRight="10dip"
+                    android:visibility="invisible"
                     tools:text="88" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
@@ -271,9 +277,9 @@
                 android:id="@+id/ll_person_about"
                 style="@style/PersonMenuListItem">
 
-                <ImageView style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_about"
-                    />
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_about" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -284,5 +290,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 </RelativeLayout>

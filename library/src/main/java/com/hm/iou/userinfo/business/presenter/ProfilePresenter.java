@@ -219,11 +219,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         if (TextUtils.isEmpty(email)) {
             mView.showEmail(View.GONE, "");
         } else {
-            String s = email.substring(0, 1) + "***";
-            int i = email.indexOf("@");
-            if (i >= 0) {
-                s = s + email.substring(i, email.length());
-            }
+            String s = email.length() >= 3 ? email.substring(0, 3) + "***" : email;
             mView.showEmail(View.VISIBLE, s);
         }
     }

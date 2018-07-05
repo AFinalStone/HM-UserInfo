@@ -199,6 +199,11 @@
       "url": "hmiou://m.54jietiao.com/person/my_income",
       "iclass": "",
       "aclass": "com.hm.iou.userinfo.business.view.MyIncomeActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/cloud_space",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.CloudSpaceActivity"
     }
   ],
   "message": [

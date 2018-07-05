@@ -4,8 +4,11 @@ import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
+import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.UpdateResultBean;
+import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
+import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
@@ -258,4 +261,30 @@ public class PersonApi {
         return getService().checkVersion().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 获取所有的借条类型统计数
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<List<IOUCountBean>>> getIOUCountByKind() {
+        return getService().getIOUCountByKind().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取个人中心统计
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<UserCenterStatisticBean>> getUserCenterStatistic() {
+        return getService().getUserCenterStatistic().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取云存储空间个人使用量
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<UserSpaceBean>> getUserSpace() {
+        return getService().getUserSpace().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }

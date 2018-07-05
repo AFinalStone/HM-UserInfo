@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseFragment;
+import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -56,6 +57,9 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
 
     private IOSActionSheetTitleDialog mChangePwdDialog;
 
+    private boolean mClickFavorite;
+    private boolean mClickFeedback;
+
     @Override
     protected int getLayoutId() {
         return R.layout.person_fragment_personal_center;
@@ -86,8 +90,32 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
         });
 
         mPresenter.init();
+        mPresenter.getStatisticData();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Logger.i("=====personal center onHiddenChanged: "+ hidden);
+        if (!hidden) {
+            mClickFavorite = false;
+            mClickFeedback = false;
+            //去刷新收藏数、未读反馈数等
+            mPresenter.getStatisticData();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Logger.i("======personal center onResume=========");
+        if (mClickFavorite || mClickFeedback) {
+            mClickFavorite = false;
+            mClickFeedback = false;
+            //去刷新收藏数、未读反馈数等
+            mPresenter.getStatisticData();
+        }
+    }
 
     @OnClick({R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_changepwd,
         R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
@@ -107,13 +135,16 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_favorite) { //我的收藏
+            mClickFavorite = true;
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/news/favorite")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_changepwd) {    //变更密码
             showChangePasswordMenu();
         } else if (id == R.id.ll_person_cloud_space) {  //云存储空间
-
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/cloud_space")
+                    .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
+            mClickFeedback = true;
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_about) {    //关于我们
@@ -142,7 +173,8 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     }
 
     @Override
-    public void showAuthenticationImg(int resId) {
+    public void showAuthenticationImg(int resId, int visibility) {
+        mIvAuthentication.setVisibility(visibility);
         mIvAuthentication.setImageResource(resId);
     }
 
