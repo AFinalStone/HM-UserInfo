@@ -203,7 +203,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
      */
     private void showWeixin(UserInfo userInfo) {
         if (UserDataUtil.isPlusClass(userInfo.getType())) {
-            mView.showWeixin("", 0xffa3a3a3);
+            mView.showWeixin("已绑定", 0xffa3a3a3);
         } else {
             mView.showWeixin("未绑定", 0xffff3c4b);
         }

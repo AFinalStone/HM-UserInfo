@@ -60,6 +60,8 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     private boolean mClickFavorite;
     private boolean mClickFeedback;
 
+    private long mLastUpdateStatisticData;  //记录上一次刷新统计数据的时间
+
     @Override
     protected int getLayoutId() {
         return R.layout.person_fragment_personal_center;
@@ -97,11 +99,13 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         Logger.i("=====personal center onHiddenChanged: "+ hidden);
-        if (!hidden) {
+        //切换过来时，需要刷新，但是防止频繁切换刷新
+        if (!hidden && System.currentTimeMillis() - mLastUpdateStatisticData > 15000) {
             mClickFavorite = false;
             mClickFeedback = false;
             //去刷新收藏数、未读反馈数等
             mPresenter.getStatisticData();
+            mLastUpdateStatisticData = System.currentTimeMillis();
         }
     }
 
