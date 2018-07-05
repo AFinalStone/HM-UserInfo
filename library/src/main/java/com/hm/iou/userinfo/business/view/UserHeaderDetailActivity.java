@@ -70,13 +70,13 @@ public class UserHeaderDetailActivity extends BaseActivity<UserHeaderDetailPrese
             if (resultCode == RESULT_OK) {
                 String path = PhotoUtil.getCameraPhotoPath();
                 initImageCropper();
-                mImageCropper.crop(path, 300, 300, false, "crop");
+                mImageCropper.crop(path, 150, 150, false, "crop");
             }
         } else if (requestCode == REQ_CODE_ALBUM) {
             if (resultCode == RESULT_OK) {
                 String path = PhotoUtil.getPath(this, data.getData());
                 initImageCropper();
-                mImageCropper.crop(path, 300, 300, false, "crop");
+                mImageCropper.crop(path, 150, 150, false, "crop");
             }
         }
     }

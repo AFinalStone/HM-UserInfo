@@ -404,12 +404,14 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventWeixinBind(UpdateWeixinEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        showWeixin(userInfo);
         updateProfileProgress(userInfo);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventRealName(RealNameEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        showRealName(userInfo);
         updateProfileProgress(userInfo);
     }
 
