@@ -247,11 +247,6 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         if ("feedback_read_detail".equals(commBizEvent.key)) {
             //阅读过反馈
 
-        } else if ("Signature_checkSignPsdResult".equals(commBizEvent.key)) {
-            if ("true".equals(commBizEvent.content)) {
-                Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/signature/signature_list")
-                        .navigation(mContext);
-            }
         }
     }
 

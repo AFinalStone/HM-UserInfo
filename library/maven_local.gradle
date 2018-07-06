@@ -2,7 +2,7 @@ apply plugin: 'maven'
 uploadArchives {
     repositories.mavenDeployer {
         pom.version = '1.0.0'
-        pom.artifactId = 'hmpersonalcenterlocal'
+        pom.artifactId = 'hmuserinfolocal'
         pom.groupId = 'com.heima.iou'
 //        repository(url: "file:///Users/hjy/.m2/repository/")
         repository(url: "file:///Users/syl/.m2/repository/")

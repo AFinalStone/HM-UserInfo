@@ -98,7 +98,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Logger.i("=====personal center onHiddenChanged: "+ hidden);
+        Logger.i("=====personal center onHiddenChanged: " + hidden);
         //切换过来时，需要刷新，但是防止频繁切换刷新
         if (!hidden && System.currentTimeMillis() - mLastUpdateStatisticData > 15000) {
             mClickFavorite = false;
@@ -122,7 +122,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     }
 
     @OnClick({R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_changepwd,
-        R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
+            R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.ll_person_signature) {
@@ -133,6 +133,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             } else {
                 Router.getInstance()
                         .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
+                        .withString("url", "hmiou://m.54jietiao.com/signature/signature_list")
                         .navigation(getActivity());
             }
         } else if (id == R.id.ll_person_profile) {  //我的资料
