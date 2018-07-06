@@ -4,7 +4,6 @@ import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
-import com.hm.iou.userinfo.bean.UpdateResultBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
@@ -70,9 +69,6 @@ public interface PersonService {
 
     @POST("/api/iou/user/v1/delUser")
     Flowable<BaseResponse<Object>> deleteAccount(@Body DelAccountReqBean reqBean);
-
-    @GET("/api/iou/user/v1/checkVersion")
-    Flowable<BaseResponse<UpdateResultBean>> checkVersion();
 
     @GET("/api/iou/front/v1/iou/countIOUByKind")
     Flowable<BaseResponse<List<IOUCountBean>>> getIOUCountByKind();

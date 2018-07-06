@@ -17,14 +17,14 @@ import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.base.version.CheckVersionResBean;
+import com.hm.iou.base.version.VersionApi;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.HMGrayDividerItemDecoration;
 import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
-import com.hm.iou.userinfo.api.PersonApi;
-import com.hm.iou.userinfo.bean.UpdateResultBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,11 +84,11 @@ public class AboutUsActivity extends BaseActivity {
 
     private void checkUpdate() {
         showLoadingView();
-        PersonApi.checkVersion()
+        VersionApi.checkVersion()
                 .map(RxUtil.handleResponse())
-                .subscribeWith(new CommSubscriber<UpdateResultBean>(this) {
+                .subscribeWith(new CommSubscriber<CheckVersionResBean>(this) {
                     @Override
-                    public void handleResult(UpdateResultBean data) {
+                    public void handleResult(CheckVersionResBean data) {
                         dismissLoadingView();
                         if (data == null || TextUtils.isEmpty(data.getDownloadUrl())) {
                             showNewestVersionDialog();

@@ -6,7 +6,6 @@ import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
-import com.hm.iou.userinfo.bean.UpdateResultBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
@@ -250,15 +249,6 @@ public class PersonApi {
         reqBean.setOldMobile(mobile);
         reqBean.setQueryPswd(pwd);
         return getService().deleteAccount(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
-
-    /**
-     * 获取所有需要弹出的对话框类型
-     *
-     * @return
-     */
-    public static Flowable<BaseResponse<UpdateResultBean>> checkVersion() {
-        return getService().checkVersion().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
