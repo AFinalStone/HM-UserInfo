@@ -88,7 +88,7 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         mProveDocAdapter.setNewData(mProveDocList);
         mProveDocAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 final BitmapAndFileIdBean data = (BitmapAndFileIdBean) view.getTag();
                 if (data == null) {
                     mReselectIndex = -1;
