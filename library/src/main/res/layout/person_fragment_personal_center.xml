@@ -12,11 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
         app:titleBackground="#ffffdd4a"
+        app:bottomDividerIsShow="false"
         app:titleText="个人中心" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
         android:layout_below="@id/topbar">
 
         <LinearLayout

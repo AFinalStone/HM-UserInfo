@@ -75,7 +75,6 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     @Override
     protected void initEventAndData(Bundle bundle) {
         mTopBarView.setRightIcon(R.mipmap.person_ic_personal_qr_code);
-        mTopBarView.showDivider(false);
         mTopBarView.hideBackIcon();
         mTopBarView.setOnMenuClickListener(new HMTopBarView.OnTopBarMenuClickListener() {
             @Override
