@@ -62,7 +62,7 @@ public class AboutUsActivity extends BaseActivity {
         list.add("检测更新");
         list.add("隐私条款");
         list.add("注册与使用协议");
-        list.add("终止服务");
+        list.add("终止服务协议");
         AboutMenuAdapter adapter = new AboutMenuAdapter(list);
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
