@@ -68,7 +68,7 @@
             <com.hm.iou.uikit.ShowHidePasswordEditText
                 android:id="@+id/et_password"
                 style="@style/UikitEditText.Password"
-                android:hint="请输入密码"
+                android:hint="当前账户的登录密码"
                 />
         </LinearLayout>
     </LinearLayout>
