@@ -277,7 +277,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         }
         //收入
         int income = userInfo.getMainIncome();
-        if (income > IncomeEnum.None.getValue()) {
+        if (income >= IncomeEnum.None.getValue()) {
             count++;
         }
         if (count == 7) {

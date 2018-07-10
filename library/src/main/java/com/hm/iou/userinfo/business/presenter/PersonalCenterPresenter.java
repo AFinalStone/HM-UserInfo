@@ -8,7 +8,6 @@ import android.view.View;
 import com.hm.iou.base.mvp.MvpFragmentPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
@@ -114,7 +113,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         }
         //收入
         int income = userInfo.getMainIncome();
-        if (income > IncomeEnum.None.getValue()) {
+        if (income >= IncomeEnum.None.getValue()) {
             count++;
         }
         if (count == 7) {
