@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.constants.HMConstants;
+import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.tools.StringUtil;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
@@ -47,6 +48,9 @@ public class ChangeEmailVerifyActivity extends BaseActivity<ChangeEmailPresenter
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
+        String email = StringUtil.getUnnullString(UserManager.getInstance(this).getUserInfo().getMailAddr());
+        mEtEmail.setHint(String.format("提示%s***邮箱", email.length() >= 3 ? email.substring(0, 3) : email));
+
         RxTextView.textChanges(mEtEmail).subscribe(s -> {
             mUserEmail = String.valueOf(s);
             mBtnCheckPassword.setEnabled(false);

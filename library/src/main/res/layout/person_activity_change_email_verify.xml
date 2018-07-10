@@ -44,7 +44,7 @@
             style="@style/UikitEditText"
             android:layout_width="match_parent"
             android:background="@null"
-            android:hint="输入当前绑定的邮箱地址"
+            android:hint=""
             android:maxLines="1"
             android:minHeight="40dip" />
 
