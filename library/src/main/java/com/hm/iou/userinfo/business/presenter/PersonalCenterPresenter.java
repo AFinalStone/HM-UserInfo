@@ -231,6 +231,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventRealName(RealNameEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        showUserAvatar(userInfo);
         String name = userInfo.getName();
         mView.showAuthName(name);
         mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have, View.VISIBLE);
