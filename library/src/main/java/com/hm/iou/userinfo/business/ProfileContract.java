@@ -25,13 +25,6 @@ public interface ProfileContract {
         void showProgressTips(String progressTxt);
 
         /**
-         * 显示进度条右边旗帜
-         *
-         * @param resId
-         */
-        void showProgressFlag(int resId);
-
-        /**
          * 显示头像
          *
          * @param url 头像地址

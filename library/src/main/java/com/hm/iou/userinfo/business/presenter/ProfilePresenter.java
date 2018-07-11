@@ -284,12 +284,10 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             //全部完成
             mView.showProfileProgress(100);
             mView.showProgressTips("太棒了，资料很完整！");
-            mView.showProgressFlag(R.mipmap.person_ic_flag_red);
         } else {
             int progress = count * 15;
             mView.showProfileProgress(progress);
             mView.showProgressTips("已经完成" + progress + "%，加把劲！");
-            mView.showProgressFlag(R.mipmap.person_ic_flag_yellow);
         }
     }
 

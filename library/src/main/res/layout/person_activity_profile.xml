@@ -29,16 +29,6 @@
             android:max="100"
             android:progressDrawable="@drawable/person_layer_list_progress_profile" />
 
-        <ImageView
-            android:id="@+id/iv_profile_flag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/person_ic_flag_yellow"
-            android:layout_alignRight="@id/pb_profile_progress"
-            android:layout_alignBottom="@id/pb_profile_progress"
-            android:layout_marginRight="-6dip"
-            />
-
         <TextView
             android:id="@+id/tv_profile_progress"
             android:layout_width="wrap_content"
@@ -136,7 +126,9 @@
                     android:layout_marginRight="10dp"
                     />
 
-                <ImageView style="@style/PersonMenuListArrow" />
+                <ImageView
+                    android:id="@+id/iv_profile_auth_arrow"
+                    style="@style/PersonMenuListArrow" />
 
             </LinearLayout>
 

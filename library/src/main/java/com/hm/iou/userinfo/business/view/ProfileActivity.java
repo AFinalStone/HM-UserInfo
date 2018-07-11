@@ -39,8 +39,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     ProgressBar mPbProfile;
     @BindView(R2.id.tv_profile_progress)
     TextView mTvProgress;
-    @BindView(R2.id.iv_profile_flag)
-    ImageView mIvFlag;
     @BindView(R2.id.iv_profile_avatar)
     ImageView mIvAvatar;
     @BindView(R2.id.tv_profile_nickname)
@@ -51,6 +49,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     ImageView mIvAuth;
     @BindView(R2.id.ll_profile_realname)
     View mLayoutRealName;
+    @BindView(R2.id.iv_profile_auth_arrow)
+    ImageView mIvAuthArrow;
     @BindView(R2.id.tv_profile_mobile)
     TextView mTvMobile;
     @BindView(R2.id.tv_profile_weixin)
@@ -151,11 +151,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void showProgressFlag(int resId) {
-        mIvFlag.setImageResource(resId);
-    }
-
-    @Override
     public void showAvatar(String avatarUrl, int defaultAvatarResId) {
         if (TextUtils.isEmpty(avatarUrl)) {
             mIvAvatar.setImageResource(defaultAvatarResId);
@@ -185,8 +180,10 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         mLayoutRealName.setEnabled(enable);
         if (enable) {
             mLayoutRealName.setBackgroundResource(R.drawable.uikit_bg_item_ripple);
+            mIvAuthArrow.setVisibility(View.VISIBLE);
         } else {
             mLayoutRealName.setBackgroundColor(Color.WHITE);
+            mIvAuthArrow.setVisibility(View.INVISIBLE);
         }
     }
 
