@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,10 +39,14 @@ import butterknife.BindView;
 
 public class AboutUsActivity extends BaseActivity {
 
+    @BindView(R2.id.iv_logo)
+    ImageView mIvLogo;
     @BindView(R2.id.tv_about_version)
     TextView mTvVersion;
     @BindView(R2.id.recycler_about)
     RecyclerView mRecyclerView;
+
+    private long mTimeActionDown;
 
     @Override
     protected int getLayoutId() {
@@ -55,14 +61,31 @@ public class AboutUsActivity extends BaseActivity {
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
         mTvVersion.setText("V" + SystemUtil.getCurrentAppVersionName(this));
-
+        mIvLogo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    mTimeActionDown = System.currentTimeMillis();
+                    return true;
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    long timeActionUp = System.currentTimeMillis();
+                    if (timeActionUp - mTimeActionDown > 5000) {
+                        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/terminate_service")
+                                .navigation(AboutUsActivity.this);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new HMGrayDividerItemDecoration(this, LinearLayout.VERTICAL));
         List<String> list = new ArrayList<>();
         list.add("检测更新");
         list.add("隐私条款");
         list.add("注册与使用协议");
-        list.add("终止服务协议");
+//        list.add("终止服务协议");
         AboutMenuAdapter adapter = new AboutMenuAdapter(list);
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -74,9 +97,6 @@ public class AboutUsActivity extends BaseActivity {
                     toPrivacyPage();
                 } else if (position == 2) {
                     toUserAgreementPage();
-                } else if (position == 3) {
-                    Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/terminate_service")
-                            .navigation(AboutUsActivity.this);
                 }
             }
         });
