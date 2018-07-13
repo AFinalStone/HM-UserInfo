@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
         android:background="#ffffdd4a"
-        app:titleBackground="#00000000"
+        app:titleBackground="#ffffdd4a"
         app:bottomDividerIsShow="false"
         app:titleText="个人中心" />
 
