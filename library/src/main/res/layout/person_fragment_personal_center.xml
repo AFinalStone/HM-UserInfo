@@ -201,7 +201,7 @@
                 android:layout_height="10dip" />
 
             <LinearLayout
-                android:id="@+id/ll_person_changepwd"
+                android:id="@+id/ll_person_charge"
                 style="@style/PersonMenuListItem">
 
                 <ImageView
@@ -210,7 +210,7 @@
 
                 <TextView
                     style="@style/PersonMenuListTitle"
-                    android:text="变更密码" />
+                    android:text="次卡充值" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
@@ -218,7 +218,7 @@
 
             <View
                 style="@style/UikitDivider.Horizontal"
-                android:layout_height="10dip" />
+                />
 
             <LinearLayout
                 android:id="@+id/ll_person_cloud_space"

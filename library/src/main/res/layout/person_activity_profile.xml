@@ -138,6 +138,22 @@
                 />
 
             <LinearLayout
+                android:id="@+id/ll_profile_changepwd"
+                style="@style/PersonMenuListItem">
+
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="修改密码" />
+
+                <ImageView style="@style/PersonMenuListArrow" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/UikitDivider.Horizontal"
+                />
+
+            <LinearLayout
                 android:id="@+id/ll_profile_mobile"
                 style="@style/PersonMenuListItem">
 

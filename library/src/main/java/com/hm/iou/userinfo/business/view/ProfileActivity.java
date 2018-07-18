@@ -14,10 +14,12 @@ import com.hm.iou.base.BaseActivity;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
+import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.dialog.IOSActionSheetItem;
 import com.hm.iou.uikit.dialog.IOSActionSheetTitleDialog;
+import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ProfileContract;
@@ -64,6 +66,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     @BindView(R2.id.tv_profile_income)
     TextView mTvIncome;
 
+    private IOSActionSheetTitleDialog mChangePwdDialog;
+
     @Override
     protected int getLayoutId() {
         return R.layout.person_activity_profile;
@@ -97,7 +101,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_realname,
         R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email, R2.id.ll_profile_city,
-        R2.id.ll_profile_income, R2.id.tv_profile_logout})
+        R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
         if (v.getId() == R.id.ll_profile_avatar) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/user_avatar")
@@ -137,6 +141,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                     .navigation(this);
         } else if (v.getId() == R.id.tv_profile_logout) {
             showDialogLogoutSafely();
+        } else if (v.getId() == R.id.ll_profile_changepwd) {        //修改密码
+            showChangePasswordMenu();
         }
     }
 
@@ -230,6 +236,70 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                                 mPresenter.logout();
                             }
                         })).show();
+    }
+
+    /**
+     * 显示变更密码菜单
+     */
+    private void showChangePasswordMenu() {
+        if (mChangePwdDialog == null) {
+            String itemChangeLoginPassword = getString(R.string.personal_changeLoginPassword);
+            String itemChangeSignaturePassword = getString(R.string.personal_changeSignaturePassword);
+            mChangePwdDialog = new IOSActionSheetTitleDialog.Builder(mContext)
+                    .setCanceledOnTouchOutside(true)
+                    .addSheetItem(IOSActionSheetItem.create(itemChangeLoginPassword).setItemClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Router.getInstance()
+                                    .buildWithUrl("hmiou://m.54jietiao.com/person/modify_pwd")
+                                    .navigation(mContext);
+                        }
+                    }))
+                    .addSheetItem(IOSActionSheetItem.create(itemChangeSignaturePassword).setItemClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+                            int customerType = userInfo.getType();
+                            if (UserDataUtil.isCClass(customerType)) {
+                                showNoAuthWhenChangeSignPwd();
+                            } else {
+                                Router.getInstance()
+                                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/facecheckfindsignpsd")
+                                        .navigation(mContext);
+                            }
+                        }
+                    }))
+                    .show();
+        } else {
+            mChangePwdDialog.show();
+        }
+    }
+
+    /**
+     * 当变更签约密码时，如果没实名认证，弹出提示对话框
+     */
+    private void showNoAuthWhenChangeSignPwd() {
+        new IOSAlertDialog.Builder(mContext)
+                .setTitle("签约密码")
+                .setMessage("通过实名认证后的账户，才能设置签约密码，是否立即实名认证？")
+                .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Router.getInstance()
+                                .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
+                                .navigation(mContext);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
     }
 
 }
