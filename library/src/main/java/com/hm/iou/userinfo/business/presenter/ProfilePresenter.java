@@ -72,7 +72,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     }
 
     @Override
-    public void updateLocation(String location) {
+    public void updateLocation(final String location) {
         mView.showLoadingView();
         final UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         PersonApi.updateLocation(userInfo, location)

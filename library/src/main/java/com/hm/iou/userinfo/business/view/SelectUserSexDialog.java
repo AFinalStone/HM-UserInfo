@@ -30,13 +30,13 @@ public class SelectUserSexDialog extends Dialog {
     }
 
 
-    public static SelectUserSexDialog CreateDialog(Context context, OnChangeSexListener onChangeSexListener) {
+    public static SelectUserSexDialog CreateDialog(Context context, final OnChangeSexListener onChangeSexListener) {
 
-        SelectUserSexDialog mDialog = new SelectUserSexDialog(context, R.style.UikitAlertDialogStyle_FromBottom);
+        final SelectUserSexDialog mDialog = new SelectUserSexDialog(context, R.style.UikitAlertDialogStyle_FromBottom);
         // 获取Dialog布局
         View view = LayoutInflater.from(context).inflate(R.layout.person_dialog_select_user_sex, null);
-        ImageView mCheckBoxMan = view.findViewById(R.id.mCheckBox_man);
-        ImageView mCheckBoxWuMan = view.findViewById(R.id.mCheckBox_wuMan);
+        final ImageView mCheckBoxMan = view.findViewById(R.id.mCheckBox_man);
+        final ImageView mCheckBoxWuMan = view.findViewById(R.id.mCheckBox_wuMan);
         view.findViewById(R.id.linearLayout_man).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

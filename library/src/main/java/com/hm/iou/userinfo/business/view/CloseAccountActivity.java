@@ -16,6 +16,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by hjy on 2018/6/4.
@@ -45,14 +46,20 @@ public class CloseAccountActivity extends BaseActivity<CloseAccountPresenter> im
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-        RxTextView.textChanges(mEtPhone).subscribe(s -> {
-            mUserPhone = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtPhone).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPhone = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
-        RxTextView.textChanges(mEtPassword).subscribe(s -> {
-            mUserPassword = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtPassword).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPassword = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
         mEtPhone.postDelayed(new Runnable() {

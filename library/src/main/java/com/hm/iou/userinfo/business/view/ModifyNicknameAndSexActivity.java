@@ -1,5 +1,6 @@
 package com.hm.iou.userinfo.business.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -102,8 +103,11 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         new IOSAlertDialog
                 .Builder(mContext)
                 .setMessage(noChangeSex02)
-                .setNegativeButton(ok, (dialog, which) -> {
-                    dialog.dismiss();
+                .setNegativeButton(ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
                 }).show();
     }
 
@@ -116,8 +120,11 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         new IOSAlertDialog
                 .Builder(mContext)
                 .setMessage(noChangeSex03)
-                .setNegativeButton(ok, (dialog, which) -> {
-                    dialog.dismiss();
+                .setNegativeButton(ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
                 }).show();
     }
 

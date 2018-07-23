@@ -22,11 +22,11 @@ public class JietiaoApplication extends Application {
         Router.init(this);
 
         Logger.init(this, true);
-        initNetwork();
         BaseBizAppLike appLike = new BaseBizAppLike();
         appLike.onCreate(this);
-        appLike.initServer("http://192.168.1.254", "http://192.168.1.254",
-                "http://192.168.1.254");
+        appLike.initServer("http://192.168.1.217", "http://192.168.1.217",
+                "http://192.168.1.217");
+        initNetwork();
 
         SocialShareAppLike shareAppLike = new SocialShareAppLike();
         shareAppLike.onCreate(this);
@@ -40,7 +40,7 @@ public class JietiaoApplication extends Application {
                 .setAppChannel("guanfang")
                 .setAppVersion("1.0.2")
                 .setDeviceId("123abc123")
-                .setBaseUrl("http://192.168.1.254")
+                .setBaseUrl(BaseBizAppLike.getInstance().getApiServer())
                 .setUserId(UserManager.getInstance(this).getUserId())
                 .setToken(UserManager.getInstance(this).getToken())
                 .build();

@@ -47,7 +47,7 @@ public class ModifyNicknameAndSexPresenter extends MvpActivityPresenter<ModifyNi
     }
 
     @Override
-    public void updateNicknameAndSex(String nickname) {
+    public void updateNicknameAndSex(final String nickname) {
         if (TextUtils.isEmpty(nickname)) {
             mView.toastMessage("昵称不能为空");
             return;

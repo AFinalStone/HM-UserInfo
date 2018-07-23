@@ -15,6 +15,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 修改登录密码
@@ -47,11 +48,14 @@ public class UnbindWeixinActivity extends BaseActivity<UnbindWeixinPresenter> im
     protected void initEventAndData(Bundle savedInstanceState) {
         mTopBarView.showDivider(false);
 
-        RxTextView.textChanges(mEtPassword).subscribe(s -> {
-            mUserPassword = String.valueOf(s);
-            mBtnCheckPassword.setEnabled(false);
-            if (mUserPassword.length() > 0) {
-                mBtnCheckPassword.setEnabled(true);
+        RxTextView.textChanges(mEtPassword).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPassword = String.valueOf(charSequence);
+                mBtnCheckPassword.setEnabled(false);
+                if (mUserPassword.length() > 0) {
+                    mBtnCheckPassword.setEnabled(true);
+                }
             }
         });
         mEtPassword.postDelayed(new Runnable() {

@@ -79,7 +79,9 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 .subscribeWith(new CommSubscriber<List<IOUCountBean>>(mView) {
                     @Override
                     public void handleResult(List<IOUCountBean> list) {
-                        generateIOUCountData(list == null ? new ArrayList<>() : list);
+                        List<IOUCountBean> listData = new ArrayList<>();
+                        listData.addAll(list);
+                        generateIOUCountData(listData);
                     }
 
                     @Override
@@ -107,7 +109,7 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 map.put(bean.getIouKind(), bean);
             }
         }
-        final int[] iconArr = new int[] {
+        final int[] iconArr = new int[]{
                 R.mipmap.jietiao_ic_home_type_money_borrow,
                 R.mipmap.jietiao_ic_home_type_money_receive,
                 R.mipmap.jietiao_ic_home_type_fun,
@@ -115,10 +117,10 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 R.mipmap.jietiao_ic_home_type_paper_borrow,
                 R.mipmap.jietiao_ic_home_type_paper_receive
         };
-        final CharSequence[] nameArr = new CharSequence[] {
+        final CharSequence[] nameArr = new CharSequence[]{
                 "电子借条", "电子收条", "娱乐借条", "平台借条", "纸质借条", "纸质收条"
         };
-        final int[] iouKindArr = new int[] {
+        final int[] iouKindArr = new int[]{
                 IOUKindEnum.ElecBorrowReceipt.getValue(), IOUKindEnum.ElecReceiveReceipt.getValue(),
                 IOUKindEnum.FunReceipt.getValue(), IOUKindEnum.PlatformReceipt.getValue(),
                 IOUKindEnum.PaperBorrowerReceipt.getValue(), IOUKindEnum.PaperReceiveReceipt.getValue()

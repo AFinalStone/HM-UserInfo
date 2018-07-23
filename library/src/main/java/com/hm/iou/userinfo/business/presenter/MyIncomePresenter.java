@@ -47,8 +47,8 @@ public class MyIncomePresenter extends MvpActivityPresenter<MyIncomeContract.Vie
     @Override
     public void updateUserIncome(IncomeEnum income, boolean isMainIncome) {
         final UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        int mainIncome;
-        int secondIncome;
+        final int mainIncome;
+        final int secondIncome;
         if (isMainIncome) {
             mainIncome = income.getValue();
             secondIncome = userInfo.getSecondIncome();

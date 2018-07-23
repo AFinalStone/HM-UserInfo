@@ -17,6 +17,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 校验邮箱密码
@@ -51,23 +52,28 @@ public class ChangeEmailVerifyActivity extends BaseActivity<ChangeEmailPresenter
         String email = StringUtil.getUnnullString(UserManager.getInstance(this).getUserInfo().getMailAddr());
         mEtEmail.setHint(String.format("提示%s***邮箱", email.length() >= 3 ? email.substring(0, 3) : email));
 
-        RxTextView.textChanges(mEtEmail).subscribe(s -> {
-            mUserEmail = String.valueOf(s);
-            mBtnCheckPassword.setEnabled(false);
-            if (StringUtil.matchRegex(mUserEmail, HMConstants.REG_EMAIL_NUMBER)) {
-                if (mUserPassword.length() > 0) {
-                    mBtnCheckPassword.setEnabled(true);
+        RxTextView.textChanges(mEtEmail).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserEmail = String.valueOf(charSequence);
+                mBtnCheckPassword.setEnabled(false);
+                if (StringUtil.matchRegex(mUserEmail, HMConstants.REG_EMAIL_NUMBER)) {
+                    if (mUserPassword.length() > 0) {
+                        mBtnCheckPassword.setEnabled(true);
+                    }
                 }
             }
-
         });
 
-        RxTextView.textChanges(mEtPassword).subscribe(s -> {
-            mUserPassword = String.valueOf(s);
-            mBtnCheckPassword.setEnabled(false);
-            if (StringUtil.matchRegex(mUserEmail, HMConstants.REG_EMAIL_NUMBER)) {
-                if (mUserPassword.length() > 0) {
-                    mBtnCheckPassword.setEnabled(true);
+        RxTextView.textChanges(mEtPassword).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPassword = String.valueOf(charSequence);
+                mBtnCheckPassword.setEnabled(false);
+                if (StringUtil.matchRegex(mUserEmail, HMConstants.REG_EMAIL_NUMBER)) {
+                    if (mUserPassword.length() > 0) {
+                        mBtnCheckPassword.setEnabled(true);
+                    }
                 }
             }
         });

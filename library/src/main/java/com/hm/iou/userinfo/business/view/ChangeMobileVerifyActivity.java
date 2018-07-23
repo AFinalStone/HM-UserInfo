@@ -17,6 +17,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 修改登录密码
@@ -52,23 +53,28 @@ public class ChangeMobileVerifyActivity extends BaseActivity<ChangeMobilePresent
     protected void initEventAndData(Bundle savedInstanceState) {
         mTopBarView.showDivider(false);
 
-        RxTextView.textChanges(mEtPhone).subscribe(s -> {
-            mUserPhone = String.valueOf(s);
-            mBtnCheckPassword.setEnabled(false);
-            if (StringUtil.matchRegex(mUserPhone, HMConstants.REG_MOBILE)) {
-                if (mUserPassword.length() > 0) {
-                    mBtnCheckPassword.setEnabled(true);
+        RxTextView.textChanges(mEtPhone).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPhone = String.valueOf(charSequence);
+                mBtnCheckPassword.setEnabled(false);
+                if (StringUtil.matchRegex(mUserPhone, HMConstants.REG_MOBILE)) {
+                    if (mUserPassword.length() > 0) {
+                        mBtnCheckPassword.setEnabled(true);
+                    }
                 }
             }
-
         });
 
-        RxTextView.textChanges(mEtPassword).subscribe(s -> {
-            mUserPassword = String.valueOf(s);
-            mBtnCheckPassword.setEnabled(false);
-            if (StringUtil.matchRegex(mUserPhone, HMConstants.REG_MOBILE)) {
-                if (mUserPassword.length() > 0) {
-                    mBtnCheckPassword.setEnabled(true);
+        RxTextView.textChanges(mEtPassword).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPassword = String.valueOf(charSequence);
+                mBtnCheckPassword.setEnabled(false);
+                if (StringUtil.matchRegex(mUserPhone, HMConstants.REG_MOBILE)) {
+                    if (mUserPassword.length() > 0) {
+                        mBtnCheckPassword.setEnabled(true);
+                    }
                 }
             }
         });

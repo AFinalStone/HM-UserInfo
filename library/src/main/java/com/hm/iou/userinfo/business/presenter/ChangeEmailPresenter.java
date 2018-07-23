@@ -43,7 +43,7 @@ public class ChangeEmailPresenter extends MvpActivityPresenter<ChangeEmailContra
     }
 
     @Override
-    public void verifyPassword(String email, String pwd) {
+    public void verifyPassword(final String email, String pwd) {
         mView.showLoadingView();
         PersonApi.verifyEmailAndPwd(email, Md5Util.getMd5ByString(pwd))
                 .compose(getProvider().<BaseResponse<String>>bindUntilEvent(ActivityEvent.DESTROY))
@@ -66,7 +66,7 @@ public class ChangeEmailPresenter extends MvpActivityPresenter<ChangeEmailContra
     }
 
     @Override
-    public void sendVerifyCode(String email) {
+    public void sendVerifyCode(final String email) {
         if (!StringUtil.matchRegex(email, HMConstants.REG_EMAIL_NUMBER)) {
             mView.toastMessage("请输入正确的邮箱");
             return;
@@ -96,7 +96,7 @@ public class ChangeEmailPresenter extends MvpActivityPresenter<ChangeEmailContra
     }
 
     @Override
-    public void changeEmail(String oldEmail, String newEmail, String verifyCode, String sn) {
+    public void changeEmail(String oldEmail, final String newEmail, String verifyCode, String sn) {
         mView.showLoadingView();
         PersonApi.changeEmail(oldEmail, newEmail, sn, verifyCode)
                 .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))

@@ -19,6 +19,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 修改登录密码
@@ -64,14 +65,20 @@ public class ChangeMobileCompleteActivity extends BaseActivity<ChangeMobilePrese
 
         mTopBarView.showDivider(false);
 
-        RxTextView.textChanges(mEtPhone).subscribe(s -> {
-            mUserPhone = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtPhone).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserPhone = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
-        RxTextView.textChanges(mEtCode).subscribe(s -> {
-            mStrCode = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtCode).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mStrCode = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
         mEtPhone.postDelayed(new Runnable() {

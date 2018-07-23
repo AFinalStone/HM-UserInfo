@@ -19,6 +19,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 修改登录密码
@@ -59,14 +60,20 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
         mTopBarView.showDivider(false);
-        RxTextView.textChanges(mEtOldPassword).subscribe(s -> {
-            mOldPassword = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtOldPassword).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mOldPassword = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
-        RxTextView.textChanges(mEtNewPassword).subscribe(s -> {
-            mNewPassword = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtNewPassword).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mNewPassword = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
         mEtOldPassword.postDelayed(new Runnable() {
@@ -93,7 +100,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             changeEyeOld();
         } else if (view.getId() == R.id.iv_eyeNew) {
             changeEyeNew();
-        } else if(view.getId() == R.id.btn_queryChange) {
+        } else if (view.getId() == R.id.btn_queryChange) {
             mPresenter.modifyPwd(mOldPassword, mNewPassword);
         }
     }

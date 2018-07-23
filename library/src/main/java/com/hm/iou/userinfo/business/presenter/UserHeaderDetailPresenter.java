@@ -69,7 +69,7 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
     }
 
     public void changeAvatarUrl(String avatarUrl) {
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        final UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         mView.showLoadingView();
         PersonApi.updateAvatar(userInfo, avatarUrl)
                 .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))

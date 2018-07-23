@@ -22,6 +22,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 更换邮箱
@@ -82,14 +83,20 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
 
             }
         });
-        RxTextView.textChanges(mEtEmail).subscribe(s -> {
-            mUserEmail = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtEmail).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mUserEmail = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
-        RxTextView.textChanges(mEtCode).subscribe(s -> {
-            mStrCode = String.valueOf(s);
-            checkValue();
+        RxTextView.textChanges(mEtCode).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                mStrCode = String.valueOf(charSequence);
+                checkValue();
+            }
         });
 
         mEtEmail.postDelayed(new Runnable() {

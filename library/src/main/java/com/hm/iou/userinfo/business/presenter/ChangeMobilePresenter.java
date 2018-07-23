@@ -43,7 +43,7 @@ public class ChangeMobilePresenter extends MvpActivityPresenter<ChangeMobileCont
     }
 
     @Override
-    public void verifyPassword(String mobile, String pwd) {
+    public void verifyPassword(String mobile, final String pwd) {
         mView.showLoadingView();
         PersonApi.verifyPwdWhenChangeMobile(mobile, Md5Util.getMd5ByString(pwd))
                 .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))
@@ -95,7 +95,7 @@ public class ChangeMobilePresenter extends MvpActivityPresenter<ChangeMobileCont
     }
 
     @Override
-    public void changeMobile(String newMobile, String verifyCode, String password) {
+    public void changeMobile(final String newMobile, String verifyCode, String password) {
         mView.showLoadingView();
         PersonApi.changeMobile(newMobile, verifyCode, UserManager.getInstance(mContext).getUserInfo().getMobile(), Md5Util.getMd5ByString(password))
                 .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))

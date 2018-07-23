@@ -22,11 +22,15 @@ import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.base.version.VersionApi;
 import com.hm.iou.router.Router;
+import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.HMGrayDividerItemDecoration;
 import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
+import com.hm.iou.userinfo.business.AboutUsContract;
+import com.hm.iou.userinfo.business.presenter.AboutUsPresenter;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,7 @@ import butterknife.BindView;
  * Created by hjy on 2018/6/4.
  */
 
-public class AboutUsActivity extends BaseActivity {
+public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements AboutUsContract.View {
 
     @BindView(R2.id.iv_logo)
     ImageView mIvLogo;
@@ -54,9 +58,10 @@ public class AboutUsActivity extends BaseActivity {
     }
 
     @Override
-    protected MvpActivityPresenter initPresenter() {
-        return null;
+    protected AboutUsPresenter initPresenter() {
+        return new AboutUsPresenter(this, this);
     }
+
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
@@ -92,7 +97,7 @@ public class AboutUsActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (position == 0) {
-                    checkUpdate();
+                    mPresenter.checkVersion();
                 } else if (position == 1) {
                     toPrivacyPage();
                 } else if (position == 2) {
@@ -102,40 +107,8 @@ public class AboutUsActivity extends BaseActivity {
         });
     }
 
-    private void checkUpdate() {
-        showLoadingView();
-        VersionApi.checkVersion()
-                .map(RxUtil.handleResponse())
-                .subscribeWith(new CommSubscriber<CheckVersionResBean>(this) {
-                    @Override
-                    public void handleResult(CheckVersionResBean data) {
-                        dismissLoadingView();
-                        if (data == null || TextUtils.isEmpty(data.getDownloadUrl())) {
-                            showNewestVersionDialog();
-                            return;
-                        }
-                        if (data.getType() != 2 && data.getType() != 3) {
-                            showNewestVersionDialog();
-                            return;
-                        }
-                        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/homedialog")
-                                .withString("dialog_type", data.getType() + "")
-                                .withString("dialog_title", data.getTitile())
-                                .withString("dialog_content", data.getContent())
-                                .withString("dialog_sub_content", data.getSubContent())
-                                .withString("dialog_file_down_url", data.getDownloadUrl())
-                                .withString("dialog_file_md5", data.getFileMD5())
-                                .navigation(mContext);
-                    }
-
-                    @Override
-                    public void handleException(Throwable throwable, String s, String s1) {
-                        dismissLoadingView();
-                    }
-                });
-    }
-
-    private void showNewestVersionDialog() {
+    @Override
+    public void showNewestVersionDialog() {
         new IOSAlertDialog.Builder(this)
                 .setMessage("已是最新版本")
                 .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
