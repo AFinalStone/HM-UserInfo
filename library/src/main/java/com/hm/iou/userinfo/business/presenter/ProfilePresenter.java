@@ -31,6 +31,7 @@ import com.hm.iou.userinfo.event.UpdateMobileEvent;
 import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
 import com.hm.iou.userinfo.event.UpdateWeixinEvent;
 import com.hm.iou.wxapi.WXEntryActivity;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +46,8 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     private static final String EVENT_KEY_BIND_WX = "person_bind_weixin";
 
+    private IWXAPI mWXApi;
+
     public ProfilePresenter(@NonNull Context context, @NonNull ProfileContract.View view) {
         super(context, view);
         EventBus.getDefault().register(this);
@@ -54,6 +57,10 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (mWXApi != null) {
+            mWXApi.detach();
+            mWXApi = null;
+        }
     }
 
     @Override
@@ -100,7 +107,10 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     @Override
     public void toBindWeixin() {
-        WXEntryActivity.openWx(mContext, EVENT_KEY_BIND_WX);
+        if (mWXApi != null) {
+            mWXApi.detach();
+        }
+        mWXApi = WXEntryActivity.openWxAuth(mContext, EVENT_KEY_BIND_WX);
     }
 
     @Override
