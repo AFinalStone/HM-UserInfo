@@ -60,6 +60,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         if (mWXApi != null) {
             mWXApi.detach();
             mWXApi = null;
+            WXEntryActivity.cleanWXLeak();
         }
     }
 
