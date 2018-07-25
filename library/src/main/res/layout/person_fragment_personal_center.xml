@@ -34,6 +34,7 @@
                 android:background="@color/white">
 
                 <ImageView
+                    android:id="@+id/iv_person_profile"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:scaleType="fitXY"
@@ -206,11 +207,16 @@
 
                 <ImageView
                     style="@style/PersonMenuListIcon"
-                    android:src="@mipmap/person_ic_change_pwd" />
+                    android:src="@mipmap/person_ic_charge" />
 
                 <TextView
                     style="@style/PersonMenuListTitle"
-                    android:text="次卡充值" />
+                    android:text="套餐卡" />
+
+                <TextView
+                    android:id="@+id/tv_person_charge"
+                    style="@style/PersonMenuListHint"
+                    android:text="充值" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 

@@ -52,6 +52,8 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     TextView mTvUnReadCount;             //帮助与反馈未读数目
     @BindView(R2.id.tv_person_favorite_count)
     TextView mTvFavoriteCount;          //收藏的篇数
+    @BindView(R2.id.tv_person_charge)
+    TextView mTvCardCharge;
 
     private boolean mClickFavorite;
     private boolean mClickFeedback;
@@ -116,11 +118,14 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
         }
     }
 
-    @OnClick({R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_charge,
+    @OnClick({R2.id.iv_person_profile, R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_charge,
             R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.ll_person_signature) {
+        if (id == R.id.iv_person_profile) {
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
+                    .navigation(mActivity);
+        } else if (id == R.id.ll_person_signature) {
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
             int customerType = userInfo.getType();
             if (UserDataUtil.isCClass(customerType)) {
