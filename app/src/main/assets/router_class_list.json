@@ -136,11 +136,6 @@
       "aclass": "com.hm.iou.userinfo.business.view.ModifyNicknameAndSexActivity"
     },
     {
-      "url": "hmiou://m.54jietiao.com/person/modify_income",
-      "iclass": "",
-      "aclass": "com.hm.iou.hmreceipt.ui.activity.personal.MyIncomeActivity"
-    },
-    {
       "url": "hmiou://m.54jietiao.com/person/modify_pwd",
       "iclass": "",
       "aclass": "com.hm.iou.userinfo.business.view.ModifyPasswordActivity"
