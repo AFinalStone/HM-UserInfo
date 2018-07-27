@@ -42,8 +42,8 @@
 
         <TextView
             android:id="@+id/tv_about_version"
-            android:layout_width="38dp"
-            android:layout_height="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="1.0.0版"
             android:textColor="#ff636363"
