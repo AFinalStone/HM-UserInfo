@@ -37,6 +37,10 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     private static final int REQ_SELECT_CITY = 100;
 
+    @BindView(R2.id.tv_profileProgressNum)
+    TextView mTvProgressNum;
+    @BindView(R2.id.iv_ad)
+    ImageView mIvAd;
     @BindView(R2.id.pb_profile_progress)
     ProgressBar mPbProfile;
     @BindView(R2.id.tv_profile_progress)
@@ -47,12 +51,16 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     TextView mTvNickname;
     @BindView(R2.id.tv_profile_realname)
     TextView mTvRealName;
-    @BindView(R2.id.iv_profile_auth)
-    ImageView mIvAuth;
+    @BindView(R2.id.iv_profile_sex)
+    ImageView mIvSex;
+    @BindView(R2.id.tv_profile_bind_bank)
+    TextView mTvBindBank;
+    @BindView(R2.id.iv_profile_bind_bank)
+    ImageView mIvBindBank;
     @BindView(R2.id.ll_profile_realname)
     View mLayoutRealName;
     @BindView(R2.id.iv_profile_auth_arrow)
-    ImageView mIvAuthArrow;
+    ImageView mIvSexArrow;
     @BindView(R2.id.tv_profile_mobile)
     TextView mTvMobile;
     @BindView(R2.id.tv_profile_weixin)
@@ -67,6 +75,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     TextView mTvIncome;
 
     private IOSActionSheetTitleDialog mChangePwdDialog;
+    PersonalDialogHelper mPersonalDialogHelper;
 
     @Override
     protected int getLayoutId() {
@@ -80,6 +89,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     @Override
     protected void initEventAndData(Bundle bundle) {
+        mPersonalDialogHelper = new PersonalDialogHelper(mContext);
         mPresenter.getUserProfile();
     }
 
@@ -100,8 +110,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_realname,
-        R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email, R2.id.ll_profile_city,
-        R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
+            R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email
+            , R2.id.ll_profile_city, R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
         if (v.getId() == R.id.ll_profile_avatar) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/user_avatar")
@@ -110,9 +120,23 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/modify_nickname_sex")
                     .navigation(this);
         } else if (v.getId() == R.id.ll_profile_realname) {
-            Router.getInstance()
-                    .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
-                    .navigation(this);
+            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+            int customerType = userInfo.getType();
+            if (UserDataUtil.isCClass(customerType)) {
+                Router.getInstance()
+                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
+                        .navigation(mContext);
+            } else {
+                mPersonalDialogHelper.showHaveAuthtication();
+            }
+        } else if (v.getId() == R.id.ll_profile_bind_bank) {
+            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+            int customerType = userInfo.getType();
+            if (UserDataUtil.isCClass(customerType)) {
+                mPersonalDialogHelper.showBinkBankNeedAuthen();
+            } else {
+                mPersonalDialogHelper.showBinkBankInfo("8645****9900", "345");
+            }
         } else if (v.getId() == R.id.ll_profile_mobile) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_mobile")
                     .navigation(mContext);
@@ -148,7 +172,27 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     @Override
     public void showProfileProgress(int progress) {
+        mTvProgressNum.setText(progress + "%");
         mPbProfile.setProgress(progress);
+    }
+
+    @Override
+    public void showAdvertisement(String adImageUrl, final String adLinkUrl) {
+        if (TextUtils.isEmpty(adImageUrl)) {
+            return;
+        }
+        ImageLoader.getInstance(this).displayImage(adImageUrl, mIvAd);
+        if (!TextUtils.isEmpty(adLinkUrl)) {
+            mIvAd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Router.getInstance()
+                            .buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                            .withString("url", adLinkUrl)
+                            .navigation(mContext);
+                }
+            });
+        }
     }
 
     @Override
@@ -177,20 +221,20 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void showRealNameFlag(int visibility) {
-        mIvAuth.setVisibility(visibility);
+    public void showSex(int idRes) {
+        mIvSex.setVisibility(View.VISIBLE);
+        mIvSex.setImageResource(idRes);
     }
 
     @Override
-    public void enableRealNameClick(boolean enable) {
-        mLayoutRealName.setEnabled(enable);
-        if (enable) {
-            mLayoutRealName.setBackgroundResource(R.drawable.uikit_bg_item_ripple);
-            mIvAuthArrow.setVisibility(View.VISIBLE);
-        } else {
-            mLayoutRealName.setBackgroundColor(Color.WHITE);
-            mIvAuthArrow.setVisibility(View.INVISIBLE);
-        }
+    public void showBindBank(String text, int textColor) {
+        mTvBindBank.setText(text);
+        mTvBindBank.setTextColor(textColor);
+    }
+
+    @Override
+    public void showBindBankFlag() {
+        mIvBindBank.setVisibility(View.VISIBLE);
     }
 
     @Override

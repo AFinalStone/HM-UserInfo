@@ -48,6 +48,9 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     private IWXAPI mWXApi;
 
+    private int mColorUnBind = 0xffff3c4b;//绑定的颜色
+    private int mColorHaveBind = 0xffa3a3a3;//未绑定的颜色
+
     public ProfilePresenter(@NonNull Context context, @NonNull ProfileContract.View view) {
         super(context, view);
         EventBus.getDefault().register(this);
@@ -71,6 +74,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         showUserAvatar(userInfo);
         showNickname(userInfo);
         showRealName(userInfo);
+        showBindBank();
         showMobile(userInfo);
         showWeixin(userInfo);
         showEmail(userInfo);
@@ -184,13 +188,27 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     private void showRealName(UserInfo userInfo) {
         if (UserDataUtil.isCClass(userInfo.getType())) {
             //未实名
-            mView.showRealNameFlag(View.GONE);
-            mView.showRealName("未实名", 0xffff3c4b);
-            mView.enableRealNameClick(true);
+            mView.showRealName("未实名", mColorUnBind);
         } else {
-            mView.showRealNameFlag(View.VISIBLE);
-            mView.showRealName(userInfo.getName(), 0xffa3a3a3);
-            mView.enableRealNameClick(false);
+            mView.showRealName(userInfo.getName(), mColorHaveBind);
+            int sex = userInfo.getSex();
+            if (sex == SexEnum.MALE.getValue()) {
+                mView.showSex(R.mipmap.person_ic_sex_man);
+            } else if (sex == SexEnum.FEMALE.getValue()) {
+                mView.showSex(R.mipmap.person_ic_sex_woman);
+            }
+        }
+    }
+
+    /**
+     * 显示银行卡认证
+     */
+    private void showBindBank() {
+        if (true) {
+            mView.showBindBankFlag();
+            mView.showBindBank("中国银行", mColorHaveBind);
+        } else {
+            mView.showBindBank("未获取", mColorUnBind);
         }
     }
 
@@ -214,9 +232,9 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
      */
     private void showWeixin(UserInfo userInfo) {
         if (UserDataUtil.isPlusClass(userInfo.getType())) {
-            mView.showWeixin("已绑定", 0xffa3a3a3);
+            mView.showWeixin("已绑定", mColorHaveBind);
         } else {
-            mView.showWeixin("未绑定", 0xffff3c4b);
+            mView.showWeixin("未绑定", mColorUnBind);
         }
     }
 

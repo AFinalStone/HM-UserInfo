@@ -1,5 +1,7 @@
 package com.hm.iou.userinfo.business;
 
+import android.support.annotation.DrawableRes;
+
 import com.hm.iou.base.mvp.BaseContract;
 
 /**
@@ -18,6 +20,14 @@ public interface ProfileContract {
         void showProfileProgress(int progress);
 
         /**
+         * 显示广告
+         *
+         * @param adImageUrl
+         * @param adLinkUrl
+         */
+        void showAdvertisement(String adImageUrl, String adLinkUrl);
+
+        /**
          * 显示资料完成度
          *
          * @param progressTxt
@@ -27,7 +37,7 @@ public interface ProfileContract {
         /**
          * 显示头像
          *
-         * @param url 头像地址
+         * @param url          头像地址
          * @param defIconResId 默认头像图片资源id
          */
         void showAvatar(String url, int defIconResId);
@@ -48,18 +58,24 @@ public interface ProfileContract {
         void showRealName(String realName, int textColor);
 
         /**
-         * 是否显示实名认证加V标记
+         * 显示性别
          *
-         * @param visibility
+         * @param idRes
          */
-        void showRealNameFlag(int visibility);
+        void showSex(@DrawableRes int idRes);
 
         /**
-         * 设置实名认证是否可点击
+         * 显示银行卡
          *
-         * @param enable
+         * @param bankName
+         * @param textColor
          */
-        void enableRealNameClick(boolean enable);
+        void showBindBank(String bankName, int textColor);
+
+        /**
+         * 显示是否绑定银行卡的标记
+         */
+        void showBindBankFlag();
 
         /**
          * 显示手机号
@@ -103,12 +119,26 @@ public interface ProfileContract {
 
     interface Presenter extends BaseContract.BasePresenter {
 
+        /**
+         * 获取用户信息
+         */
         void getUserProfile();
 
+        /**
+         * 更新用户地址
+         *
+         * @param location
+         */
         void updateLocation(String location);
 
+        /**
+         * 绑定微信
+         */
         void toBindWeixin();
 
+        /**
+         * 注销账户
+         */
         void logout();
     }
 

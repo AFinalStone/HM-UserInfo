@@ -1,6 +1,5 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.uikit.HMTopBarView;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.PersonalCenterContract;
@@ -59,6 +57,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     private boolean mClickFeedback;
 
     private long mLastUpdateStatisticData;  //记录上一次刷新统计数据的时间
+    PersonalDialogHelper mPersonalDialogHelper;
 
     @Override
     protected int getLayoutId() {
@@ -87,7 +86,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                         .navigation(mActivity);
             }
         });
-
+        mPersonalDialogHelper = new PersonalDialogHelper(mActivity);
         mPresenter.init();
         mPresenter.getStatisticData();
     }
@@ -118,18 +117,36 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
         }
     }
 
-    @OnClick({R2.id.iv_person_profile, R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_charge,
+    @OnClick({R2.id.iv_header, R2.id.ll_header, R2.id.iv_authentication, R2.id.iv_bindBank, R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_charge,
             R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.iv_person_profile) {
+        if (id == R.id.ll_header || id == R.id.iv_header) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mActivity);
+        } else if (id == R.id.iv_authentication) {
+            UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
+            int customerType = userInfo.getType();
+            if (UserDataUtil.isCClass(customerType)) {
+                Router.getInstance()
+                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
+                        .navigation(getActivity());
+            } else {
+                mPersonalDialogHelper.showHaveAuthtication();
+            }
+        } else if (id == R.id.iv_bindBank) {
+            UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
+            int customerType = userInfo.getType();
+            if (UserDataUtil.isCClass(customerType)) {
+                mPersonalDialogHelper.showBinkBankNeedAuthen();
+            } else {
+                mPersonalDialogHelper.showBinkBankInfo("8645****9900", "345");
+            }
         } else if (id == R.id.ll_person_signature) {
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
             int customerType = userInfo.getType();
             if (UserDataUtil.isCClass(customerType)) {
-                showNoAuthWhenSetSignature();
+                mPersonalDialogHelper.showNoAuthWhenSetSignature();
             } else {
                 Router.getInstance()
                         .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
@@ -212,32 +229,6 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             mTvUnReadCount.setVisibility(View.VISIBLE);
             mTvUnReadCount.setText(feedbackUnreadCount);
         }
-    }
-
-    /**
-     * 当设置签名时，如果没有实名，弹出实名提醒
-     */
-    private void showNoAuthWhenSetSignature() {
-        new IOSAlertDialog.Builder(mActivity)
-                .setTitle("设置手写签名")
-                .setMessage("通过实名认证后的账户，才能设置手写签名，是否立即认证实名？")
-                .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Router.getInstance()
-                                .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
-                                .navigation(getActivity());
-                    }
-                })
-                .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-
-
     }
 
 }

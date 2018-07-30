@@ -67,7 +67,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
 
         int customerTypeEnum = userInfo.getType();
         if (UserDataUtil.isCClass(customerTypeEnum)) {
-            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have, View.GONE);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have, View.VISIBLE);
             mView.showAuthName("定制签名");
         } else {
             String name = userInfo.getName();
@@ -239,7 +239,6 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
     }
 
     /**
-     *
      * @param commBizEvent
      */
     @Subscribe(threadMode = ThreadMode.MAIN)

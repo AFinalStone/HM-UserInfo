@@ -73,6 +73,7 @@ public interface PersonalCenterContract {
          * @param feedbackUnreadCount
          */
         void showHelpAndFeedbackCount(String feedbackUnreadCount);
+
     }
 
     interface Presenter extends BaseContract.BasePresenter {

@@ -79,4 +79,8 @@ public interface PersonService {
     @GET("/api/iou/user/v1/userCenterUserSpace")
     Flowable<BaseResponse<UserSpaceBean>> getUserSpace();
 
+
+//    @GET("/pay/iou/v1/ad/getByPosition")
+//    Flowable<BaseResponse<List<AdBean>>> getAdvertise(@Query("adPosition") String adPosition);
+
 }

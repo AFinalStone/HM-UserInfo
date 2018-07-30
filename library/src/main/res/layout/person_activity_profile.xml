@@ -13,10 +13,29 @@
         app:titleBackground="#ffffff"
         app:titleText="我的资料" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:background="#ffffffff">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_profileProgressNum"
+            style="@style/UikitTextView"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:minHeight="76dip"
+            android:text="85%"
+            android:textSize="@dimen/textFontSize_24" />
+
+        <ImageView
+            android:id="@+id/iv_ad"
+            android:layout_width="match_parent"
+            android:layout_height="76dip"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/pb_profile_progress"
@@ -25,7 +44,6 @@
             android:layout_height="12dp"
             android:layout_marginLeft="56dip"
             android:layout_marginRight="56dip"
-            android:layout_marginTop="40dp"
             android:max="100"
             android:progressDrawable="@drawable/person_layer_list_progress_profile" />
 
@@ -33,14 +51,12 @@
             android:id="@+id/tv_profile_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pb_profile_progress"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="17dip"
             android:textColor="#ff999999"
-            android:textSize="13dp"
+            android:textSize="@dimen/textFontSize_13"
             tools:text="已经完成25%，加把劲！" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -68,16 +84,13 @@
                     android:layout_width="32dip"
                     android:layout_height="32dip"
                     android:layout_marginRight="10dip"
-                    app:shape_mode="circle"
-                    />
+                    app:shape_mode="circle" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
             </LinearLayout>
 
-            <View
-                style="@style/UikitDivider.Horizontal"
-                />
+            <View style="@style/UikitDivider.Horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_nickname"
@@ -85,14 +98,13 @@
 
                 <TextView
                     style="@style/PersonMenuListTitle"
-                    android:text="昵称/性别" />
+                    android:text="昵称" />
 
                 <TextView
                     android:id="@+id/tv_profile_nickname"
                     style="@style/PersonMenuListHint"
                     android:maxLength="16"
-                    tools:text="137****8908"
-                    />
+                    tools:text="137****8908" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
@@ -100,8 +112,7 @@
 
             <View
                 style="@style/UikitDivider.Horizontal"
-                android:layout_height="10dip"
-                />
+                android:layout_height="10dip" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_realname"
@@ -115,16 +126,14 @@
                     android:id="@+id/tv_profile_realname"
                     style="@style/PersonMenuListHint"
                     android:maxLength="5"
-                    tools:text="未实名"
-                    />
-                
+                    tools:text="未实名" />
+
                 <ImageView
-                    android:id="@+id/iv_profile_auth"
+                    android:id="@+id/iv_profile_sex"
                     android:layout_width="14dip"
                     android:layout_height="14dip"
-                    android:src="@mipmap/person_ic_authentication_have"
                     android:layout_marginRight="10dp"
-                    />
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_profile_auth_arrow"
@@ -132,10 +141,39 @@
 
             </LinearLayout>
 
+            <View style="@style/UikitDivider.Horizontal" />
+
+            <LinearLayout
+                android:id="@+id/ll_profile_bind_bank"
+                style="@style/PersonMenuListItem">
+
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="银行卡认证" />
+
+                <TextView
+                    android:id="@+id/tv_profile_bind_bank"
+                    style="@style/PersonMenuListHint"
+                    android:maxLength="5"
+                    tools:text="未获取" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_bind_bank"
+                    android:layout_width="14dip"
+                    android:layout_height="14dip"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/person_ic_bind_bank_have"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_bind_bank_arrow"
+                    style="@style/PersonMenuListArrow" />
+
+            </LinearLayout>
+
             <View
                 style="@style/UikitDivider.Horizontal"
-                android:layout_height="10dip"
-                />
+                android:layout_height="10dip" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_changepwd"
@@ -149,9 +187,7 @@
 
             </LinearLayout>
 
-            <View
-                style="@style/UikitDivider.Horizontal"
-                />
+            <View style="@style/UikitDivider.Horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_mobile"
@@ -164,16 +200,13 @@
                 <TextView
                     android:id="@+id/tv_profile_mobile"
                     style="@style/PersonMenuListHint"
-                    tools:text="13700999999"
-                    />
+                    tools:text="13700999999" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
             </LinearLayout>
 
-            <View
-                style="@style/UikitDivider.Horizontal"
-                />
+            <View style="@style/UikitDivider.Horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_weixin"
@@ -186,8 +219,7 @@
                 <TextView
                     android:id="@+id/tv_profile_weixin"
                     style="@style/PersonMenuListHint"
-                    tools:text="未绑定"
-                    />
+                    tools:text="未绑定" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
@@ -196,8 +228,7 @@
             <LinearLayout
                 android:id="@+id/ll_profile_email"
                 style="@style/PersonMenuListItem"
-                android:layout_marginTop="1dip"
-                >
+                android:layout_marginTop="1dip">
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -206,8 +237,7 @@
                 <TextView
                     android:id="@+id/tv_profile_email"
                     style="@style/PersonMenuListHint"
-                    tools:text="未绑定"
-                    />
+                    tools:text="未绑定" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
@@ -215,8 +245,7 @@
 
             <View
                 style="@style/UikitDivider.Horizontal"
-                android:layout_height="10dip"
-                />
+                android:layout_height="10dip" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_city"
@@ -229,16 +258,13 @@
                 <TextView
                     android:id="@+id/tv_profile_city"
                     style="@style/PersonMenuListHint"
-                    tools:text="无"
-                    />
+                    tools:text="无" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
             </LinearLayout>
 
-            <View
-                style="@style/UikitDivider.Horizontal"
-                />
+            <View style="@style/UikitDivider.Horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_profile_income"
@@ -251,8 +277,7 @@
                 <TextView
                     android:id="@+id/tv_profile_income"
                     style="@style/PersonMenuListHint"
-                    tools:text="无"
-                    />
+                    tools:text="无" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
@@ -263,10 +288,10 @@
                 android:id="@+id/tv_profile_logout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginBottom="40dip"
                 android:layout_marginLeft="34dp"
                 android:layout_marginRight="34dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="40dip"
                 android:background="@drawable/person_bg_logout"
                 android:gravity="center"
                 android:text="@string/personal_logoutSafely"

@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
         android:background="#ffffdd4a"
-        app:titleBackground="#ffffdd4a"
         app:bottomDividerIsShow="false"
+        app:titleBackground="#ffffdd4a"
         app:titleText="个人中心" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:layout_below="@id/topbar">
+        android:layout_below="@id/topbar"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dip"
+                    android:layout_height="200dp"
                     android:background="@mipmap/person_bg_personal_header">
 
                     <com.hm.iou.uikit.ShapedImageView
@@ -57,6 +57,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/ll_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@id/iv_header"
@@ -66,45 +67,29 @@
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
-                        <LinearLayout
+
+                        <TextView
+                            android:id="@+id/tv_userNickName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginRight="20dip"
-                            >
+                            android:ellipsize="end"
+                            android:maxLength="16"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textColor="#ff222222"
+                            android:textSize="@dimen/textFontSize_18"
+                            tools:text="昵称" />
 
-                            <TextView
-                                android:id="@+id/tv_userNickName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="#ff222222"
-                                android:textSize="@dimen/textFontSize_18"
-                                android:maxLength="16"
-                                android:layout_weight="1"
-                                tools:text="昵称" />
-
-                            <ImageView
-                                android:id="@+id/iv_authentication"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:background="@mipmap/person_ic_authentication_have"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="3dip"
-                                />
-                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_userId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dip"
+                            android:maxLines="1"
                             android:text=""
                             android:textColor="#ffa3a3a3"
                             android:textSize="@dimen/textFontSize_14"
-                            android:maxLines="1"
                             tools:text="用户ID" />
 
 
@@ -147,6 +132,26 @@
                             android:layout_height="17dp"
                             android:src="@mipmap/uikit_ic_arrow_right" />
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_authentication"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_above="@+id/ll_person_signature"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="35dp"
+                        android:background="@mipmap/person_ic_authentication_not_have" />
+
+                    <ImageView
+                        android:id="@+id/iv_bindBank"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_above="@+id/ll_person_signature"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="9dp"
+                        android:layout_toLeftOf="@id/iv_authentication"
+                        android:background="@mipmap/person_ic_bind_bank_not_have" />
                 </RelativeLayout>
 
 
@@ -222,9 +227,7 @@
 
             </LinearLayout>
 
-            <View
-                style="@style/UikitDivider.Horizontal"
-                />
+            <View style="@style/UikitDivider.Horizontal" />
 
             <LinearLayout
                 android:id="@+id/ll_person_cloud_space"
