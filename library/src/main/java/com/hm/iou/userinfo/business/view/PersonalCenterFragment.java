@@ -151,7 +151,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                                 .buildWithUrl("hmiou://m.54jietiao.com/pay/user_bind_bank")
                                 .navigation(mActivity);
                     } else {
-                        mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankPhone());
+                        mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankName(), bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankCardType(), bankInfoRespBean.getBankPhone());
                     }
                 }
             }

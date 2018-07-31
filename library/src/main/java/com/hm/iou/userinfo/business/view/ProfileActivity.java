@@ -288,7 +288,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                             .buildWithUrl("hmiou://m.54jietiao.com/pay/user_bind_bank")
                             .navigation(mContext);
                 } else {
-                    mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankPhone());
+                    mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankName(), bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankCardType(), bankInfoRespBean.getBankPhone());
                 }
                 return;
             }

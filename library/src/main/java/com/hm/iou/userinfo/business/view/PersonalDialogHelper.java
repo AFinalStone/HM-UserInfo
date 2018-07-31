@@ -83,12 +83,14 @@ public class PersonalDialogHelper {
     /**
      * 显示绑定的银行卡信息
      *
+     * @param bankCardName 银行卡名称
      * @param bankCardCode 银行卡号
+     * @param bankCardType 银行卡类型
      * @param phoneCode    手机号
      */
-    public void showBinkBankInfo(String bankCardCode, String phoneCode) {
+    public void showBinkBankInfo(String bankCardName, String bankCardCode, String bankCardType, String phoneCode) {
         if (mDialogBinkBankInfo == null) {
-            String msg = String.format("当前绑定的银行卡为（中国银行/%S/借记卡），手机号尾号%S，如需更换信息，请联系客服，服务费¥2。", bankCardCode, phoneCode);
+            String msg = String.format("当前绑定的银行卡为（%S/%S/%S），手机号尾号%S，如需更换信息，请联系客服，服务费¥2。", bankCardName, bankCardCode, bankCardType, phoneCode);
             mDialogBinkBankInfo = new IOSAlertDialog.Builder(mContext)
                     .setTitle("银行卡认证")
                     .setMessage(msg)
