@@ -27,5 +27,7 @@
     <string name="person_userNameSex_noChangeSex02">已经实名过的用户不允许修改性别</string>
     <string name="person_userNameSex_noChangeSex03">如果性别有误，请点“返回”，再通过“实名认证”，认证通过后自动修复</string>
 
+    <string name="person_not_bind_bank">未获取</string>
+
 
 </resources>

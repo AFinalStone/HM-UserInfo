@@ -14,6 +14,7 @@
         app:titleText="我的资料" />
 
     <LinearLayout
+        android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -21,21 +22,26 @@
         android:orientation="vertical"
         android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/tv_profileProgressNum"
-            style="@style/UikitTextView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:minHeight="76dip"
-            android:text="85%"
-            android:textSize="@dimen/textFontSize_24" />
+            android:layout_height="76dp">
 
-        <ImageView
-            android:id="@+id/iv_ad"
-            android:layout_width="match_parent"
-            android:layout_height="76dip"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/tv_topProgress"
+                style="@style/UikitTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="85%"
+                android:textSize="@dimen/textFontSize_24" />
+
+            <ImageView
+                android:id="@+id/iv_topAd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:src="@mipmap/person_ic_ad_image" />
+        </RelativeLayout>
 
         <ProgressBar
             android:id="@+id/pb_profile_progress"

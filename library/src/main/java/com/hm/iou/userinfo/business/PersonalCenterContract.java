@@ -1,5 +1,7 @@
 package com.hm.iou.userinfo.business;
 
+import android.support.annotation.DrawableRes;
+
 import com.hm.iou.base.mvp.BaseContract;
 
 /**
@@ -37,7 +39,14 @@ public interface PersonalCenterContract {
          *
          * @param resId
          */
-        void showAuthenticationImg(int resId, int visibility);
+        void showAuthenticationImg(@DrawableRes int resId);
+
+        /**
+         * 显示绑定银行卡
+         *
+         * @param resId
+         */
+        void showBindBankImg(@DrawableRes int resId);
 
         /**
          * 显示实名名字

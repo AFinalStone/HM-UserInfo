@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.dialog.IOSActionSheetItem;
@@ -37,10 +39,12 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     private static final int REQ_SELECT_CITY = 100;
 
-    @BindView(R2.id.tv_profileProgressNum)
-    TextView mTvProgressNum;
-    @BindView(R2.id.iv_ad)
-    ImageView mIvAd;
+    @BindView(R2.id.ll_header)
+    LinearLayout mLl_header;
+    @BindView(R2.id.tv_topProgress)
+    TextView mTvTopProgress;
+    @BindView(R2.id.iv_topAd)
+    ImageView mIvTopAd;
     @BindView(R2.id.pb_profile_progress)
     ProgressBar mPbProfile;
     @BindView(R2.id.tv_profile_progress)
@@ -109,11 +113,13 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         }
     }
 
-    @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_realname,
+    @OnClick(value = {R2.id.iv_topAd, R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_realname,
             R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email
             , R2.id.ll_profile_city, R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
-        if (v.getId() == R.id.ll_profile_avatar) {
+        if (v.getId() == R.id.iv_topAd) {
+            toBindBank();
+        } else if (v.getId() == R.id.ll_profile_avatar) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/user_avatar")
                     .navigation(this);
         } else if (v.getId() == R.id.ll_profile_nickname) {
@@ -130,13 +136,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                 mPersonalDialogHelper.showHaveAuthtication();
             }
         } else if (v.getId() == R.id.ll_profile_bind_bank) {
-            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-            int customerType = userInfo.getType();
-            if (UserDataUtil.isCClass(customerType)) {
-                mPersonalDialogHelper.showBinkBankNeedAuthen();
-            } else {
-                mPersonalDialogHelper.showBinkBankInfo("8645****9900", "345");
-            }
+            toBindBank();
         } else if (v.getId() == R.id.ll_profile_mobile) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_mobile")
                     .navigation(mContext);
@@ -171,29 +171,21 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void showProfileProgress(int progress) {
-        mTvProgressNum.setText(progress + "%");
-        mPbProfile.setProgress(progress);
+    public void hideTopAd() {
+        mIvTopAd.setVisibility(View.GONE);
     }
 
     @Override
-    public void showAdvertisement(String adImageUrl, final String adLinkUrl) {
-        if (TextUtils.isEmpty(adImageUrl)) {
-            return;
-        }
-        ImageLoader.getInstance(this).displayImage(adImageUrl, mIvAd);
-        if (!TextUtils.isEmpty(adLinkUrl)) {
-            mIvAd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Router.getInstance()
-                            .buildWithUrl("hmiou://m.54jietiao.com/webview/index")
-                            .withString("url", adLinkUrl)
-                            .navigation(mContext);
-                }
-            });
-        }
+    public void setHeaderVisible(int visible) {
+        mLl_header.setVisibility(visible);
     }
+
+    @Override
+    public void showProfileProgress(int progress) {
+        mTvTopProgress.setText(progress + "%");
+        mPbProfile.setProgress(progress);
+    }
+
 
     @Override
     public void showProgressTips(String progressTxt) {
@@ -280,6 +272,27 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                                 mPresenter.logout();
                             }
                         })).show();
+    }
+
+    private void toBindBank() {
+        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        int customerType = userInfo.getType();
+        if (UserDataUtil.isCClass(customerType)) {
+            mPersonalDialogHelper.showBinkBankNeedAuthen();
+        } else {
+            UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
+            if (userThirdPlatformInfo != null) {
+                UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
+                if (bankInfoRespBean == null || 0 == bankInfoRespBean.getIsBinded()) {
+                    Router.getInstance()
+                            .buildWithUrl("hmiou://m.54jietiao.com/pay/user_bind_bank")
+                            .navigation(mContext);
+                } else {
+                    mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankPhone());
+                }
+                return;
+            }
+        }
     }
 
     /**

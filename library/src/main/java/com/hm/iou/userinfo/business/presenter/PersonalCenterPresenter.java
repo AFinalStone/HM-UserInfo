@@ -8,13 +8,18 @@ import android.view.View;
 import com.hm.iou.base.mvp.MvpFragmentPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.logger.Logger;
+import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
+import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.IncomeEnum;
 import com.hm.iou.sharedata.model.SexEnum;
+import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -40,6 +45,7 @@ import io.reactivex.disposables.Disposable;
 public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenterContract.View> implements PersonalCenterContract.Presenter {
 
     private Disposable mStatisticDisposable;
+    private Disposable mThirdPlatformInfoDisposable;
 
     public PersonalCenterPresenter(@NonNull Context context, @NonNull PersonalCenterContract.View view) {
         super(context, view);
@@ -59,6 +65,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
 
     @Override
     public void init() {
+        getUserThirdPlatformInfo();
         UserManager userManager = UserManager.getInstance(mContext);
         UserInfo userInfo = userManager.getUserInfo();
 
@@ -67,12 +74,12 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
 
         int customerTypeEnum = userInfo.getType();
         if (UserDataUtil.isCClass(customerTypeEnum)) {
-            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have, View.VISIBLE);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_not_have);
             mView.showAuthName("定制签名");
         } else {
             String name = userInfo.getName();
             mView.showAuthName(name);
-            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have, View.VISIBLE);
+            mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have);
         }
 
         String nickname = userInfo.getNickName();
@@ -82,47 +89,59 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         getProfileProgress();
     }
 
+
     @Override
     public void getProfileProgress() {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         int count = 0;
         //头像
         if (!TextUtils.isEmpty(userInfo.getAvatarUrl())) {
-            count++;
+            count += 10;
         }
         //性别
         int sex = userInfo.getSex();
         if (sex != SexEnum.UNKNOWN.getValue()) {
-            count++;
+            count += 10;
         }
         //实名认证
         if (!UserDataUtil.isCClass(userInfo.getType())) {
-            count++;
+            count += 20;
         }
+        //银行卡绑定
+        UserThirdPlatformInfo thirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
+        if (thirdPlatformInfo != null) {
+            UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdPlatformInfo.getBankInfoResp();
+            if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                count += 30;
+            }
+        }
+
         //手机号
         if (!TextUtils.isEmpty(userInfo.getMobile())) {
-            count++;
+            count += 10;
         }
         //绑定微信号
         if (UserDataUtil.isPlusClass(userInfo.getType())) {
-            count++;
+            count += 10;
         }
         //城市
         if (!TextUtils.isEmpty(userInfo.getLocation())) {
-            count++;
+            count += 5;
         }
         //收入
         int income = userInfo.getMainIncome();
         if (income >= IncomeEnum.None.getValue()) {
-            count++;
+            count += 5;
         }
-        if (count == 7) {
+        if (count == 100) {
             //全部完成
             mView.showProfileProgress("100%");
         } else {
-            int progress = count * 15;
+            int progress = count;
             mView.showProfileProgress(progress + "%");
         }
+
+
     }
 
     @Override
@@ -176,6 +195,64 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
             defaultAvatarResId = R.mipmap.uikit_icon_header_unknow;
         }
         mView.showUserAvatar(avatarUrl, defaultAvatarResId);
+    }
+
+
+    /**
+     * 获取第三方平台的认证信息
+     */
+    private void getUserThirdPlatformInfo() {
+
+        UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
+        if (userThirdPlatformInfo != null) {
+            UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
+            if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                mView.showBindBankImg(R.mipmap.person_ic_bind_bank_have);
+                return;
+            } else {
+                mView.showBindBankImg(R.mipmap.person_ic_bind_bank_not_have);
+            }
+        }
+        if (mThirdPlatformInfoDisposable != null && !mThirdPlatformInfoDisposable.isDisposed()) {
+            mThirdPlatformInfoDisposable.dispose();
+            mThirdPlatformInfoDisposable = null;
+        }
+        mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
+                .compose(getProvider().<BaseResponse<UserThirdPlatformInfo>>bindUntilEvent(FragmentEvent.DESTROY))
+                .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
+                .subscribeWith(new CommSubscriber<UserThirdPlatformInfo>(mView) {
+                    @Override
+                    public void handleResult(UserThirdPlatformInfo thirdInfo) {
+                        Logger.d("user" + thirdInfo.getBankInfoResp().toString());
+                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
+                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                            mView.showBindBankImg(R.mipmap.person_ic_bind_bank_have);
+                        } else {
+                            mView.showBindBankImg(R.mipmap.person_ic_bind_bank_not_have);
+                        }
+                        //存储绑定银行卡信息
+                        UserExtendInfo extendInfo = new UserExtendInfo();
+                        extendInfo.setThirdPlatformInfo(thirdInfo);
+                        UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
+                        //更新进度
+                        getProfileProgress();
+                    }
+
+                    @Override
+                    public void handleException(Throwable throwable, String s, String s1) {
+
+                    }
+
+                    @Override
+                    public boolean isShowBusinessError() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isShowCommError() {
+                        return false;
+                    }
+                });
     }
 
 
@@ -234,7 +311,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         showUserAvatar(userInfo);
         String name = userInfo.getName();
         mView.showAuthName(name);
-        mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have, View.VISIBLE);
+        mView.showAuthenticationImg(R.mipmap.person_ic_authentication_have);
         getProfileProgress();
     }
 
@@ -249,4 +326,13 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         }
     }
 
+    /**
+     * 银行卡绑定成功
+     *
+     * @param bindBankSuccessEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvenBusBindBankSuccess(BindBankSuccessEvent bindBankSuccessEvent) {
+        getUserThirdPlatformInfo();
+    }
 }

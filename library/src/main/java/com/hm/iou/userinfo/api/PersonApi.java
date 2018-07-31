@@ -3,6 +3,7 @@ package com.hm.iou.userinfo.api;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
@@ -78,7 +79,7 @@ public class PersonApi {
      * 更新头像地址
      *
      * @param userInfo
-     * @param avatar 新的头像地址
+     * @param avatar   新的头像地址
      * @return
      */
     public static Flowable<BaseResponse<Object>> updateAvatar(UserInfo userInfo, String avatar) {
@@ -140,7 +141,7 @@ public class PersonApi {
      * 解绑微信
      *
      * @param mobile 手机号
-     * @param pwd 密码
+     * @param pwd    密码
      * @return
      */
     public static Flowable<BaseResponse<Object>> unbindWeixin(String mobile, String pwd) {
@@ -154,7 +155,7 @@ public class PersonApi {
      * 更换手机时验证码密码
      *
      * @param mobile 手机号
-     * @param pwd 密码
+     * @param pwd    密码
      * @return
      */
     public static Flowable<BaseResponse<Object>> verifyPwdWhenChangeMobile(String mobile, String pwd) {
@@ -184,7 +185,7 @@ public class PersonApi {
      * @param newMobile 新手机号
      * @param checkcode 验证码
      * @param oldMobile 老手机号
-     * @param pwd 原密码
+     * @param pwd       原密码
      * @return
      */
     public static Flowable<BaseResponse<Object>> changeMobile(String newMobile, String checkcode, String oldMobile, String pwd) {
@@ -222,9 +223,9 @@ public class PersonApi {
     /**
      * 更换邮箱
      *
-     * @param oldEmail 老邮箱
-     * @param newEmail 新的邮箱
-     * @param sn 校验流水号
+     * @param oldEmail  老邮箱
+     * @param newEmail  新的邮箱
+     * @param sn        校验流水号
      * @param checkCode 验证码
      * @return
      */
@@ -241,7 +242,7 @@ public class PersonApi {
      * 删除账户
      *
      * @param mobile 手机号
-     * @param pwd 密码
+     * @param pwd    密码
      * @return
      */
     public static Flowable<BaseResponse<Object>> deleteAccount(String mobile, String pwd) {
@@ -276,5 +277,14 @@ public class PersonApi {
      */
     public static Flowable<BaseResponse<UserSpaceBean>> getUserSpace() {
         return getService().getUserSpace().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取用户绑定的第三方平台信息
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<UserThirdPlatformInfo>> getUserThirdPlatformInfo() {
+        return getService().getUserThirdPlatformInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

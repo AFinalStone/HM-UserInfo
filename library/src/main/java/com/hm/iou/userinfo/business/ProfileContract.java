@@ -5,7 +5,7 @@ import android.support.annotation.DrawableRes;
 import com.hm.iou.base.mvp.BaseContract;
 
 /**
- * Created by hjy on 2018/5/23.
+ * change by syl on 2018/7/31.
  */
 
 public interface ProfileContract {
@@ -13,19 +13,21 @@ public interface ProfileContract {
     interface View extends BaseContract.BaseView {
 
         /**
+         * 隐藏顶部的广告
+         */
+        void hideTopAd();
+
+        /**
+         * 隐藏显示顶部
+         */
+        void setHeaderVisible(int visible);
+
+        /**
          * 显示资料进度
          *
          * @param progress
          */
         void showProfileProgress(int progress);
-
-        /**
-         * 显示广告
-         *
-         * @param adImageUrl
-         * @param adLinkUrl
-         */
-        void showAdvertisement(String adImageUrl, String adLinkUrl);
 
         /**
          * 显示资料完成度

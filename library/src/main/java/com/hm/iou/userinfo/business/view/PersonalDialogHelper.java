@@ -62,7 +62,7 @@ public class PersonalDialogHelper {
     public void showHaveAuthtication() {
         if (mDialogHaveAuthentication == null) {
             String userName = UserManager.getInstance(mContext).getUserInfo().getName();
-            String msg = String.format("当前账号已实名(%S)，如果该账号姓名并非你本人信息，你可以向客服举报或者尽快退出该账户。", userName);
+            String msg = String.format("当前账号已实名（%S），如果该账号姓名并非你本人信息，你可以向客服举报或者尽快退出该账户。", userName);
             mDialogHaveAuthentication = new IOSAlertDialog.Builder(mContext)
                     .setTitle("实名认证")
                     .setMessage(msg)

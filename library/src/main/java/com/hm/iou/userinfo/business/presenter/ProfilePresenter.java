@@ -10,15 +10,19 @@ import com.hm.iou.base.event.OpenWxResultEvent;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.logger.Logger;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
+import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.LogoutEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.IncomeEnum;
 import com.hm.iou.sharedata.model.SexEnum;
+import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
@@ -33,10 +37,13 @@ import com.hm.iou.userinfo.event.UpdateWeixinEvent;
 import com.hm.iou.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by hjy on 2018/5/23.
@@ -50,6 +57,8 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     private int mColorUnBind = 0xffff3c4b;//绑定的颜色
     private int mColorHaveBind = 0xffa3a3a3;//未绑定的颜色
+
+    private Disposable mThirdPlatformInfoDisposable;
 
     public ProfilePresenter(@NonNull Context context, @NonNull ProfileContract.View view) {
         super(context, view);
@@ -74,7 +83,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         showUserAvatar(userInfo);
         showNickname(userInfo);
         showRealName(userInfo);
-        showBindBank();
+        getUserThirdPlatformInfo();
         showMobile(userInfo);
         showWeixin(userInfo);
         showEmail(userInfo);
@@ -201,16 +210,65 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     }
 
     /**
-     * 显示银行卡认证
+     * 获取第三方平台的认证信息
      */
-    private void showBindBank() {
-        if (true) {
-            mView.showBindBankFlag();
-            mView.showBindBank("中国银行", mColorHaveBind);
-        } else {
-            mView.showBindBank("未获取", mColorUnBind);
+    private void getUserThirdPlatformInfo() {
+        final String strNoBindBank = mContext.getString(R.string.person_not_bind_bank);
+        UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
+        if (userThirdPlatformInfo != null) {
+            UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
+            if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                mView.showBindBankFlag();
+                mView.showBindBank(bankInfoRespBean.getBankName(), mColorHaveBind);
+                return;
+            } else {
+                mView.showBindBank(strNoBindBank, mColorUnBind);
+            }
         }
+        if (mThirdPlatformInfoDisposable != null && !mThirdPlatformInfoDisposable.isDisposed()) {
+            mThirdPlatformInfoDisposable.dispose();
+            mThirdPlatformInfoDisposable = null;
+        }
+        mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
+                .compose(getProvider().<BaseResponse<UserThirdPlatformInfo>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
+                .subscribeWith(new CommSubscriber<UserThirdPlatformInfo>(mView) {
+                    @Override
+                    public void handleResult(UserThirdPlatformInfo thirdInfo) {
+                        Logger.d("user" + thirdInfo.getBankInfoResp().toString());
+                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
+                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                            mView.showBindBankFlag();
+                            mView.showBindBank(bankInfoRespBean.getBankName(), mColorHaveBind);
+                        } else {
+                            mView.showBindBank(strNoBindBank, mColorUnBind);
+                        }
+                        //存储绑定银行卡信息
+                        UserExtendInfo extendInfo = new UserExtendInfo();
+                        extendInfo.setThirdPlatformInfo(thirdInfo);
+                        UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
+                        //更新进度
+                        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+                        updateProfileProgress(userInfo);
+                    }
+
+                    @Override
+                    public void handleException(Throwable throwable, String s, String s1) {
+
+                    }
+
+                    @Override
+                    public boolean isShowBusinessError() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isShowCommError() {
+                        return false;
+                    }
+                });
     }
+
 
     /**
      * 显示手机号
@@ -281,40 +339,52 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         int count = 0;
         //头像
         if (!TextUtils.isEmpty(userInfo.getAvatarUrl())) {
-            count++;
+            count += 10;
         }
         //性别
         int sex = userInfo.getSex();
         if (sex != SexEnum.UNKNOWN.getValue()) {
-            count++;
+            count += 10;
         }
         //实名认证
         if (!UserDataUtil.isCClass(userInfo.getType())) {
-            count++;
+            count += 20;
         }
+        //银行卡绑定
+        UserThirdPlatformInfo thirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
+        if (thirdPlatformInfo != null) {
+            UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdPlatformInfo.getBankInfoResp();
+            if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                count += 30;
+                mView.hideTopAd();
+            }
+        }
+
         //手机号
         if (!TextUtils.isEmpty(userInfo.getMobile())) {
-            count++;
+            count += 10;
         }
         //绑定微信号
         if (UserDataUtil.isPlusClass(userInfo.getType())) {
-            count++;
+            count += 10;
         }
         //城市
         if (!TextUtils.isEmpty(userInfo.getLocation())) {
-            count++;
+            count += 5;
         }
         //收入
         int income = userInfo.getMainIncome();
         if (income >= IncomeEnum.None.getValue()) {
-            count++;
+            count += 5;
         }
-        if (count == 7) {
+        if (count == 100) {
             //全部完成
+            mView.setHeaderVisible(View.GONE);
             mView.showProfileProgress(100);
             mView.showProgressTips("太棒了，资料很完整！");
         } else {
-            int progress = count * 15;
+            mView.setHeaderVisible(View.VISIBLE);
+            int progress = count;
             mView.showProfileProgress(progress);
             mView.showProgressTips("已经完成" + progress + "%，加把劲！");
         }
@@ -453,5 +523,15 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             String code = event.getCode();
             toBindWeixin(code);
         }
+    }
+
+    /**
+     * 银行卡绑定成功
+     *
+     * @param bindBankSuccessEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvenBusBindBankSuccess(BindBankSuccessEvent bindBankSuccessEvent) {
+        getUserThirdPlatformInfo();
     }
 }

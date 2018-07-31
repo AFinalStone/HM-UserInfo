@@ -1,6 +1,7 @@
 package com.hm.iou.userinfo.api;
 
 import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
@@ -80,7 +81,10 @@ public interface PersonService {
     Flowable<BaseResponse<UserSpaceBean>> getUserSpace();
 
 
-//    @GET("/pay/iou/v1/ad/getByPosition")
+    @GET("/pay/verify/v1/selectVerifyInfo")
+    Flowable<BaseResponse<UserThirdPlatformInfo>> getUserThirdPlatformInfo();
+
+// @GET("/pay/iou/v1/ad/getByPosition")
 //    Flowable<BaseResponse<List<AdBean>>> getAdvertise(@Query("adPosition") String adPosition);
 
 }

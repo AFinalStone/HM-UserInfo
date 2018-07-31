@@ -11,6 +11,7 @@ import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.uikit.HMTopBarView;
 import com.hm.iou.userinfo.R;
@@ -39,6 +40,8 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     TextView mTvUserId;                  //用户id
     @BindView(R2.id.iv_authentication)
     ImageView mIvAuthentication;         //实名认证标志
+    @BindView(R2.id.iv_bindBank)
+    ImageView mIvBindBank;               //实名认证标志
     @BindView(R2.id.tv_signatureMake)
     TextView mTvSignatureMake;           //
 
@@ -140,7 +143,17 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             if (UserDataUtil.isCClass(customerType)) {
                 mPersonalDialogHelper.showBinkBankNeedAuthen();
             } else {
-                mPersonalDialogHelper.showBinkBankInfo("8645****9900", "345");
+                UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mActivity).getUserExtendInfo().getThirdPlatformInfo();
+                if (userThirdPlatformInfo != null) {
+                    UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
+                    if (bankInfoRespBean == null || 0 == bankInfoRespBean.getIsBinded()) {
+                        Router.getInstance()
+                                .buildWithUrl("hmiou://m.54jietiao.com/pay/user_bind_bank")
+                                .navigation(mActivity);
+                    } else {
+                        mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankPhone());
+                    }
+                }
             }
         } else if (id == R.id.ll_person_signature) {
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
@@ -196,9 +209,13 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     }
 
     @Override
-    public void showAuthenticationImg(int resId, int visibility) {
-        mIvAuthentication.setVisibility(visibility);
+    public void showAuthenticationImg(int resId) {
         mIvAuthentication.setImageResource(resId);
+    }
+
+    @Override
+    public void showBindBankImg(int resId) {
+        mIvBindBank.setImageResource(resId);
     }
 
     @Override
