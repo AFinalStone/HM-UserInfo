@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class ChangeEmailVerifyActivity extends BaseActivity<ChangeEmailPresenter
     @BindView(R2.id.et_password)
     EditText mEtPassword;
     @BindView(R2.id.btn_checkPassword)
-    TextView mBtnCheckPassword;
+    Button mBtnCheckPassword;
 
     private String mUserEmail;
     private String mUserPassword;

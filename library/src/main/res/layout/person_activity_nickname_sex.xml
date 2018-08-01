@@ -87,7 +87,7 @@
         android:layout_width="305dip"
         android:layout_height="48dip"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dip"
+        android:layout_marginTop="60dip"
         android:text="保存"
         style="@style/UikitButton.Bottom"
         />

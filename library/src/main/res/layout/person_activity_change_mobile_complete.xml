@@ -12,21 +12,13 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
-        app:titleText="" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="更换手机号"
-        android:textColor="#ff222222"
-        android:textSize="@dimen/textFontSize_22" />
+        app:titleText="更换手机号" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -42,8 +34,8 @@
             android:id="@+id/et_phone"
             style="@style/UikitEditText.InputMobile"
             android:layout_marginLeft="10dp"
-            android:maxLines="1"
-            android:hint="请输入新的手机号" />
+            android:hint="请输入新的手机号"
+            android:maxLines="1" />
 
     </LinearLayout>
 
@@ -95,7 +87,7 @@
         android:layout_height="48dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:text="完成更换"
         android:textSize="@dimen/textFontSize_18" />

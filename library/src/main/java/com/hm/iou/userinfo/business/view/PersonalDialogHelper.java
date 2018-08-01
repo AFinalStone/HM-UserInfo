@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business.view;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.hm.iou.router.Router;
@@ -90,10 +91,31 @@ public class PersonalDialogHelper {
      */
     public void showBinkBankInfo(String bankCardName, String bankCardCode, String bankCardType, String phoneCode) {
         if (mDialogBinkBankInfo == null) {
-            String msg = String.format("当前绑定的银行卡为（%S/%S/%S），手机号尾号%S，如需更换信息，请联系客服，服务费¥2。", bankCardName, bankCardCode, bankCardType, phoneCode);
+            StringBuffer sbMsg = new StringBuffer();
+            sbMsg.append("当前绑定的银行卡为（");
+            if (!TextUtils.isEmpty(bankCardName)) {
+                sbMsg.append(bankCardName);
+            }
+            if (!TextUtils.isEmpty(bankCardCode)) {
+                if (!TextUtils.isEmpty(bankCardName)) {
+                    sbMsg.append("/");
+                }
+                sbMsg.append(bankCardCode);
+            }
+            if (!TextUtils.isEmpty(bankCardType)) {
+                if (!TextUtils.isEmpty(bankCardName) || !TextUtils.isEmpty(bankCardCode)) {
+                    sbMsg.append("/");
+                }
+                sbMsg.append(bankCardType);
+            }
+            if (TextUtils.isEmpty(phoneCode)) {
+                sbMsg.append("），如需更换信息，请联系客服，服务费¥2。");
+            } else {
+                sbMsg.append("），手机号尾号" + phoneCode + "，如需更换信息，请联系客服，服务费¥2。");
+            }
             mDialogBinkBankInfo = new IOSAlertDialog.Builder(mContext)
                     .setTitle("银行卡认证")
-                    .setMessage(msg)
+                    .setMessage(sbMsg.toString())
                     .setGravity(Gravity.LEFT)
                     .setNegativeButton("知道了", new DialogInterface.OnClickListener() {
                         @Override
