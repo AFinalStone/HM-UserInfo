@@ -1,13 +1,21 @@
-#### HM-Pay
+#### HM-UserInfo
 
-集成了支付，银行卡四要素绑定，消费历史记录，次卡充值，选择支付方式
+用户个人中心
 
 #### 功能介绍
-- 支付，次卡消耗
-- 银行卡四要素绑定
-- 消费历史记录
-- 次卡充值
-- 选择支付方式
+- 个人中心
+- 修改昵称和性别
+- 修改密码
+- 解绑微信
+- 修改手机号
+- 修改邮箱
+- 关于我们
+- 终止服务
+- 注销，删除账号
+- 我的资料
+- 修改，上传头像
+- 修改收入
+- 云存储空间
 
 #### 安装
 
@@ -26,7 +34,7 @@ allprojects {
 在项目模块的buile.gradle文件里面加入如下依赖：
 
 ```gradle
-    compile 'com.heima.iou:hmpaylocal:1.0.0'
+    compile 'com.heima.iou:hmuserinfolocal:1.0.0'
 ```
 
 外部引用：
@@ -41,23 +49,21 @@ allprojects {
 
 | 页面 | 路由url | 备注 |
 | ------ | ------ | ------ |
-| 个人中心页面 | hmiou://m.54jietiao.com/person/index|  |
-| 修改昵称和性别页面 | hmiou://m.54jietiao.com/person/modify_nickname_sex | 修改成功会发送UpdateNicknameAndSexEvent事件 |
-| 修改我的收入页面 | hmiou://m.54jietiao.com/person/modify_income | 修改成功，会发送UpdateIncomeEvent事件 |
-| 修改密码页面 | hmiou://m.54jietiao.com/person/modify_pwd |  |
-| 解绑微信 | hmiou://m.54jietiao.com/person/unbind_weixin| 微信绑定成功和解绑成功都会发送UpdateWeixinEvent事件 |
-| 修改手机号，校验登陆密码的页面 | hmiou://m.54jietiao.com/person/change_mobile|  |
-| 修改手机号页面 | hmiou://m.54jietiao.com/person/change_mobile_complete?pwd=*| 手机号更换成功，发送UpdateMobileEvent事件 |
-| 修改邮箱，校验邮箱的页面 | hmiou://m.54jietiao.com/person/change_email|  |
-| 修改邮箱页面 | hmiou://m.54jietiao.com/person/change_email_complete?sn=*| 邮箱更换成功，发送UpdateEmailEvent事件  |
-| 关于我们页面 | hmiou://m.54jietiao.com/person/about|  |
-| 终止服务页面 | hmiou://m.54jietiao.com/person/terminate_service|  |
-| 注销，删除账号 | hmiou://m.54jietiao.com/person/close_account |  |
-| 终止服务页面 | hmiou://m.54jietiao.com/person/terminate_service|  |
-| 我的资料页面 | hmiou://m.54jietiao.com/person/my_profile| 城市选择成功，会发送UpdateLocationEvent事件 |
-| 用户修改，上传头像页面 | hmiou://m.54jietiao.com/person/user_avatar| 头像修改陈宫，会发送UpdateAvatarEvent事件 |
-| 设置我的收入页面 | hmiou://m.54jietiao.com/person/my_income|  |
-| 云存储空间页面 | hmiou://m.54jietiao.com/person/cloud_space|  |
+| 个人中心页面 | ```hmiou://m.54jietiao.com/person/index```|  |
+| 修改昵称和性别页面 | ```hmiou://m.54jietiao.com/person/modify_nickname_sex``` | 修改成功会发送UpdateNicknameAndSexEvent事件 |
+| 修改密码页面 | ```hmiou://m.54jietiao.com/person/modify_pwd``` |  |
+| 解绑微信 | ```hmiou://m.54jietiao.com/person/unbind_weixin```| 微信绑定成功和解绑成功都会发送UpdateWeixinEvent事件 |
+| 修改手机号，校验登陆密码的页面 | ```hmiou://m.54jietiao.com/person/change_mobile```|  |
+| 修改手机号页面 | ```hmiou://m.54jietiao.com/person/change_mobile_complete?pwd=*```| 手机号更换成功，发送UpdateMobileEvent事件 |
+| 修改邮箱，校验邮箱的页面 | ```hmiou://m.54jietiao.com/person/change_email```|  |
+| 修改邮箱页面 | ```hmiou://m.54jietiao.com/person/change_email_complete?sn=*```| 邮箱更换成功，发送UpdateEmailEvent事件  |
+| 关于我们页面 | ```hmiou://m.54jietiao.com/person/about```|  |
+| 终止服务页面 | ```hmiou://m.54jietiao.com/person/terminate_service```|  |
+| 注销，删除账号 | ```hmiou://m.54jietiao.com/person/close_account``` |  |
+| 我的资料页面 | ```hmiou://m.54jietiao.com/person/my_profile```| 城市选择成功，会发送UpdateLocationEvent事件 |
+| 用户修改，上传头像页面 | ```hmiou://m.54jietiao.com/person/user_avatar```| 头像修改陈宫，会发送UpdateAvatarEvent事件 |
+| 设置我的收入页面 | ```hmiou://m.54jietiao.com/person/my_income```|  |
+| 云存储空间页面 | ```hmiou://m.54jietiao.com/person/cloud_space```|  |
 
 路由文件
 
@@ -148,6 +154,7 @@ allprojects {
 集成本模块之前，需要保证一下模块已经初始化：
 
 HM-BaseBiz初始化(基础业务模块)，HM-Network（网络框架），HM-Router（路由模块），Logger（日志记录）
+HM-SocialShare（第三方平台分享）
 
 #### Author
 
