@@ -131,7 +131,6 @@
                 <TextView
                     android:id="@+id/tv_profile_realname"
                     style="@style/PersonMenuListHint"
-                    android:maxLength="5"
                     tools:text="未实名" />
 
                 <ImageView
@@ -160,7 +159,6 @@
                 <TextView
                     android:id="@+id/tv_profile_bind_bank"
                     style="@style/PersonMenuListHint"
-                    android:maxLength="5"
                     tools:text="未获取" />
 
                 <ImageView
