@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.uikit.SmoothCheckBox;
 import com.hm.iou.userinfo.R;
@@ -37,6 +38,7 @@ public class TerminateServiceActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData(Bundle bundle) {
+        TraceUtil.onEvent(this, "my_close_account_count");
         mCbAgree.setOnCheckedChangeListener(new SmoothCheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SmoothCheckBox smoothCheckBox, boolean b) {

@@ -2,7 +2,6 @@ package com.hm.iou.userinfo.business.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
@@ -120,12 +120,15 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         if (v.getId() == R.id.iv_topAd) {
             toBindBank();
         } else if (v.getId() == R.id.ll_profile_avatar) {
+            TraceUtil.onEvent(mContext, "profile_avatar_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/user_avatar")
                     .navigation(this);
         } else if (v.getId() == R.id.ll_profile_nickname) {
+            TraceUtil.onEvent(mContext, "profile_nickname_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/modify_nickname_sex")
                     .navigation(this);
         } else if (v.getId() == R.id.ll_profile_realname) {
+            TraceUtil.onEvent(mContext, "profile_realname_click");
             UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
             int customerType = userInfo.getType();
             if (UserDataUtil.isCClass(customerType)) {
@@ -136,11 +139,14 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                 mPersonalDialogHelper.showHaveAuthtication();
             }
         } else if (v.getId() == R.id.ll_profile_bind_bank) {
+            TraceUtil.onEvent(mContext, "profile_bankauth_click");
             toBindBank();
         } else if (v.getId() == R.id.ll_profile_mobile) {
+            TraceUtil.onEvent(mContext, "profile_modify_mob_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_mobile")
                     .navigation(mContext);
         } else if (v.getId() == R.id.ll_profile_weixin) {
+            TraceUtil.onEvent(mContext, "profile_wx_click");
             int type = UserManager.getInstance(mContext).getUserInfo().getType();
             boolean isWeixinBound = UserDataUtil.isSubClass(type) ? false : true;
             if (isWeixinBound) {
@@ -155,17 +161,22 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                 }
             }
         } else if (v.getId() == R.id.ll_profile_email) {
+            TraceUtil.onEvent(mContext, "profile_modify_email_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_email")
                     .navigation(mContext);
         } else if (v.getId() == R.id.ll_profile_city) {
+            TraceUtil.onEvent(mContext, "profile_city_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/city/index")
                     .navigation(this, REQ_SELECT_CITY);
         } else if (v.getId() == R.id.ll_profile_income) {
+            TraceUtil.onEvent(mContext, "profile_income_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_income")
                     .navigation(this);
         } else if (v.getId() == R.id.tv_profile_logout) {
+            TraceUtil.onEvent(mContext, "profile_exit_click");
             showDialogLogoutSafely();
         } else if (v.getId() == R.id.ll_profile_changepwd) {        //修改密码
+            TraceUtil.onEvent(mContext, "profile_modifypwd_click");
             showChangePasswordMenu();
         }
     }

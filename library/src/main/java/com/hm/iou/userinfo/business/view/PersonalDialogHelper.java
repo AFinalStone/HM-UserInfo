@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.Gravity;
 
+import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.uikit.dialog.IOSAlertDialog;
@@ -38,6 +39,7 @@ public class PersonalDialogHelper {
                     .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            TraceUtil.onEvent(mContext, "my_sign_now_click");
                             Router.getInstance()
                                     .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
                                     .navigation(mContext);
@@ -47,6 +49,7 @@ public class PersonalDialogHelper {
                     .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            TraceUtil.onEvent(mContext, "my_sign_skip_click");
                             dialog.dismiss();
                         }
                     })

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseFragment;
+import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
@@ -84,6 +85,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
 
             @Override
             public void onClickImageMenu() {
+                TraceUtil.onEvent(mActivity, "my_qrcode_click");
                 Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/qrcode/index")
                         .withString("show_type", "show_my_card")
                         .navigation(mActivity);
@@ -125,6 +127,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.ll_header || id == R.id.iv_header) {
+            TraceUtil.onEvent(mActivity, "my_avatar_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mActivity);
         } else if (id == R.id.iv_authentication) {
@@ -156,6 +159,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                 }
             }
         } else if (id == R.id.ll_person_signature) {
+            TraceUtil.onEvent(mActivity, "my_sigature_click");
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
             int customerType = userInfo.getType();
             if (UserDataUtil.isCClass(customerType)) {
@@ -167,23 +171,29 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                         .navigation(getActivity());
             }
         } else if (id == R.id.ll_person_profile) {  //我的资料
+            TraceUtil.onEvent(mActivity, "my_profile_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_favorite) { //我的收藏
+            TraceUtil.onEvent(mActivity, "my_fav_click");
             mClickFavorite = true;
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/news/favorite")
                     .navigation(mActivity);
-        } else if (id == R.id.ll_person_charge) {    //变更密码
+        } else if (id == R.id.ll_person_charge) {    //充值
+            TraceUtil.onEvent(mActivity, "my_charge_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/pay/time_card_recharge")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_cloud_space) {  //云存储空间
+            TraceUtil.onEvent(mActivity, "my_cloudspace_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/cloud_space")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
+            TraceUtil.onEvent(mActivity, "my_help_click");
             mClickFeedback = true;
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_about) {    //关于我们
+            TraceUtil.onEvent(mActivity, "my_about_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/about")
                     .navigation(mActivity);
         }
