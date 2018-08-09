@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,13 +15,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.BaseBizAppLike;
-import com.hm.iou.base.mvp.MvpActivityPresenter;
-import com.hm.iou.base.utils.CommSubscriber;
-import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.base.version.CheckVersionResBean;
-import com.hm.iou.base.version.VersionApi;
+import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.router.Router;
-import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.HMGrayDividerItemDecoration;
 import com.hm.iou.uikit.dialog.IOSAlertDialog;
@@ -30,7 +24,6 @@ import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.AboutUsContract;
 import com.hm.iou.userinfo.business.presenter.AboutUsPresenter;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,12 +113,14 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
     }
 
     private void toPrivacyPage() {
+        TraceUtil.onEvent(this, "web_privacy");
         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
                 .withString("url", BaseBizAppLike.getInstance().getH5Server() + "/PrivacyAgreement/PrivacyAgreement.html")
                 .navigation(this);
     }
 
     private void toUserAgreementPage() {
+        TraceUtil.onEvent(this, "web_useragreement");
         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
                 .withString("url", BaseBizAppLike.getInstance().getH5Server() + "/IOUAgreement/IOUAgreement.html")
                 .navigation(this);
