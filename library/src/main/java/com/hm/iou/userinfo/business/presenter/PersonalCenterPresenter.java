@@ -3,13 +3,11 @@ package com.hm.iou.userinfo.business.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.hm.iou.base.mvp.MvpFragmentPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.logger.Logger;
-import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.CommBizEvent;
@@ -46,6 +44,8 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
 
     private Disposable mStatisticDisposable;
     private Disposable mThirdPlatformInfoDisposable;
+
+    private int mMyCollectNum; //我的收藏数量
 
     public PersonalCenterPresenter(@NonNull Context context, @NonNull PersonalCenterContract.View view) {
         super(context, view);
@@ -156,7 +156,8 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
                 .subscribeWith(new CommSubscriber<UserCenterStatisticBean>(mView) {
                     @Override
                     public void handleResult(UserCenterStatisticBean data) {
-                        mView.showNewsFavoriteCount(data.getMyCollect() == 0 ? "" : data.getMyCollect() + "篇");
+                        mMyCollectNum = data.getMyCollect();
+                        mView.showNewsFavoriteCount(mMyCollectNum == 0 ? "" : mMyCollectNum + "篇");
                         mView.showCloudSpace(UserDataUtil.formatUserCloudSpace(data.getUserSpaceSize()));
                         mView.showHelpAndFeedbackCount(data.getNoReadComplain() == 0 ? "" : data.getNoReadComplain() + "");
                     }
@@ -323,8 +324,18 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
         if ("feedback_read_detail".equals(commBizEvent.key)) {
             //阅读过反馈
 
+        } else if ("News_doCollectNews".equals(commBizEvent.key)) {
+            if (mMyCollectNum != 0) {
+                if ("收藏".equals(commBizEvent.content)) {
+                    mMyCollectNum++;
+                } else if ("取消收藏".equals(commBizEvent.content)) {
+                    mMyCollectNum--;
+                }
+                mView.showNewsFavoriteCount(mMyCollectNum == 0 ? "" : mMyCollectNum + "篇");
+            }
         }
     }
+
 
     /**
      * 银行卡绑定成功
