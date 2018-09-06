@@ -244,7 +244,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                             mView.showBindBank(strNoBindBank, mColorUnBind);
                         }
                         //存储绑定银行卡信息
-                        UserExtendInfo extendInfo = new UserExtendInfo();
+                        UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
                         //更新进度

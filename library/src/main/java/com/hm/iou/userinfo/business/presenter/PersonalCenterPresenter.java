@@ -232,7 +232,7 @@ public class PersonalCenterPresenter extends MvpFragmentPresenter<PersonalCenter
                             mView.showBindBankImg(R.mipmap.person_ic_bind_bank_not_have);
                         }
                         //存储绑定银行卡信息
-                        UserExtendInfo extendInfo = new UserExtendInfo();
+                        UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
                         //更新进度
