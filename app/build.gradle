@@ -28,5 +28,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    //图片选择
+    compile 'com.heima.iou:hmselectpiclocal:1.0.0'
+
     compile project(':library')
 }

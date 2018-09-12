@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.photo.CompressPictureUtil;
 import com.hm.iou.base.photo.PhotoUtil;
 import com.hm.iou.base.photo.SelectPicDialog;
+import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.model.IncomeEnum;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.uikit.HMTopBarView;
@@ -34,14 +36,18 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  *
  */
 public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements MyIncomeContract.View {
 
-    private static final int REQ_CODE_ALBUM = 10;
-    private static final int REQ_CODE_CAMERA = 11;
+    private static final int REQ_OPEN_SELECT_PIC = 100;
 
     @BindView(R2.id.topbar)
     HMTopBarView mTopbarView;
@@ -92,7 +98,12 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
                 final BitmapAndFileIdBean data = (BitmapAndFileIdBean) view.getTag();
                 if (data == null) {
                     mReselectIndex = -1;
-                    PhotoUtil.showSelectDialog(MyIncomeActivity.this, REQ_CODE_CAMERA, REQ_CODE_ALBUM);
+//                    PhotoUtil.showSelectDialog(MyIncomeActivity.this, REQ_CODE_CAMERA, REQ_CODE_ALBUM);
+                    List<BitmapAndFileIdBean> list = mProveDocAdapter.getData();
+                    Router.getInstance()
+                            .buildWithUrl("hmiou://m.54jietiao.com/select_pic/index")
+                            .withString("enable_select_max_num", String.valueOf(3 + 1 - list.size()))
+                            .navigation(mContext, REQ_OPEN_SELECT_PIC);
                 } else {
                     SelectPicDialog.createDialog(MyIncomeActivity.this, data.getFileUrl(), new SelectPicDialog.OnSelectListener() {
                         @Override
@@ -100,7 +111,7 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
                             mProveDocList.remove(position);
                             if (mProveDocList.size() == 0) {
                                 //为了显示"添加"，增加一个空的数据
-                                mProveDocList.add( null);
+                                mProveDocList.add(null);
                             } else if (mProveDocList.size() > 0 && mProveDocList.get(mProveDocList.size() - 1) != null) {
                                 //为了显示"添加"，增加一个空的数据
                                 mProveDocList.add(null);
@@ -112,7 +123,10 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
                         @Override
                         public void onReSelect() {
                             mReselectIndex = position;
-                            PhotoUtil.showSelectDialog(MyIncomeActivity.this, REQ_CODE_CAMERA, REQ_CODE_ALBUM);
+                            Router.getInstance()
+                                    .buildWithUrl("hmiou://m.54jietiao.com/select_pic/index")
+                                    .withString("enable_select_max_num", String.valueOf(1))
+                                    .navigation(mContext, REQ_OPEN_SELECT_PIC);
                         }
                     }).show();
                 }
@@ -125,18 +139,66 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_CODE_CAMERA) {
-            if (resultCode == RESULT_OK) {
-                String path = PhotoUtil.getCameraPhotoPath();
-                compressPic(path);
-            }
-        } else if (requestCode == REQ_CODE_ALBUM) {
-            if (resultCode == RESULT_OK) {
-                String path = PhotoUtil.getPath(this, data.getData());
-                compressPic(path);
+//        if (requestCode == REQ_CODE_CAMERA) {
+//            if (resultCode == RESULT_OK) {
+//                String path = PhotoUtil.getCameraPhotoPath();
+//                compressPic(path);
+//            }
+//        } else if (requestCode == REQ_CODE_ALBUM) {
+//            if (resultCode == RESULT_OK) {
+//                String path = PhotoUtil.getPath(this, data.getData());
+//                compressPic(path);
+//            }
+//        }
+        if (REQ_OPEN_SELECT_PIC == requestCode && RESULT_OK == resultCode) {
+            if (mReselectIndex == -1) {//新增
+                List<String> listPaths = data.getStringArrayListExtra("extra_result_selection_path");
+                Log.d("Photo", " path: " + listPaths);
+                Flowable.just(listPaths)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(new Function<List<String>, List<String>>() {
+                            @Override
+                            public List<String> apply(List<String> list) throws Exception {
+                                List<String> listFiles = new ArrayList<>();
+                                for (String path : list) {
+                                    listFiles.add(CompressPictureUtil.compressPic(mContext, path).getAbsolutePath());
+                                }
+                                return listFiles;
+                            }
+                        })
+                        .subscribe(new Consumer<List<String>>() {
+                            @Override
+                            public void accept(List<String> list) throws Exception {
+                                for (String path : list) {
+                                    mPresenter.uploadImage(new File(path));
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                            }
+                        });
+            } else {//重选
+                String path = data.getStringExtra("extra_result_selection_path_first");
+                Log.d("Photo", "camera path: " + path);
+                CompressPictureUtil.compressPic(this, path, new CompressPictureUtil.OnCompressListener() {
+                    public void onCompressPicSuccess(File file) {
+                        mPresenter.uploadImage(file);
+                    }
+                });
             }
         }
     }
+
+//    private void compressPic(String fileUrl) {
+//        CompressPictureUtil.compressPic(this, fileUrl, new CompressPictureUtil.OnCompressListener() {
+//            public void onCompressPicSuccess(File file) {
+//                mPresenter.uploadImage(file);
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -270,13 +332,6 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         mPresenter.updateUserIncome(incomeEnum, mSelectMainIncome);
     }
 
-    private void compressPic(String fileUrl) {
-        CompressPictureUtil.compressPic(this, fileUrl, new CompressPictureUtil.OnCompressListener() {
-            public void onCompressPicSuccess(File file) {
-                mPresenter.uploadImage(file);
-            }
-        });
-    }
 
     class ProveDocAdapter extends BaseQuickAdapter<BitmapAndFileIdBean, BaseViewHolder> {
 
