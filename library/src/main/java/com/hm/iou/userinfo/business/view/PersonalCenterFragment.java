@@ -189,9 +189,14 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
             TraceUtil.onEvent(mActivity, "my_help_click");
-            mClickFeedback = true;
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
+        //    mClickFeedback = true;
+/*            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
+                    .navigation(mActivity);*/
+
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                    .withString("url", "https://support.qq.com/product/36590?d-wx-push=1")
                     .navigation(mActivity);
+
         } else if (id == R.id.ll_person_about) {    //关于我们
             TraceUtil.onEvent(mActivity, "my_about_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/about")
