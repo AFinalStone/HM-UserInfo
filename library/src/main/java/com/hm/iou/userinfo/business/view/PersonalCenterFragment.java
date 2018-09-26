@@ -1,5 +1,6 @@
 package com.hm.iou.userinfo.business.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -192,11 +193,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
         //    mClickFeedback = true;
 /*            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
                     .navigation(mActivity);*/
-
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
-                    .withString("url", "https://support.qq.com/product/36590?d-wx-push=1")
-                    .navigation(mActivity);
-
+            startActivity(new Intent(getActivity(), TucaoActivity.class));
         } else if (id == R.id.ll_person_about) {    //关于我们
             TraceUtil.onEvent(mActivity, "my_about_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/about")
