@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.hm.iou.base.webview.BaseWebviewActivity;
 import com.hm.iou.network.HttpReqManager;
@@ -32,7 +33,14 @@ public class TucaoActivity extends BaseWebviewActivity {
 
         UserInfo userInfo = UserManager.getInstance(this).getUserInfo();
         String nickname = StringUtil.getUnnullString(userInfo.getNickName());
+        if (TextUtils.isEmpty(nickname)) {
+            nickname = "小管家";
+        }
         String headimgurl = userInfo.getAvatarUrl();
+        if (TextUtils.isEmpty(headimgurl)) {
+            //在百度上的条管家logo图片
+            headimgurl = "http://iou-steward.oss-cn-hangzhou.aliyuncs.com/contentCollect/20180927/20180927114738";
+        }
         String openid = userInfo.getUserId();
         StringBuilder sb = new StringBuilder();
 
