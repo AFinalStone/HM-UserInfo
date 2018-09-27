@@ -44,8 +44,8 @@ public class TucaoActivity extends BaseWebviewActivity {
         String openid = userInfo.getUserId();
         StringBuilder sb = new StringBuilder();
 
-        sb.append("nickname=").append(Uri.encode(nickname))
-                .append("&avatar=").append("123")
+        sb.append("nickname=").append(nickname)
+                .append("&avatar=").append(headimgurl)
                 .append("&openid=").append(openid)
                 .append("&clientVersion=").append(config.getAppVersion())
                 .append("&os=").append("Android")
