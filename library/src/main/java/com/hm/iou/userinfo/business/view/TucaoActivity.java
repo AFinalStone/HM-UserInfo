@@ -1,5 +1,6 @@
 package com.hm.iou.userinfo.business.view;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,9 @@ import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.NetStateUtil;
 import com.hm.iou.tools.StringUtil;
+
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Created by hjy on 2018/9/12.
@@ -31,8 +35,9 @@ public class TucaoActivity extends BaseWebviewActivity {
         String headimgurl = userInfo.getAvatarUrl();
         String openid = userInfo.getUserId();
         StringBuilder sb = new StringBuilder();
-        sb.append("nickname=").append(nickname)
-                .append("&avatar=").append(headimgurl)
+
+        sb.append("nickname=").append(Uri.encode(nickname))
+                .append("&avatar=").append("123")
                 .append("&openid=").append(openid)
                 .append("&clientVersion=").append(config.getAppVersion())
                 .append("&os=").append("Android")
