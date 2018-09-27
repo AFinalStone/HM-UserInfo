@@ -35,7 +35,7 @@ public class TucaoActivity extends BaseWebviewActivity {
         String headimgurl = userInfo.getAvatarUrl();
         if (TextUtils.isEmpty(headimgurl)) {
             //在百度上的条管家logo图片
-            headimgurl = "https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=5f3b3f0941086e067ea5371963611091/8435e5dde71190ef916431e7c31b9d16fdfa606f.jpg";
+            headimgurl = "http://iou-steward.oss-cn-hangzhou.aliyuncs.com/contentCollect/20180927/20180927114738";
         }
         String openid = userInfo.getUserId();
         StringBuilder sb = new StringBuilder();
