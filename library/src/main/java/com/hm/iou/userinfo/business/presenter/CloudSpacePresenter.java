@@ -118,7 +118,7 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 R.mipmap.jietiao_ic_home_type_paper_receive
         };
         final CharSequence[] nameArr = new CharSequence[]{
-                "电子借条", "电子收条", "娱乐借条", "平台借条", "纸质借条", "纸质收条"
+                "吕约借条", "吕约收条", "娱乐借条", "平台借条", "纸质借条", "纸质收条"
         };
         final int[] iouKindArr = new int[]{
                 IOUKindEnum.ElecBorrowReceipt.getValue(), IOUKindEnum.ElecReceiveReceipt.getValue(),
