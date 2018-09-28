@@ -1,6 +1,5 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -190,10 +189,11 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
             TraceUtil.onEvent(mActivity, "my_help_click");
-        //    mClickFeedback = true;
+            //    mClickFeedback = true;
 /*            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/message/helpcenter")
                     .navigation(mActivity);*/
-            startActivity(new Intent(getActivity(), TucaoActivity.class));
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
+                    .navigation(mActivity);
         } else if (id == R.id.ll_person_about) {    //关于我们
             TraceUtil.onEvent(mActivity, "my_about_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/about")

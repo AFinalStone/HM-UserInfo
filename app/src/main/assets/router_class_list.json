@@ -219,6 +219,11 @@
       "url": "hmiou://m.54jietiao.com/person/cloud_space",
       "iclass": "",
       "aclass": "com.hm.iou.userinfo.business.view.CloudSpaceActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/helper_center",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.TucaoActivity"
     }
   ],
   "message": [
