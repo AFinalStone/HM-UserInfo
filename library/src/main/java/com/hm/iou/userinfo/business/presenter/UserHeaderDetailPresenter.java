@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hm.iou.base.file.FileApi;
+import com.hm.iou.base.file.FileBizType;
 import com.hm.iou.base.file.FileUploadResult;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
@@ -19,8 +20,6 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by AFinalStone on 2017/12/12.
@@ -44,20 +43,14 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
     @Override
     public void uploadFile(File file) {
         mView.showLoadingView("图片上传中...");
-        Map<String, Object> map = new HashMap<>();
-        map.put("resourceType", "Avatar");
-        map.put("operId", UserManager.getInstance(mContext).getUserId());
-        map.put("businessModel", "ANDROID");
-        map.put("operKind", "CUSTOMER");
-        map.put("right", "777");
-        FileApi.uploadFile(file, map)
+        FileApi.uploadImage(file, FileBizType.Avatar)
                 .compose(getProvider().<BaseResponse<FileUploadResult>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<FileUploadResult>handleResponse())
                 .subscribeWith(new CommSubscriber<FileUploadResult>(mView) {
                     @Override
                     public void handleResult(FileUploadResult result) {
                         mView.dismissLoadingView();
-                        mAvatarUrl = result.getFilePath();
+                        mAvatarUrl = result.getFileUrl();
                         changeAvatarUrl(result.getFileId());
                     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hm.iou.base.file.FileApi;
+import com.hm.iou.base.file.FileBizType;
 import com.hm.iou.base.file.FileUploadResult;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
@@ -22,9 +23,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 我的收入
@@ -106,20 +105,14 @@ public class MyIncomePresenter extends MvpActivityPresenter<MyIncomeContract.Vie
     @Override
     public void uploadImage(File file) {
         mView.showLoadingView();
-        Map<String, Object> map = new HashMap<>();
-        map.put("resourceType", "Income");
-        map.put("operId", UserManager.getInstance(mContext).getUserId());
-        map.put("operKind", "CUSTOMER");
-        map.put("businessModel", "ANDROID");
-        map.put("right", "777");
-        FileApi.uploadFile(file, map)
+        FileApi.uploadImage(file, FileBizType.Income)
                 .compose(getProvider().<BaseResponse<FileUploadResult>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<FileUploadResult>handleResponse())
                 .subscribeWith(new CommSubscriber<FileUploadResult>(mView) {
                     @Override
                     public void handleResult(FileUploadResult result) {
                         mView.dismissLoadingView();
-                        mView.addNewProveImage(new BitmapAndFileIdBean(result.getFileId(), result.getFilePath()));
+                        mView.addNewProveImage(new BitmapAndFileIdBean(result.getFileId(), result.getFileUrl()));
                     }
 
                     @Override
