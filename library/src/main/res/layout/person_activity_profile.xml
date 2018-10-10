@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
         app:titleBackground="#ffffff"
+        app:backIcon="@mipmap/uikit_icon_close_black"
         app:titleText="我的资料" />
 
     <LinearLayout

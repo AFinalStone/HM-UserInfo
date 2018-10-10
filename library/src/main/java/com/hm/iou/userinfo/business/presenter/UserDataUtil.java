@@ -56,6 +56,8 @@ public class UserDataUtil {
      * @return
      */
     public static boolean isCClass(int userType) {
+        if (userType == 0)
+            return true;
         if (userType == CustomerTypeEnum.CSub.getValue() || userType == CustomerTypeEnum.CPlus.getValue())
             return true;
         return false;
