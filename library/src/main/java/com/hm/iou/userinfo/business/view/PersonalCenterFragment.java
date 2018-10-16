@@ -50,8 +50,8 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     TextView mTvProfileProgress;         //资料完成度
     @BindView(R2.id.tv_person_cloud_space)
     TextView mTvCloudSpace;              //云存储空间
-    @BindView(R2.id.tv_person_unread)
-    TextView mTvUnReadCount;             //帮助与反馈未读数目
+/*    @BindView(R2.id.tv_person_unread)
+    TextView mTvUnReadCount;             //帮助与反馈未读数目*/
     @BindView(R2.id.tv_person_favorite_count)
     TextView mTvFavoriteCount;          //收藏的篇数
     @BindView(R2.id.tv_person_charge)
@@ -252,12 +252,12 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
 
     @Override
     public void showHelpAndFeedbackCount(String feedbackUnreadCount) {
-        if (TextUtils.isEmpty(feedbackUnreadCount)) {
+        /*if (TextUtils.isEmpty(feedbackUnreadCount)) {
             mTvUnReadCount.setVisibility(View.INVISIBLE);
         } else {
             mTvUnReadCount.setVisibility(View.VISIBLE);
             mTvUnReadCount.setText(feedbackUnreadCount);
-        }
+        }*/
     }
 
 }
