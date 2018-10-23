@@ -83,7 +83,9 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         list.add("检测更新");
         list.add("隐私条款");
         list.add("注册与使用协议");
-//        list.add("终止服务协议");
+        if (BaseBizAppLike.getInstance().isDebug()) {
+            list.add("切换软件服务器地址");
+        }
         AboutMenuAdapter adapter = new AboutMenuAdapter(list);
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -95,6 +97,10 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
                     toPrivacyPage();
                 } else if (position == 2) {
                     toUserAgreementPage();
+                } else if (position == 3) {
+                    Router.getInstance()
+                            .buildWithUrl("hmiou://m.54jietiao.com/environment_switch/index")
+                            .navigation(mContext);
                 }
             }
         });

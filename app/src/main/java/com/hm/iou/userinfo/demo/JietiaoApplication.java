@@ -26,6 +26,7 @@ public class JietiaoApplication extends Application {
         appLike.onCreate(this);
         appLike.initServer("http://192.168.1.217", "http://192.168.1.217",
                 "http://192.168.1.217");
+        appLike.setDebug(BuildConfig.DEBUG);
         initNetwork();
 
         SocialShareAppLike shareAppLike = new SocialShareAppLike();
