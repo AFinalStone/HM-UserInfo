@@ -78,6 +78,7 @@
                             android:text=""
                             android:textColor="#ff222222"
                             android:textSize="@dimen/textFontSize_18"
+                            android:paddingRight="20dip"
                             tools:text="昵称" />
 
 
