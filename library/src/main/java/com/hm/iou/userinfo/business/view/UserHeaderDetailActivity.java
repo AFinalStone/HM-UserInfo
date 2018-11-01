@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.base.file.FileUtil;
 import com.hm.iou.base.photo.CompressPictureUtil;
 import com.hm.iou.base.photo.ImageCropper;
 import com.hm.iou.base.photo.PhotoUtil;
 import com.hm.iou.tools.DensityUtil;
-import com.hm.iou.tools.FileUtil;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
@@ -86,7 +86,7 @@ public class UserHeaderDetailActivity extends BaseActivity<UserHeaderDetailPrese
         if (view.getId() == R.id.tv_avatar_album) {
             PhotoUtil.openAlbum(this, REQ_CODE_ALBUM);
         } else if (view.getId() == R.id.tv_avatar_camera) {
-            PhotoUtil.openCamera(this,REQ_CODE_CAMERA );
+            PhotoUtil.openCamera(this, REQ_CODE_CAMERA);
         }
     }
 
@@ -97,8 +97,8 @@ public class UserHeaderDetailActivity extends BaseActivity<UserHeaderDetailPrese
             mImageCropper.setCallback(new ImageCropper.Callback() {
                 @Override
                 public void onPictureCropOut(Bitmap bitmap, String tag) {
-                    File fileCrop = new File(FileUtil.getCacheDirPath(mContext) + "/photo_crop.png");
-                    FileUtil.saveBitmapToTargetFile(bitmap, fileCrop);
+                    File fileCrop = new File(FileUtil.getExternalCacheDirPath(mContext) + File.separator + System.currentTimeMillis() + ".jpg");
+                    CompressPictureUtil.saveBitmapToTargetFile(fileCrop, bitmap, Bitmap.CompressFormat.JPEG);
                     compressPic(fileCrop.getAbsolutePath());
                 }
             });
