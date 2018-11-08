@@ -1,6 +1,5 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.hm.iou.router.Router;
 import com.hm.iou.tools.StringUtil;
 import com.hm.iou.uikit.HMCountDownTextView;
 import com.hm.iou.uikit.HMTopBarView;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ChangeEmailContract;
