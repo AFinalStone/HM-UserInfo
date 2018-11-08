@@ -1,6 +1,5 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.hm.iou.router.Router;
 import com.hm.iou.tools.StringUtil;
 import com.hm.iou.uikit.HMCountDownTextView;
 import com.hm.iou.uikit.HMTopBarView;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ChangeEmailContract;
@@ -40,8 +38,8 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
     EditText mEtCode;
     @BindView(R2.id.btn_finishChange)
     Button mBtnFinishChange;
-    @BindView(R2.id.tv_getcode)
-    HMCountDownTextView mCountDownView;
+    @BindView(R2.id.tv_getEmailCode)
+    HMCountDownTextView mTvGetEmailCode;
 
     private String mOldEmail;
     private String mVerifySn;
@@ -117,35 +115,24 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
     private void checkValue() {
         mBtnFinishChange.setEnabled(false);
         if (StringUtil.matchRegex(mUserEmail, HMConstants.REG_EMAIL_NUMBER)) {
-            if (mStrCode.length() > 0) {
+            if (mStrCode.length() >= 6) {
                 mBtnFinishChange.setEnabled(true);
             }
         }
     }
 
-    @OnClick({R2.id.btn_finishChange, R2.id.tv_getcode})
+    @OnClick({R2.id.btn_finishChange, R2.id.tv_getEmailCode})
     public void onClick(View view) {
         if (view.getId() == R.id.btn_finishChange) {
             mPresenter.changeEmail(mOldEmail, mUserEmail, mStrCode, mVerifySn);
-        } else if (view.getId() == R.id.tv_getcode) {
+        } else if (view.getId() == R.id.tv_getEmailCode) {
             mPresenter.sendVerifyCode(mUserEmail);
         }
     }
 
     @Override
     public void startCountDown() {
-        mCountDownView.startCountDown();
+        mTvGetEmailCode.startCountDown();
     }
 
-    @Override
-    public void showVerifyCodeSendSuccDialog(String msg) {
-        new IOSAlertDialog.Builder(this)
-                .setMessage(msg)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setCancelable(false).show();
-    }
 }

@@ -15,7 +15,6 @@ public interface ChangeEmailContract {
          */
         void startCountDown();
 
-        void showVerifyCodeSendSuccDialog(String msg);
     }
 
     interface Presenter extends BaseContract.BasePresenter {
@@ -24,7 +23,7 @@ public interface ChangeEmailContract {
          * 校验原邮箱、密码
          *
          * @param email 手机号
-         * @param pwd 密码
+         * @param pwd   密码
          */
         void verifyPassword(String email, String pwd);
 
@@ -38,10 +37,10 @@ public interface ChangeEmailContract {
         /**
          * 更换邮箱
          *
-         * @param oldEmail 老邮箱
-         * @param newEmail 新邮箱
+         * @param oldEmail   老邮箱
+         * @param newEmail   新邮箱
          * @param verifyCode 验证码
-         * @param sn 校验流水号
+         * @param sn         校验流水号
          */
         void changeEmail(String oldEmail, String newEmail, String verifyCode, String sn);
 

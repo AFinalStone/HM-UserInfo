@@ -14,6 +14,7 @@ import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.Md5Util;
 import com.hm.iou.tools.StringUtil;
+import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.ChangeEmailContract;
 import com.hm.iou.userinfo.event.UpdateEmailEvent;
@@ -84,8 +85,8 @@ public class ChangeEmailPresenter extends MvpActivityPresenter<ChangeEmailContra
                     @Override
                     public void handleResult(String data) {
                         mView.dismissLoadingView();
-                        String msg = "邮箱验证码已发送到您的" + email + "邮箱里。\n请到邮箱里查看";
-                        mView.showVerifyCodeSendSuccDialog(msg);
+                        mView.toastMessage(R.string.uikit_get_check_code_success);
+                        mView.startCountDown();
                     }
 
                     @Override
