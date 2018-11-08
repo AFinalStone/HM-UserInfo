@@ -123,11 +123,11 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
         }
     }
 
-    @OnClick({R2.id.btn_finishChange, R2.id.tv_getcode})
+    @OnClick({R2.id.btn_finishChange, R2.id.tv_getEmailCode})
     public void onClick(View view) {
         if (view.getId() == R.id.btn_finishChange) {
             mPresenter.changeEmail(mOldEmail, mUserEmail, mStrCode, mVerifySn);
-        } else if (view.getId() == R.id.tv_getcode) {
+        } else if (view.getId() == R.id.tv_getEmailCode) {
             mPresenter.sendVerifyCode(mUserEmail);
         }
     }
