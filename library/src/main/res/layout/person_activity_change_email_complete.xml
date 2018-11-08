@@ -74,11 +74,8 @@
             android:hint="点击获取6位邮箱验证码" />
 
         <com.hm.iou.uikit.HMCountDownTextView
-            android:id="@+id/tv_getcode"
-            style="@style/UikitButton.CheckCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:id="@+id/tv_getEmailCode"
+            style="@style/UikitButton.CheckCode" />
     </LinearLayout>
 
     <View

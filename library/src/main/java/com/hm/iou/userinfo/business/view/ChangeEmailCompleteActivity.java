@@ -40,8 +40,8 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
     EditText mEtCode;
     @BindView(R2.id.btn_finishChange)
     Button mBtnFinishChange;
-    @BindView(R2.id.tv_getcode)
-    HMCountDownTextView mCountDownView;
+    @BindView(R2.id.tv_getEmailCode)
+    HMCountDownTextView mTvGetEmailCode;
 
     private String mOldEmail;
     private String mVerifySn;
@@ -134,18 +134,7 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
 
     @Override
     public void startCountDown() {
-        mCountDownView.startCountDown();
+        mTvGetEmailCode.startCountDown();
     }
 
-    @Override
-    public void showVerifyCodeSendSuccDialog(String msg) {
-        new IOSAlertDialog.Builder(this)
-                .setMessage(msg)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setCancelable(false).show();
-    }
 }
