@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class UpdateUserInfoReqBean {
 
-    private long userId;
+    private String userId;
 
     private String avatarUrl;
     private String location;

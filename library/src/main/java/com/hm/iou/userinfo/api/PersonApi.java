@@ -48,7 +48,7 @@ public class PersonApi {
      */
     public static Flowable<BaseResponse<Object>> updateLocation(UserInfo userInfo, String location) {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
-        reqBean.setUserId(Long.valueOf(userInfo.getUserId()));
+        reqBean.setUserId(userInfo.getUserId());
         reqBean.setLocation(location);
         reqBean.setMainIncome(userInfo.getMainIncome());
         reqBean.setSecondIncome(userInfo.getSecondIncome());
@@ -58,7 +58,7 @@ public class PersonApi {
 
     public static Flowable<BaseResponse<Object>> updateNicknameAndSex(UserInfo userInfo, String nickname, int sex) {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
-        reqBean.setUserId(Long.valueOf(userInfo.getUserId()));
+        reqBean.setUserId(userInfo.getUserId());
         reqBean.setMainIncome(userInfo.getMainIncome());
         reqBean.setSecondIncome(userInfo.getSecondIncome());
         reqBean.setSex(sex);
@@ -68,7 +68,7 @@ public class PersonApi {
 
     public static Flowable<BaseResponse<Object>> updateIncome(UserInfo userInfo, int mainIncome, int secondIncome) {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
-        reqBean.setUserId(Long.valueOf(userInfo.getUserId()));
+        reqBean.setUserId(userInfo.getUserId());
         reqBean.setMainIncome(mainIncome);
         reqBean.setSecondIncome(secondIncome);
         reqBean.setSex(userInfo.getSex());
@@ -84,7 +84,7 @@ public class PersonApi {
      */
     public static Flowable<BaseResponse<Object>> updateAvatar(UserInfo userInfo, String avatar) {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
-        reqBean.setUserId(Long.valueOf(userInfo.getUserId()));
+        reqBean.setUserId(userInfo.getUserId());
         reqBean.setAvatarUrl(avatar);
         reqBean.setMainIncome(userInfo.getMainIncome());
         reqBean.setSecondIncome(userInfo.getSecondIncome());
@@ -101,7 +101,7 @@ public class PersonApi {
      */
     public static Flowable<BaseResponse<Object>> updateProveDocList(UserInfo userInfo, String proveDocList) {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
-        reqBean.setUserId(Long.valueOf(userInfo.getUserId()));
+        reqBean.setUserId(userInfo.getUserId());
         reqBean.setProveDocList(proveDocList);
         reqBean.setMainIncome(userInfo.getMainIncome());
         reqBean.setSecondIncome(userInfo.getSecondIncome());
