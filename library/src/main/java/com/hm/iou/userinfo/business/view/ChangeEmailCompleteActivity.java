@@ -117,7 +117,7 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
     private void checkValue() {
         mBtnFinishChange.setEnabled(false);
         if (StringUtil.matchRegex(mUserEmail, HMConstants.REG_EMAIL_NUMBER)) {
-            if (mStrCode.length() > 0) {
+            if (mStrCode.length() >= 6) {
                 mBtnFinishChange.setEnabled(true);
             }
         }
