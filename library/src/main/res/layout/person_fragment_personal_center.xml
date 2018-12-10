@@ -74,11 +74,11 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLength="16"
+                            android:paddingRight="20dip"
                             android:singleLine="true"
                             android:text=""
                             android:textColor="#ff222222"
                             android:textSize="@dimen/textFontSize_18"
-                            android:paddingRight="20dip"
                             tools:text="昵称" />
 
 
@@ -246,6 +246,27 @@
                     android:id="@+id/tv_person_cloud_space"
                     style="@style/PersonMenuListHint"
                     tools:text="1024GB" />
+
+                <ImageView style="@style/PersonMenuListArrow" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/UikitDivider.Horizontal"
+                android:layout_height="10dip" />
+
+            <LinearLayout
+                android:id="@+id/ll_person_game"
+                style="@style/PersonMenuListItem">
+
+                <ImageView
+                    style="@style/PersonMenuListIcon"
+                    android:src="@mipmap/person_ic_game" />
+
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="信用人生" />
+
 
                 <ImageView style="@style/PersonMenuListArrow" />
 

@@ -50,8 +50,8 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     TextView mTvProfileProgress;         //资料完成度
     @BindView(R2.id.tv_person_cloud_space)
     TextView mTvCloudSpace;              //云存储空间
-/*    @BindView(R2.id.tv_person_unread)
-    TextView mTvUnReadCount;             //帮助与反馈未读数目*/
+    /*    @BindView(R2.id.tv_person_unread)
+        TextView mTvUnReadCount;             //帮助与反馈未读数目*/
     @BindView(R2.id.tv_person_favorite_count)
     TextView mTvFavoriteCount;          //收藏的篇数
     @BindView(R2.id.tv_person_charge)
@@ -123,7 +123,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     }
 
     @OnClick({R2.id.iv_header, R2.id.ll_header, R2.id.iv_authentication, R2.id.iv_bindBank, R2.id.ll_person_signature, R2.id.ll_person_profile, R2.id.ll_person_favorite, R2.id.ll_person_charge,
-            R2.id.ll_person_cloud_space, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
+            R2.id.ll_person_cloud_space, R2.id.ll_person_game, R2.id.ll_person_helpcenter, R2.id.ll_person_about})
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.ll_header || id == R.id.iv_header) {
@@ -186,6 +186,9 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
         } else if (id == R.id.ll_person_cloud_space) {  //云存储空间
             TraceUtil.onEvent(mActivity, "my_cloudspace_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/cloud_space")
+                    .navigation(mActivity);
+        } else if (id == R.id.ll_person_game) {  //游戏
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/game_credit_life/index")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
             TraceUtil.onEvent(mActivity, "my_help_click");
