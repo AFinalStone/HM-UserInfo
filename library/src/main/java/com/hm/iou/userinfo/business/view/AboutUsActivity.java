@@ -81,8 +81,12 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         mRecyclerView.addItemDecoration(new HMGrayDividerItemDecoration(this, LinearLayout.VERTICAL));
         List<String> list = new ArrayList<>();
         list.add("检测更新");
-        list.add("隐私条款");
-        list.add("注册与使用协议");
+        list.add("已同意：《用户注册协议》");
+        list.add("已同意：《用户隐私协议》");
+        list.add("已同意：《用户支付协议》");
+        list.add("已同意：《CFCA数字证书服务协议》");
+        list.add("不同意：请告知原因，并手动选择退出。");
+
         if (BaseBizAppLike.getInstance().isDebug()) {
             list.add("切换软件服务器地址");
         }
@@ -94,10 +98,17 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
                 if (position == 0) {
                     mPresenter.checkVersion();
                 } else if (position == 1) {
-                    toPrivacyPage();
+                    toWebPage("https://app.54jietiao.com/xieyi/1.html");
                 } else if (position == 2) {
-                    toUserAgreementPage();
+                    toWebPage("https://app.54jietiao.com/xieyi/2.html");
                 } else if (position == 3) {
+                    toWebPage("https://app.54jietiao.com/xieyi/3.html");
+                } else if (position == 4) {
+                    toWebPage("https://app.54jietiao.com/xieyi/4.html");
+                } else if (position == 5) {
+                    Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
+                            .navigation(AboutUsActivity.this);
+                } else {
                     Router.getInstance()
                             .buildWithUrl("hmiou://m.54jietiao.com/environment_switch/index")
                             .navigation(mContext);
@@ -116,6 +127,12 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
                         dialog.dismiss();
                     }
                 }).show();
+    }
+
+    private void toWebPage(String url) {
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                .withString("url", url)
+                .navigation(this);
     }
 
     private void toPrivacyPage() {
