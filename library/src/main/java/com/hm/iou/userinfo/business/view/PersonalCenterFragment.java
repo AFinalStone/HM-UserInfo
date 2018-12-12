@@ -188,7 +188,14 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/cloud_space")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_game) {  //游戏
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/game_credit_life/index")
+            UserInfo userInfo = UserManager.getInstance(mActivity).getUserInfo();
+            Router.getInstance()
+                    .buildWithUrl("hmiou://m.54jietiao.com/game_credit_life/index")
+                    .withString("user_id", userInfo.getUserId())
+                    .withString("token", userInfo.getToken())
+                    .withString("mobile", userInfo.getMobile())
+                    .withString("nickname", userInfo.getNickName())
+                    .withString("avatar", userInfo.getAvatarUrl())
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
             TraceUtil.onEvent(mActivity, "my_help_click");
