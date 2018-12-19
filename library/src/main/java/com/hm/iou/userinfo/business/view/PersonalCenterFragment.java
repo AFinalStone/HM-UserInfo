@@ -128,14 +128,14 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.ll_header || id == R.id.iv_header) {
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_avatar_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mActivity);
         } else if (id == R.id.iv_authentication) {
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
@@ -148,7 +148,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                 mPersonalDialogHelper.showHaveAuthtication();
             }
         } else if (id == R.id.iv_bindBank) {
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             UserInfo userInfo = UserManager.getInstance(getActivity()).getUserInfo();
@@ -169,7 +169,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                 }
             }
         } else if (id == R.id.ll_person_signature) {
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_sigature_click");
@@ -184,14 +184,14 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                         .navigation(getActivity());
             }
         } else if (id == R.id.ll_person_profile) {  //我的资料
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_profile_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_favorite) { //我的收藏
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_fav_click");
@@ -199,21 +199,21 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/news/favorite")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_charge) {    //充值
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_charge_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/pay/time_card_recharge")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_cloud_space) {  //云存储空间
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_cloudspace_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/cloud_space")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_game) {  //游戏
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             UserInfo userInfo = UserManager.getInstance(mActivity).getUserInfo();
@@ -226,7 +226,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
                     .withString("avatar", userInfo.getAvatarUrl())
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_helpcenter) {   //帮助
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_help_click");
@@ -236,7 +236,7 @@ public class PersonalCenterFragment extends BaseFragment<PersonalCenterPresenter
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
                     .navigation(mActivity);
         } else if (id == R.id.ll_person_about) {    //关于我们
-            if (ViewConcurrencyUtil.isFastClick()) {
+            if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
             TraceUtil.onEvent(mActivity, "my_about_click");
