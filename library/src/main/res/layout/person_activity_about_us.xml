@@ -67,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="20dip"
         android:paddingTop="10dip"
-        android:text="Copyright©2017-2018\n54jietiao.com 版权所有"
+        android:text="Copyright©2019-2020\n54jietiao.com 版权所有"
         android:textColor="#ff111111"
         android:textSize="10sp" />
 
