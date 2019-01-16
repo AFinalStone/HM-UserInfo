@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/uikit_icon_password_eye_close" />
+            android:src="@mipmap/uikit_ic_eye_closed" />
 
     </LinearLayout>
 
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/uikit_icon_password_eye_close" />
+            android:src="@mipmap/uikit_ic_eye_closed" />
 
     </LinearLayout>
 
