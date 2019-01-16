@@ -44,8 +44,10 @@
 
     <Button
         android:id="@+id/btn_close_account"
-        style="@style/UikitButton.Red"
+        style="@style/UikitHMButton.Large.Red"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
         android:text="注销并删除数据" />
 
 </LinearLayout>
