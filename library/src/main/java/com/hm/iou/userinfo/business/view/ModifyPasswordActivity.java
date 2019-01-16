@@ -108,7 +108,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
     private void changeEyeOld() {
         if (mIsEyeOldOpen) {
             mIsEyeOldOpen = false;
-            mIvEyeOld.setImageResource(R.mipmap.uikit_icon_password_eye_close);
+            mIvEyeOld.setImageResource(R.mipmap.uikit_ic_eye_closed);
             // 显示为普通文本
             mEtOldPassword.setInputType(InputType.TYPE_CLASS_TEXT
                     | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -117,7 +117,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             Selection.setSelection(etable, etable.length());
         } else {
             mIsEyeOldOpen = true;
-            mIvEyeOld.setImageResource(R.mipmap.uikit_icon_password_eye_open);
+            mIvEyeOld.setImageResource(R.mipmap.uikit_ic_eye_open);
             // 显示为密码
             mEtOldPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
             // 使光标始终在最后位置
@@ -129,7 +129,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
     private void changeEyeNew() {
         if (mIsEyeNewOpen) {
             mIsEyeNewOpen = false;
-            mIvEyeNew.setImageResource(R.mipmap.uikit_icon_password_eye_close);
+            mIvEyeNew.setImageResource(R.mipmap.uikit_ic_eye_closed);
             // 显示为普通文本
             mEtNewPassword.setInputType(InputType.TYPE_CLASS_TEXT
                     | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -138,7 +138,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             Selection.setSelection(etable, etable.length());
         } else {
             mIsEyeNewOpen = true;
-            mIvEyeNew.setImageResource(R.mipmap.uikit_icon_password_eye_open);
+            mIvEyeNew.setImageResource(R.mipmap.uikit_ic_eye_open);
             // 显示为密码
             mEtNewPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
             // 使光标始终在最后位置
