@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg_home_left_menu"
+    android:background="@drawable/person_bg_home_left_menu"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -25,7 +25,7 @@
             android:layout_height="52dp"
             android:layout_marginLeft="19dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/main_ic_home_left_menu_header"
+            android:src="@mipmap/person_ic_home_left_menu_header"
             app:shape_mode="circle" />
 
         <LinearLayout
@@ -77,7 +77,7 @@
                 android:id="@+id/iv_flag_info_complete"
                 android:layout_width="20dp"
                 android:layout_height="16dp"
-                android:src="@mipmap/main_ic_home_left_menu_crown"
+                android:src="@mipmap/person_ic_home_left_menu_crown"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -85,7 +85,7 @@
                 android:id="@+id/tv_info_complete_progress"
                 android:layout_width="32dp"
                 android:layout_height="17dp"
-                android:background="@drawable/main_bg_home_left_menu_red_msg"
+                android:background="@drawable/person_bg_home_left_menu_red_msg"
                 android:gravity="center"
                 android:text="20%"
                 android:textColor="@color/white"

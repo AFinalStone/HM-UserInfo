@@ -81,7 +81,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
 
     private void init() {
         mContext = getContext();
-        View view = LayoutInflater.from(mContext).inflate(R.layout.main_layout_home_left_menu, this, true);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.person_layout_home_left_menu, this, true);
         ButterKnife.bind(this, view);
         mIvHeaderArrow.setColorFilter(mContext.getResources().getColor(R.color.uikit_text_sub_content));
         //列表菜单
@@ -454,7 +454,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             return;
         }
         for (ITopMenuItem item : mListTopMenuItem) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.main_layout_home_left_menu_top_item, mLlTopMenu, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.person_layout_home_left_menu_top_item, mLlTopMenu, false);
             mLlTopMenu.addView(view);
             view.setTag(item);
             view.setOnClickListener(new OnClickListener() {

@@ -13,7 +13,7 @@ public class MenuAdapter extends BaseQuickAdapter<IListMenuItem, BaseViewHolder>
     private int mColor;
 
     public MenuAdapter(Context context) {
-        super(R.layout.main_layout_home_left_menu_list_item);
+        super(R.layout.person_layout_home_left_menu_list_item);
         mContext = context;
         mColor = mContext.getResources().getColor(R.color.uikit_text_sub_content);
     }

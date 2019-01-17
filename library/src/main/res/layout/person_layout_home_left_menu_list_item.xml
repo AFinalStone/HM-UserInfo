@@ -12,7 +12,7 @@
         android:id="@+id/tv_menu_red_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/main_bg_home_left_menu_red_msg"
+        android:background="@drawable/person_bg_home_left_menu_red_msg"
         android:gravity="center"
         android:minHeight="16dp"
         android:minWidth="32dp"

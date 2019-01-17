@@ -2,6 +2,6 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="#2C323D">
 
-    <item android:drawable="@drawable/main_bg_home_left_menu" />
+    <item android:drawable="@drawable/person_bg_home_left_menu" />
 
 </ripple>
