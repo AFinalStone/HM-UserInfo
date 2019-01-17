@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hm.iou.base.utils.RouterUtil;
-import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.ViewConcurrencyUtil;
@@ -161,6 +160,8 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         if (progress == 100) {
             mIvFlagInfoComplete.setVisibility(VISIBLE);
             mTvInfoCompleteProgress.setVisibility(GONE);
+        } else {
+
         }
         mTvInfoCompleteProgress.setText(progress + "%");
     }

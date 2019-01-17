@@ -10,6 +10,7 @@ import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.UserManager;
+import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -22,6 +23,8 @@ import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
 import com.hm.iou.userinfo.util.UserInfoCompleteProgressUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.InputStream;
 import java.util.List;
@@ -40,6 +43,8 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private HomeLeftMenuView mView;
     private Disposable mStatisticDisposable;
     private Disposable mThirdPlatformInfoDisposable;//获取第三方平台的状态
+    private int mRedFlagCount;//红点数量
+
 
     public HomeLeftMenuPresenter(Context context, HomeLeftMenuView view) {
         this.mContext = context;
@@ -87,6 +92,8 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         String realName = userInfo.getName();
         if (!TextUtils.isEmpty(realName)) {
             mView.showHaveAuthentication();
+        } else {
+            mRedFlagCount++;
         }
         //邮箱
         String email = userInfo.getMailAddr();
@@ -205,7 +212,23 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
      */
     private void showInfoCompleteProgress() {
         int progress = UserInfoCompleteProgressUtil.getProfileProgress(mContext);
+        if (progress != 100) {
+            mRedFlagCount++;
+        }
         mView.showProfileProgress(progress);
+    }
+
+    /**
+     * 获取版本更新信息
+     */
+    private void getUpdateInfo() {
+        ACache cache = ACache.get(mContext, "update");
+        String appVer = SystemUtil.getCurrentAppVersionName(mContext);
+        CheckVersionResBean versionResBean = (CheckVersionResBean) cache.getAsObject(appVer);
+        if (versionResBean != null) {
+            mRedFlagCount++;
+            mView.showHaveNewVersion();
+        }
     }
 
     @Override
@@ -221,18 +244,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     @Override
     public void refreshData() {
+        mRedFlagCount = 0;
         getUserProfile();
         getStatisticData();
         getUserThirdPlatformInfo();
         getUpdateInfo();
+        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
     }
 
-    private void getUpdateInfo() {
-        ACache cache = ACache.get(mContext, "update");
-        String appVer = SystemUtil.getCurrentAppVersionName(mContext);
-        CheckVersionResBean versionResBean = (CheckVersionResBean) cache.getAsObject(appVer);
-        if (versionResBean != null) {
-            mView.showHaveNewVersion();
-        }
-    }
+
 }
