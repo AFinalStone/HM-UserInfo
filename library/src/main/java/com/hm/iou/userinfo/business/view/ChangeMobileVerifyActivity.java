@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.constants.HMConstants;
@@ -71,11 +70,10 @@ public class ChangeMobileVerifyActivity extends BaseActivity<ChangeMobilePresent
             @Override
             public void accept(CharSequence charSequence) throws Exception {
                 mUserPassword = String.valueOf(charSequence);
-                mBtnCheckPassword.setEnabled(false);
-                if (StringUtil.matchRegex(mUserPhone, HMConstants.REG_MOBILE)) {
-                    if (mUserPassword.length() > 0) {
-                        mBtnCheckPassword.setEnabled(true);
-                    }
+                if (StringUtil.matchRegex(mUserPhone, HMConstants.REG_MOBILE) && mUserPassword.length() > 5) {
+                    mBtnCheckPassword.setEnabled(true);
+                } else {
+                    mBtnCheckPassword.setEnabled(false);
                 }
             }
         });

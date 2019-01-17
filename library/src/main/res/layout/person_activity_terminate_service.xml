@@ -64,14 +64,14 @@
     </LinearLayout>
 
     <Button
-        style="@style/UikitButton.Red"
+        style="@style/UikitHMButton.Large.Red"
         android:id="@+id/btn_terminate_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="永久删除数据"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="34dip"
-        android:layout_marginRight="34dip"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
         android:enabled="false"
         />
 

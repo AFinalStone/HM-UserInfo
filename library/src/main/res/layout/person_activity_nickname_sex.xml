@@ -84,12 +84,11 @@
 
     <Button
         android:id="@+id/btn_nickname_submit"
-        android:layout_width="305dip"
-        android:layout_height="48dip"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dip"
         android:text="保存"
-        style="@style/UikitButton.Bottom"
+        style="@style/UikitHMButton.Large.Main"
+        android:layout_marginLeft="35dip"
+        android:layout_margin="35dip"
         />
     
 </LinearLayout>
