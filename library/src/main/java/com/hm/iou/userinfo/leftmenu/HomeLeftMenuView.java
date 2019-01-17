@@ -138,13 +138,14 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
-            TraceUtil.onEvent(mContext, "my_avatar_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
                     .navigation(mContext);
         } else if (R.id.tv_more_set == id) {
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
+                    .navigation(mContext);
         } else if (R.id.tv_feedback == id) {
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;

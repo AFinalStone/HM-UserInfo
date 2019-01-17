@@ -10,25 +10,25 @@
       "name": "实卡",
       "id": "home_left_menu_0002",
       "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_bank_card.png",
-      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+      "url": "hmiou://m.54jietiao.com/pay/user_bind_bank"
     },
     {
       "name": "邮箱",
       "id": "home_left_menu_0003",
       "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_email.png",
-      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
-    },
-    {
-      "name": "亲友",
-      "id": "home_left_menu_0004",
-      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_friend.png",
-      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+      "url": ""
     },
     {
       "name": "职业",
       "id": "home_left_menu_0005",
       "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_work.png",
-      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+      "url": "hmiou://m.54jietiao.com/person/my_income"
+    },
+    {
+      "name": "亲友",
+      "id": "home_left_menu_0004",
+      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_friend.png",
+      "url": ""
     }
   ],
   "listMenus": [
@@ -55,7 +55,7 @@
     {
       "name": "我的钱包",
       "id": "home_left_menu_0009",
-      "url": "hmiou://m.54jietiao.com/pay/time_card_recharge"
+      "url": ""
     },
     {
       "name": "关于软件",

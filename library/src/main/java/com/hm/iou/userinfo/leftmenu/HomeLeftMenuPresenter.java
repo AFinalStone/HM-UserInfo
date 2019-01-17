@@ -3,6 +3,7 @@ package com.hm.iou.userinfo.leftmenu;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -80,9 +81,21 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         showUserAvatar(userInfo);
         showNicknameAndUserId(userInfo);
         showInfoCompleteProgress();
-        final String realName = userInfo.getName();
+        //真实姓名
+        String realName = userInfo.getName();
         if (!TextUtils.isEmpty(realName)) {
             mView.showHaveAuthentication();
+        }
+        //邮箱
+        String email = userInfo.getMailAddr();
+        if (!TextUtils.isEmpty(email)) {
+            mView.showHaveBindEmail();
+        }
+        //主要收入,次要收入
+        String mainIncome = UserDataUtil.getIncomeNameByType(userInfo.getMainIncome());
+        String secondIncome = UserDataUtil.getIncomeNameByType(userInfo.getSecondIncome());
+        if (TextUtils.isEmpty(mainIncome) || TextUtils.isEmpty(secondIncome)) {
+            mView.showHaveSetWork();
         }
     }
 
