@@ -39,5 +39,55 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
-    
+
+    <style name="HomeLeftMenuListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dip</item>
+        <item name="android:paddingLeft">20dip</item>
+        <item name="android:paddingRight">20dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="HomeLeftMenuListIcon">
+        <item name="android:layout_width">20dip</item>
+        <item name="android:layout_height">20dip</item>
+    </style>
+
+    <style name="HomeLeftMenuDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:background">#35425B</item>
+    </style>
+
+    <style name="HomeLeftMenuListTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textFontSize_12</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">7dip</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="HomeLeftMenuListArrow">
+        <item name="android:layout_width">6dip</item>
+        <item name="android:layout_height">11dip</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:src">@mipmap/uikit_ic_arrow_right</item>
+    </style>
+
+    <style name="HomeLeftMenuListHint">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/uikit_text_sub_content</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textSize">@dimen/textFontSize_12</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>

@@ -1,0 +1,66 @@
+{
+  "topModules": [
+    {
+      "name": "实名",
+      "id": "home_left_menu_0001",
+      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_authentication.png",
+      "url": "hmiou://m.54jietiao.com/facecheck/authentication"
+    },
+    {
+      "name": "实卡",
+      "id": "home_left_menu_0002",
+      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_bank_card.png",
+      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+    },
+    {
+      "name": "邮箱",
+      "id": "home_left_menu_0003",
+      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_email.png",
+      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+    },
+    {
+      "name": "亲友",
+      "id": "home_left_menu_0004",
+      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_friend.png",
+      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+    },
+    {
+      "name": "职业",
+      "id": "home_left_menu_0005",
+      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_work.png",
+      "url": "hmiou://m.54jietiao.com/iou_create/select_create_type"
+    }
+  ],
+  "listMenus": [
+    {
+      "name": "实名认证",
+      "id": "home_left_menu_0001",
+      "url": "hmiou://m.54jietiao.com/facecheck/authentication"
+    },
+    {
+      "name": "我的收藏",
+      "id": "home_left_menu_0006",
+      "url": "hmiou://m.54jietiao.com/news/favorite"
+    },
+    {
+      "name": "我的签章",
+      "id": "home_left_menu_0007",
+      "url": "hmiou://m.54jietiao.com/pay/time_card_recharge"
+    },
+    {
+      "name": "我的空间",
+      "id": "home_left_menu_0008",
+      "url": "hmiou://m.54jietiao.com/person/cloud_space"
+    },
+    {
+      "name": "我的钱包",
+      "id": "home_left_menu_0009",
+      "url": "hmiou://m.54jietiao.com/pay/time_card_recharge"
+    },
+    {
+      "name": "关于软件",
+      "id": "home_left_menu_00010",
+      "url": "hmiou://m.54jietiao.com/person/about"
+    }
+  ]
+}

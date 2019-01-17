@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="80dp"
+    android:layout_weight="1"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:layout_width="100dp">
+
+    <ImageView
+        android:id="@+id/iv_module_image"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:scaleType="fitXY"
+        tools:src="@mipmap/uikit_icon_header_unknow" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="5dp" />
+
+    <TextView
+        android:id="@+id/tv_module_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/uikit_text_sub_content"
+        android:textSize="@dimen/textFontSize_12"
+        tools:text="实名" />
+
+</LinearLayout>
