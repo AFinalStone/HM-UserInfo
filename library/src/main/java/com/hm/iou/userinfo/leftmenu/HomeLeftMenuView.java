@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hm.iou.base.utils.RouterUtil;
-import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.ViewConcurrencyUtil;
@@ -300,6 +299,43 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < mListTopMenuItem.size(); i++) {
             final ITopMenuItem item = mListTopMenuItem.get(i);
             if (ModuleType.EMAIL.getValue().equals(item.getIModuleId())) {
+                ITopMenuItem newItem = new ITopMenuItem() {
+                    @Override
+                    public String getIModuleName() {
+                        return item.getIModuleName();
+                    }
+
+                    @Override
+                    public String getIModuleId() {
+                        return item.getIModuleId();
+                    }
+
+                    @Override
+                    public int getIModuleColor() {
+                        return Color.WHITE;
+                    }
+
+                    @Override
+                    public String getIModuleImage() {
+                        return item.getIModuleImage();
+                    }
+
+                    @Override
+                    public String getIModuleRouter() {
+                        return item.getIModuleRouter();
+                    }
+                };
+                mListTopMenuItem.set(i, newItem);
+                showTopMenus(mListTopMenuItem);
+            }
+        }
+    }
+
+    @Override
+    public void showHaveFriend() {
+        for (int i = 0; i < mListTopMenuItem.size(); i++) {
+            final ITopMenuItem item = mListTopMenuItem.get(i);
+            if (ModuleType.FRIEND.getValue().equals(item.getIModuleId())) {
                 ITopMenuItem newItem = new ITopMenuItem() {
                     @Override
                     public String getIModuleName() {

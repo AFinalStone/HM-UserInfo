@@ -55,6 +55,11 @@ public interface HomeLeftMenuContract {
         void showHaveBindEmail();
 
         /**
+         * 显示已经设置亲友
+         */
+        void showHaveFriend();
+
+        /**
          * 显示已经设置过职业
          */
         void showHaveSetWork();
