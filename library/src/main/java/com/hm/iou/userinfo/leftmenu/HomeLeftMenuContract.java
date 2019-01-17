@@ -1,6 +1,8 @@
 package com.hm.iou.userinfo.leftmenu;
 
 
+import com.hm.iou.base.version.CheckVersionResBean;
+
 import java.util.List;
 
 /**
@@ -77,6 +79,11 @@ public interface HomeLeftMenuContract {
          * @param space
          */
         void showCloudSpace(String space);
+
+        /**
+         * 显示有新版本
+         */
+        void showHaveNewVersion();
 
         /**
          * 显示顶部模块列表

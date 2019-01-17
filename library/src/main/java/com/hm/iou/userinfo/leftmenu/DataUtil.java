@@ -75,9 +75,7 @@ public class DataUtil {
         if (list == null || list.isEmpty()) {
             return iListMenuItemList;
         }
-        final ACache cache = ACache.get(context, "update");
-        final String appVer = SystemUtil.getCurrentAppVersionName(context);
-        final CheckVersionResBean versionResBean = (CheckVersionResBean) cache.getAsObject(appVer);
+
         //真实姓名
         final UserInfo userInfo = UserManager.getInstance(context).getUserInfo();
         final String realName = userInfo.getName();
@@ -89,11 +87,6 @@ public class DataUtil {
                     if (ModuleType.AUTHENTICATION.getValue().equals(bean.getId())) {
                         if (TextUtils.isEmpty(realName)) {
                             return "认证";
-                        }
-                    }
-                    if (ModuleType.ABOUT_SOFT.getValue().equals(bean.getId())) {
-                        if (versionResBean != null) {
-                            return "更新";
                         }
                     }
                     return "";

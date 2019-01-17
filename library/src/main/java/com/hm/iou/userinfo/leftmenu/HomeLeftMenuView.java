@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hm.iou.base.utils.RouterUtil;
+import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.ViewConcurrencyUtil;
@@ -474,6 +475,45 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
                     @Override
                     public String getIMenuDesc() {
                         return space;
+                    }
+                };
+                list.set(i, newItem);
+                mMenuAdapter.notifyItemChanged(i);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void showHaveNewVersion() {
+        List<IListMenuItem> list = mMenuAdapter.getData();
+        for (int i = 0; i < list.size(); i++) {
+            final IListMenuItem item = list.get(i);
+            if (ModuleType.ABOUT_SOFT.getValue().equals(item.getIModuleId())) {
+                IListMenuItem newItem = new IListMenuItem() {
+                    @Override
+                    public String getIModuleName() {
+                        return item.getIModuleName();
+                    }
+
+                    @Override
+                    public String getIModuleId() {
+                        return item.getIModuleId();
+                    }
+
+                    @Override
+                    public String getIModuleRouter() {
+                        return item.getIModuleRouter();
+                    }
+
+                    @Override
+                    public String getIMenuRedMsg() {
+                        return "更新";
+                    }
+
+                    @Override
+                    public String getIMenuDesc() {
+                        return item.getIMenuDesc();
                     }
                 };
                 list.set(i, newItem);

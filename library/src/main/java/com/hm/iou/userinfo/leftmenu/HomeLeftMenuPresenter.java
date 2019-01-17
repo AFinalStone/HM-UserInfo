@@ -3,17 +3,19 @@ package com.hm.iou.userinfo.leftmenu;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
+import com.hm.iou.tools.ACache;
+import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
@@ -208,15 +210,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     @Override
     public void init() {
-        getUserProfile();
         //顶部模块列表
         HomeLeftMenuBean homeLeftMenuBean = readDataFromAssert();
         mView.showTopMenus(DataUtil.convertHomeModuleBeanToIModuleData(mContext, homeLeftMenuBean.getTopModules()));
         //菜单列表
         List<IListMenuItem> list = DataUtil.convertHomeModuleBeanToIMenuItem(mContext, homeLeftMenuBean.getListMenus());
         mView.showListMenus(list);
-        getStatisticData();
-        getUserThirdPlatformInfo();
+        refreshData();
     }
 
     @Override
@@ -224,5 +224,15 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         getUserProfile();
         getStatisticData();
         getUserThirdPlatformInfo();
+        getUpdateInfo();
+    }
+
+    private void getUpdateInfo() {
+        ACache cache = ACache.get(mContext, "update");
+        String appVer = SystemUtil.getCurrentAppVersionName(mContext);
+        CheckVersionResBean versionResBean = (CheckVersionResBean) cache.getAsObject(appVer);
+        if (versionResBean != null) {
+            mView.showHaveNewVersion();
+        }
     }
 }
