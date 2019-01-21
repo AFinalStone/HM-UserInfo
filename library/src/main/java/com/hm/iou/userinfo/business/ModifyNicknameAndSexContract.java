@@ -13,6 +13,8 @@ public interface ModifyNicknameAndSexContract {
         void showNickname(String nickname);
 
         void showSex(String sexStr);
+
+        void showModifySuccToast();
     }
 
     interface Presenter extends BaseContract.BasePresenter {

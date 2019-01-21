@@ -8,11 +8,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hm.iou.userinfo.R;
 
-public class MenuAdapter extends BaseQuickAdapter<IListMenuItem, BaseViewHolder> {
+public class ListMenuAdapter extends BaseQuickAdapter<IListMenuItem, BaseViewHolder> {
 
     private int mColor;
 
-    public MenuAdapter(Context context) {
+    public ListMenuAdapter(Context context) {
         super(R.layout.person_layout_home_left_menu_list_item);
         mContext = context;
         mColor = mContext.getResources().getColor(R.color.uikit_text_sub_content);

@@ -1,7 +1,6 @@
 package com.hm.iou.userinfo.leftmenu;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,7 +22,6 @@ import com.hm.iou.uikit.ShapedImageView;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,15 +47,17 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     ImageView mIvHeaderArrow;
     @BindView(R2.id.iv_flag_info_complete)
     ImageView mIvFlagInfoComplete;
-    @BindView(R2.id.ll_top_menu)
-    LinearLayout mLlTopMenu;
-    @BindView(R2.id.rv_menu)
-    RecyclerView mRvMenu;
+    @BindView(R2.id.rv_top_menu)
+    RecyclerView mRvTopMenu;        //横向的菜单
+    @BindView(R2.id.rv_menu)        //竖向的菜单
+    RecyclerView mRvListMenu;
 
     private Context mContext;
-    HomeLeftMenuPresenter mPresenter;
-    MenuAdapter mMenuAdapter;
-    private List<ITopMenuItem> mListTopMenuItem = new ArrayList<>();
+    private HomeLeftMenuPresenter mPresenter;
+
+    private ListMenuAdapter mListMenuAdapter;
+    private TopMenuAdapter mTopMenuAdapter;
+
     private boolean mIfRefreshData = false;//是否刷新数据
     private long mLastUpdateStatisticData;  //记录上一次刷新统计数据的时间
 
@@ -83,10 +82,29 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         View view = LayoutInflater.from(mContext).inflate(R.layout.person_layout_home_left_menu, this, true);
         ButterKnife.bind(this, view);
         mIvHeaderArrow.setColorFilter(mContext.getResources().getColor(R.color.uikit_text_sub_content));
+
+        mRvTopMenu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        mTopMenuAdapter = new TopMenuAdapter(mContext);
+        mTopMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (ViewConcurrencyUtil.isFastClicks()) {
+                    return;
+                }
+                ITopMenuItem item = (ITopMenuItem) adapter.getData().get(position);
+                if (item == null) {
+                    return;
+                }
+                String linkUrl = item.getIModuleRouter();
+                RouterUtil.clickMenuLink(mContext, linkUrl);
+            }
+        });
+        mRvTopMenu.setAdapter(mTopMenuAdapter);
+
         //列表菜单
-        mRvMenu.setLayoutManager(new LinearLayoutManager(mContext));
-        mMenuAdapter = new MenuAdapter(mContext);
-        mMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mRvListMenu.setLayoutManager(new LinearLayoutManager(mContext));
+        mListMenuAdapter = new ListMenuAdapter(mContext);
+        mListMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (ViewConcurrencyUtil.isFastClicks()) {
@@ -100,7 +118,8 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
                 RouterUtil.clickMenuLink(mContext, linkUrl);
             }
         });
-        mRvMenu.setAdapter(mMenuAdapter);
+        mRvListMenu.setAdapter(mListMenuAdapter);
+
         //初始化数据
         mPresenter = new HomeLeftMenuPresenter(mContext, this);
         mPresenter.init();
@@ -187,148 +206,45 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     }
 
     @Override
-    public void showAuthentication(boolean haveAuthentication) {
-        List<IListMenuItem> list = mMenuAdapter.getData();
+    public void showTopMenus(List<ITopMenuItem> list) {
+        mTopMenuAdapter.setNewData(list);
+    }
+
+    @Override
+    public void updateTopMenuIcon(String menuId, int iconColor) {
+        List<ITopMenuItem> list = mTopMenuAdapter.getData();
+        if (list == null)
+            return;
         for (int i = 0; i < list.size(); i++) {
-            final IListMenuItem item = list.get(i);
-            if (ModuleType.AUTHENTICATION.getValue().equals(item.getIModuleId())) {
-                if (haveAuthentication) {
-                    item.setIMenuRedMsg("");
-                    item.setIMenuDesc("已实名");
-                } else {
-                    item.setIMenuRedMsg("认证");
-                    item.setIMenuDesc("");
-                }
-                mMenuAdapter.notifyItemChanged(i);
+            final ITopMenuItem item = list.get(i);
+            if (menuId.equals(item.getIModuleId())) {
+                item.setIMenuColor(iconColor);
+                mTopMenuAdapter.notifyItemChanged(i);
                 break;
             }
-        }
-        if (haveAuthentication) {
-            for (int i = 0; i < mListTopMenuItem.size(); i++) {
-                final ITopMenuItem item = mListTopMenuItem.get(i);
-                if (ModuleType.AUTHENTICATION.getValue().equals(item.getIModuleId())) {
-                    item.setIMenuColor(Color.WHITE);
-                    showTopMenus(mListTopMenuItem);
-                    break;
-                }
-            }
-        }
-    }
-
-    @Override
-    public void showHaveBindBank() {
-        for (int i = 0; i < mListTopMenuItem.size(); i++) {
-            final ITopMenuItem item = mListTopMenuItem.get(i);
-            if (ModuleType.BANK_CARD.getValue().equals(item.getIModuleId())) {
-                item.setIMenuColor(Color.WHITE);
-                showTopMenus(mListTopMenuItem);
-            }
-        }
-    }
-
-    @Override
-    public void showHaveBindEmail() {
-        for (int i = 0; i < mListTopMenuItem.size(); i++) {
-            final ITopMenuItem item = mListTopMenuItem.get(i);
-            if (ModuleType.EMAIL.getValue().equals(item.getIModuleId())) {
-                item.setIMenuColor(Color.WHITE);
-                showTopMenus(mListTopMenuItem);
-            }
-        }
-    }
-
-    @Override
-    public void showHaveFriend() {
-        for (int i = 0; i < mListTopMenuItem.size(); i++) {
-            final ITopMenuItem item = mListTopMenuItem.get(i);
-            if (ModuleType.FRIEND.getValue().equals(item.getIModuleId())) {
-                item.setIMenuColor(Color.WHITE);
-                showTopMenus(mListTopMenuItem);
-            }
-        }
-    }
-
-    @Override
-    public void showHaveSetWork() {
-        for (int i = 0; i < mListTopMenuItem.size(); i++) {
-            final ITopMenuItem item = mListTopMenuItem.get(i);
-            if (ModuleType.WORK.getValue().equals(item.getIModuleId())) {
-                item.setIMenuColor(Color.WHITE);
-                showTopMenus(mListTopMenuItem);
-            }
-        }
-    }
-
-    @Override
-    public void showMyCollectCount(final String myCollectCount) {
-        List<IListMenuItem> list = mMenuAdapter.getData();
-        for (int i = 0; i < list.size(); i++) {
-            final IListMenuItem item = list.get(i);
-            if (ModuleType.MY_COLLECT.getValue().equals(item.getIModuleId())) {
-                item.setIMenuDesc(myCollectCount);
-                mMenuAdapter.notifyItemChanged(i);
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void showCloudSpace(final String space) {
-        List<IListMenuItem> list = mMenuAdapter.getData();
-        for (int i = 0; i < list.size(); i++) {
-            final IListMenuItem item = list.get(i);
-            if (ModuleType.MY_CLOUD_SPACE.getValue().equals(item.getIModuleId())) {
-                item.setIMenuDesc(space);
-                mMenuAdapter.notifyItemChanged(i);
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void showHaveNewVersion() {
-        List<IListMenuItem> list = mMenuAdapter.getData();
-        for (int i = 0; i < list.size(); i++) {
-            final IListMenuItem item = list.get(i);
-            if (ModuleType.ABOUT_SOFT.getValue().equals(item.getIModuleId())) {
-                item.setIMenuRedMsg("更新");
-                mMenuAdapter.notifyItemChanged(i);
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void showTopMenus(List<ITopMenuItem> list) {
-        mLlTopMenu.removeAllViews();
-        mListTopMenuItem = list;
-        if (list == null || list.isEmpty()) {
-            return;
-        }
-        for (ITopMenuItem item : mListTopMenuItem) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.person_layout_home_left_menu_top_item, mLlTopMenu, false);
-            mLlTopMenu.addView(view);
-            view.setTag(item);
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ITopMenuItem bean = (ITopMenuItem) v.getTag();
-                    String linkUrl = bean.getIModuleRouter();
-                    RouterUtil.clickMenuLink(mContext, linkUrl);
-                }
-            });
-            TextView tvModule = view.findViewById(R.id.tv_module_name);
-            tvModule.setText(item.getIModuleName());
-            tvModule.setTextColor(item.getIModuleColor());
-            ImageView ivModule = view.findViewById(R.id.iv_module_image);
-            ivModule.setColorFilter(item.getIModuleColor());
-            ImageLoader.getInstance(mContext).displayImage(item.getIModuleImage(), ivModule);
         }
     }
 
     @Override
     public void showListMenus(List<IListMenuItem> list) {
-        mMenuAdapter.setNewData(list);
+        mListMenuAdapter.setNewData(list);
+    }
+
+    @Override
+    public void updateListMenu(String menuId, String desc, String redMsg) {
+        List<IListMenuItem> list = mListMenuAdapter.getData();
+        if (list == null) {
+            return;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            final IListMenuItem item = list.get(i);
+            if (menuId.equals(item.getIModuleId())) {
+                item.setIMenuDesc(desc);
+                item.setIMenuRedMsg(redMsg);
+                mListMenuAdapter.notifyItemChanged(i);
+                break;
+            }
+        }
     }
 
 }

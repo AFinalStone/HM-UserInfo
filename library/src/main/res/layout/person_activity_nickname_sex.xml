@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -11,84 +11,83 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
-        app:titleText="昵称/性别"
-        />
+        app:titleText="昵称/性别" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginTop="1px"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="35dip"
+        android:paddingRight="35dip">
 
         <TextView
-            android:layout_width="80dp"
+            style="@style/UikitTextView"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="昵称"
-            android:textColor="#ff222222"
-            android:textSize="@dimen/textFontSize_15" />
+            android:text="昵称" />
 
         <com.hm.iou.uikit.ClearEditText
             android:id="@+id/tv_nickName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
+            style="@style/UikitEditText.Normal"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
             android:gravity="center_vertical"
             android:maxLength="16"
-            android:paddingStart="20dp"
-            android:paddingEnd="50dp"
-            android:textColor="#ff666666"
-            android:textSize="@dimen/textFontSize_15" />
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp" />
 
     </LinearLayout>
 
-    <View
-        style="@style/UikitDivider.Horizontal"
+    <View style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginTop="1px"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="35dip"
+        android:paddingRight="35dip">
 
 
         <TextView
-            android:layout_width="80dp"
+            style="@style/UikitTextView"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="性别"
-            android:textColor="#ff222222"
-            android:textSize="@dimen/textFontSize_15" />
+            android:text="性别" />
 
         <TextView
             android:id="@+id/tv_sex"
+            style="@style/UikitTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="50dp"
-            android:text="未知"
-            android:textColor="#ff666666"
-            android:textSize="@dimen/textFontSize_15" />
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+            android:minHeight="40dip"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="未知" />
 
     </LinearLayout>
 
-    <View
-        style="@style/UikitDivider.Horizontal"
+    <View style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
         />
 
     <Button
         android:id="@+id/btn_nickname_submit"
-        android:layout_marginTop="60dip"
-        android:text="保存"
         style="@style/UikitHMButton.Large.Main"
         android:layout_marginLeft="35dip"
-        android:layout_margin="35dip"
-        />
-    
+        android:layout_marginRight="35dip"
+        android:layout_marginTop="50dip"
+        android:enabled="false"
+        android:text="保存" />
+
 </LinearLayout>

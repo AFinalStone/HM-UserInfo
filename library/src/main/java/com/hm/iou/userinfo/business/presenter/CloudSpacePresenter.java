@@ -8,7 +8,6 @@ import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.IOUKindEnum;
-import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
@@ -109,14 +108,6 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 map.put(bean.getIouKind(), bean);
             }
         }
-        final int[] iconArr = new int[]{
-                R.mipmap.jietiao_ic_home_type_money_borrow,
-                R.mipmap.jietiao_ic_home_type_money_receive,
-                R.mipmap.jietiao_ic_home_type_fun,
-                R.mipmap.jietiao_ic_home_type_platform,
-                R.mipmap.jietiao_ic_home_type_paper_borrow,
-                R.mipmap.jietiao_ic_home_type_paper_receive
-        };
         final CharSequence[] nameArr = new CharSequence[]{
                 "吕约借条", "吕约收条", "娱乐借条", "平台借条", "纸质借条", "纸质收条"
         };
@@ -125,13 +116,9 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
                 IOUKindEnum.FunReceipt.getValue(), IOUKindEnum.PlatformReceipt.getValue(),
                 IOUKindEnum.PaperBorrowerReceipt.getValue(), IOUKindEnum.PaperReceiveReceipt.getValue()
         };
-        for (int i = 0; i < iconArr.length; i++) {
+        for (int i = 0; i < nameArr.length; i++) {
             final int index = i;
             dataList.add(new ICloudSpaceItem() {
-                @Override
-                public int getIcon() {
-                    return iconArr[index];
-                }
 
                 @Override
                 public CharSequence getTitle() {

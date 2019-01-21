@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="0dp"
+    android:layout_width="wrap_content"
     android:layout_height="80dp"
-    android:layout_weight="1"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:layout_width="100dp">
+    android:paddingLeft="17dip"
+    android:paddingRight="12dip"
+    >
 
     <ImageView
         android:id="@+id/iv_module_image"

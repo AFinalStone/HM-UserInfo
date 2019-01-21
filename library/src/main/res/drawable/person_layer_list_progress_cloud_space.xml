@@ -3,19 +3,14 @@
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
             <corners android:radius="6dp" />
-            <gradient
-                android:startColor="#ffeeeeee"
-                android:centerColor="#ffeeeeee"
-                android:endColor="#ffeeeeee"
-                />
+            <solid android:color="#fff8f8f9" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <clip><!--可裁剪对象-->
             <shape android:shape="rectangle">
                 <corners android:radius="6dp" />
-                <stroke android:color="#ffffffff" />
-                <solid android:color="#ffffdd4a" />
+                <solid android:color="#ffcfcfd6" />
             </shape>
         </clip>
     </item>

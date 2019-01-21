@@ -64,6 +64,7 @@ public class ModifyNicknameAndSexPresenter extends MvpActivityPresenter<ModifyNi
                         userInfo.setNickName(nickname);
                         userInfo.setSex(mCurrSex);
                         UserManager.getInstance(mContext).updateOrSaveUserInfo(userInfo);
+                        mView.showModifySuccToast();
                         mView.closeCurrPage();
                         EventBus.getDefault().post(new UpdateNicknameAndSexEvent());
                     }

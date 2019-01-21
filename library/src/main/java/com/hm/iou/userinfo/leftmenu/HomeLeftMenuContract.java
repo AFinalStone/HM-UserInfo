@@ -1,8 +1,6 @@
 package com.hm.iou.userinfo.leftmenu;
 
 
-import com.hm.iou.base.version.CheckVersionResBean;
-
 import java.util.List;
 
 /**
@@ -42,50 +40,6 @@ public interface HomeLeftMenuContract {
         void showNickname(String nickname);
 
         /**
-         * 显示是否已经实名认证
-         */
-        void showAuthentication(boolean haveAuthentication);
-
-        /**
-         * 显示已经绑定过银行卡
-         */
-        void showHaveBindBank();
-
-        /**
-         * 显示已经绑定过邮箱
-         */
-        void showHaveBindEmail();
-
-        /**
-         * 显示已经设置亲友
-         */
-        void showHaveFriend();
-
-        /**
-         * 显示已经设置过职业
-         */
-        void showHaveSetWork();
-
-        /**
-         * 显示我的收藏篇数
-         *
-         * @param myCollectCount
-         */
-        void showMyCollectCount(String myCollectCount);
-
-        /**
-         * 显示云存储空间
-         *
-         * @param space
-         */
-        void showCloudSpace(String space);
-
-        /**
-         * 显示有新版本
-         */
-        void showHaveNewVersion();
-
-        /**
          * 显示顶部模块列表
          *
          * @param list
@@ -93,11 +47,29 @@ public interface HomeLeftMenuContract {
         void showTopMenus(List<ITopMenuItem> list);
 
         /**
+         * 更新顶部menu的icon颜色
+         *
+         * @param menuId
+         * @param iconColor
+         */
+        void updateTopMenuIcon(String menuId, int iconColor);
+
+        /**
          * 显示菜单列表
          *
          * @param list
          */
         void showListMenus(List<IListMenuItem> list);
+
+        /**
+         * 更新列表菜单里的描述信息
+         *
+         * @param menuId
+         * @param desc
+         * @param redMsg 不为空，则显示红色背景
+         */
+        void updateListMenu(String menuId, String desc, String redMsg);
+
     }
 
     interface Presenter {

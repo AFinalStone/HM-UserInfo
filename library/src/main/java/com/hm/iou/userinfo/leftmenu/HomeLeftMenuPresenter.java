@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.leftmenu;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -11,13 +12,11 @@ import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.CommBizEvent;
-import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.tools.ACache;
 import com.hm.iou.tools.SystemUtil;
-import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -54,7 +53,33 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     public void onDestroy() {
         if (mStatisticDisposable != null && !mStatisticDisposable.isDisposed()) {
             mStatisticDisposable.dispose();
+            mStatisticDisposable = null;
         }
+        if (mThirdPlatformInfoDisposable != null && !mThirdPlatformInfoDisposable.isDisposed()) {
+            mThirdPlatformInfoDisposable.dispose();
+            mThirdPlatformInfoDisposable = null;
+        }
+    }
+
+    @Override
+    public void init() {
+        //顶部模块列表
+        HomeLeftMenuBean homeLeftMenuBean = readDataFromAssert();
+        mView.showTopMenus(DataUtil.convertHomeModuleBeanToIModuleData(mContext, homeLeftMenuBean.getTopModules()));
+        //菜单列表
+        List<IListMenuItem> list = DataUtil.convertHomeModuleBeanToIMenuItem(mContext, homeLeftMenuBean.getListMenus());
+        mView.showListMenus(list);
+        refreshData();
+    }
+
+    @Override
+    public void refreshData() {
+        mRedFlagCount = 0;
+        getUserProfile();
+        getStatisticData();
+        getUserThirdPlatformInfo();
+        getUpdateInfo();
+        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
     }
 
 
@@ -89,23 +114,22 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         showNicknameAndUserId(userInfo);
         showInfoCompleteProgress();
         //真实姓名
-        String realName = userInfo.getName();
-        if (!TextUtils.isEmpty(realName)) {
-            mView.showAuthentication(true);
+        if (!UserDataUtil.isCClass(userInfo.getType())) {
+            mView.updateTopMenuIcon(ModuleType.AUTHENTICATION.getValue(), Color.WHITE);
+            mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), "已实名", null);
         } else {
-            mView.showAuthentication(false);
+            mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), null, "认证");
             mRedFlagCount++;
         }
+
         //邮箱
         String email = userInfo.getMailAddr();
         if (!TextUtils.isEmpty(email)) {
-            mView.showHaveBindEmail();
+            mView.updateTopMenuIcon(ModuleType.EMAIL.getValue(), Color.WHITE);
         }
         //主要收入,次要收入
-        String mainIncome = UserDataUtil.getIncomeNameByType(userInfo.getMainIncome());
-        String secondIncome = UserDataUtil.getIncomeNameByType(userInfo.getSecondIncome());
-        if (TextUtils.isEmpty(mainIncome) || TextUtils.isEmpty(secondIncome)) {
-            mView.showHaveSetWork();
+        if (userInfo.getMainIncome() > 0) {
+            mView.updateTopMenuIcon(ModuleType.WORK.getValue(), Color.WHITE);
         }
     }
 
@@ -123,8 +147,8 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                     @Override
                     public void accept(UserCenterStatisticBean data) throws Exception {
                         int myCollectNum = data.getMyCollect();
-                        mView.showMyCollectCount(myCollectNum == 0 ? "共0篇" : "共" + myCollectNum + "篇");
-                        mView.showCloudSpace(UserDataUtil.formatUserCloudSpace(data.getUserSpaceSize()));
+                        mView.updateListMenu(ModuleType.MY_COLLECT.getValue(), myCollectNum == 0 ? "共0篇" : "共" + myCollectNum + "篇", null);
+                        mView.updateListMenu(ModuleType.MY_CLOUD_SPACE.getValue(), UserDataUtil.formatUserCloudSpace(data.getUserSpaceSize()), null);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -138,12 +162,11 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
      * 获取第三方平台的认证信息
      */
     private void getUserThirdPlatformInfo() {
-
         UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
         if (userThirdPlatformInfo != null) {
             UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
             if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                mView.showHaveBindBank();
+                mView.updateTopMenuIcon(ModuleType.BANK_CARD.getValue(), Color.WHITE);
                 return;
             }
         }
@@ -159,7 +182,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         Logger.d("user" + thirdInfo.getBankInfoResp().toString());
                         UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
                         if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                            mView.showHaveBindBank();
+                            mView.updateTopMenuIcon(ModuleType.BANK_CARD.getValue(), Color.WHITE);
                         }
                         //存储绑定银行卡信息
                         UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
@@ -185,14 +208,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         String avatarUrl = userInfo.getAvatarUrl();
         //头像
         int sex = userInfo.getSex();
-        int defaultAvatarResId;
-        if (sex == SexEnum.MALE.getValue()) {
-            defaultAvatarResId = R.mipmap.uikit_icon_header_man;
-        } else if (sex == SexEnum.FEMALE.getValue()) {
-            defaultAvatarResId = R.mipmap.uikit_icon_header_wuman;
-        } else {
-            defaultAvatarResId = R.mipmap.uikit_icon_header_unknow;
-        }
+        int defaultAvatarResId = UserDataUtil.getDefaultAvatarBySex(sex);
         mView.showAvatar(avatarUrl, defaultAvatarResId);
     }
 
@@ -228,30 +244,8 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         CheckVersionResBean versionResBean = (CheckVersionResBean) cache.getAsObject(appVer);
         if (versionResBean != null) {
             mRedFlagCount++;
-            mView.showHaveNewVersion();
+            mView.updateListMenu(ModuleType.ABOUT_SOFT.getValue(), null, "更新");
         }
     }
-
-    @Override
-    public void init() {
-        //顶部模块列表
-        HomeLeftMenuBean homeLeftMenuBean = readDataFromAssert();
-        mView.showTopMenus(DataUtil.convertHomeModuleBeanToIModuleData(mContext, homeLeftMenuBean.getTopModules()));
-        //菜单列表
-        List<IListMenuItem> list = DataUtil.convertHomeModuleBeanToIMenuItem(mContext, homeLeftMenuBean.getListMenus());
-        mView.showListMenus(list);
-        refreshData();
-    }
-
-    @Override
-    public void refreshData() {
-        mRedFlagCount = 0;
-        getUserProfile();
-        getStatisticData();
-        getUserThirdPlatformInfo();
-        getUpdateInfo();
-        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
-    }
-
 
 }

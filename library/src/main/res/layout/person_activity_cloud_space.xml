@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/uikit_background"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     >
 
@@ -13,11 +13,13 @@
         android:layout_height="@dimen/uikit_topbar_height"
         app:titleBackground="#ffffff"
         app:backIcon="@mipmap/uikit_icon_close_black"
-        app:titleText="云存储空间" />
+        app:titleText="云存储空间"
+        app:bottomDividerIsShow="false"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="108dip"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dip"
         android:paddingLeft="20dip"
@@ -29,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dip"
             android:gravity="center_vertical"
             >
 
@@ -37,16 +38,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="云存储空间"
-                android:textColor="#ff222222"
-                android:textSize="16dp"
+                style="@style/UikitTextView"
                 android:layout_weight="1"
                 />
 
             <TextView
                 android:id="@+id/tv_cloud_space"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ff999999"
+                style="@style/UikitTextView.Auxiliary.Normal"
                 android:textSize="14dp"
                 android:text="已使用--/--"
                 tools:text="已使用10GB/1024GB"
@@ -65,24 +63,27 @@
             android:progress="0"
             android:progressDrawable="@drawable/person_layer_list_progress_cloud_space" />
 
-
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="24dip"
         android:text="明细"
-        android:textColor="#ff999999"
+        android:textColor="@color/uikit_text_auxiliary"
         android:textSize="13sp"
-        android:layout_marginTop="18dip"
-        android:layout_marginLeft="20dip"
-        android:layout_marginBottom="8dip"
+        android:background="#fff8f8f9"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:layout_marginTop="25dip"
+        android:gravity="center_vertical"
         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_cloud_space"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
         >
     </android.support.v7.widget.RecyclerView>
 

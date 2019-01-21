@@ -18,8 +18,8 @@ public class UpdateUserInfoReqBean {
     private String nickName;
     private String proveDocList;
 
-    private int mainIncome;
-    private int secondIncome;
-    private int sex;
+    private Integer mainIncome;
+    private Integer secondIncome;
+    private Integer sex;
 
 }

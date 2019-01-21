@@ -1,7 +1,7 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,9 +10,10 @@ import com.hm.iou.base.BaseActivity;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.tools.ToastUtil;
 import com.hm.iou.uikit.ClearEditText;
 import com.hm.iou.uikit.HMTopBarView;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ModifyNicknameAndSexContract;
@@ -58,7 +59,11 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         RxTextView.textChanges(mEtNickName).subscribe(new Consumer<CharSequence>() {
             @Override
             public void accept(CharSequence charSequence) throws Exception {
-                mBtnSubmit.setEnabled(true);
+                if (TextUtils.isEmpty(charSequence)) {
+                    mBtnSubmit.setEnabled(false);
+                } else {
+                    mBtnSubmit.setEnabled(true);
+                }
             }
         });
     }
@@ -94,38 +99,35 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         mTvSex.setText(sexStr);
     }
 
+    @Override
+    public void showModifySuccToast() {
+        ToastUtil.showStatusView(this, "修改成功");
+    }
+
     /**
      * 显示用户已经实名过
      */
     private void showUserHasAuthDialog() {
-        String noChangeSex02 = getString(R.string.person_userNameSex_noChangeSex02);
-        String ok = "确定";
-        new IOSAlertDialog
-                .Builder(mContext)
-                .setMessage(noChangeSex02)
-                .setNegativeButton(ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.dismiss();
-                    }
-                }).show();
+        String msg = getString(R.string.person_userNameSex_noChangeSex02);
+        String ok = "知道了";
+        new HMAlertDialog.Builder(this)
+                .setMessage(msg)
+                .setNegativeButton(ok)
+                .create()
+                .show();
     }
 
     /**
      * 已修改过的用户，不能再次修改
      */
     private void showCannotModifySexDialog() {
-        String noChangeSex03 = getString(R.string.person_userNameSex_noChangeSex03);
-        String ok = "确定";
-        new IOSAlertDialog
-                .Builder(mContext)
-                .setMessage(noChangeSex03)
-                .setNegativeButton(ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.dismiss();
-                    }
-                }).show();
+        String msg = getString(R.string.person_userNameSex_noChangeSex03);
+        String ok = "知道了";
+        new HMAlertDialog.Builder(this)
+                .setMessage(msg)
+                .setNegativeButton(ok)
+                .create()
+                .show();
     }
 
     private void showSelectUserSexDialog() {

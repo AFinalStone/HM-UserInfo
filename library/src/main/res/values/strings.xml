@@ -14,15 +14,16 @@
     <string name="personal_dialogByNotEnoughTimesTitle">实名认证</string>
 
     <!--我的收入-->
-    <string name="person_myIncome_homeMainIncome">家庭主要收入</string>
-    <string name="person_myIncome_homeSubIncome">家庭次要收入</string>
+    <string-array name="person_incomes">
+        <item>无</item>
+        <item>工资</item>
+        <item>生意</item>
+        <item>投资</item>
+        <item>父母资助</item>
+        <item>其他</item>
+    </string-array>
     <string name="person_myIncome_nothing">无</string>
-    <string name="person_myIncome_salary">工资</string>
-    <string name="person_myIncome_business">生意</string>
-    <string name="person_myIncome_invest">投资</string>
-    <string name="person_myIncome_ParentsSupport">父母资助</string>
-    <string name="person_myIncome_other">其他</string>
-    <string name="person_myIncome_uploadPicDesc">上传职业经历证明名片、工牌、学生证等任一材料</string>
+    <string name="person_myIncome_uploadPicDesc">*上传职业经历证明名片、工牌、学生证等任一材料</string>
 
     <string name="person_userNameSex_noChangeSex02">已经实名过的用户不允许修改性别</string>
     <string name="person_userNameSex_noChangeSex03">如果性别有误，请点“返回”，再通过“实名认证”，认证通过后自动修复</string>
