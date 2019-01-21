@@ -42,9 +42,9 @@ public interface HomeLeftMenuContract {
         void showNickname(String nickname);
 
         /**
-         * 显示真实姓名
+         * 显示是否已经实名认证
          */
-        void showHaveAuthentication();
+        void showAuthentication(boolean haveAuthentication);
 
         /**
          * 显示已经绑定过银行卡

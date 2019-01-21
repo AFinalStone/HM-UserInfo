@@ -34,9 +34,23 @@ public interface IListMenuItem {
     String getIMenuRedMsg();
 
     /**
+     * 更新菜单红色内容
+     *
+     * @return
+     */
+    void setIMenuRedMsg(String newMenuRedMsg);
+
+    /**
      * 菜单描述
      *
      * @return
      */
     String getIMenuDesc();
+
+    /**
+     * 更新菜单描述
+     *
+     * @return
+     */
+    void setIMenuDesc(String desc);
 }

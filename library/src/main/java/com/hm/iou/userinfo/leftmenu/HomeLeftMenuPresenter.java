@@ -91,8 +91,9 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         //真实姓名
         String realName = userInfo.getName();
         if (!TextUtils.isEmpty(realName)) {
-            mView.showHaveAuthentication();
+            mView.showAuthentication(true);
         } else {
+            mView.showAuthentication(false);
             mRedFlagCount++;
         }
         //邮箱

@@ -187,74 +187,30 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     }
 
     @Override
-    public void showHaveAuthentication() {
+    public void showAuthentication(boolean haveAuthentication) {
         List<IListMenuItem> list = mMenuAdapter.getData();
         for (int i = 0; i < list.size(); i++) {
             final IListMenuItem item = list.get(i);
             if (ModuleType.AUTHENTICATION.getValue().equals(item.getIModuleId())) {
-                IListMenuItem newItem = new IListMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-
-                    @Override
-                    public String getIMenuRedMsg() {
-                        return "";
-                    }
-
-                    @Override
-                    public String getIMenuDesc() {
-                        return "已实名";
-                    }
-                };
-                list.set(i, newItem);
+                if (haveAuthentication) {
+                    item.setIMenuRedMsg("");
+                    item.setIMenuDesc("已实名");
+                } else {
+                    item.setIMenuRedMsg("认证");
+                    item.setIMenuDesc("");
+                }
                 mMenuAdapter.notifyItemChanged(i);
                 break;
             }
         }
-        for (int i = 0; i < mListTopMenuItem.size(); i++) {
-            final ITopMenuItem item = mListTopMenuItem.get(i);
-            if (ModuleType.AUTHENTICATION.getValue().equals(item.getIModuleId())) {
-                ITopMenuItem newItem = new ITopMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public int getIModuleColor() {
-                        return Color.WHITE;
-                    }
-
-                    @Override
-                    public String getIModuleImage() {
-                        return item.getIModuleImage();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-                };
-                mListTopMenuItem.set(i, newItem);
-                showTopMenus(mListTopMenuItem);
-                break;
+        if (haveAuthentication) {
+            for (int i = 0; i < mListTopMenuItem.size(); i++) {
+                final ITopMenuItem item = mListTopMenuItem.get(i);
+                if (ModuleType.AUTHENTICATION.getValue().equals(item.getIModuleId())) {
+                    item.setIMenuColor(Color.WHITE);
+                    showTopMenus(mListTopMenuItem);
+                    break;
+                }
             }
         }
     }
@@ -264,33 +220,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < mListTopMenuItem.size(); i++) {
             final ITopMenuItem item = mListTopMenuItem.get(i);
             if (ModuleType.BANK_CARD.getValue().equals(item.getIModuleId())) {
-                ITopMenuItem newItem = new ITopMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public int getIModuleColor() {
-                        return Color.WHITE;
-                    }
-
-                    @Override
-                    public String getIModuleImage() {
-                        return item.getIModuleImage();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-                };
-                mListTopMenuItem.set(i, newItem);
+                item.setIMenuColor(Color.WHITE);
                 showTopMenus(mListTopMenuItem);
             }
         }
@@ -301,33 +231,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < mListTopMenuItem.size(); i++) {
             final ITopMenuItem item = mListTopMenuItem.get(i);
             if (ModuleType.EMAIL.getValue().equals(item.getIModuleId())) {
-                ITopMenuItem newItem = new ITopMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public int getIModuleColor() {
-                        return Color.WHITE;
-                    }
-
-                    @Override
-                    public String getIModuleImage() {
-                        return item.getIModuleImage();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-                };
-                mListTopMenuItem.set(i, newItem);
+                item.setIMenuColor(Color.WHITE);
                 showTopMenus(mListTopMenuItem);
             }
         }
@@ -338,33 +242,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < mListTopMenuItem.size(); i++) {
             final ITopMenuItem item = mListTopMenuItem.get(i);
             if (ModuleType.FRIEND.getValue().equals(item.getIModuleId())) {
-                ITopMenuItem newItem = new ITopMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public int getIModuleColor() {
-                        return Color.WHITE;
-                    }
-
-                    @Override
-                    public String getIModuleImage() {
-                        return item.getIModuleImage();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-                };
-                mListTopMenuItem.set(i, newItem);
+                item.setIMenuColor(Color.WHITE);
                 showTopMenus(mListTopMenuItem);
             }
         }
@@ -375,33 +253,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < mListTopMenuItem.size(); i++) {
             final ITopMenuItem item = mListTopMenuItem.get(i);
             if (ModuleType.WORK.getValue().equals(item.getIModuleId())) {
-                ITopMenuItem newItem = new ITopMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public int getIModuleColor() {
-                        return Color.WHITE;
-                    }
-
-                    @Override
-                    public String getIModuleImage() {
-                        return item.getIModuleImage();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-                };
-                mListTopMenuItem.set(i, newItem);
+                item.setIMenuColor(Color.WHITE);
                 showTopMenus(mListTopMenuItem);
             }
         }
@@ -413,33 +265,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < list.size(); i++) {
             final IListMenuItem item = list.get(i);
             if (ModuleType.MY_COLLECT.getValue().equals(item.getIModuleId())) {
-                IListMenuItem newItem = new IListMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-
-                    @Override
-                    public String getIMenuRedMsg() {
-                        return "";
-                    }
-
-                    @Override
-                    public String getIMenuDesc() {
-                        return myCollectCount;
-                    }
-                };
-                list.set(i, newItem);
+                item.setIMenuDesc(myCollectCount);
                 mMenuAdapter.notifyItemChanged(i);
                 return;
             }
@@ -452,33 +278,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < list.size(); i++) {
             final IListMenuItem item = list.get(i);
             if (ModuleType.MY_CLOUD_SPACE.getValue().equals(item.getIModuleId())) {
-                IListMenuItem newItem = new IListMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-
-                    @Override
-                    public String getIMenuRedMsg() {
-                        return "";
-                    }
-
-                    @Override
-                    public String getIMenuDesc() {
-                        return space;
-                    }
-                };
-                list.set(i, newItem);
+                item.setIMenuDesc(space);
                 mMenuAdapter.notifyItemChanged(i);
                 return;
             }
@@ -491,33 +291,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         for (int i = 0; i < list.size(); i++) {
             final IListMenuItem item = list.get(i);
             if (ModuleType.ABOUT_SOFT.getValue().equals(item.getIModuleId())) {
-                IListMenuItem newItem = new IListMenuItem() {
-                    @Override
-                    public String getIModuleName() {
-                        return item.getIModuleName();
-                    }
-
-                    @Override
-                    public String getIModuleId() {
-                        return item.getIModuleId();
-                    }
-
-                    @Override
-                    public String getIModuleRouter() {
-                        return item.getIModuleRouter();
-                    }
-
-                    @Override
-                    public String getIMenuRedMsg() {
-                        return "更新";
-                    }
-
-                    @Override
-                    public String getIMenuDesc() {
-                        return item.getIMenuDesc();
-                    }
-                };
-                list.set(i, newItem);
+                item.setIMenuRedMsg("更新");
                 mMenuAdapter.notifyItemChanged(i);
                 return;
             }

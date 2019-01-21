@@ -27,6 +27,12 @@ public interface ITopMenuItem {
      */
     int getIModuleColor();
 
+    /**
+     * 更新模块颜色
+     *
+     * @return
+     */
+    void setIMenuColor(int color);
 
     /**
      * 获取模块图片

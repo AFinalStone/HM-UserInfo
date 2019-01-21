@@ -3,10 +3,8 @@ package com.hm.iou.userinfo.leftmenu;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
-import com.hm.iou.tools.ACache;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
@@ -34,6 +32,9 @@ public class DataUtil {
         }
         for (final HomeLeftMenuBean.HomeModuleBean bean : list) {
             ITopMenuItem iTopMenuItem = new ITopMenuItem() {
+
+                Integer newColor = null;
+
                 @Override
                 public String getIModuleName() {
                     return bean.getName();
@@ -46,7 +47,15 @@ public class DataUtil {
 
                 @Override
                 public int getIModuleColor() {
+                    if (newColor != null) {
+                        return newColor;
+                    }
                     return context.getResources().getColor(R.color.uikit_text_sub_content);
+                }
+
+                @Override
+                public void setIMenuColor(int newColor) {
+                    this.newColor = newColor;
                 }
 
                 @Override
@@ -76,24 +85,28 @@ public class DataUtil {
             return iListMenuItemList;
         }
 
-        //真实姓名
-        final UserInfo userInfo = UserManager.getInstance(context).getUserInfo();
-        final String realName = userInfo.getName();
-
         for (final HomeLeftMenuBean.HomeModuleBean bean : list) {
+
             IListMenuItem iListMenuItem = new IListMenuItem() {
+
+                private String menuRedMsg;
+                private String newDesc;
+
                 @Override
                 public String getIMenuRedMsg() {
-                    if (ModuleType.AUTHENTICATION.getValue().equals(bean.getId())) {
-                        if (TextUtils.isEmpty(realName)) {
-                            return "认证";
-                        }
-                    }
-                    return "";
+                    return menuRedMsg;
+                }
+
+                @Override
+                public void setIMenuRedMsg(String menuRedMsg) {
+                    this.menuRedMsg = menuRedMsg;
                 }
 
                 @Override
                 public String getIMenuDesc() {
+                    if (!TextUtils.isEmpty(newDesc)) {
+                        return newDesc;
+                    }
                     if (ModuleType.AUTHENTICATION.getValue().equals(bean.getId())) {
                         return "已实名";
                     }
@@ -113,6 +126,11 @@ public class DataUtil {
                         return "版本" + SystemUtil.getCurrentAppVersionName(context);
                     }
                     return "";
+                }
+
+                @Override
+                public void setIMenuDesc(String newDesc) {
+                    this.newDesc = newDesc;
                 }
 
                 @Override
