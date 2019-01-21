@@ -1,6 +1,6 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,14 +19,16 @@ import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
-import com.hm.iou.uikit.dialog.IOSActionSheetItem;
-import com.hm.iou.uikit.dialog.IOSActionSheetTitleDialog;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
+import com.hm.iou.uikit.dialog.HMActionSheetDialog;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ProfileContract;
 import com.hm.iou.userinfo.business.presenter.ProfilePresenter;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -78,7 +80,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     @BindView(R2.id.tv_profile_income)
     TextView mTvIncome;
 
-    private IOSActionSheetTitleDialog mChangePwdDialog;
+    private Dialog mChangePwdDialog;
     PersonalDialogHelper mPersonalDialogHelper;
 
     @Override
@@ -271,18 +273,20 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
      * 显示安全退出对话框
      */
     private void showDialogLogoutSafely() {
-        new IOSActionSheetTitleDialog.Builder(mContext)
+        new HMActionSheetDialog.Builder(mContext)
                 .setTitle("是否退出当前账号？")
-                .setTitleTextColor(getResources().getColor(R.color.iosActionSheet_gray))
-                .addSheetItem(IOSActionSheetItem
-                        .create("安全退出")
-                        .setItemClickListener(new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                mPresenter.logout();
-                            }
-                        })).show();
+                .setActionSheetList(Arrays.asList("安全退出"))
+                .setCanSelected(false)
+                .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int i, String s) {
+                        if (i == 0) {
+                            mPresenter.logout();
+                        }
+                    }
+                })
+                .create()
+                .show();
     }
 
     private void toBindBank() {
@@ -313,33 +317,33 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         if (mChangePwdDialog == null) {
             String itemChangeLoginPassword = getString(R.string.personal_changeLoginPassword);
             String itemChangeSignaturePassword = getString(R.string.personal_changeSignaturePassword);
-            mChangePwdDialog = new IOSActionSheetTitleDialog.Builder(mContext)
-                    .setCanceledOnTouchOutside(true)
-                    .addSheetItem(IOSActionSheetItem.create(itemChangeLoginPassword).setItemClickListener(new DialogInterface.OnClickListener() {
+            List<String> list = Arrays.asList(itemChangeLoginPassword, itemChangeSignaturePassword);
+            mChangePwdDialog = new HMActionSheetDialog.Builder(this)
+                    .setTitle("修改密码")
+                    .setActionSheetList(list)
+                    .setCanSelected(false)
+                    .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            Router.getInstance()
-                                    .buildWithUrl("hmiou://m.54jietiao.com/person/modify_pwd")
-                                    .navigation(mContext);
-                        }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(itemChangeSignaturePassword).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-                            int customerType = userInfo.getType();
-                            if (UserDataUtil.isCClass(customerType)) {
-                                showNoAuthWhenChangeSignPwd();
-                            } else {
+                        public void onItemClick(int i, String s) {
+                            if (i == 0) {
                                 Router.getInstance()
-                                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/facecheckfindsignpsd")
+                                        .buildWithUrl("hmiou://m.54jietiao.com/person/modify_pwd")
                                         .navigation(mContext);
+                            } else if (i == 1) {
+                                UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+                                int customerType = userInfo.getType();
+                                if (UserDataUtil.isCClass(customerType)) {
+                                    showNoAuthWhenChangeSignPwd();
+                                } else {
+                                    Router.getInstance()
+                                            .buildWithUrl("hmiou://m.54jietiao.com/facecheck/facecheckfindsignpsd")
+                                            .navigation(mContext);
+                                }
                             }
                         }
-                    }))
-                    .show();
+                    })
+                    .create();
+            mChangePwdDialog.show();
         } else {
             mChangePwdDialog.show();
         }
@@ -349,24 +353,26 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
      * 当变更签约密码时，如果没实名认证，弹出提示对话框
      */
     private void showNoAuthWhenChangeSignPwd() {
-        new IOSAlertDialog.Builder(mContext)
+        new HMAlertDialog.Builder(mContext)
                 .setTitle("签约密码")
                 .setMessage("通过实名认证后的账户，才能设置签约密码，是否立即实名认证？")
-                .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
+                .setPositiveButton("立即认证")
+                .setNegativeButton("取消")
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onPosClick() {
                         Router.getInstance()
                                 .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
                                 .navigation(mContext);
                     }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onNegClick() {
+
                     }
-                }).show();
+                })
+                .create()
+                .show();
 
     }
 
