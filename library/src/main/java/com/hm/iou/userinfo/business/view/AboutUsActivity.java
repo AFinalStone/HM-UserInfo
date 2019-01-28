@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -120,6 +121,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
     public void showNewestVersionDialog() {
         new HMAlertDialog.Builder(this)
                 .setMessage("已是最新版本")
+                .setMessageGravity(Gravity.CENTER)
                 .setPositiveButton("我知道了")
                 .create()
                 .show();
