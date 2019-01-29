@@ -15,29 +15,21 @@
         <item name="android:layout_height">20dip</item>
     </style>
 
-    <style name="PersonMenuListTitle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/textFontSize_15</item>
-        <item name="android:textColor">#ff222222</item>
-        <item name="android:layout_marginLeft">7dip</item>
+    <style name="PersonMenuListTitle" parent="UikitTextView">
         <item name="android:layout_weight">1</item>
     </style>
 
     <style name="PersonMenuListArrow">
-        <item name="android:layout_width">8.5dip</item>
-        <item name="android:layout_height">17dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@mipmap/uikit_ic_arrow_right</item>
     </style>
 
-    <style name="PersonMenuListHint">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#ffa3a3a3</item>
-        <item name="android:textSize">@dimen/textFontSize_13</item>
+    <style name="PersonMenuListHint" parent="UikitTextView">
         <item name="android:layout_marginRight">10dip</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/uikit_text_hint</item>
     </style>
 
     <style name="PersonMobile" parent="UikitEditText.InputMobile">

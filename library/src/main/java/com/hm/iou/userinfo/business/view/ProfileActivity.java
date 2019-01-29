@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
@@ -41,32 +39,15 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     private static final int REQ_SELECT_CITY = 100;
 
-    @BindView(R2.id.ll_header)
-    LinearLayout mLl_header;
-    @BindView(R2.id.tv_topProgress)
-    TextView mTvTopProgress;
-    @BindView(R2.id.iv_topAd)
-    ImageView mIvTopAd;
-    @BindView(R2.id.pb_profile_progress)
-    ProgressBar mPbProfile;
-    @BindView(R2.id.tv_profile_progress)
-    TextView mTvProgress;
     @BindView(R2.id.iv_profile_avatar)
     ImageView mIvAvatar;
     @BindView(R2.id.tv_profile_nickname)
     TextView mTvNickname;
-    @BindView(R2.id.tv_profile_realname)
-    TextView mTvRealName;
-    @BindView(R2.id.iv_profile_sex)
-    ImageView mIvSex;
+
     @BindView(R2.id.tv_profile_bind_bank)
     TextView mTvBindBank;
     @BindView(R2.id.iv_profile_bind_bank)
     ImageView mIvBindBank;
-    @BindView(R2.id.ll_profile_realname)
-    View mLayoutRealName;
-    @BindView(R2.id.iv_profile_auth_arrow)
-    ImageView mIvSexArrow;
     @BindView(R2.id.tv_profile_mobile)
     TextView mTvMobile;
     @BindView(R2.id.tv_profile_weixin)
@@ -115,13 +96,11 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         }
     }
 
-    @OnClick(value = {R2.id.iv_topAd, R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_realname,
+    @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname,
             R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email
             , R2.id.ll_profile_city, R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
-        if (v.getId() == R.id.iv_topAd) {
-            toBindBank();
-        } else if (v.getId() == R.id.ll_profile_avatar) {
+        if (v.getId() == R.id.ll_profile_avatar) {
             TraceUtil.onEvent(mContext, "profile_avatar_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/user_avatar")
                     .navigation(this);
@@ -129,17 +108,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             TraceUtil.onEvent(mContext, "profile_nickname_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/modify_nickname_sex")
                     .navigation(this);
-        } else if (v.getId() == R.id.ll_profile_realname) {
-            TraceUtil.onEvent(mContext, "profile_realname_click");
-            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-            int customerType = userInfo.getType();
-            if (UserDataUtil.isCClass(customerType)) {
-                Router.getInstance()
-                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
-                        .navigation(mContext);
-            } else {
-                mPersonalDialogHelper.showHaveAuthtication();
-            }
         } else if (v.getId() == R.id.ll_profile_bind_bank) {
             TraceUtil.onEvent(mContext, "profile_bankauth_click");
             toBindBank();
@@ -184,28 +152,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void hideTopAd() {
-        mIvTopAd.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void setHeaderVisible(int visible) {
-        mLl_header.setVisibility(visible);
-    }
-
-    @Override
-    public void showProfileProgress(int progress) {
-        mTvTopProgress.setText(progress + "%");
-        mPbProfile.setProgress(progress);
-    }
-
-
-    @Override
-    public void showProgressTips(String progressTxt) {
-        mTvProgress.setText(progressTxt);
-    }
-
-    @Override
     public void showAvatar(String avatarUrl, int defaultAvatarResId) {
         if (TextUtils.isEmpty(avatarUrl)) {
             mIvAvatar.setImageResource(defaultAvatarResId);
@@ -219,17 +165,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         mTvNickname.setText(nickname);
     }
 
-    @Override
-    public void showRealName(String realName, int textColor) {
-        mTvRealName.setText(realName);
-        mTvRealName.setTextColor(textColor);
-    }
-
-    @Override
-    public void showSex(int idRes) {
-        mIvSex.setVisibility(View.VISIBLE);
-        mIvSex.setImageResource(idRes);
-    }
 
     @Override
     public void showBindBank(String text, int textColor) {
