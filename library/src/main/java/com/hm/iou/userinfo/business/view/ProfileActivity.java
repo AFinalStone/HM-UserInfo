@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business.view;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -43,7 +44,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     ImageView mIvAvatar;
     @BindView(R2.id.tv_profile_nickname)
     TextView mTvNickname;
-
+    @BindView(R2.id.iv_profile_sex)
+    ImageView mIvSex;
     @BindView(R2.id.tv_profile_bind_bank)
     TextView mTvBindBank;
     @BindView(R2.id.iv_profile_bind_bank)
@@ -56,6 +58,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     TextView mTvEmail;
     @BindView(R2.id.ll_profile_email)
     View mLayoutEmail;
+    @BindView(R2.id.view_profile_divider_email)
+    View mViewDividerEmal;
     @BindView(R2.id.tv_profile_city)
     TextView mTvCity;
     @BindView(R2.id.tv_profile_income)
@@ -161,10 +165,10 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void showNickname(String nickname) {
+    public void showNicknameAndSex(String nickname, int sexIcon) {
         mTvNickname.setText(nickname);
+        mIvSex.setImageResource(sexIcon);
     }
-
 
     @Override
     public void showBindBank(String text, int textColor) {
@@ -191,6 +195,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     @Override
     public void showEmail(int visibility, String email) {
         mLayoutEmail.setVisibility(visibility);
+        mViewDividerEmal.setVisibility(visibility);
         mTvEmail.setText(email);
     }
 

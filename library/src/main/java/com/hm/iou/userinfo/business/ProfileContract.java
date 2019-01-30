@@ -19,11 +19,12 @@ public interface ProfileContract {
         void showAvatar(String url, int defIconResId);
 
         /**
-         * 显示昵称
+         * 显示昵称和性别
          *
-         * @param nickname
+         * @param nickname 昵称
+         * @param sexIcon  性别图标
          */
-        void showNickname(String nickname);
+        void showNicknameAndSex(String nickname, int sexIcon);
 
         /**
          * 显示银行卡
