@@ -1,11 +1,11 @@
 package com.hm.iou.userinfo.demo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hm.iou.network.HttpReqManager;
+import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -36,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
 /*                Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/index")
                         .navigation(MainActivity.this);*/
 
-                startActivity(new Intent(MainActivity.this, PersonalActivity.class));
+//                startActivity(new Intent(MainActivity.this, PersonalActivity.class));
+
+                Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/about_email")
+                        .navigation(MainActivity.this);
+
             }
         });
 

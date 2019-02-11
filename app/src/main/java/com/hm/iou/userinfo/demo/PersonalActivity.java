@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
-import com.hm.iou.userinfo.business.view.PersonalCenterFragment;
 import com.hm.iou.userinfo.leftmenu.HomeLeftMenuView;
 
 /**
@@ -53,9 +52,9 @@ public class PersonalActivity extends BaseActivity {
 
             }
         });
-        getSupportFragmentManager().beginTransaction()
+/*        getSupportFragmentManager().beginTransaction()
                 .add(R.id.ll_content, new PersonalCenterFragment())
-                .commit();
+                .commit();*/
     }
 
 

@@ -36,8 +36,6 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
 
     private String mOldPassword;
     private String mNewPassword;
-    private boolean mIsEyeOldOpen = false;
-    private boolean mIsEyeNewOpen = false;
 
     @Override
     protected int getLayoutId() {
