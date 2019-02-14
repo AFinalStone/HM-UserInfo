@@ -399,6 +399,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
      *
      * @param event
      */
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventUpdateIncome(UpdateIncomeEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         showMainIncome(userInfo);
