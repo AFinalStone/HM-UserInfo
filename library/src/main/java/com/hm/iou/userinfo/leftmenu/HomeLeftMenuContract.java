@@ -79,6 +79,8 @@ public interface HomeLeftMenuContract {
          */
         void init();
 
+        void onResume();
+
         /**
          * 刷新数据
          */

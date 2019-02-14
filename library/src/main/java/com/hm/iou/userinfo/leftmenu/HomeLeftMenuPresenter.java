@@ -11,6 +11,7 @@ import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.UserManager;
+import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -21,9 +22,17 @@ import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
+import com.hm.iou.userinfo.event.UpdateAvatarEvent;
+import com.hm.iou.userinfo.event.UpdateEmailEvent;
+import com.hm.iou.userinfo.event.UpdateIncomeEvent;
+import com.hm.iou.userinfo.event.UpdateMobileEvent;
+import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
+import com.hm.iou.userinfo.event.UpdateWeixinEvent;
 import com.hm.iou.userinfo.util.UserInfoCompleteProgressUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InputStream;
 import java.util.List;
@@ -44,10 +53,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private Disposable mThirdPlatformInfoDisposable;//获取第三方平台的状态
     private int mRedFlagCount;//红点数量
 
+    private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
+    private boolean mNeedRefresh = false;
 
     public HomeLeftMenuPresenter(Context context, HomeLeftMenuView view) {
         this.mContext = context;
         mView = view;
+        EventBus.getDefault().register(this);
     }
 
     public void onDestroy() {
@@ -59,6 +71,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
             mThirdPlatformInfoDisposable.dispose();
             mThirdPlatformInfoDisposable = null;
         }
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -69,7 +82,24 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         //菜单列表
         List<IListMenuItem> list = DataUtil.convertHomeModuleBeanToIMenuItem(mContext, homeLeftMenuBean.getListMenus());
         mView.showListMenus(list);
+
+        mNeedRefresh = false;
         refreshData();
+        mLastUpdateStatisticData = System.currentTimeMillis();
+    }
+
+    @Override
+    public void onResume() {
+        if (mNeedRefresh) {
+            mNeedRefresh = false;
+            refreshData();
+            mLastUpdateStatisticData = System.currentTimeMillis();
+        } else {
+            if (System.currentTimeMillis() - mLastUpdateStatisticData > 30000) {
+                refreshData();
+                mLastUpdateStatisticData = System.currentTimeMillis();
+            }
+        }
     }
 
     @Override
@@ -245,6 +275,90 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         if (versionResBean != null) {
             mRedFlagCount++;
             mView.updateListMenu(ModuleType.ABOUT_SOFT.getValue(), null, "更新");
+        }
+    }
+
+    /**
+     * 更新头像
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateAvatar(UpdateAvatarEvent event) {
+        mNeedRefresh = true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateNicknameAndSex(UpdateNicknameAndSexEvent event) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 更新手机号
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateMobile(UpdateMobileEvent event) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 更新收入情况
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateIncome(UpdateIncomeEvent event) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 银行卡绑定成功
+     *
+     * @param bindBankSuccessEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvenBindBankSuccess(BindBankSuccessEvent bindBankSuccessEvent) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 微信绑定事件通知
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBindWeixin(UpdateWeixinEvent event) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 邮箱更换通知
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateEmail(UpdateEmailEvent event) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 实名认证成功
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventRealName(UpdateEmailEvent event) {
+        mNeedRefresh = true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventCommBiz(CommBizEvent event) {
+        if ("bind_email_succ".equals(event.key)) {              //绑定邮箱成功
+            mNeedRefresh = true;
+        } else if ("News_doCollectNews".equals(event.key)) {    //资讯收藏或者取消收藏
+            mNeedRefresh = true;
         }
     }
 

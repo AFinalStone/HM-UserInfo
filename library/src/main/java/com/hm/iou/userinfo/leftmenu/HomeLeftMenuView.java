@@ -58,10 +58,6 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     private ListMenuAdapter mListMenuAdapter;
     private TopMenuAdapter mTopMenuAdapter;
 
-    private boolean mIfRefreshData = false;//是否刷新数据
-    private long mLastUpdateStatisticData;  //记录上一次刷新统计数据的时间
-
-
     public HomeLeftMenuView(@NonNull Context context) {
         super(context);
         init();
@@ -126,27 +122,17 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     }
 
     public void onResume() {
-        mIfRefreshData = true;
-        if (System.currentTimeMillis() - mLastUpdateStatisticData > 15000) {
-            refreshView();
-            mLastUpdateStatisticData = System.currentTimeMillis();
-        }
-    }
-
-    /**
-     * 刷新页面
-     */
-    public void refreshView() {
-        if (mIfRefreshData) {
-            mPresenter.refreshData();
-            mIfRefreshData = false;
-        }
+        mPresenter.onResume();
     }
 
     public void onDestroy() {
         if (mPresenter != null) {
             mPresenter.onDestroy();
         }
+    }
+
+    public void refreshView() {
+        mPresenter.onResume();
     }
 
     @OnClick({R2.id.rl_header, R2.id.tv_more_set, R2.id.tv_feedback})
@@ -180,9 +166,10 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             mIvFlagInfoComplete.setVisibility(VISIBLE);
             mTvInfoCompleteProgress.setVisibility(GONE);
         } else {
-
+            mIvFlagInfoComplete.setVisibility(GONE);
+            mTvInfoCompleteProgress.setVisibility(VISIBLE);
+            mTvInfoCompleteProgress.setText(progress + "%");
         }
-        mTvInfoCompleteProgress.setText(progress + "%");
     }
 
     @Override
