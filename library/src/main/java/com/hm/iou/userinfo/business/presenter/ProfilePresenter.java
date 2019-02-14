@@ -26,6 +26,7 @@ import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.business.ProfileContract;
 import com.hm.iou.userinfo.event.UpdateAvatarEvent;
+import com.hm.iou.userinfo.event.UpdateIncomeEvent;
 import com.hm.iou.userinfo.event.UpdateLocationEvent;
 import com.hm.iou.userinfo.event.UpdateMobileEvent;
 import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
@@ -394,6 +395,16 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     }
 
     /**
+     * 更新收入情况
+     *
+     * @param event
+     */
+    public void onEventUpdateIncome(UpdateIncomeEvent event) {
+        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        showMainIncome(userInfo);
+    }
+
+    /**
      * 微信获取到的Code
      *
      * @param event
@@ -415,4 +426,16 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onEvenBusBindBankSuccess(BindBankSuccessEvent bindBankSuccessEvent) {
         getUserThirdPlatformInfo();
     }
+
+    /**
+     * 微信绑定事件通知
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBindWeixin(UpdateWeixinEvent event) {
+        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        showWeixin(userInfo);
+    }
+
 }
