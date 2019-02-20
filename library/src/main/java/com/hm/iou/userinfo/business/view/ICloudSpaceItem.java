@@ -7,8 +7,6 @@ package com.hm.iou.userinfo.business.view;
 
 public interface ICloudSpaceItem {
 
-    int getIcon();
-
     CharSequence getTitle();
 
     CharSequence getCount();

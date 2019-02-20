@@ -3,18 +3,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <com.hm.iou.uikit.ShapedImageView
         android:id="@+id/iv_income_prove"
-        android:layout_width="74dip"
-        android:layout_height="74dip"
-        android:src="@mipmap/person_ic_add_photo"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:src="@mipmap/uikit_ic_circle_add"
         app:shape_mode="round_rect"
-        app:round_radius="6dip"
+        app:round_radius="2dip"
         android:layout_marginRight="10dip"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
+        android:background="#fff8f8f9"
         />
 
 </FrameLayout>

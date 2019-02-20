@@ -16,9 +16,7 @@ import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.LogoutEvent;
-import com.hm.iou.sharedata.event.RealNameEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
-import com.hm.iou.sharedata.model.IncomeEnum;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -28,7 +26,6 @@ import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.business.ProfileContract;
 import com.hm.iou.userinfo.event.UpdateAvatarEvent;
-import com.hm.iou.userinfo.event.UpdateEmailEvent;
 import com.hm.iou.userinfo.event.UpdateIncomeEvent;
 import com.hm.iou.userinfo.event.UpdateLocationEvent;
 import com.hm.iou.userinfo.event.UpdateMobileEvent;
@@ -37,7 +34,6 @@ import com.hm.iou.userinfo.event.UpdateWeixinEvent;
 import com.hm.iou.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -55,14 +51,16 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     private IWXAPI mWXApi;
 
-    private int mColorUnBind = 0xffff3c4b;//绑定的颜色
-    private int mColorHaveBind = 0xffa3a3a3;//未绑定的颜色
+    private int mColorUnBind;           //绑定的颜色
+    private int mColorHaveBind;         //未绑定的颜色
 
     private Disposable mThirdPlatformInfoDisposable;
 
     public ProfilePresenter(@NonNull Context context, @NonNull ProfileContract.View view) {
         super(context, view);
         EventBus.getDefault().register(this);
+        mColorUnBind = context.getResources().getColor(R.color.uikit_text_hint);
+        mColorHaveBind = context.getResources().getColor(R.color.uikit_function_exception);
     }
 
     @Override
@@ -82,14 +80,12 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         //显示用户头像
         showUserAvatar(userInfo);
         showNickname(userInfo);
-        showRealName(userInfo);
         getUserThirdPlatformInfo();
         showMobile(userInfo);
         showWeixin(userInfo);
         showEmail(userInfo);
         showCity(userInfo);
         showMainIncome(userInfo);
-        updateProfileProgress(userInfo);
     }
 
     @Override
@@ -107,8 +103,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                         UserManager.getInstance(mContext).updateOrSaveUserInfo(userInfo);
                         //显示城市名
                         showCity(userInfo);
-                        //更新进度
-                        updateProfileProgress(userInfo);
                         EventBus.getDefault().post(new UpdateLocationEvent());
                     }
 
@@ -186,27 +180,14 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
      */
     private void showNickname(UserInfo userInfo) {
         String nickname = userInfo.getNickName();
-        mView.showNickname(nickname);
-    }
-
-    /**
-     * 显示实名状态
-     *
-     * @param userInfo
-     */
-    private void showRealName(UserInfo userInfo) {
-        if (UserDataUtil.isCClass(userInfo.getType())) {
-            //未实名
-            mView.showRealName("未实名", mColorUnBind);
-        } else {
-            mView.showRealName(userInfo.getName(), mColorHaveBind);
-            int sex = userInfo.getSex();
-            if (sex == SexEnum.MALE.getValue()) {
-                mView.showSex(R.mipmap.person_ic_sex_man);
-            } else if (sex == SexEnum.FEMALE.getValue()) {
-                mView.showSex(R.mipmap.person_ic_sex_woman);
-            }
+        int sex = userInfo.getSex();
+        int sexIcon = 0;
+        if (sex == SexEnum.MALE.getValue()) {
+            sexIcon = R.mipmap.person_ic_sex_man;
+        } else if (sex == SexEnum.FEMALE.getValue()) {
+            sexIcon = R.mipmap.person_ic_sex_woman;
         }
+        mView.showNicknameAndSex(nickname, sexIcon);
     }
 
     /**
@@ -247,9 +228,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                         UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
-                        //更新进度
-                        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-                        updateProfileProgress(userInfo);
                     }
 
                     @Override
@@ -330,66 +308,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         mView.showMainIncome(mainIncome);
     }
 
-    /**
-     * 更新我的资料完成度
-     *
-     * @param userInfo
-     */
-    private void updateProfileProgress(UserInfo userInfo) {
-        int count = 0;
-        //头像
-        if (!TextUtils.isEmpty(userInfo.getAvatarUrl())) {
-            count += 10;
-        }
-        //性别
-        int sex = userInfo.getSex();
-        if (sex != SexEnum.UNKNOWN.getValue()) {
-            count += 10;
-        }
-        //实名认证
-        if (!UserDataUtil.isCClass(userInfo.getType())) {
-            count += 20;
-        }
-        //银行卡绑定
-        UserThirdPlatformInfo thirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
-        if (thirdPlatformInfo != null) {
-            UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdPlatformInfo.getBankInfoResp();
-            if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                count += 30;
-                mView.hideTopAd();
-            }
-        }
-
-        //手机号
-        if (!TextUtils.isEmpty(userInfo.getMobile())) {
-            count += 10;
-        }
-        //绑定微信号
-        if (UserDataUtil.isPlusClass(userInfo.getType())) {
-            count += 10;
-        }
-        //城市
-        if (!TextUtils.isEmpty(userInfo.getLocation())) {
-            count += 5;
-        }
-        //收入
-        int income = userInfo.getMainIncome();
-        if (income >= IncomeEnum.None.getValue()) {
-            count += 5;
-        }
-        if (count == 100) {
-            //全部完成
-            mView.setHeaderVisible(View.GONE);
-            mView.showProfileProgress(100);
-            mView.showProgressTips("太棒了，资料很完整！");
-        } else {
-            mView.setHeaderVisible(View.VISIBLE);
-            int progress = count;
-            mView.showProfileProgress(progress);
-            mView.showProgressTips("已经完成" + progress + "%，加把劲！");
-        }
-    }
-
     private void exitApp() {
         EventBus.getDefault().post(new LogoutEvent());
         HttpReqManager.getInstance().setUserId("");
@@ -457,14 +375,12 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onEventUpdateAvatar(UpdateAvatarEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         showUserAvatar(userInfo);
-        updateProfileProgress(userInfo);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventUpdateNicknameAndSex(UpdateNicknameAndSexEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         showNickname(userInfo);
-        updateProfileProgress(userInfo);
     }
 
     /**
@@ -476,11 +392,10 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onEventUpdateMobile(UpdateMobileEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         showMobile(userInfo);
-        updateProfileProgress(userInfo);
     }
 
     /**
-     * 更新我的主要收入
+     * 更新收入情况
      *
      * @param event
      */
@@ -488,28 +403,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onEventUpdateIncome(UpdateIncomeEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         showMainIncome(userInfo);
-        updateProfileProgress(userInfo);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventUpdateEmail(UpdateEmailEvent event) {
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        showEmail(userInfo);
-        updateProfileProgress(userInfo);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventWeixinBind(UpdateWeixinEvent event) {
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        showWeixin(userInfo);
-        updateProfileProgress(userInfo);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventRealName(RealNameEvent event) {
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        showRealName(userInfo);
-        updateProfileProgress(userInfo);
     }
 
     /**
@@ -534,4 +427,16 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onEvenBusBindBankSuccess(BindBankSuccessEvent bindBankSuccessEvent) {
         getUserThirdPlatformInfo();
     }
+
+    /**
+     * 微信绑定事件通知
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBindWeixin(UpdateWeixinEvent event) {
+        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        showWeixin(userInfo);
+    }
+
 }

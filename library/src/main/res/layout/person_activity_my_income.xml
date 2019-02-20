@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uikit_background"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.hm.iou.uikit.HMTopBarView
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
+        app:bottomDividerIsShow="false"
         app:titleText="我的收入" />
-
 
     <LinearLayout
         android:id="@+id/ll_income_main"
@@ -20,27 +20,22 @@
         android:background="@drawable/uikit_bg_item_ripple"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dip">
+        android:paddingLeft="35dp"
+        android:paddingRight="35dip">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:text="@string/person_myIncome_homeMainIncome"
-            android:textColor="#ff222222"
-            android:textSize="@dimen/textFontSize_15" />
+            style="@style/UikitTextView"
+            android:text="家庭主要收入" />
 
         <TextView
             android:id="@+id/tv_income_main"
+            style="@style/UikitTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="9dip"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:hint="@string/person_myIncome_nothing"
-            android:textColor="#ff222222"
-            android:textColorHint="#ffa3a3a3"
-            android:textSize="@dimen/textFontSize_14" />
+            android:hint="@string/person_myIncome_nothing" />
 
         <ImageView
             android:layout_width="8.5dip"
@@ -48,7 +43,10 @@
             android:src="@mipmap/uikit_ic_arrow_right" />
     </LinearLayout>
 
-    <View style="@style/UikitDivider.Horizontal" />
+    <View
+        style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip" />
 
     <LinearLayout
         android:id="@+id/ll_income_second"
@@ -57,27 +55,22 @@
         android:background="@drawable/uikit_bg_item_ripple"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dip">
+        android:paddingLeft="35dp"
+        android:paddingRight="35dip">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:text="@string/person_myIncome_homeSubIncome"
-            android:textColor="#ff222222"
-            android:textSize="@dimen/textFontSize_15" />
+            style="@style/UikitTextView"
+            android:text="家庭次要收入" />
 
         <TextView
             android:id="@+id/tv_income_second"
+            style="@style/UikitTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="9dip"
             android:layout_weight="1"
             android:gravity="right|center_vertical"
-            android:hint="@string/person_myIncome_nothing"
-            android:textColor="#ff222222"
-            android:textColorHint="#ffa3a3a3"
-            android:textSize="@dimen/textFontSize_14" />
+            android:hint="@string/person_myIncome_nothing" />
 
         <ImageView
             android:layout_width="8.5dip"
@@ -85,26 +78,28 @@
             android:src="@mipmap/uikit_ic_arrow_right" />
     </LinearLayout>
 
+    <View
+        style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
         android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="@string/person_myIncome_uploadPicDesc"
-            android:textColor="#ffa3a3a3"
-            android:textSize="@dimen/textFontSize_14" />
+        android:paddingLeft="35dip"
+        android:paddingRight="35dip">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_income"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dip"
-            />
+            android:layout_marginTop="20dip" />
+
+        <TextView
+            style="@style/UikitTextView.Auxiliary.Normal"
+            android:layout_marginTop="10dip"
+            android:text="@string/person_myIncome_uploadPicDesc" />
+
     </LinearLayout>
 </LinearLayout>

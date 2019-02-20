@@ -79,7 +79,6 @@ public class CloudSpaceActivity extends BaseActivity<CloudSpacePresenter> implem
 
         @Override
         protected void convert(BaseViewHolder helper, ICloudSpaceItem item) {
-            helper.setImageResource(R.id.iv_cloud_icon, item.getIcon());
             helper.setText(R.id.tv_cloud_title, item.getTitle());
             helper.setText(R.id.tv_cloud_count, item.getCount());
         }

@@ -1,13 +1,12 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
@@ -19,14 +18,16 @@ import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
-import com.hm.iou.uikit.dialog.IOSActionSheetItem;
-import com.hm.iou.uikit.dialog.IOSActionSheetTitleDialog;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
+import com.hm.iou.uikit.dialog.HMActionSheetDialog;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ProfileContract;
 import com.hm.iou.userinfo.business.presenter.ProfilePresenter;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,32 +40,16 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     private static final int REQ_SELECT_CITY = 100;
 
-    @BindView(R2.id.ll_header)
-    LinearLayout mLl_header;
-    @BindView(R2.id.tv_topProgress)
-    TextView mTvTopProgress;
-    @BindView(R2.id.iv_topAd)
-    ImageView mIvTopAd;
-    @BindView(R2.id.pb_profile_progress)
-    ProgressBar mPbProfile;
-    @BindView(R2.id.tv_profile_progress)
-    TextView mTvProgress;
     @BindView(R2.id.iv_profile_avatar)
     ImageView mIvAvatar;
     @BindView(R2.id.tv_profile_nickname)
     TextView mTvNickname;
-    @BindView(R2.id.tv_profile_realname)
-    TextView mTvRealName;
     @BindView(R2.id.iv_profile_sex)
     ImageView mIvSex;
     @BindView(R2.id.tv_profile_bind_bank)
     TextView mTvBindBank;
     @BindView(R2.id.iv_profile_bind_bank)
     ImageView mIvBindBank;
-    @BindView(R2.id.ll_profile_realname)
-    View mLayoutRealName;
-    @BindView(R2.id.iv_profile_auth_arrow)
-    ImageView mIvSexArrow;
     @BindView(R2.id.tv_profile_mobile)
     TextView mTvMobile;
     @BindView(R2.id.tv_profile_weixin)
@@ -73,12 +58,14 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     TextView mTvEmail;
     @BindView(R2.id.ll_profile_email)
     View mLayoutEmail;
+    @BindView(R2.id.view_profile_divider_email)
+    View mViewDividerEmal;
     @BindView(R2.id.tv_profile_city)
     TextView mTvCity;
     @BindView(R2.id.tv_profile_income)
     TextView mTvIncome;
 
-    private IOSActionSheetTitleDialog mChangePwdDialog;
+    private Dialog mChangePwdDialog;
     PersonalDialogHelper mPersonalDialogHelper;
 
     @Override
@@ -113,13 +100,11 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         }
     }
 
-    @OnClick(value = {R2.id.iv_topAd, R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_realname,
+    @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname,
             R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email
             , R2.id.ll_profile_city, R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
-        if (v.getId() == R.id.iv_topAd) {
-            toBindBank();
-        } else if (v.getId() == R.id.ll_profile_avatar) {
+        if (v.getId() == R.id.ll_profile_avatar) {
             TraceUtil.onEvent(mContext, "profile_avatar_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/user_avatar")
                     .navigation(this);
@@ -127,17 +112,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             TraceUtil.onEvent(mContext, "profile_nickname_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/modify_nickname_sex")
                     .navigation(this);
-        } else if (v.getId() == R.id.ll_profile_realname) {
-            TraceUtil.onEvent(mContext, "profile_realname_click");
-            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-            int customerType = userInfo.getType();
-            if (UserDataUtil.isCClass(customerType)) {
-                Router.getInstance()
-                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
-                        .navigation(mContext);
-            } else {
-                mPersonalDialogHelper.showHaveAuthtication();
-            }
         } else if (v.getId() == R.id.ll_profile_bind_bank) {
             TraceUtil.onEvent(mContext, "profile_bankauth_click");
             toBindBank();
@@ -182,28 +156,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void hideTopAd() {
-        mIvTopAd.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void setHeaderVisible(int visible) {
-        mLl_header.setVisibility(visible);
-    }
-
-    @Override
-    public void showProfileProgress(int progress) {
-        mTvTopProgress.setText(progress + "%");
-        mPbProfile.setProgress(progress);
-    }
-
-
-    @Override
-    public void showProgressTips(String progressTxt) {
-        mTvProgress.setText(progressTxt);
-    }
-
-    @Override
     public void showAvatar(String avatarUrl, int defaultAvatarResId) {
         if (TextUtils.isEmpty(avatarUrl)) {
             mIvAvatar.setImageResource(defaultAvatarResId);
@@ -213,20 +165,9 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void showNickname(String nickname) {
+    public void showNicknameAndSex(String nickname, int sexIcon) {
         mTvNickname.setText(nickname);
-    }
-
-    @Override
-    public void showRealName(String realName, int textColor) {
-        mTvRealName.setText(realName);
-        mTvRealName.setTextColor(textColor);
-    }
-
-    @Override
-    public void showSex(int idRes) {
-        mIvSex.setVisibility(View.VISIBLE);
-        mIvSex.setImageResource(idRes);
+        mIvSex.setImageResource(sexIcon);
     }
 
     @Override
@@ -254,6 +195,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     @Override
     public void showEmail(int visibility, String email) {
         mLayoutEmail.setVisibility(visibility);
+        mViewDividerEmal.setVisibility(visibility);
         mTvEmail.setText(email);
     }
 
@@ -271,18 +213,20 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
      * 显示安全退出对话框
      */
     private void showDialogLogoutSafely() {
-        new IOSActionSheetTitleDialog.Builder(mContext)
+        new HMActionSheetDialog.Builder(mContext)
                 .setTitle("是否退出当前账号？")
-                .setTitleTextColor(getResources().getColor(R.color.iosActionSheet_gray))
-                .addSheetItem(IOSActionSheetItem
-                        .create("安全退出")
-                        .setItemClickListener(new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                mPresenter.logout();
-                            }
-                        })).show();
+                .setActionSheetList(Arrays.asList("安全退出"))
+                .setCanSelected(false)
+                .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int i, String s) {
+                        if (i == 0) {
+                            mPresenter.logout();
+                        }
+                    }
+                })
+                .create()
+                .show();
     }
 
     private void toBindBank() {
@@ -313,33 +257,33 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         if (mChangePwdDialog == null) {
             String itemChangeLoginPassword = getString(R.string.personal_changeLoginPassword);
             String itemChangeSignaturePassword = getString(R.string.personal_changeSignaturePassword);
-            mChangePwdDialog = new IOSActionSheetTitleDialog.Builder(mContext)
-                    .setCanceledOnTouchOutside(true)
-                    .addSheetItem(IOSActionSheetItem.create(itemChangeLoginPassword).setItemClickListener(new DialogInterface.OnClickListener() {
+            List<String> list = Arrays.asList(itemChangeLoginPassword, itemChangeSignaturePassword);
+            mChangePwdDialog = new HMActionSheetDialog.Builder(this)
+                    .setTitle("修改密码")
+                    .setActionSheetList(list)
+                    .setCanSelected(false)
+                    .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            Router.getInstance()
-                                    .buildWithUrl("hmiou://m.54jietiao.com/person/modify_pwd")
-                                    .navigation(mContext);
-                        }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(itemChangeSignaturePassword).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-                            int customerType = userInfo.getType();
-                            if (UserDataUtil.isCClass(customerType)) {
-                                showNoAuthWhenChangeSignPwd();
-                            } else {
+                        public void onItemClick(int i, String s) {
+                            if (i == 0) {
                                 Router.getInstance()
-                                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/facecheckfindsignpsd")
+                                        .buildWithUrl("hmiou://m.54jietiao.com/person/modify_pwd")
                                         .navigation(mContext);
+                            } else if (i == 1) {
+                                UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+                                int customerType = userInfo.getType();
+                                if (UserDataUtil.isCClass(customerType)) {
+                                    showNoAuthWhenChangeSignPwd();
+                                } else {
+                                    Router.getInstance()
+                                            .buildWithUrl("hmiou://m.54jietiao.com/facecheck/facecheckfindsignpsd")
+                                            .navigation(mContext);
+                                }
                             }
                         }
-                    }))
-                    .show();
+                    })
+                    .create();
+            mChangePwdDialog.show();
         } else {
             mChangePwdDialog.show();
         }
@@ -349,24 +293,26 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
      * 当变更签约密码时，如果没实名认证，弹出提示对话框
      */
     private void showNoAuthWhenChangeSignPwd() {
-        new IOSAlertDialog.Builder(mContext)
+        new HMAlertDialog.Builder(mContext)
                 .setTitle("签约密码")
                 .setMessage("通过实名认证后的账户，才能设置签约密码，是否立即实名认证？")
-                .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
+                .setPositiveButton("立即认证")
+                .setNegativeButton("取消")
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onPosClick() {
                         Router.getInstance()
                                 .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
                                 .navigation(mContext);
                     }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onNegClick() {
+
                     }
-                }).show();
+                })
+                .create()
+                .show();
 
     }
 

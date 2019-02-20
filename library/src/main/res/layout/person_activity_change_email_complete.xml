@@ -16,83 +16,50 @@
         app:titleBackground="@color/transparent"
         app:titleText="绑定新的邮箱" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/person_ic_email_black" />
-
-
-        <com.hm.iou.uikit.ClearEditText
-            android:id="@+id/et_phone"
-            style="@style/UikitEditText"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:background="@null"
-            android:hint="请输入本人常用的邮箱地址"
-            android:maxLines="1"
-            android:minHeight="40dip" />
-
-    </LinearLayout>
+    <com.hm.iou.uikit.ClearEditText
+        android:id="@+id/et_phone"
+        style="@style/UikitEditText.Normal"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:layout_marginTop="10dip"
+        android:hint="请输入本人常用的邮箱地址" />
 
     <View
         style="@style/UikitDivider.Horizontal"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp" />
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/person_ic_msg" />
-
         <com.hm.iou.uikit.ClearEditText
             android:id="@+id/et_code"
-            style="@style/UikitEditText.CheckCode"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
+            style="@style/PersonCheckCode"
             android:hint="点击获取6位邮箱验证码" />
 
         <com.hm.iou.uikit.HMCountDownTextView
             android:id="@+id/tv_getEmailCode"
-            style="@style/UikitButton.CheckCode" />
+            style="@style/UikitHMButton.CheckCode"
+            android:gravity="right"
+            android:paddingLeft="40dip"
+            android:paddingRight="35dip" />
     </LinearLayout>
 
     <View
         style="@style/UikitDivider.Horizontal"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp" />
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip" />
 
     <Button
         android:id="@+id/btn_finishChange"
-        style="@style/UikitButton.Bottom"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="绑定邮箱"
-        android:textSize="@dimen/textFontSize_18" />
+        style="@style/UikitHMButton.Large.Main"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:layout_marginTop="30dp"
+        android:text="绑定邮箱" />
 
 </LinearLayout>

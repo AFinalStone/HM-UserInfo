@@ -52,9 +52,10 @@ public class UnbindWeixinActivity extends BaseActivity<UnbindWeixinPresenter> im
             @Override
             public void accept(CharSequence charSequence) throws Exception {
                 mUserPassword = String.valueOf(charSequence);
-                mBtnCheckPassword.setEnabled(false);
-                if (mUserPassword.length() > 0) {
+                if (mUserPassword.length() > 5) {
                     mBtnCheckPassword.setEnabled(true);
+                } else {
+                    mBtnCheckPassword.setEnabled(false);
                 }
             }
         });

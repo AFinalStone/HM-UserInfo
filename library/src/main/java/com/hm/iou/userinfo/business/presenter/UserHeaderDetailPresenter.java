@@ -36,8 +36,7 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
     @Override
     public void getUserAvatar() {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        int defAvatarResId = UserDataUtil.getDefaultAvatarBySex(userInfo.getSex());
-        mView.showUserAvatar(userInfo.getAvatarUrl(), defAvatarResId);
+        mView.showUserAvatar(userInfo.getAvatarUrl(), 0);
     }
 
     @Override
@@ -76,8 +75,7 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
                         userDataBean.setAvatarUrl(mAvatarUrl);
                         userManager.updateOrSaveUserInfo(userDataBean);
 
-                        int defAvatarResId = UserDataUtil.getDefaultAvatarBySex(userInfo.getSex());
-                        mView.showUserAvatar(userInfo.getAvatarUrl(), defAvatarResId);
+                        mView.showUserAvatar(userInfo.getAvatarUrl(), 0);
                         EventBus.getDefault().post(new UpdateAvatarEvent());
                     }
 

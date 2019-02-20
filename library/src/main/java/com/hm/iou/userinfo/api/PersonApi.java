@@ -50,17 +50,12 @@ public class PersonApi {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
         reqBean.setUserId(userInfo.getUserId());
         reqBean.setLocation(location);
-        reqBean.setMainIncome(userInfo.getMainIncome());
-        reqBean.setSecondIncome(userInfo.getSecondIncome());
-        reqBean.setSex(userInfo.getSex());
         return getService().updateUserInfo(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     public static Flowable<BaseResponse<Object>> updateNicknameAndSex(UserInfo userInfo, String nickname, int sex) {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
         reqBean.setUserId(userInfo.getUserId());
-        reqBean.setMainIncome(userInfo.getMainIncome());
-        reqBean.setSecondIncome(userInfo.getSecondIncome());
         reqBean.setSex(sex);
         reqBean.setNickName(nickname);
         return getService().updateUserInfo(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
@@ -71,7 +66,6 @@ public class PersonApi {
         reqBean.setUserId(userInfo.getUserId());
         reqBean.setMainIncome(mainIncome);
         reqBean.setSecondIncome(secondIncome);
-        reqBean.setSex(userInfo.getSex());
         return getService().updateUserInfo(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -86,9 +80,6 @@ public class PersonApi {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
         reqBean.setUserId(userInfo.getUserId());
         reqBean.setAvatarUrl(avatar);
-        reqBean.setMainIncome(userInfo.getMainIncome());
-        reqBean.setSecondIncome(userInfo.getSecondIncome());
-        reqBean.setSex(userInfo.getSex());
         return getService().updateUserInfo(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -103,9 +94,6 @@ public class PersonApi {
         UpdateUserInfoReqBean reqBean = new UpdateUserInfoReqBean();
         reqBean.setUserId(userInfo.getUserId());
         reqBean.setProveDocList(proveDocList);
-        reqBean.setMainIncome(userInfo.getMainIncome());
-        reqBean.setSecondIncome(userInfo.getSecondIncome());
-        reqBean.setSex(userInfo.getSex());
         return getService().updateUserInfo(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 

@@ -1,14 +1,13 @@
 package com.hm.iou.userinfo.business.view;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.view.Gravity;
 
 import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 
 /**
  * Created by syl on 2018/7/30.
@@ -18,10 +17,10 @@ public class PersonalDialogHelper {
 
     private Context mContext;
 
-    IOSAlertDialog mDialogNoAuthWhenSetSignature;
-    IOSAlertDialog mDialogHaveAuthentication;
-    IOSAlertDialog mDialogBinkBankInfo;
-    IOSAlertDialog mDialogBinkBankNeedAuthen;
+    Dialog mDialogNoAuthWhenSetSignature;
+    Dialog mDialogHaveAuthentication;
+    Dialog mDialogBinkBankInfo;
+    Dialog mDialogBinkBankNeedAuthen;
 
     public PersonalDialogHelper(Context mContext) {
         this.mContext = mContext;
@@ -32,28 +31,27 @@ public class PersonalDialogHelper {
      */
     public void showNoAuthWhenSetSignature() {
         if (mDialogNoAuthWhenSetSignature == null) {
-            mDialogNoAuthWhenSetSignature = new IOSAlertDialog.Builder(mContext)
+            mDialogNoAuthWhenSetSignature = new HMAlertDialog.Builder(mContext)
                     .setTitle("设置手写签名")
                     .setMessage("通过实名认证后的账户，才能设置手写签名，是否立即认证实名？")
-                    .setGravity(Gravity.LEFT)
-                    .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("立即认证")
+                    .setNegativeButton("以后再说")
+                    .setOnClickListener(new HMAlertDialog.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onPosClick() {
                             TraceUtil.onEvent(mContext, "my_sign_now_click");
                             Router.getInstance()
                                     .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
                                     .navigation(mContext);
-                            dialog.dismiss();
                         }
-                    })
-                    .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onNegClick() {
                             TraceUtil.onEvent(mContext, "my_sign_skip_click");
-                            dialog.dismiss();
                         }
                     })
-                    .show();
+                    .create();
+            mDialogNoAuthWhenSetSignature.show();
         } else {
             mDialogNoAuthWhenSetSignature.show();
         }
@@ -67,17 +65,12 @@ public class PersonalDialogHelper {
         if (mDialogHaveAuthentication == null) {
             String userName = UserManager.getInstance(mContext).getUserInfo().getName();
             String msg = String.format("当前账号已实名（%S），如果该账号姓名并非你本人信息，你可以向客服举报或者尽快退出该账户。", userName);
-            mDialogHaveAuthentication = new IOSAlertDialog.Builder(mContext)
+            mDialogHaveAuthentication = new HMAlertDialog.Builder(mContext)
                     .setTitle("实名认证")
                     .setMessage(msg)
-                    .setGravity(Gravity.LEFT)
-                    .setNegativeButton("知道了", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
+                    .setNegativeButton("知道了")
+                    .create();
+            mDialogHaveAuthentication.show();
         } else {
             mDialogHaveAuthentication.show();
         }
@@ -116,17 +109,12 @@ public class PersonalDialogHelper {
             } else {
                 sbMsg.append("），手机号尾号" + phoneCode + "，如需更换信息，请联系客服，服务费¥2。");
             }
-            mDialogBinkBankInfo = new IOSAlertDialog.Builder(mContext)
+            mDialogBinkBankInfo = new HMAlertDialog.Builder(mContext)
                     .setTitle("银行卡认证")
                     .setMessage(sbMsg.toString())
-                    .setGravity(Gravity.LEFT)
-                    .setNegativeButton("知道了", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
+                    .setNegativeButton("知道了")
+                    .create();
+            mDialogBinkBankInfo.show();
         } else {
             mDialogBinkBankInfo.show();
         }
@@ -138,26 +126,26 @@ public class PersonalDialogHelper {
      */
     public void showBinkBankNeedAuthen() {
         if (mDialogBinkBankNeedAuthen == null) {
-            mDialogBinkBankNeedAuthen = new IOSAlertDialog.Builder(mContext)
+            mDialogBinkBankNeedAuthen = new HMAlertDialog.Builder(mContext)
                     .setTitle("银行卡认证")
                     .setMessage("通过银行卡认证，您可以免费获得1次签章的机会，目前您未通过实名认证，是否立即认证实名信息？")
-                    .setGravity(Gravity.LEFT)
-                    .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("以后再说")
+                    .setPositiveButton("立即认证")
+                    .setOnClickListener(new HMAlertDialog.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .setPositiveButton("立即认证", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onPosClick() {
                             Router.getInstance()
                                     .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
                                     .navigation(mContext);
-                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onNegClick() {
+
                         }
                     })
-                    .show();
+                    .create();
+            mDialogBinkBankNeedAuthen.show();
         } else {
             mDialogBinkBankNeedAuthen.show();
         }

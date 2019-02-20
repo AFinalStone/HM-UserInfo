@@ -1,6 +1,6 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,14 +14,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hm.iou.base.BaseActivity;
 import com.hm.iou.base.photo.CompressPictureUtil;
-import com.hm.iou.base.photo.PhotoUtil;
 import com.hm.iou.base.photo.SelectPicDialog;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.model.IncomeEnum;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.uikit.HMTopBarView;
-import com.hm.iou.uikit.dialog.IOSActionSheetItem;
-import com.hm.iou.uikit.dialog.IOSActionSheetTitleDialog;
+import com.hm.iou.uikit.dialog.HMActionSheetDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
@@ -58,14 +56,15 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
     @BindView(R2.id.rv_income)
     RecyclerView mRecyclerView;
 
-    private IOSActionSheetTitleDialog mDialog;
-    private boolean mSelectMainIncome;
-
     private ProveDocAdapter mProveDocAdapter;
     private List<BitmapAndFileIdBean> mProveDocList = new ArrayList<>();
     private int mReselectIndex = -1;
 
     private boolean mProveFileChanged;
+
+    private List<String> mIncomeList = new ArrayList<>();
+    private Dialog mMainIncomeDialog;
+    private Dialog mSecondIncomeDialog;
 
     @Override
     protected int getLayoutId() {
@@ -79,12 +78,11 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-        mTopbarView.setOnBackClickListener(new HMTopBarView.OnTopBarBackClickListener() {
-            @Override
-            public void onClickBack() {
-                onBackPressed();
-            }
-        });
+        String[] incomes = getResources().getStringArray(R.array.person_incomes);
+        for (String income : incomes) {
+            mIncomeList.add(income);
+        }
+
         mPresenter.getIncomeInfo();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -98,7 +96,6 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
                 final BitmapAndFileIdBean data = (BitmapAndFileIdBean) view.getTag();
                 if (data == null) {
                     mReselectIndex = -1;
-//                    PhotoUtil.showSelectDialog(MyIncomeActivity.this, REQ_CODE_CAMERA, REQ_CODE_ALBUM);
                     List<BitmapAndFileIdBean> list = mProveDocAdapter.getData();
                     Router.getInstance()
                             .buildWithUrl("hmiou://m.54jietiao.com/select_pic/index")
@@ -139,17 +136,6 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQ_CODE_CAMERA) {
-//            if (resultCode == RESULT_OK) {
-//                String path = PhotoUtil.getCameraPhotoPath();
-//                compressPic(path);
-//            }
-//        } else if (requestCode == REQ_CODE_ALBUM) {
-//            if (resultCode == RESULT_OK) {
-//                String path = PhotoUtil.getPath(this, data.getData());
-//                compressPic(path);
-//            }
-//        }
         if (REQ_OPEN_SELECT_PIC == requestCode && RESULT_OK == resultCode) {
             if (mReselectIndex == -1) {//新增
                 List<String> listPaths = data.getStringArrayListExtra("extra_result_selection_path");
@@ -192,14 +178,6 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         }
     }
 
-//    private void compressPic(String fileUrl) {
-//        CompressPictureUtil.compressPic(this, fileUrl, new CompressPictureUtil.OnCompressListener() {
-//            public void onCompressPicSuccess(File file) {
-//                mPresenter.uploadImage(file);
-//            }
-//        });
-//    }
-
     @Override
     public void onBackPressed() {
         if (mProveFileChanged) {
@@ -218,11 +196,9 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
     @OnClick(value = {R2.id.ll_income_main, R2.id.ll_income_second})
     void onClick(View v) {
         if (v.getId() == R.id.ll_income_main) {
-            mSelectMainIncome = true;
-            showDialogSelectIncome();
+            showMainIncomeDialog();
         } else if (v.getId() == R.id.ll_income_second) {
-            mSelectMainIncome = false;
-            showDialogSelectIncome();
+            showSecondIncomeDialog();
         }
     }
 
@@ -271,67 +247,60 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         mProveFileChanged = true;
     }
 
-    private void showDialogSelectIncome() {
-        if (mDialog == null) {
-            final String menu01 = getString(R.string.person_myIncome_nothing);
-            final String menu02 = getString(R.string.person_myIncome_salary);
-            final String menu03 = getString(R.string.person_myIncome_business);
-            final String menu04 = getString(R.string.person_myIncome_invest);
-            final String menu05 = getString(R.string.person_myIncome_ParentsSupport);
-            final String menu06 = getString(R.string.person_myIncome_other);
-            mDialog = new IOSActionSheetTitleDialog.Builder(mContext)
-                    .addSheetItem(IOSActionSheetItem.create(menu01).setItemClickListener(new DialogInterface.OnClickListener() {
+    /**
+     * 显示主要收入选择弹窗
+     */
+    private void showMainIncomeDialog() {
+        if (mMainIncomeDialog == null) {
+            mMainIncomeDialog = new HMActionSheetDialog.Builder(this)
+                    .setTitle("主要收入")
+                    .setActionSheetList(mIncomeList)
+                    .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIncome(menu01, IncomeEnum.None);
-                            dialog.dismiss();
+                        public void onItemClick(int i, String income) {
+                            mPresenter.updateUserIncome(getIncomeByIndex(i), true);
                         }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(menu02).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIncome(menu02, IncomeEnum.Wages);
-                            dialog.dismiss();
-                        }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(menu03).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIncome(menu03, IncomeEnum.Business);
-                            dialog.dismiss();
-                        }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(menu04).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIncome(menu04, IncomeEnum.Investment);
-                            dialog.dismiss();
-                        }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(menu05).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIncome(menu05, IncomeEnum.Parents);
-                            dialog.dismiss();
-                        }
-                    }))
-                    .addSheetItem(IOSActionSheetItem.create(menu06).setItemClickListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setIncome(menu06, IncomeEnum.Else);
-                            dialog.dismiss();
-                        }
-                    }))
-                    .show();
-        } else {
-            mDialog.show();
+                    })
+                    .create();
         }
+        mMainIncomeDialog.show();
     }
 
-    private void setIncome(String desc, IncomeEnum incomeEnum) {
-        mPresenter.updateUserIncome(incomeEnum, mSelectMainIncome);
+    /**
+     * 显示次要收入选择弹窗
+     */
+    private void showSecondIncomeDialog() {
+        if (mSecondIncomeDialog == null) {
+            mSecondIncomeDialog = new HMActionSheetDialog.Builder(this)
+                    .setTitle("次要收入")
+                    .setActionSheetList(mIncomeList)
+                    .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int i, String s) {
+                            mPresenter.updateUserIncome(getIncomeByIndex(i), false);
+                        }
+                    })
+                    .create();
+        }
+        mSecondIncomeDialog.show();
     }
 
+    private IncomeEnum getIncomeByIndex(int index) {
+        if (index == 0) {
+            return IncomeEnum.None;
+        } else if (index == 1) {
+            return IncomeEnum.Wages;
+        } else if (index == 2) {
+            return IncomeEnum.Business;
+        } else if (index == 3) {
+            return IncomeEnum.Investment;
+        } else if (index == 4) {
+            return IncomeEnum.Parents;
+        } else if (index == 5) {
+            return IncomeEnum.Else;
+        }
+        return IncomeEnum.None;
+    }
 
     class ProveDocAdapter extends BaseQuickAdapter<BitmapAndFileIdBean, BaseViewHolder> {
 
@@ -343,7 +312,7 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         protected void convert(BaseViewHolder helper, BitmapAndFileIdBean item) {
             ImageView iv = helper.getView(R.id.iv_income_prove);
             if (item == null) {
-                iv.setImageResource(R.mipmap.person_ic_add_photo);
+                iv.setImageResource(R.mipmap.uikit_ic_circle_add);
             } else {
                 ImageLoader.getInstance(mContext).displayImage(item.getFileUrl(), iv,
                         R.drawable.uikit_bg_pic_loading_place, R.drawable.uikit_bg_pic_loading_error);

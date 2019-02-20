@@ -6,32 +6,20 @@
     android:background="@drawable/uikit_bg_item_ripple"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="20dip"
-    android:paddingRight="20dip">
 
-    <ImageView
-        android:id="@+id/iv_cloud_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    >
 
     <TextView
         android:id="@+id/tv_cloud_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/UikitTextView"
         android:layout_weight="1"
         android:text=""
-        android:textColor="#ff222222"
-        android:textSize="14dp"
-        android:layout_marginLeft="9dip"
         />
 
     <TextView
         android:id="@+id/tv_cloud_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/UikitTextView.Auxiliary.Normal"
         android:text=""
-        android:textColor="#ff222222"
-        android:textSize="14dp" />
+        />
 
 </LinearLayout>

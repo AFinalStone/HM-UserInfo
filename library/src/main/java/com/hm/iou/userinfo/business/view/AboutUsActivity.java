@@ -1,10 +1,10 @@
 package com.hm.iou.userinfo.business.view;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +19,7 @@ import com.hm.iou.base.utils.TraceUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.HMGrayDividerItemDecoration;
-import com.hm.iou.uikit.dialog.IOSAlertDialog;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.AboutUsContract;
@@ -119,14 +119,12 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
 
     @Override
     public void showNewestVersionDialog() {
-        new IOSAlertDialog.Builder(this)
+        new HMAlertDialog.Builder(this)
                 .setMessage("已是最新版本")
-                .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setMessageGravity(Gravity.CENTER)
+                .setPositiveButton("我知道了")
+                .create()
+                .show();
     }
 
     private void toWebPage(String url) {

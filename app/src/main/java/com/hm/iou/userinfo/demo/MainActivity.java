@@ -18,7 +18,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
 
@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         String pwd = MD5.hexdigest("123456".getBytes());
         MobileLoginReqBean reqBean = new MobileLoginReqBean();
 //        reqBean.setMobile("15267163669");
-        reqBean.setMobile("17681832816");
+//        reqBean.setMobile("17681832816");
+        reqBean.setMobile("13186975702");
         reqBean.setQueryPswd(pwd);
         HttpReqManager.getInstance().getService(LoginService.class)
                 .mobileLogin(reqBean)
@@ -57,11 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Consumer<BaseResponse<UserInfo>>() {
                     @Override
                     public void accept(BaseResponse<UserInfo> userInfoBaseResponse) throws Exception {
-                        ToastUtil.showMessage(MainActivity.this, "登录成功");
-                        UserInfo userInfo = userInfoBaseResponse.getData();
-                        UserManager.getInstance(MainActivity.this).updateOrSaveUserInfo(userInfo);
-                        HttpReqManager.getInstance().setUserId(userInfo.getUserId());
-                        HttpReqManager.getInstance().setToken(userInfo.getToken());
+                        if (userInfoBaseResponse.getErrorCode() == 0) {
+                            ToastUtil.showMessage(MainActivity.this, "登录成功");
+                            UserInfo userInfo = userInfoBaseResponse.getData();
+                            UserManager.getInstance(MainActivity.this).updateOrSaveUserInfo(userInfo);
+                            HttpReqManager.getInstance().setUserId(userInfo.getUserId());
+                            HttpReqManager.getInstance().setToken(userInfo.getToken());
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

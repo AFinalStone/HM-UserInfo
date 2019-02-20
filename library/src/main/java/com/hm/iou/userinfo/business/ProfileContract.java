@@ -1,7 +1,5 @@
 package com.hm.iou.userinfo.business;
 
-import android.support.annotation.DrawableRes;
-
 import com.hm.iou.base.mvp.BaseContract;
 
 /**
@@ -13,30 +11,6 @@ public interface ProfileContract {
     interface View extends BaseContract.BaseView {
 
         /**
-         * 隐藏顶部的广告
-         */
-        void hideTopAd();
-
-        /**
-         * 隐藏显示顶部
-         */
-        void setHeaderVisible(int visible);
-
-        /**
-         * 显示资料进度
-         *
-         * @param progress
-         */
-        void showProfileProgress(int progress);
-
-        /**
-         * 显示资料完成度
-         *
-         * @param progressTxt
-         */
-        void showProgressTips(String progressTxt);
-
-        /**
          * 显示头像
          *
          * @param url          头像地址
@@ -45,26 +19,12 @@ public interface ProfileContract {
         void showAvatar(String url, int defIconResId);
 
         /**
-         * 显示昵称
+         * 显示昵称和性别
          *
-         * @param nickname
+         * @param nickname 昵称
+         * @param sexIcon  性别图标
          */
-        void showNickname(String nickname);
-
-        /**
-         * 显示真实姓名
-         *
-         * @param realName
-         * @param textColor 字体颜色
-         */
-        void showRealName(String realName, int textColor);
-
-        /**
-         * 显示性别
-         *
-         * @param idRes
-         */
-        void showSex(@DrawableRes int idRes);
+        void showNicknameAndSex(String nickname, int sexIcon);
 
         /**
          * 显示银行卡
