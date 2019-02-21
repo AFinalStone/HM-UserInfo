@@ -41,7 +41,7 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="资讯反馈" />
+                        android:text="咨询反馈" />
 
                     <com.hm.iou.uikit.ShapedImageView
                         android:id="@+id/iv_profile_avatar"
