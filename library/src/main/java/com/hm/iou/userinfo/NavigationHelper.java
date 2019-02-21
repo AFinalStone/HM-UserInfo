@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.hm.iou.router.Router;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
+import com.hm.iou.userinfo.business.view.MoreSettingActivity;
 
 /**
  * @author syl
@@ -20,6 +21,11 @@ public class NavigationHelper {
     public static void toBindEmail(Context context) {
         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/login/bindemail")
                 .navigation(context);
+    }
+
+    public static void toMoreSettingPage(Context context) {
+        Intent intent = new Intent(context, MoreSettingActivity.class);
+        context.startActivity(intent);
     }
 
 }

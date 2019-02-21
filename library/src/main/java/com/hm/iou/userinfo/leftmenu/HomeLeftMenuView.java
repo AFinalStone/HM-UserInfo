@@ -19,6 +19,7 @@ import com.hm.iou.router.Router;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.ViewConcurrencyUtil;
 import com.hm.iou.uikit.ShapedImageView;
+import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 
@@ -148,8 +149,9 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
-                    .navigation(mContext);
+/*            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_profile")
+                    .navigation(mContext);*/
+            NavigationHelper.toMoreSettingPage(mContext);
         } else if (R.id.tv_feedback == id) {
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;

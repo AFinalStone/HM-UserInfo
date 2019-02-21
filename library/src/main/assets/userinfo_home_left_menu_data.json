@@ -23,12 +23,6 @@
       "id": "home_left_menu_0005",
       "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_work.png",
       "url": "hmiou://m.54jietiao.com/person/my_income"
-    },
-    {
-      "name": "亲友",
-      "id": "home_left_menu_0004",
-      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_friend.png",
-      "url": ""
     }
   ],
   "listMenus": [
@@ -51,11 +45,6 @@
       "name": "我的空间",
       "id": "home_left_menu_0008",
       "url": "hmiou://m.54jietiao.com/person/cloud_space"
-    },
-    {
-      "name": "我的钱包",
-      "id": "home_left_menu_0009",
-      "url": ""
     },
     {
       "name": "关于软件",

@@ -145,6 +145,8 @@
             style="@style/HomeLeftMenuListHint"
             android:background="?android:attr/selectableItemBackground"
             android:padding="10dp"
-            android:text="咨询反馈" />
+            android:text="咨询反馈"
+            android:visibility="gone"
+            />
     </LinearLayout>
 </LinearLayout>
