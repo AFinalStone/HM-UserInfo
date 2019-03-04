@@ -25,7 +25,7 @@
             android:layout_height="52dp"
             android:layout_marginLeft="19dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/person_ic_home_left_menu_header"
+            android:src="@mipmap/uikit_icon_header_unknow"
             app:shape_mode="circle" />
 
         <LinearLayout
@@ -108,10 +108,8 @@
         android:id="@+id/rv_top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
         android:layout_marginLeft="10dip"
-        >
-    </android.support.v7.widget.RecyclerView>
+        android:overScrollMode="never" />
 
     <View style="@style/HomeLeftMenuDivider" />
 
@@ -146,7 +144,6 @@
             android:background="?android:attr/selectableItemBackground"
             android:padding="10dp"
             android:text="咨询反馈"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

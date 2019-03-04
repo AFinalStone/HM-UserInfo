@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
@@ -100,8 +101,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         }
     }
 
-    @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname,
-            R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email
+    @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_my_qr_code,
+            R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email, R2.id.ll_profile_my_signature
             , R2.id.ll_profile_city, R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
         if (v.getId() == R.id.ll_profile_avatar) {
@@ -111,6 +112,10 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         } else if (v.getId() == R.id.ll_profile_nickname) {
             TraceUtil.onEvent(mContext, "profile_nickname_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/modify_nickname_sex")
+                    .navigation(this);
+        } else if (v.getId() == R.id.ll_profile_my_qr_code) {
+            TraceUtil.onEvent(mContext, "profile_my_qr_code_click");
+            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/qrcode/index?show_type=show_my_card")
                     .navigation(this);
         } else if (v.getId() == R.id.ll_profile_bind_bank) {
             TraceUtil.onEvent(mContext, "profile_bankauth_click");
@@ -137,6 +142,12 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         } else if (v.getId() == R.id.ll_profile_email) {
             TraceUtil.onEvent(mContext, "profile_modify_email_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_email")
+                    .navigation(mContext);
+        } else if (v.getId() == R.id.ll_profile_my_signature) {
+            TraceUtil.onEvent(mContext, "profile_modify_my_signature_click");
+            Router.getInstance()
+                    .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
+                    .withString("url", "hmiou://m.54jietiao.com/signature/signature_list")
                     .navigation(mContext);
         } else if (v.getId() == R.id.ll_profile_city) {
             TraceUtil.onEvent(mContext, "profile_city_click");

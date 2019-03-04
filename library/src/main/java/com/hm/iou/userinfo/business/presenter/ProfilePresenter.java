@@ -59,8 +59,8 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public ProfilePresenter(@NonNull Context context, @NonNull ProfileContract.View view) {
         super(context, view);
         EventBus.getDefault().register(this);
-        mColorUnBind = context.getResources().getColor(R.color.uikit_text_hint);
-        mColorHaveBind = context.getResources().getColor(R.color.uikit_function_exception);
+        mColorUnBind = context.getResources().getColor(R.color.uikit_function_exception);
+        mColorHaveBind = context.getResources().getColor(R.color.uikit_text_hint);
     }
 
     @Override

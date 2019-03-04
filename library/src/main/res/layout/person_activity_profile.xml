@@ -23,11 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingBottom="20dip"
             android:paddingLeft="6dip"
             android:paddingRight="6dip"
-            android:paddingTop="10dip"
-            android:paddingBottom="20dip"
-            >
+            android:paddingTop="10dip">
 
             <LinearLayout
                 style="@style/PersonMenuCard"
@@ -54,8 +53,8 @@
 
                 </LinearLayout>
 
-                <View style="@style/UikitDivider.Horizontal" />
 
+                <View style="@style/UikitDivider.Horizontal" />
 
                 <LinearLayout
                     android:id="@+id/ll_profile_nickname"
@@ -63,28 +62,48 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="昵称" />
+                        android:text="昵称/性别" />
 
 
                     <TextView
                         android:id="@+id/tv_profile_nickname"
                         style="@style/PersonMenuListHint"
-                        android:maxLength="16"
                         android:layout_marginRight="3dip"
+                        android:maxLength="16"
                         tools:text="15986522145" />
 
                     <ImageView
                         android:id="@+id/iv_profile_sex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/person_ic_sex_man"
                         android:layout_marginRight="10dip"
-                        />
+                        android:src="@mipmap/person_ic_sex_man" />
 
                     <ImageView style="@style/PersonMenuListArrow" />
 
                 </LinearLayout>
 
+                <View style="@style/UikitDivider.Horizontal" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_my_qr_code"
+                    style="@style/PersonMenuListItem">
+
+                    <TextView
+                        style="@style/PersonMenuListTitle"
+                        android:text="我的二维码" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_my_qr_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:src="@mipmap/person_ic_my_qr_code" />
+
+                    <ImageView style="@style/PersonMenuListArrow" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -178,7 +197,7 @@
                     <TextView
                         android:id="@+id/tv_profile_bind_bank"
                         style="@style/PersonMenuListHint"
-                        tools:text="未获取" />
+                        tools:text="@string/person_not_bind_bank" />
 
                     <ImageView
                         android:id="@+id/iv_profile_bind_bank"
@@ -194,6 +213,19 @@
 
                 </LinearLayout>
 
+                <View style="@style/UikitDivider.Horizontal" />
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_my_signature"
+                    style="@style/PersonMenuListItem">
+
+                    <TextView
+                        style="@style/PersonMenuListTitle"
+                        android:text="我的签名" />
+
+                    <ImageView style="@style/PersonMenuListArrow" />
+
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -255,8 +287,7 @@
                 android:text="@string/personal_logoutSafely"
                 android:textColor="#ff666666"
                 android:textSize="@dimen/textFontSize_16"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

@@ -146,7 +146,11 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         //真实姓名
         if (!UserDataUtil.isCClass(userInfo.getType())) {
             mView.updateTopMenuIcon(ModuleType.AUTHENTICATION.getValue(), Color.WHITE);
-            mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), "已实名", null);
+            String userName = userInfo.getName();
+            if (TextUtils.isEmpty(userName)) {
+                userName = "已实名";
+            }
+            mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), userName, null);
         } else {
             mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), null, "认证");
             mRedFlagCount++;

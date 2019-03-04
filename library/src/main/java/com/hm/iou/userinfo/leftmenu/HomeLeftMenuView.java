@@ -3,6 +3,7 @@ package com.hm.iou.userinfo.leftmenu;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -80,7 +81,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         ButterKnife.bind(this, view);
         mIvHeaderArrow.setColorFilter(mContext.getResources().getColor(R.color.uikit_text_sub_content));
 
-        mRvTopMenu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        mRvTopMenu.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
         mTopMenuAdapter = new TopMenuAdapter(mContext);
         mTopMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -196,6 +197,10 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
 
     @Override
     public void showTopMenus(List<ITopMenuItem> list) {
+        if(list == null){
+            return;
+        }
+        mRvTopMenu.setLayoutManager(new GridLayoutManager(mContext,list.size()));
         mTopMenuAdapter.setNewData(list);
     }
 
