@@ -12,6 +12,7 @@ import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.UserHeaderDetailContract;
 import com.hm.iou.userinfo.event.UpdateAvatarEvent;
@@ -36,7 +37,7 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
     @Override
     public void getUserAvatar() {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        mView.showUserAvatar(userInfo.getAvatarUrl(), 0);
+        mView.showUserAvatar(userInfo.getAvatarUrl(), R.mipmap.uikit_icon_header_unknow);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
                         userDataBean.setAvatarUrl(mAvatarUrl);
                         userManager.updateOrSaveUserInfo(userDataBean);
 
-                        mView.showUserAvatar(userInfo.getAvatarUrl(), 0);
+                        mView.showUserAvatar(userInfo.getAvatarUrl(), R.mipmap.uikit_icon_header_unknow);
                         EventBus.getDefault().post(new UpdateAvatarEvent());
                     }
 
