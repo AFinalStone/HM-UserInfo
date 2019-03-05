@@ -104,7 +104,7 @@ public class UserHeaderDetailActivity extends BaseActivity<UserHeaderDetailPrese
     @Override
     public void showUserAvatar(String url, int defaultAvatarResId) {
         if (TextUtils.isEmpty(url)) {
-            mIvHeader.setImageResource(0);
+            mIvHeader.setImageResource(R.mipmap.uikit_icon_header_unknow);
         } else {
             ImageLoader.getInstance(mContext).displayImage(url, mIvHeader);
         }
