@@ -1,6 +1,7 @@
 package com.hm.iou.userinfo.business.view;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 
 import com.hm.iou.base.ActivityManager;
@@ -13,14 +14,12 @@ import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.LogoutEvent;
 import com.hm.iou.sharedata.model.UserInfo;
-import com.hm.iou.uikit.dialog.HMActionSheetDialog;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.api.PersonApi;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Arrays;
 
 import butterknife.OnClick;
 
@@ -57,20 +56,21 @@ public class MoreSettingActivity extends BaseActivity {
 
 
     private void showDialogLogoutSafely() {
-        new HMActionSheetDialog.Builder(mContext)
-                .setTitle("是否退出当前账号？")
-                .setActionSheetList(Arrays.asList("安全退出"))
-                .setCanSelected(false)
-                .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
+        new HMAlertDialog.Builder(this)
+                .setMessage("是否退出当前账号？")
+                .setMessageGravity(Gravity.CENTER)
+                .setPositiveButton("取消")
+                .setNegativeButton("退出")
+                .setOnClickListener(new HMAlertDialog.OnClickListener() {
                     @Override
-                    public void onItemClick(int i, String s) {
-                        if (i == 0) {
-                            logout();
-                        }
+                    public void onPosClick() {
                     }
-                })
-                .create()
-                .show();
+
+                    @Override
+                    public void onNegClick() {
+                        logout();
+                    }
+                }).create().show();
     }
 
     private void logout() {
