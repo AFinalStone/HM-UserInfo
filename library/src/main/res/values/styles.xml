@@ -11,12 +11,12 @@
         <item name="android:layout_height">52dip</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">15dip</item>
+        <item name="android:paddingRight">15dip</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="PersonMenuCard">
-        <item name="android:paddingLeft">15dip</item>
-        <item name="android:paddingRight">15dip</item>
         <item name="android:background">@drawable/uikit_bg_card_form</item>
     </style>
 
