@@ -7,17 +7,16 @@
     android:orientation="vertical">
 
     <com.hm.iou.uikit.HMTopBarView
-        android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
         app:backIcon="@mipmap/uikit_icon_close_black"
         app:bottomDividerIsShow="false"
-        app:titleBackground="#ffffff"
-        app:titleText="我的资料" />
+        app:titleBackground="@color/transparent" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +25,7 @@
             android:paddingBottom="20dip"
             android:paddingLeft="6dip"
             android:paddingRight="6dip"
-            android:paddingTop="10dip">
+            android:paddingTop="6dip">
 
             <LinearLayout
                 style="@style/PersonMenuCard"
