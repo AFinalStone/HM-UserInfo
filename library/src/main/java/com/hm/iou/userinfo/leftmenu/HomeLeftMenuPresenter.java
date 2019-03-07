@@ -129,7 +129,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                     public void accept(Boolean aVoid) throws Exception {
                         getUpdateInfo();
                         getUserProfile();
-                        Logger.d("发送userInfo_homeLeftMenu_redFlagCount通知事件");
+                        Logger.d("发送userInfo_homeLeftMenu_redFlagCount通知事件==" + mRedFlagCount);
                         EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
                     }
                 }, new Consumer<Throwable>() {
@@ -248,8 +248,6 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
                         Logger.d("存储绑定银行卡信息");
-                        //更新进度
-                        showInfoCompleteProgress();
                         UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
                         if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
                             return true;
