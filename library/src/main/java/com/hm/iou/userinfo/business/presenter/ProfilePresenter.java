@@ -39,7 +39,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by hjy on 2018/5/23.
@@ -211,6 +213,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             mThirdPlatformInfoDisposable = null;
         }
         mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .compose(getProvider().<BaseResponse<UserThirdPlatformInfo>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
                 .subscribeWith(new CommSubscriber<UserThirdPlatformInfo>(mView) {

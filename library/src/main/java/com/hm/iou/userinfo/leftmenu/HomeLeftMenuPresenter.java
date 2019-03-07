@@ -37,8 +37,14 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.InputStream;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author syl
@@ -104,12 +110,31 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     @Override
     public void refreshData() {
-        mRedFlagCount = 0;
-        getUserProfile();
-        getStatisticData();
-        getUserThirdPlatformInfo();
-        getUpdateInfo();
-        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
+
+        Flowable.create(new FlowableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(FlowableEmitter<Boolean> e) throws Exception {
+                mRedFlagCount = 0;
+                getUserThirdPlatformInfo();
+                e.onNext(true);
+            }
+        }, BackpressureStrategy.ERROR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aVoid) throws Exception {
+                        getStatisticData();
+                        getUpdateInfo();
+                        getUserProfile();
+                        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
     }
 
 
@@ -194,6 +219,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     /**
      * 获取第三方平台的认证信息
+     * 这个方法是异步的，等这个方法获取到
      */
     private void getUserThirdPlatformInfo() {
         UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
@@ -209,6 +235,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
             mThirdPlatformInfoDisposable = null;
         }
         mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
+                .observeOn(AndroidSchedulers.mainThread())
                 .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
                 .subscribe(new Consumer<UserThirdPlatformInfo>() {
                     @Override
