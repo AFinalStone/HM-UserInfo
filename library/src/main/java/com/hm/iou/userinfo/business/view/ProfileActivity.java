@@ -145,10 +145,37 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                     .navigation(mContext);
         } else if (v.getId() == R.id.ll_profile_my_signature) {
             TraceUtil.onEvent(mContext, "profile_modify_my_signature_click");
-            Router.getInstance()
-                    .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
-                    .withString("url", "hmiou://m.54jietiao.com/signature/signature_list")
-                    .navigation(mContext);
+            int type = UserManager.getInstance(mContext).getUserInfo().getType();
+            boolean noAuthentication = UserDataUtil.isCClass(type);
+
+            if (noAuthentication) {//还没有实名认证
+                new HMAlertDialog.Builder(mContext)
+                        .setTitle("实名认证")
+                        .setMessage("通过实名认证后的账户，才能设置签名，是否立即实名认证？")
+                        .setPositiveButton("立即认证")
+                        .setNegativeButton("取消")
+                        .setOnClickListener(new HMAlertDialog.OnClickListener() {
+                            @Override
+                            public void onPosClick() {
+                                Router.getInstance()
+                                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
+                                        .navigation(mContext);
+                            }
+
+                            @Override
+                            public void onNegClick() {
+
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                Router.getInstance()
+                        .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
+                        .withString("url", "hmiou://m.54jietiao.com/signature/signature_list")
+                        .navigation(mContext);
+            }
+
         } else if (v.getId() == R.id.ll_profile_city) {
             TraceUtil.onEvent(mContext, "profile_city_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/city/index")
@@ -324,7 +351,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                 })
                 .create()
                 .show();
-
     }
 
 }
