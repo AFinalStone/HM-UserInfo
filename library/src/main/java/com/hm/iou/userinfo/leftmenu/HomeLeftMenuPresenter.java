@@ -33,6 +33,7 @@ import com.hm.iou.userinfo.util.UserInfoCompleteProgressUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.reactivestreams.Subscriber;
 
 import java.io.InputStream;
 import java.util.List;
@@ -44,6 +45,7 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -110,12 +112,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     @Override
     public void refreshData() {
-
+        getStatisticData();
         Flowable.create(new FlowableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(FlowableEmitter<Boolean> e) throws Exception {
                 mRedFlagCount = 0;
                 getUserThirdPlatformInfo();
+                Logger.d("获取第三方平台信息结束");
                 e.onNext(true);
             }
         }, BackpressureStrategy.ERROR)
@@ -124,9 +127,9 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aVoid) throws Exception {
-                        getStatisticData();
                         getUpdateInfo();
                         getUserProfile();
+                        Logger.d("发送userInfo_homeLeftMenu_redFlagCount通知事件");
                         EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
                     }
                 }, new Consumer<Throwable>() {
@@ -235,22 +238,33 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
             mThirdPlatformInfoDisposable = null;
         }
         mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
-                .observeOn(AndroidSchedulers.mainThread())
                 .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
-                .subscribe(new Consumer<UserThirdPlatformInfo>() {
+                .map(new Function<UserThirdPlatformInfo, Boolean>() {
+
                     @Override
-                    public void accept(UserThirdPlatformInfo thirdInfo) throws Exception {
-                        Logger.d("user" + thirdInfo.getBankInfoResp().toString());
-                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
-                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                            mView.updateTopMenuIcon(ModuleType.BANK_CARD.getValue(), Color.WHITE);
-                        }
+                    public Boolean apply(UserThirdPlatformInfo thirdInfo) throws Exception {
                         //存储绑定银行卡信息
                         UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
+                        Logger.d("存储绑定银行卡信息");
                         //更新进度
                         showInfoCompleteProgress();
+                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
+                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean flag) throws Exception {
+                        if (flag) {
+                            mView.updateTopMenuIcon(ModuleType.BANK_CARD.getValue(), Color.WHITE);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
