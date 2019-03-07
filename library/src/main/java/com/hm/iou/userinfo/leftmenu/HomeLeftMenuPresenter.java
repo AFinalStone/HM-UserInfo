@@ -33,20 +33,12 @@ import com.hm.iou.userinfo.util.UserInfoCompleteProgressUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.reactivestreams.Subscriber;
 
 import java.io.InputStream;
 import java.util.List;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author syl
@@ -59,10 +51,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private HomeLeftMenuView mView;
     private Disposable mStatisticDisposable;
     private Disposable mThirdPlatformInfoDisposable;//获取第三方平台的状态
-    private int mRedFlagCount;//红点数量
 
     private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
     private boolean mNeedRefresh = false;
+
+    private boolean mIsRealNameFlag;
+    private boolean mHasNewVersionFlag;
+    private boolean mInfoCompleteFlag;
 
     public HomeLeftMenuPresenter(Context context, HomeLeftMenuView view) {
         this.mContext = context;
@@ -112,34 +107,27 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     @Override
     public void refreshData() {
+        getUserProfile();
         getStatisticData();
-        Flowable.create(new FlowableOnSubscribe<Boolean>() {
-            @Override
-            public void subscribe(FlowableEmitter<Boolean> e) throws Exception {
-                mRedFlagCount = 0;
-                getUserThirdPlatformInfo();
-                Logger.d("获取第三方平台信息结束");
-                e.onNext(true);
-            }
-        }, BackpressureStrategy.ERROR)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aVoid) throws Exception {
-                        getUpdateInfo();
-                        getUserProfile();
-                        Logger.d("发送userInfo_homeLeftMenu_redFlagCount通知事件==" + mRedFlagCount);
-                        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(mRedFlagCount)));
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
+        getUserThirdPlatformInfo();
+        getUpdateInfo();
 
-                    }
-                });
+        notifyRedCount();
     }
 
+    /**
+     * 通知应该显示的红点数
+     */
+    private void notifyRedCount() {
+        int redCount = 0;
+        if (mHasNewVersionFlag)
+            redCount++;
+        if (mIsRealNameFlag)
+            redCount++;
+        if (mInfoCompleteFlag)
+            redCount++;
+        EventBus.getDefault().post(new CommBizEvent("userInfo_homeLeftMenu_redFlagCount", String.valueOf(redCount)));
+    }
 
     /**
      * 从assert文件中读取数据
@@ -179,9 +167,10 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                 userName = "已实名";
             }
             mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), userName, null);
+            mIsRealNameFlag = false;
         } else {
             mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), null, "认证");
-            mRedFlagCount++;
+            mIsRealNameFlag = true;
         }
 
         //邮箱
@@ -222,7 +211,6 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
     /**
      * 获取第三方平台的认证信息
-     * 这个方法是异步的，等这个方法获取到
      */
     private void getUserThirdPlatformInfo() {
         UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
@@ -239,30 +227,21 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         }
         mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
                 .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
-                .map(new Function<UserThirdPlatformInfo, Boolean>() {
-
+                .subscribe(new Consumer<UserThirdPlatformInfo>() {
                     @Override
-                    public Boolean apply(UserThirdPlatformInfo thirdInfo) throws Exception {
+                    public void accept(UserThirdPlatformInfo thirdInfo) throws Exception {
+                        Logger.d("user" + thirdInfo.getBankInfoResp().toString());
+                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
+                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
+                            mView.updateTopMenuIcon(ModuleType.BANK_CARD.getValue(), Color.WHITE);
+                        }
                         //存储绑定银行卡信息
                         UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
-                        Logger.d("存储绑定银行卡信息");
-                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
-                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean flag) throws Exception {
-                        if (flag) {
-                            mView.updateTopMenuIcon(ModuleType.BANK_CARD.getValue(), Color.WHITE);
-                        }
+                        //更新进度
+                        showInfoCompleteProgress();
+                        notifyRedCount();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -303,7 +282,9 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private void showInfoCompleteProgress() {
         int progress = UserInfoCompleteProgressUtil.getProfileProgress(mContext);
         if (progress != 100) {
-            mRedFlagCount++;
+            mInfoCompleteFlag = true;
+        } else {
+            mInfoCompleteFlag = false;
         }
         mView.showProfileProgress(progress);
     }
@@ -316,8 +297,10 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         String appVer = SystemUtil.getCurrentAppVersionName(mContext);
         CheckVersionResBean versionResBean = (CheckVersionResBean) cache.getAsObject(appVer);
         if (versionResBean != null) {
-            mRedFlagCount++;
+            mHasNewVersionFlag = true;
             mView.updateListMenu(ModuleType.ABOUT_SOFT.getValue(), null, "更新");
+        } else {
+            mHasNewVersionFlag = false;
         }
     }
 

@@ -273,6 +273,6 @@ public class PersonApi {
      * @return
      */
     public static Flowable<BaseResponse<UserThirdPlatformInfo>> getUserThirdPlatformInfo() {
-        return getService().getUserThirdPlatformInfo();
+        return getService().getUserThirdPlatformInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }
