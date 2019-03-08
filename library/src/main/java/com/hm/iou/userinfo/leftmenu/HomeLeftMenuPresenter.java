@@ -301,6 +301,8 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
             mView.updateListMenu(ModuleType.ABOUT_SOFT.getValue(), null, "更新");
         } else {
             mHasNewVersionFlag = false;
+            String version = "版本" + SystemUtil.getCurrentAppVersionName(mContext);
+            mView.updateListMenu(ModuleType.ABOUT_SOFT.getValue(), version, null);
         }
     }
 
@@ -385,6 +387,9 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
             mNeedRefresh = true;
         } else if ("News_doCollectNews".equals(event.key)) {    //资讯收藏或者取消收藏
             mNeedRefresh = true;
+        } else if ("check_version_event".equals(event.key)) {   //检测版本更新
+            getUpdateInfo();
+            notifyRedCount();
         }
     }
 
