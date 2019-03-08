@@ -271,7 +271,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
      */
     private void showNicknameAndUserId(UserInfo userInfo) {
         String nickname = userInfo.getNickName();
-        String userShowId = userInfo.getShowId();
+        String userShowId = "ID：" + userInfo.getShowId();
         mView.showNickname(nickname);
         mView.showUserId(userShowId);
     }

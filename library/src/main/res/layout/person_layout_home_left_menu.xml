@@ -29,9 +29,10 @@
             app:shape_mode="circle" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="51dp"
-            android:layout_marginLeft="84dip"
+            android:layout_marginStart="84dip"
+            android:layout_toStartOf="@id/ll_info_complete"
             android:gravity="bottom"
             android:orientation="vertical">
 
@@ -42,11 +43,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLength="16"
-                android:paddingEnd="20dip"
                 android:singleLine="true"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="@dimen/textFontSize_18"
+                android:textSize="@dimen/textFontSize_17"
                 tools:text="昵称" />
 
 
@@ -65,6 +65,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_info_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
