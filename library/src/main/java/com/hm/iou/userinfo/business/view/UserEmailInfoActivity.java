@@ -53,7 +53,6 @@ public class UserEmailInfoActivity extends BaseActivity<UserEmailInfoPresenter> 
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-        mPresenter.getUserEmailInfo();
         mTopBar.setOnMenuClickListener(new HMTopBarView.OnTopBarMenuClickListener() {
             @Override
             public void onClickTextMenu() {
@@ -65,6 +64,12 @@ public class UserEmailInfoActivity extends BaseActivity<UserEmailInfoPresenter> 
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getUserEmailInfo();
     }
 
     @Override

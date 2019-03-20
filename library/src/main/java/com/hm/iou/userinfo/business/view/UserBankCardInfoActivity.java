@@ -47,6 +47,12 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
 
     @Override
     protected void initEventAndData(Bundle bundle) {
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mPresenter.getBankCardInfo();
     }
 
@@ -69,10 +75,6 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        String bankCardNum = infoBean.getBankCardNo();
-//        if (!TextUtils.isEmpty(bankCardNum)) {
-//            mTvBankCardNumber.setText(bankCardNum);
-//        }
         //银行名称
         String bankName = infoBean.getBankName();
         if (!TextUtils.isEmpty(bankName)) {
