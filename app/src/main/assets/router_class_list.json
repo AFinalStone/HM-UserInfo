@@ -264,6 +264,11 @@
       "url": "hmiou://m.54jietiao.com/person/authentication_info",
       "iclass": "",
       "aclass": "com.hm.iou.userinfo.business.view.AuthenticationInfoActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/user_bind_bank_info",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.UserBankCardInfoActivity"
     }
   ],
   "message": [

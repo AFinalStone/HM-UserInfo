@@ -78,10 +78,10 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <LinearLayout style="@style/AuthenticationInfoListItem">
+        <LinearLayout style="@style/PersonalInfoListItem">
 
             <TextView
-                style="@style/AuthenticationInfoListItemTitle"
+                style="@style/PersonalInfoListItemTitle"
                 android:text="个人信息" />
 
             <View
@@ -89,22 +89,22 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <ImageView style="@style/AuthenticationInfoListItemImage" />
+            <ImageView style="@style/PersonalInfoListItemImage" />
 
             <TextView
                 android:id="@+id/tv_info_desc"
-                style="@style/AuthenticationInfoListItemRemark"
+                style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
                 android:text="已完善" />
         </LinearLayout>
 
-        <View style="@style/AuthenticationInfoListItemDivider" />
+        <View style="@style/PersonalInfoListItemDivider" />
 
-        <LinearLayout style="@style/AuthenticationInfoListItem">
+        <LinearLayout style="@style/PersonalInfoListItem">
 
 
             <TextView
-                style="@style/AuthenticationInfoListItemTitle"
+                style="@style/PersonalInfoListItemTitle"
                 android:text="证件照片" />
 
             <View
@@ -114,22 +114,22 @@
 
             <ImageView
                 android:id="@+id/iv_id_card_photo_flag"
-                style="@style/AuthenticationInfoListItemImage" />
+                style="@style/PersonalInfoListItemImage" />
 
             <TextView
                 android:id="@+id/tv_id_card_photo_desc"
-                style="@style/AuthenticationInfoListItemRemark"
+                style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
                 android:text="已上传" />
         </LinearLayout>
 
-        <View style="@style/AuthenticationInfoListItemDivider" />
+        <View style="@style/PersonalInfoListItemDivider" />
 
-        <LinearLayout style="@style/AuthenticationInfoListItem">
+        <LinearLayout style="@style/PersonalInfoListItem">
 
 
             <TextView
-                style="@style/AuthenticationInfoListItemTitle"
+                style="@style/PersonalInfoListItemTitle"
                 android:text="人像照片" />
 
             <View
@@ -137,22 +137,22 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <ImageView style="@style/AuthenticationInfoListItemImage" />
+            <ImageView style="@style/PersonalInfoListItemImage" />
 
             <TextView
                 android:id="@+id/tv_face_photo_desc"
-                style="@style/AuthenticationInfoListItemRemark"
+                style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
                 android:text="已录用" />
         </LinearLayout>
 
-        <View style="@style/AuthenticationInfoListItemDivider" />
+        <View style="@style/PersonalInfoListItemDivider" />
 
-        <LinearLayout style="@style/AuthenticationInfoListItem">
+        <LinearLayout style="@style/PersonalInfoListItem">
 
 
             <TextView
-                style="@style/AuthenticationInfoListItemTitle"
+                style="@style/PersonalInfoListItemTitle"
                 android:text="年满18周岁" />
 
             <View
@@ -162,22 +162,22 @@
 
             <ImageView
                 android:id="@+id/iv_is_adult_flag"
-                style="@style/AuthenticationInfoListItemImage" />
+                style="@style/PersonalInfoListItemImage" />
 
             <TextView
                 android:id="@+id/tv_is_adult_desc"
-                style="@style/AuthenticationInfoListItemRemark"
+                style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
                 android:text="已满足" />
         </LinearLayout>
 
-        <View style="@style/AuthenticationInfoListItemDivider" />
+        <View style="@style/PersonalInfoListItemDivider" />
 
-        <LinearLayout style="@style/AuthenticationInfoListItem">
+        <LinearLayout style="@style/PersonalInfoListItem">
 
 
             <TextView
-                style="@style/AuthenticationInfoListItemTitle"
+                style="@style/PersonalInfoListItemTitle"
                 android:text="手写签名" />
 
             <View
@@ -187,22 +187,22 @@
 
             <ImageView
                 android:id="@+id/iv_handler_signature_flag"
-                style="@style/AuthenticationInfoListItemImage" />
+                style="@style/PersonalInfoListItemImage" />
 
             <TextView
                 android:id="@+id/tv_handler_signature_desc"
-                style="@style/AuthenticationInfoListItemRemark"
+                style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
                 android:text="已录入" />
         </LinearLayout>
 
-        <View style="@style/AuthenticationInfoListItemDivider" />
+        <View style="@style/PersonalInfoListItemDivider" />
 
-        <LinearLayout style="@style/AuthenticationInfoListItem">
+        <LinearLayout style="@style/PersonalInfoListItem">
 
 
             <TextView
-                style="@style/AuthenticationInfoListItemTitle"
+                style="@style/PersonalInfoListItemTitle"
                 android:text="认证时间" />
 
             <View
@@ -212,12 +212,12 @@
 
             <TextView
                 android:id="@+id/tv_authentication_time_desc"
-                style="@style/AuthenticationInfoListItemRemark"
+                style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
                 tools:text="2018.12.23" />
         </LinearLayout>
 
-        <View style="@style/AuthenticationInfoListItemDivider" />
+        <View style="@style/PersonalInfoListItemDivider" />
     </LinearLayout>
 
 </ScrollView>

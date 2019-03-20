@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uikit_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.hm.iou.uikit.HMTopBarView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/uikit_topbar_height"
+            app:bottomDividerIsShow="false"
+            app:titleBackground="@color/transparent"
+            app:titleText="我的银行卡" />
+
+        <ImageView
+            android:layout_width="194dp"
+            android:layout_height="124dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/person_ic_user_bind_bank_card" />
+
+        <TextView
+            android:id="@+id/tv_bank_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="@drawable/person_bg_user_info_card_num"
+            android:gravity="center"
+            android:paddingEnd="28dp"
+            android:paddingStart="28dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/uikit_main_title_text_size"
+            tools:text="6323 **** **** 3243 " />
+
+        <LinearLayout
+            style="@style/PersonalInfoListItem"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="银行卡名称" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_bank_name"
+                style="@style/PersonalInfoListItemRemark"
+                tools:text="中国银行" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="卡片类型" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_bank_card_type"
+                style="@style/PersonalInfoListItemRemark"
+                tools:text="借记卡" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="卡片归属" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_bank_card_master"
+                style="@style/PersonalInfoListItemRemark"
+                android:text="本人" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="绑定手机" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_bank_card_bind_mobile"
+                style="@style/PersonalInfoListItemRemark"
+                android:text="138*****102" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="认证时间" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <TextView
+                android:id="@+id/tv_bank_card_bind_time"
+                style="@style/PersonalInfoListItemRemark"
+                android:text="2019.03.23" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

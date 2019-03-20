@@ -118,8 +118,10 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="AuthenticationInfoListItem">
-        <item name="android:layout_width">339dp</item>
+    <style name="PersonalInfoListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
         <item name="android:layout_height">57dip</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:gravity">center_vertical</item>
@@ -130,23 +132,23 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="AuthenticationInfoListItemTitle" parent="UikitTextView">
-        <item name="android:textColor">#ff111111</item>
+    <style name="PersonalInfoListItemTitle" parent="UikitTextView">
+        <item name="android:textColor">@color/uikit_text_main_content</item>
         <item name="android:textSize">@dimen/textFontSize_16</item>
     </style>
 
-    <style name="AuthenticationInfoListItemImage">
+    <style name="PersonalInfoListItemImage">
         <item name="android:layout_width">12dp</item>
         <item name="android:layout_height">12dp</item>
         <item name="android:src">@mipmap/person_ic_authen_right</item>
     </style>
 
-    <style name="AuthenticationInfoListItemRemark" parent="UikitTextView">
-        <item name="android:textColor">#ff575b62</item>
+    <style name="PersonalInfoListItemRemark" parent="UikitTextView">
+        <item name="android:textColor">@color/uikit_text_sub_content</item>
         <item name="android:textSize">@dimen/textFontSize_14</item>
     </style>
 
-    <style name="AuthenticationInfoListItemDivider" parent="@style/UikitDivider.Horizontal">
+    <style name="PersonalInfoListItemDivider" parent="@style/UikitDivider.Horizontal">
         <item name="android:layout_width">309dp</item>
     </style>
 </resources>

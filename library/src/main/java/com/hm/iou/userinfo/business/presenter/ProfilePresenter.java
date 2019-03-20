@@ -172,11 +172,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                         UserManager userManager = UserManager.getInstance(mContext);
                         UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
                         userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
-                        PersonalCenterInfo.AlipayInfoRespBean aliPayInfo = personalCenterInfo.getAlipayInfoResp();
-                        if (aliPayInfo != null) {
-                            String aliPay = aliPayInfo.getAlipayAccount();
-                            mView.showAliPay(aliPay, mColorHaveBind);
-                        }
+                        showAliPayInfo(userExtendInfo);
                     }
 
                     @Override

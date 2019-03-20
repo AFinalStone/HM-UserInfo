@@ -9,6 +9,7 @@ import com.hm.iou.tools.ToastUtil;
 import com.hm.iou.userinfo.business.view.ChangeAliPayActivity;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
+import com.hm.iou.userinfo.business.view.UserEmailInfoActivity;
 
 /**
  * @author syl
@@ -18,6 +19,11 @@ public class NavigationHelper {
 
     public static void toModifyEmailPage(Context context) {
         Intent intent = new Intent(context, ChangeEmailVerifyActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void toUserEmailInfoPage(Context context) {
+        Intent intent = new Intent(context, UserEmailInfoActivity.class);
         context.startActivity(intent);
     }
 

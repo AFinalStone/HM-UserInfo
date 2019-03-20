@@ -8,7 +8,9 @@ import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
+import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
+import com.hm.iou.userinfo.bean.UserEmailInfoResBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
@@ -295,12 +297,22 @@ public class PersonApi {
         return getService().addOrUpdateAliPay(aliPay).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-//    /**
-//     * 获取个人中心的基本用户信息
-//     *
-//     * @return
-//     */
-//    public static Flowable<BaseResponse<GetPersonalCenterResBean>> getPersonalCenter() {
-//        return getService().getPersonalCenter().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-//    }
+    /**
+     * 获取绑定的邮箱
+     *\
+     * @return
+     */
+    public static Flowable<BaseResponse<UserEmailInfoResBean>> getUserBindEmailInfo() {
+        return getService().getUserBindEmailInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取绑定的银行卡
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<UserBankCardInfoResBean>> getUserBindBankCardInfo() {
+        return getService().getUserBindBankCardInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
 }

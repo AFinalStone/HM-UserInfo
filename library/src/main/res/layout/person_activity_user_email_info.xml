@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uikit_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.hm.iou.uikit.HMTopBarView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/uikit_topbar_height"
+            app:bottomDividerIsShow="false"
+            app:rightText="更新"
+            app:titleBackground="@color/transparent"
+            app:titleText="我的邮箱" />
+
+        <ImageView
+            android:layout_width="194dp"
+            android:layout_height="124dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/person_ic_user_bind_email" />
+
+        <TextView
+            android:id="@+id/tv_email_number"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="@drawable/person_bg_user_info_card_num"
+            android:gravity="center"
+            android:paddingEnd="28dp"
+            android:paddingStart="28dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/uikit_main_title_text_size"
+            tools:text="6323 **** **** 3243 " />
+
+        <LinearLayout
+            style="@style/PersonalInfoListItem"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="找回登录密码" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView style="@style/PersonalInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_find_login_psd_desc"
+                style="@style/PersonalInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已开启" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="合同备份到邮箱" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_back_up_receipt_flag"
+                style="@style/PersonalInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_back_up_receipt_desc"
+                style="@style/PersonalInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已开启" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="签约默认联系方式" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView style="@style/PersonalInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_sign_default_contact_way"
+                style="@style/PersonalInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已开启" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+
+        <LinearLayout style="@style/PersonalInfoListItem">
+
+
+            <TextView
+                style="@style/PersonalInfoListItemTitle"
+                android:text="认证时间" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_bind_email_time_desc"
+                style="@style/PersonalInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                tools:text="2018.12.23" />
+        </LinearLayout>
+
+        <View style="@style/PersonalInfoListItemDivider" />
+    </LinearLayout>
+
+</ScrollView>

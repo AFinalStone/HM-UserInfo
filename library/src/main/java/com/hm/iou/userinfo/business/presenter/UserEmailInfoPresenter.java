@@ -8,10 +8,10 @@ import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.userinfo.api.PersonApi;
-import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
-import com.hm.iou.userinfo.business.ChangeAliPayContract;
+import com.hm.iou.userinfo.bean.UserEmailInfoResBean;
 import com.hm.iou.userinfo.business.UserBankCardInfoContract;
+import com.hm.iou.userinfo.business.UserEmailInfoContract;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
@@ -19,22 +19,22 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
  * @time 2019/3/19 1:41 PM
  */
 
-public class UserBankCardInfoPresenter extends MvpActivityPresenter<UserBankCardInfoContract.View> implements UserBankCardInfoContract.Presenter {
+public class UserEmailInfoPresenter extends MvpActivityPresenter<UserEmailInfoContract.View> implements UserEmailInfoContract.Presenter {
 
 
-    public UserBankCardInfoPresenter(@NonNull Context context, @NonNull UserBankCardInfoContract.View view) {
+    public UserEmailInfoPresenter(@NonNull Context context, @NonNull UserEmailInfoContract.View view) {
         super(context, view);
     }
 
     @Override
-    public void getBankCardInfo() {
+    public void getUserEmailInfo() {
         mView.showLoadingView();
-        PersonApi.getUserBindBankCardInfo()
-                .compose(getProvider().<BaseResponse<UserBankCardInfoResBean>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<UserBankCardInfoResBean>handleResponse())
-                .subscribeWith(new CommSubscriber<UserBankCardInfoResBean>(mView) {
+        PersonApi.getUserBindEmailInfo()
+                .compose(getProvider().<BaseResponse<UserEmailInfoResBean>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.<UserEmailInfoResBean>handleResponse())
+                .subscribeWith(new CommSubscriber<UserEmailInfoResBean>(mView) {
                     @Override
-                    public void handleResult(UserBankCardInfoResBean infoBean) {
+                    public void handleResult(UserEmailInfoResBean infoBean) {
                         mView.dismissLoadingView();
                         mView.showBankCardInfo(infoBean);
                     }

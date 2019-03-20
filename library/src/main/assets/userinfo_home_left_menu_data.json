@@ -28,7 +28,7 @@
       "name": "任务",
       "id": "home_left_menu_task",
       "image": "hmiou://mipmap/person_ic_home_left_menu_task",
-      "url": "hmiou://m.54jietiao.com/pay/user_bind_bank"
+      "url": "http://h5.54jietiao.com/apph5/app-task/"
     }
   ],
   "listMenus": [

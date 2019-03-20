@@ -43,7 +43,7 @@ public class AboutEmailActivity extends BaseActivity {
         //绑定过邮箱
         if ((type == CustomerTypeEnum.APlus.getValue() || type == CustomerTypeEnum.ASub.getValue())
                 && !TextUtils.isEmpty(userInfo.getMailAddr())) {
-            NavigationHelper.toModifyEmailPage(this);
+            NavigationHelper.toUserEmailInfoPage(this);
         } else {
             NavigationHelper.toBindEmail(this);
         }

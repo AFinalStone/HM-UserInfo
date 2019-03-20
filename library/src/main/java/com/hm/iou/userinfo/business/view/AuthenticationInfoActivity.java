@@ -59,7 +59,7 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
 
     @Override
     protected int getLayoutId() {
-        return R.layout.person_activity_authentication_info;
+        return R.layout.person_activity_user_authentication_info;
     }
 
     @Override

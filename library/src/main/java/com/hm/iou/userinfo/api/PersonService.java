@@ -6,7 +6,9 @@ import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
+import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
+import com.hm.iou.userinfo.bean.UserEmailInfoResBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
@@ -91,8 +93,11 @@ public interface PersonService {
     @GET("/api/iou/user/v1/addOrUpdateAliPay")
     Flowable<BaseResponse<Object>> addOrUpdateAliPay(@Query("alipay") String aliPay);
 
-//    @GET("/api/iou/user/v1/getPersonalCenter")
-//    Flowable<BaseResponse<GetPersonalCenterResBean>> getPersonalCenter();
+    @GET("/api/iou/user/v1/getMailboxInfo")
+    Flowable<BaseResponse<UserEmailInfoResBean>> getUserBindEmailInfo();
+
+    @GET("/api/iou/user/v1/getBankCardInfo")
+    Flowable<BaseResponse<UserBankCardInfoResBean>> getUserBindBankCardInfo();
 
 // @GET("/pay/iou/v1/ad/getByPosition")
 //    Flowable<BaseResponse<List<AdBean>>> getAdvertise(@Query("adPosition") String adPosition);
