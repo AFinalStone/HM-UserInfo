@@ -1,7 +1,7 @@
 package com.hm.iou.userinfo.business;
 
 import com.hm.iou.base.mvp.BaseContract;
-import com.hm.iou.userinfo.bean.UserAuthenticationInfoBean;
+import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 
 /**
  * 我的实名详情
@@ -17,7 +17,7 @@ public interface AuthenticationInfoContract {
         /**
          * 显示实名信息
          */
-        void showAuthenticationInfo(UserAuthenticationInfoBean infoBean);
+        void showAuthenticationInfo(UserAuthenticationInfoResBean infoBean);
 
     }
 

@@ -2,18 +2,13 @@ package com.hm.iou.userinfo.business.presenter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.base.version.CheckVersionResBean;
-import com.hm.iou.base.version.VersionApi;
-import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.userinfo.api.PersonApi;
-import com.hm.iou.userinfo.bean.UserAuthenticationInfoBean;
-import com.hm.iou.userinfo.business.AboutUsContract;
+import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.business.AuthenticationInfoContract;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -32,11 +27,11 @@ public class AuthenticationInfoPresenter extends MvpActivityPresenter<Authentica
     public void getAuthenticationInfo() {
         mView.showLoadingView();
         PersonApi.getRealNameInfo()
-                .compose(getProvider().<BaseResponse<UserAuthenticationInfoBean>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<UserAuthenticationInfoBean>handleResponse())
-                .subscribeWith(new CommSubscriber<UserAuthenticationInfoBean>(mView) {
+                .compose(getProvider().<BaseResponse<UserAuthenticationInfoResBean>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.<UserAuthenticationInfoResBean>handleResponse())
+                .subscribeWith(new CommSubscriber<UserAuthenticationInfoResBean>(mView) {
                     @Override
-                    public void handleResult(UserAuthenticationInfoBean infoBean) {
+                    public void handleResult(UserAuthenticationInfoResBean infoBean) {
                         mView.dismissLoadingView();
                         mView.showAuthenticationInfo(infoBean);
                     }

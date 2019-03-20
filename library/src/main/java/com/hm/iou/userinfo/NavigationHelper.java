@@ -26,8 +26,15 @@ public class NavigationHelper {
                 .navigation(context);
     }
 
-    public static void toChangeAliPay(Context context) {
+    /**
+     * 去修改支付宝
+     *
+     * @param context
+     * @param aliPayAccount
+     */
+    public static void toChangeAliPay(Context context, String aliPayAccount) {
         Intent intent = new Intent(context, ChangeAliPayActivity.class);
+        intent.putExtra(ChangeAliPayActivity.EXTRA_KEY_ALIPAY_ACCOUNT, aliPayAccount);
         context.startActivity(intent);
     }
 

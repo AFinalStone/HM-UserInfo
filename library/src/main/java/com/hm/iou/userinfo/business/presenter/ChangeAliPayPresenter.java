@@ -4,7 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hm.iou.base.mvp.MvpActivityPresenter;
+import com.hm.iou.base.utils.CommSubscriber;
+import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.ChangeAliPayContract;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * @author syl
@@ -19,14 +24,23 @@ public class ChangeAliPayPresenter extends MvpActivityPresenter<ChangeAliPayCont
     }
 
     @Override
-    public void getAliPay() {
-        mView.showAliPay("");
-    }
-
-    @Override
     public void saveAliPay(String aliPay) {
-        mView.toastMessage("保存成功");
-        mView.showAliPay(aliPay);
-        mView.saveAliPaySuccess();
+        mView.showLoadingView();
+        PersonApi.addOrUpdateAliPay(aliPay)
+                .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.handleResponse())
+                .subscribeWith(new CommSubscriber<Object>(mView) {
+                    @Override
+                    public void handleResult(Object o) {
+                        mView.dismissLoadingView();
+                        mView.toastMessage("保存成功");
+                        mView.saveAliPaySuccess();
+                    }
+
+                    @Override
+                    public void handleException(Throwable throwable, String s, String s1) {
+                        mView.dismissLoadingView();
+                    }
+                });
     }
 }

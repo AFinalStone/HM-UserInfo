@@ -24,6 +24,7 @@ import butterknife.OnClick;
  */
 public class ChangeAliPayActivity extends BaseActivity<ChangeAliPayPresenter> implements ChangeAliPayContract.View {
 
+    public static final String EXTRA_KEY_ALIPAY_ACCOUNT = "alipay_account";
 
     @BindView(R2.id.et_alipay)
     EditText mEtAliPay;
@@ -44,15 +45,25 @@ public class ChangeAliPayActivity extends BaseActivity<ChangeAliPayPresenter> im
 
     @Override
     protected void initEventAndData(Bundle bundle) {
+        mOldAliPay = getIntent().getStringExtra(EXTRA_KEY_ALIPAY_ACCOUNT);
+        if (bundle != null) {
+            mOldAliPay = bundle.getString(EXTRA_KEY_ALIPAY_ACCOUNT);
+        }
+        if (!TextUtils.isEmpty(mOldAliPay)) {
+            mEtAliPay.setText(mOldAliPay);
+            saveAliPaySuccess();
+        }
     }
 
     @Override
-    public void showAliPay(String aliPay) {
-        mOldAliPay = aliPay;
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(EXTRA_KEY_ALIPAY_ACCOUNT, mOldAliPay);
     }
 
     @Override
     public void saveAliPaySuccess() {
+        mEtAliPay.setEnabled(false);
         mBtnSave.setBackgroundResource(R.drawable.uikit_selector_btn_minor_small);
         mBtnSave.setText("编辑");
     }
@@ -60,6 +71,7 @@ public class ChangeAliPayActivity extends BaseActivity<ChangeAliPayPresenter> im
     @OnClick(R2.id.btn_save)
     public void onClick() {
         if ("编辑".equals(mBtnSave.getText().toString())) {
+            mEtAliPay.setEnabled(true);
             mBtnSave.setBackgroundResource(R.drawable.uikit_selector_btn_main_small);
             mBtnSave.setText("保存");
             return;

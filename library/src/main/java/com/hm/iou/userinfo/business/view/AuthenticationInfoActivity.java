@@ -13,7 +13,7 @@ import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
-import com.hm.iou.userinfo.bean.UserAuthenticationInfoBean;
+import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.business.AuthenticationInfoContract;
 import com.hm.iou.userinfo.business.presenter.AuthenticationInfoPresenter;
 
@@ -75,7 +75,7 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
     }
 
     @Override
-    public void showAuthenticationInfo(UserAuthenticationInfoBean infoBean) {
+    public void showAuthenticationInfo(UserAuthenticationInfoResBean infoBean) {
         if (infoBean == null) {
             return;
         }
@@ -88,11 +88,11 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         String headerUrl = infoBean.getAvatarUrl();
         ImageLoader.getInstance(mContext).displayImage(headerUrl, mIvHeader);
         //姓名
-        String name = infoBean.getName();
+        String name = infoBean.getRealName();
         mTvName.setText(name);
         //身份证编号
         try {
-            String idCard = infoBean.getIdCard();
+            String idCard = infoBean.getIdCardNum();
             String idStart = idCard.substring(0, 3);
             String idEnd = idCard.substring(idCard.length() - 2, idCard.length());
             idCard = idStart + "*************" + idEnd;
@@ -106,23 +106,20 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         String validTime = "有效期：" + startTime + " - " + endTime;
         mTvIdCardValidTime.setText(validTime);
         //是否需要更新,证件照片是否过期
-        int idCardIsOverTime = infoBean.getOverDue();
-        if (1 == idCardIsOverTime) {
+        if (infoBean.isOverDue()) {
             mTvUpdateFlag.setVisibility(View.VISIBLE);
             mTvIdCardPhotoDesc.setText("已过期");
             mTvIdCardPhotoDesc.setTextColor(mWarnColor);
             mIvIdCardPhotoFlag.setImageResource(mWarnImage);
         }
         //年满18周岁
-        int isAdult = infoBean.getUnderAge();
-        if (0 == isAdult) {
+        if (!infoBean.isUnderAge()) {
             mTvIsAdultDesc.setTextColor(mWarnColor);
             mTvIsAdultDesc.setText("未满足");
             mIvIsAdultFlag.setImageResource(mWarnImage);
         }
         //手写签名
-        int isHaveHandlerSignature = infoBean.getWriteSign();
-        if (0 == isHaveHandlerSignature) {
+        if (!infoBean.isWriteSign()) {
             mTvHandlerSignatureDesc.setText("未录入");
             mTvHandlerSignatureDesc.setTextColor(mWarnColor);
             mIvHandlerSignatureFlag.setImageResource(mWarnImage);

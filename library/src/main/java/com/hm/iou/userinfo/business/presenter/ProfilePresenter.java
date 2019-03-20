@@ -1,11 +1,13 @@
 package com.hm.iou.userinfo.business.presenter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.hm.iou.base.ActivityManager;
+import com.hm.iou.base.comm.CommApi;
 import com.hm.iou.base.event.OpenWxResultEvent;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
@@ -17,6 +19,7 @@ import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.LogoutEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.sharedata.model.PersonalCenterInfo;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -31,6 +34,7 @@ import com.hm.iou.userinfo.event.UpdateLocationEvent;
 import com.hm.iou.userinfo.event.UpdateMobileEvent;
 import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
 import com.hm.iou.userinfo.event.UpdateWeixinEvent;
+import com.hm.iou.userinfo.leftmenu.ModuleType;
 import com.hm.iou.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -41,6 +45,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -76,11 +81,13 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     @Override
     public void getUserProfile() {
+        getPersonalInfo();
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        UserExtendInfo userExtendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
         //显示用户头像
         showUserAvatar(userInfo);
         showNickname(userInfo);
-        showAliPay("");
+        showAliPayInfo(userExtendInfo);
         showMobile(userInfo);
         showWeixin(userInfo);
         showCity(userInfo);
@@ -152,6 +159,33 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                 });
     }
 
+    /**
+     * 获取个人中心用户的摘要信息
+     */
+    private void getPersonalInfo() {
+        CommApi.getPersonalCenter()
+                .compose(getProvider().<BaseResponse<PersonalCenterInfo>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.<PersonalCenterInfo>handleResponse())
+                .subscribeWith(new CommSubscriber<PersonalCenterInfo>(mView) {
+                    @Override
+                    public void handleResult(PersonalCenterInfo personalCenterInfo) {
+                        UserManager userManager = UserManager.getInstance(mContext);
+                        UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
+                        userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
+                        PersonalCenterInfo.AlipayInfoRespBean aliPayInfo = personalCenterInfo.getAlipayInfoResp();
+                        if (aliPayInfo != null) {
+                            String aliPay = aliPayInfo.getAlipayAccount();
+                            mView.showAliPay(aliPay, mColorHaveBind);
+                        }
+                    }
+
+                    @Override
+                    public void handleException(Throwable throwable, String s, String s1) {
+
+                    }
+                });
+    }
+
 
     /**
      * 显示用户头像
@@ -192,14 +226,20 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
 
     /**
      * 显示支付宝账号
-     *
-     * @param aliPay
      */
-    private void showAliPay(String aliPay) {
-        if (TextUtils.isEmpty(aliPay)) {
-            mView.showAliPay("未填写", mColorUnBind);
+    private void showAliPayInfo(UserExtendInfo userExtendInfo) {
+        String aliPayAccount = "";
+        PersonalCenterInfo personalCenterInfo = userExtendInfo.getPersonalCenterInfo();
+        if (personalCenterInfo != null) {
+            PersonalCenterInfo.AlipayInfoRespBean alipayInfoRespBean = personalCenterInfo.getAlipayInfoResp();
+            if (alipayInfoRespBean != null) {
+                aliPayAccount = alipayInfoRespBean.getAlipayAccount();
+            }
+        }
+        if (TextUtils.isEmpty(aliPayAccount)) {
+            mView.showAliPay(mContext.getString(R.string.personal_noBindAliPay), mColorUnBind);
         } else {
-            mView.showAliPay(aliPay, mColorHaveBind);
+            mView.showAliPay(aliPayAccount, mColorHaveBind);
         }
     }
 

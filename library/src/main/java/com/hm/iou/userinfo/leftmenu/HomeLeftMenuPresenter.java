@@ -7,12 +7,14 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hm.iou.base.comm.CommApi;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.base.version.CheckVersionResBean;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.CommBizEvent;
+import com.hm.iou.sharedata.model.PersonalCenterInfo;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
@@ -51,6 +53,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private HomeLeftMenuView mView;
     private Disposable mStatisticDisposable;
     private Disposable mThirdPlatformInfoDisposable;//获取第三方平台的状态
+    private Disposable mPersonalInfo;//获取个人中心的用户信息
 
     private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
     private boolean mNeedRefresh = false;
@@ -112,6 +115,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         getUserThirdPlatformInfo();
         getUpdateInfo();
         getMySignatureListStatus();
+        getPersonalInfo();
         notifyRedCount();
     }
 
@@ -179,7 +183,6 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
             mView.updateListMenu(ModuleType.AUTHENTICATION.getValue(), null, "认证");
             mIsRealNameFlag = true;
         }
-
         //邮箱
         String email = userInfo.getMailAddr();
         if (!TextUtils.isEmpty(email)) {
@@ -205,6 +208,35 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         int myCollectNum = data.getMyCollect();
                         mView.updateListMenu(ModuleType.MY_COLLECT.getValue(), myCollectNum == 0 ? "共0篇" : "共" + myCollectNum + "篇", null);
                         mView.updateListMenu(ModuleType.MY_CLOUD_SPACE.getValue(), UserDataUtil.formatUserCloudSpace(data.getUserSpaceSize()), null);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+    }
+
+    /**
+     * 获取个人中心用户的摘要信息
+     */
+    private void getPersonalInfo() {
+        if (mPersonalInfo != null && !mPersonalInfo.isDisposed()) {
+            mPersonalInfo.dispose();
+            mPersonalInfo = null;
+        }
+        mPersonalInfo = CommApi.getPersonalCenter()
+                .map(RxUtil.<PersonalCenterInfo>handleResponse())
+                .subscribe(new Consumer<PersonalCenterInfo>() {
+                    @Override
+                    public void accept(PersonalCenterInfo personalCenterInfo) throws Exception {
+                        PersonalCenterInfo.SignRespBean signRespBean = personalCenterInfo.getSignResp();
+                        if (signRespBean != null && signRespBean.isWriteSign()) {
+                            mView.updateTopMenuIcon(ModuleType.SIGHATURE_LIST.getValue(), Color.WHITE);
+                        }
+                        UserManager userManager = UserManager.getInstance(mContext);
+                        UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
+                        userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -12,23 +12,12 @@ public interface ChangeAliPayContract {
     interface View extends BaseContract.BaseView {
 
         /**
-         * 显示支付宝账号
-         */
-        void showAliPay(String aliPay);
-
-        /**
          * 保存支付宝账号成功
-         *
          */
         void saveAliPaySuccess();
     }
 
     interface Presenter extends BaseContract.BasePresenter {
-
-        /**
-         * 获取支付宝账号
-         */
-        void getAliPay();
 
         /**
          * 设置支付宝账号

@@ -5,7 +5,7 @@ import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
-import com.hm.iou.userinfo.bean.UserAuthenticationInfoBean;
+import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
@@ -86,7 +86,13 @@ public interface PersonService {
     Flowable<BaseResponse<UserThirdPlatformInfo>> getUserThirdPlatformInfo();
 
     @GET("/api/iou/user/v1/getRealNameInfo")
-    Flowable<BaseResponse<UserAuthenticationInfoBean>> getRealNameInfo();
+    Flowable<BaseResponse<UserAuthenticationInfoResBean>> getRealNameInfo();
+
+    @GET("/api/iou/user/v1/addOrUpdateAliPay")
+    Flowable<BaseResponse<Object>> addOrUpdateAliPay(@Query("alipay") String aliPay);
+
+//    @GET("/api/iou/user/v1/getPersonalCenter")
+//    Flowable<BaseResponse<GetPersonalCenterResBean>> getPersonalCenter();
 
 // @GET("/pay/iou/v1/ad/getByPosition")
 //    Flowable<BaseResponse<List<AdBean>>> getAdvertise(@Query("adPosition") String adPosition);

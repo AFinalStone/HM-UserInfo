@@ -112,7 +112,11 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                     .navigation(this);
         } else if (v.getId() == R.id.ll_profile_my_alipay) {
             TraceUtil.onEvent(mContext, "profile_my_alipay_click");
-            NavigationHelper.toChangeAliPay(mContext);
+            String aliPayAccount = mTvProfileMyAliPay.getText().toString();
+            if (getString(R.string.personal_noBindAliPay).equals(aliPayAccount)) {
+                aliPayAccount = "";
+            }
+            NavigationHelper.toChangeAliPay(mContext, aliPayAccount);
         } else if (v.getId() == R.id.ll_profile_mobile) {
             TraceUtil.onEvent(mContext, "profile_modify_mob_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_mobile")
