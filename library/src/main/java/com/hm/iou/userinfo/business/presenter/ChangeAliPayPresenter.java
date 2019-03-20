@@ -6,10 +6,16 @@ import android.support.annotation.NonNull;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
+import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.sharedata.model.PersonalCenterInfo;
+import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.ChangeAliPayContract;
+import com.hm.iou.userinfo.event.UpdateAliPayEvent;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @author syl
@@ -24,7 +30,7 @@ public class ChangeAliPayPresenter extends MvpActivityPresenter<ChangeAliPayCont
     }
 
     @Override
-    public void saveAliPay(String aliPay) {
+    public void saveAliPay(final String aliPay) {
         mView.showLoadingView();
         PersonApi.addOrUpdateAliPay(aliPay)
                 .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))
@@ -35,6 +41,9 @@ public class ChangeAliPayPresenter extends MvpActivityPresenter<ChangeAliPayCont
                         mView.dismissLoadingView();
                         mView.toastMessage("保存成功");
                         mView.saveAliPaySuccess();
+                        UpdateAliPayEvent updateAliPayEvent = new UpdateAliPayEvent();
+                        updateAliPayEvent.setAlipay(aliPay);
+                        EventBus.getDefault().post(updateAliPayEvent);
                     }
 
                     @Override

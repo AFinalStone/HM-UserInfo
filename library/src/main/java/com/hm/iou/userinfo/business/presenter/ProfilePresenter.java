@@ -28,6 +28,7 @@ import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.business.ProfileContract;
+import com.hm.iou.userinfo.event.UpdateAliPayEvent;
 import com.hm.iou.userinfo.event.UpdateAvatarEvent;
 import com.hm.iou.userinfo.event.UpdateIncomeEvent;
 import com.hm.iou.userinfo.event.UpdateLocationEvent;
@@ -87,11 +88,20 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         //显示用户头像
         showUserAvatar(userInfo);
         showNickname(userInfo);
-        showAliPayInfo(userExtendInfo);
         showMobile(userInfo);
         showWeixin(userInfo);
         showCity(userInfo);
         showMainIncome(userInfo);
+        //支付宝
+        String aliPayAccount = "";
+        PersonalCenterInfo personalCenterInfo = userExtendInfo.getPersonalCenterInfo();
+        if (personalCenterInfo != null) {
+            PersonalCenterInfo.AlipayInfoRespBean alipayInfoRespBean = personalCenterInfo.getAlipayInfoResp();
+            if (alipayInfoRespBean != null) {
+                aliPayAccount = alipayInfoRespBean.getAlipayAccount();
+            }
+        }
+        showAliPayInfo(aliPayAccount);
     }
 
     @Override
@@ -169,10 +179,20 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                 .subscribeWith(new CommSubscriber<PersonalCenterInfo>(mView) {
                     @Override
                     public void handleResult(PersonalCenterInfo personalCenterInfo) {
+                        //刷新ui
+                        String aliPayAccount = "";
+                        if (personalCenterInfo != null) {
+                            PersonalCenterInfo.AlipayInfoRespBean alipayInfoRespBean = personalCenterInfo.getAlipayInfoResp();
+                            if (alipayInfoRespBean != null) {
+                                aliPayAccount = alipayInfoRespBean.getAlipayAccount();
+                            }
+                        }
+                        showAliPayInfo(aliPayAccount);
+                        //保存数据
                         UserManager userManager = UserManager.getInstance(mContext);
                         UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
                         userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
-                        showAliPayInfo(userExtendInfo);
+                        userManager.updateOrSaveUserExtendInfo(userExtendInfo);
                     }
 
                     @Override
@@ -223,15 +243,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     /**
      * 显示支付宝账号
      */
-    private void showAliPayInfo(UserExtendInfo userExtendInfo) {
-        String aliPayAccount = "";
-        PersonalCenterInfo personalCenterInfo = userExtendInfo.getPersonalCenterInfo();
-        if (personalCenterInfo != null) {
-            PersonalCenterInfo.AlipayInfoRespBean alipayInfoRespBean = personalCenterInfo.getAlipayInfoResp();
-            if (alipayInfoRespBean != null) {
-                aliPayAccount = alipayInfoRespBean.getAlipayAccount();
-            }
-        }
+    private void showAliPayInfo(String aliPayAccount) {
         if (TextUtils.isEmpty(aliPayAccount)) {
             mView.showAliPay(mContext.getString(R.string.personal_noBindAliPay), mColorUnBind);
         } else {
@@ -368,6 +380,17 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     public void onEventUpdateMobile(UpdateMobileEvent event) {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         showMobile(userInfo);
+    }
+
+    /**
+     * 更新支付宝账号
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateAliPay(UpdateAliPayEvent event) {
+        String aliPayAccount = event.getAlipay();
+        showAliPayInfo(aliPayAccount);
     }
 
     /**

@@ -114,7 +114,6 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         getStatisticData();
         getUserThirdPlatformInfo();
         getUpdateInfo();
-        getMySignatureListStatus();
         getPersonalInfo();
         notifyRedCount();
     }
@@ -157,12 +156,6 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         return null;
     }
 
-    /**
-     * 获取我的签章列表的状态
-     */
-    private void getMySignatureListStatus() {
-        mView.updateTopMenuIcon(ModuleType.SIGHATURE_LIST.getValue(), Color.WHITE);
-    }
 
     public void getUserProfile() {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
