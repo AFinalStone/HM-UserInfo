@@ -21,6 +21,7 @@ import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.dialog.HMActionSheetDialog;
 import com.hm.iou.uikit.dialog.HMAlertDialog;
+import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ProfileContract;
@@ -34,9 +35,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by hjy on 2018/7/3.
+ * @author syl
+ * @time 2019/3/19 1:29 PM
  */
-
 public class ProfileActivity extends BaseActivity<ProfilePresenter> implements ProfileContract.View {
 
     private static final int REQ_SELECT_CITY = 100;
@@ -47,20 +48,12 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     TextView mTvNickname;
     @BindView(R2.id.iv_profile_sex)
     ImageView mIvSex;
-    @BindView(R2.id.tv_profile_bind_bank)
-    TextView mTvBindBank;
-    @BindView(R2.id.iv_profile_bind_bank)
-    ImageView mIvBindBank;
+    @BindView(R2.id.tv_profile_my_alipay)
+    TextView mTvProfileMyAliPay;
     @BindView(R2.id.tv_profile_mobile)
     TextView mTvMobile;
     @BindView(R2.id.tv_profile_weixin)
     TextView mTvWeixin;
-    @BindView(R2.id.tv_profile_email)
-    TextView mTvEmail;
-    @BindView(R2.id.ll_profile_email)
-    View mLayoutEmail;
-    @BindView(R2.id.view_profile_divider_email)
-    View mViewDividerEmal;
     @BindView(R2.id.tv_profile_city)
     TextView mTvCity;
     @BindView(R2.id.tv_profile_income)
@@ -102,8 +95,8 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_my_qr_code,
-            R2.id.ll_profile_bind_bank, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_email, R2.id.ll_profile_my_signature
-            , R2.id.ll_profile_city, R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
+            R2.id.ll_profile_my_alipay, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_city
+            , R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
     void onClick(View v) {
         if (v.getId() == R.id.ll_profile_avatar) {
             TraceUtil.onEvent(mContext, "profile_avatar_click");
@@ -117,9 +110,9 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             TraceUtil.onEvent(mContext, "profile_my_qr_code_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/qrcode/index?show_type=show_my_card")
                     .navigation(this);
-        } else if (v.getId() == R.id.ll_profile_bind_bank) {
-            TraceUtil.onEvent(mContext, "profile_bankauth_click");
-            toBindBank();
+        } else if (v.getId() == R.id.ll_profile_my_alipay) {
+            TraceUtil.onEvent(mContext, "profile_my_alipay_click");
+            NavigationHelper.toChangeAliPay(mContext);
         } else if (v.getId() == R.id.ll_profile_mobile) {
             TraceUtil.onEvent(mContext, "profile_modify_mob_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_mobile")
@@ -139,43 +132,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
                     toastMessage("当前手机没有安装微信");
                 }
             }
-        } else if (v.getId() == R.id.ll_profile_email) {
-            TraceUtil.onEvent(mContext, "profile_modify_email_click");
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/change_email")
-                    .navigation(mContext);
-        } else if (v.getId() == R.id.ll_profile_my_signature) {
-            TraceUtil.onEvent(mContext, "profile_modify_my_signature_click");
-            int type = UserManager.getInstance(mContext).getUserInfo().getType();
-            boolean noAuthentication = UserDataUtil.isCClass(type);
-
-            if (noAuthentication) {//还没有实名认证
-                new HMAlertDialog.Builder(mContext)
-                        .setTitle("实名认证")
-                        .setMessage("通过实名认证后的账户，才能设置签名，是否立即实名认证？")
-                        .setPositiveButton("立即认证")
-                        .setNegativeButton("取消")
-                        .setOnClickListener(new HMAlertDialog.OnClickListener() {
-                            @Override
-                            public void onPosClick() {
-                                Router.getInstance()
-                                        .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
-                                        .navigation(mContext);
-                            }
-
-                            @Override
-                            public void onNegClick() {
-
-                            }
-                        })
-                        .create()
-                        .show();
-            } else {
-                Router.getInstance()
-                        .buildWithUrl("hmiou://m.54jietiao.com/signature/check_sign_psd")
-                        .withString("url", "hmiou://m.54jietiao.com/signature/signature_list")
-                        .navigation(mContext);
-            }
-
         } else if (v.getId() == R.id.ll_profile_city) {
             TraceUtil.onEvent(mContext, "profile_city_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/city/index")
@@ -209,19 +165,14 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     @Override
-    public void showBindBank(String text, int textColor) {
-        mTvBindBank.setText(text);
-        mTvBindBank.setTextColor(textColor);
-    }
-
-    @Override
-    public void showBindBankFlag() {
-        mIvBindBank.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void showMobile(String mobile) {
         mTvMobile.setText(mobile);
+    }
+
+    @Override
+    public void showAliPay(String aliPay, int textColor) {
+        mTvProfileMyAliPay.setText(aliPay);
+        mTvProfileMyAliPay.setTextColor(textColor);
     }
 
     @Override
@@ -230,12 +181,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
         mTvWeixin.setTextColor(textColor);
     }
 
-    @Override
-    public void showEmail(int visibility, String email) {
-        mLayoutEmail.setVisibility(visibility);
-        mViewDividerEmal.setVisibility(visibility);
-        mTvEmail.setText(email);
-    }
 
     @Override
     public void showCity(String city) {

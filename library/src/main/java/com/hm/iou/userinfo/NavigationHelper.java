@@ -2,8 +2,11 @@ package com.hm.iou.userinfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.hm.iou.router.Router;
+import com.hm.iou.tools.ToastUtil;
+import com.hm.iou.userinfo.business.view.ChangeAliPayActivity;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
 
@@ -23,9 +26,23 @@ public class NavigationHelper {
                 .navigation(context);
     }
 
+    public static void toChangeAliPay(Context context) {
+        Intent intent = new Intent(context, ChangeAliPayActivity.class);
+        context.startActivity(intent);
+    }
+
     public static void toMoreSettingPage(Context context) {
         Intent intent = new Intent(context, MoreSettingActivity.class);
         context.startActivity(intent);
+    }
+
+    /**
+     * 去更新实名信息
+     *
+     * @param context
+     */
+    public static void toUpdateAuthentication(Context context) {
+        ToastUtil.showMessage(context, "提示用户进行实名更新");
     }
 
 }

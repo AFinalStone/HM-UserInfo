@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:bottomDividerIsShow="false"
+        app:titleBackground="@color/transparent"
+        app:titleText="我的支付宝" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="35dip"
+        android:paddingRight="35dip">
+
+        <TextView
+            style="@style/UikitTextView"
+            android:text="支付宝" />
+
+        <EditText
+            android:id="@+id/et_alipay"
+            style="@style/UikitEditText.Normal"
+            android:layout_marginStart="40dp"
+            android:maxLength="24"
+            android:textColor="@color/uikit_text_auxiliary"
+            tools:text="139888888" />
+    </LinearLayout>
+
+
+    <View
+        style="@style/UikitDivider.Horizontal"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip" />
+
+    <Button
+        android:id="@+id/btn_save"
+        style="@style/UikitHMButton.Large.Main"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:layout_marginTop="30dp"
+        android:text="保存" />
+
+</LinearLayout>

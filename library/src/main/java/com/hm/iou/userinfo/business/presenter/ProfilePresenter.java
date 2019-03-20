@@ -56,8 +56,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     private int mColorUnBind;           //绑定的颜色
     private int mColorHaveBind;         //未绑定的颜色
 
-    private Disposable mThirdPlatformInfoDisposable;
-
     public ProfilePresenter(@NonNull Context context, @NonNull ProfileContract.View view) {
         super(context, view);
         EventBus.getDefault().register(this);
@@ -82,10 +80,9 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
         //显示用户头像
         showUserAvatar(userInfo);
         showNickname(userInfo);
-        getUserThirdPlatformInfo();
+        showAliPay("");
         showMobile(userInfo);
         showWeixin(userInfo);
-        showEmail(userInfo);
         showCity(userInfo);
         showMainIncome(userInfo);
     }
@@ -155,6 +152,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                 });
     }
 
+
     /**
      * 显示用户头像
      *
@@ -193,63 +191,17 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
     }
 
     /**
-     * 获取第三方平台的认证信息
+     * 显示支付宝账号
+     *
+     * @param aliPay
      */
-    private void getUserThirdPlatformInfo() {
-        final String strNoBindBank = mContext.getString(R.string.person_not_bind_bank);
-        UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
-        if (userThirdPlatformInfo != null) {
-            UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
-            if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                mView.showBindBankFlag();
-                mView.showBindBank(bankInfoRespBean.getBankName(), mColorHaveBind);
-                return;
-            } else {
-                mView.showBindBank(strNoBindBank, mColorUnBind);
-            }
+    private void showAliPay(String aliPay) {
+        if (TextUtils.isEmpty(aliPay)) {
+            mView.showAliPay("未填写", mColorUnBind);
+        } else {
+            mView.showAliPay(aliPay, mColorHaveBind);
         }
-        if (mThirdPlatformInfoDisposable != null && !mThirdPlatformInfoDisposable.isDisposed()) {
-            mThirdPlatformInfoDisposable.dispose();
-            mThirdPlatformInfoDisposable = null;
-        }
-        mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .compose(getProvider().<BaseResponse<UserThirdPlatformInfo>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
-                .subscribeWith(new CommSubscriber<UserThirdPlatformInfo>(mView) {
-                    @Override
-                    public void handleResult(UserThirdPlatformInfo thirdInfo) {
-                        Logger.d("user" + thirdInfo.getBankInfoResp().toString());
-                        UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdInfo.getBankInfoResp();
-                        if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                            mView.showBindBankFlag();
-                            mView.showBindBank(bankInfoRespBean.getBankName(), mColorHaveBind);
-                        } else {
-                            mView.showBindBank(strNoBindBank, mColorUnBind);
-                        }
-                        //存储绑定银行卡信息
-                        UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
-                        extendInfo.setThirdPlatformInfo(thirdInfo);
-                        UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
-                    }
-
-                    @Override
-                    public void handleException(Throwable throwable, String s, String s1) {
-
-                    }
-
-                    @Override
-                    public boolean isShowBusinessError() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean isShowCommError() {
-                        return false;
-                    }
-                });
     }
-
 
     /**
      * 显示手机号
@@ -274,21 +226,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             mView.showWeixin("已绑定", mColorHaveBind);
         } else {
             mView.showWeixin("未绑定", mColorUnBind);
-        }
-    }
-
-    /**
-     * 显示邮箱
-     *
-     * @param userInfo
-     */
-    private void showEmail(UserInfo userInfo) {
-        String email = userInfo.getMailAddr();
-        if (TextUtils.isEmpty(email)) {
-            mView.showEmail(View.GONE, "");
-        } else {
-            String s = email.length() >= 3 ? email.substring(0, 3) + "***" : email;
-            mView.showEmail(View.VISIBLE, s);
         }
     }
 
@@ -419,16 +356,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             String code = event.getCode();
             toBindWeixin(code);
         }
-    }
-
-    /**
-     * 银行卡绑定成功
-     *
-     * @param bindBankSuccessEvent
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvenBusBindBankSuccess(BindBankSuccessEvent bindBankSuccessEvent) {
-        getUserThirdPlatformInfo();
     }
 
     /**

@@ -2,28 +2,40 @@
   "topModules": [
     {
       "name": "实名",
-      "id": "home_left_menu_0001",
-      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_authentication.png",
+      "id": "home_left_menu_authentication",
+      "image": "hmiou://mipmap/person_ic_home_left_menu_authentication",
       "url": "hmiou://m.54jietiao.com/facecheck/authentication"
     },
     {
       "name": "实卡",
-      "id": "home_left_menu_0002",
-      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_bank_card.png",
+      "id": "home_left_menu_bank_card",
+      "image": "hmiou://mipmap/person_ic_home_left_menu_bank_card",
       "url": "hmiou://m.54jietiao.com/pay/user_bind_bank"
     },
     {
       "name": "邮箱",
-      "id": "home_left_menu_0003",
-      "image": "file:///android_asset/userinfo_image/userinfo_ic_home_left_menu_email.png",
+      "id": "home_left_menu_email",
+      "image": "hmiou://mipmap/person_ic_home_left_menu_email",
       "url": "hmiou://m.54jietiao.com/person/about_email"
+    },
+    {
+      "name": "签名",
+      "id": "home_left_menu_signature_list",
+      "image": "hmiou://mipmap/person_ic_home_left_menu_signature_list",
+      "url": "hmiou://m.54jietiao.com/signature/signature_list"
+    },
+    {
+      "name": "任务",
+      "id": "home_left_menu_task",
+      "image": "hmiou://mipmap/person_ic_home_left_menu_task",
+      "url": "hmiou://m.54jietiao.com/pay/user_bind_bank"
     }
   ],
   "listMenus": [
     {
-      "name": "我的认证",
-      "id": "home_left_menu_0001",
-      "url": "hmiou://m.54jietiao.com/facecheck/authentication"
+      "name": "我的实名",
+      "id": "home_left_menu_authentication",
+      "url": "hmiou://m.54jietiao.com/person/authentication_info"
     },
     {
       "name": "我的收藏",

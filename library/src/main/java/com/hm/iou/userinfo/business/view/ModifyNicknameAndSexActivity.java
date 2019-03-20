@@ -19,6 +19,7 @@ import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ModifyNicknameAndSexContract;
 import com.hm.iou.userinfo.business.presenter.ModifyNicknameAndSexPresenter;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
+import com.hm.iou.userinfo.common.HMTextWatcher;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
@@ -56,9 +57,9 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         findViewById(R.id.tv_sex).setOnClickListener(this);
         mBtnSubmit.setEnabled(false);
         mPresenter.init();
-        RxTextView.textChanges(mEtNickName).subscribe(new Consumer<CharSequence>() {
+        mEtNickName.addTextChangedListener(new HMTextWatcher() {
             @Override
-            public void accept(CharSequence charSequence) throws Exception {
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 if (TextUtils.isEmpty(charSequence)) {
                     mBtnSubmit.setEnabled(false);
                 } else {

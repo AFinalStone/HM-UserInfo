@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hm.iou.base.utils.ImageLoadUtil;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.userinfo.R;
 
@@ -23,6 +24,7 @@ public class TopMenuAdapter extends BaseQuickAdapter<ITopMenuItem, BaseViewHolde
         helper.setTextColor(R.id.tv_module_name, item.getIModuleColor());
         ImageView ivModule = helper.getView(R.id.iv_module_image);
         ivModule.setColorFilter(item.getIModuleColor());
-        ImageLoader.getInstance(mContext).displayImage(item.getIModuleImage(), ivModule);
+        String imageUrl = ImageLoadUtil.getImageRealUrl(mContext, item.getIModuleImage());
+        ImageLoader.getInstance(mContext).displayImage(imageUrl, ivModule);
     }
 }

@@ -11,7 +11,8 @@
         android:layout_height="@dimen/uikit_topbar_height"
         app:backIcon="@mipmap/uikit_icon_close_black"
         app:bottomDividerIsShow="false"
-        app:titleBackground="@color/transparent" />
+        app:titleBackground="@color/transparent"
+        app:titleText="我的资料" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +40,7 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="头像" />
+                        android:text="我的头像" />
 
                     <com.hm.iou.uikit.ShapedImageView
                         android:id="@+id/iv_profile_avatar"
@@ -53,7 +54,7 @@
                 </LinearLayout>
 
 
-                <View style="@style/UikitDivider.Horizontal" />
+                <View style="@style/PersonMenuListItemDivider" />
 
                 <LinearLayout
                     android:id="@+id/ll_profile_nickname"
@@ -82,7 +83,7 @@
 
                 </LinearLayout>
 
-                <View style="@style/UikitDivider.Horizontal" />
+                <View style="@style/PersonMenuListItemDivider" />
 
 
                 <LinearLayout
@@ -103,6 +104,28 @@
                     <ImageView style="@style/PersonMenuListArrow" />
 
                 </LinearLayout>
+
+                <View style="@style/PersonMenuListItemDivider" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_my_alipay"
+                    style="@style/PersonMenuListItem">
+
+                    <TextView
+                        style="@style/PersonMenuListTitle"
+                        android:text="我的支付宝" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_my_alipay"
+                        style="@style/PersonMenuListHint"
+                        android:layout_marginRight="10dip"
+                        android:maxLength="16"
+                        tools:text="15986522145" />
+
+                    <ImageView style="@style/PersonMenuListArrow" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -117,13 +140,13 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="修改密码" />
+                        android:text="修改【密码】" />
 
                     <ImageView style="@style/PersonMenuListArrow" />
 
                 </LinearLayout>
 
-                <View style="@style/UikitDivider.Horizontal" />
+                <View style="@style/PersonMenuListItemDivider" />
 
                 <LinearLayout
                     android:id="@+id/ll_profile_mobile"
@@ -131,7 +154,7 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="手机号" />
+                        android:text="修改【手机号】" />
 
                     <TextView
                         android:id="@+id/tv_profile_mobile"
@@ -142,7 +165,7 @@
 
                 </LinearLayout>
 
-                <View style="@style/UikitDivider.Horizontal" />
+                <View style="@style/PersonMenuListItemDivider" />
 
                 <LinearLayout
                     android:id="@+id/ll_profile_weixin"
@@ -150,77 +173,12 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="微信号" />
+                        android:text="修改【微信号】" />
 
                     <TextView
                         android:id="@+id/tv_profile_weixin"
                         style="@style/PersonMenuListHint"
                         tools:text="未绑定" />
-
-                    <ImageView style="@style/PersonMenuListArrow" />
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view_profile_divider_email"
-                    style="@style/UikitDivider.Horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/ll_profile_email"
-                    style="@style/PersonMenuListItem"
-                    android:layout_marginTop="1dip">
-
-                    <TextView
-                        style="@style/PersonMenuListTitle"
-                        android:text="邮箱号" />
-
-                    <TextView
-                        android:id="@+id/tv_profile_email"
-                        style="@style/PersonMenuListHint"
-                        tools:text="未绑定" />
-
-                    <ImageView style="@style/PersonMenuListArrow" />
-
-                </LinearLayout>
-
-                <View style="@style/UikitDivider.Horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/ll_profile_bind_bank"
-                    style="@style/PersonMenuListItem">
-
-                    <TextView
-                        style="@style/PersonMenuListTitle"
-                        android:text="银行卡认证" />
-
-                    <TextView
-                        android:id="@+id/tv_profile_bind_bank"
-                        style="@style/PersonMenuListHint"
-                        tools:text="@string/person_not_bind_bank" />
-
-                    <ImageView
-                        android:id="@+id/iv_profile_bind_bank"
-                        android:layout_width="14dip"
-                        android:layout_height="14dip"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/person_ic_bind_bank_have"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:id="@+id/iv_profile_bind_bank_arrow"
-                        style="@style/PersonMenuListArrow" />
-
-                </LinearLayout>
-
-                <View style="@style/UikitDivider.Horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/ll_profile_my_signature"
-                    style="@style/PersonMenuListItem">
-
-                    <TextView
-                        style="@style/PersonMenuListTitle"
-                        android:text="我的签名" />
 
                     <ImageView style="@style/PersonMenuListArrow" />
 
@@ -251,7 +209,7 @@
 
                 </LinearLayout>
 
-                <View style="@style/UikitDivider.Horizontal" />
+                <View style="@style/PersonMenuListItemDivider" />
 
                 <LinearLayout
                     android:id="@+id/ll_profile_income"

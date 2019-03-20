@@ -42,10 +42,10 @@
 
     </LinearLayout>
 
-    <View style="@style/UikitDivider.Horizontal"
+    <View
+        style="@style/UikitDivider.Horizontal"
         android:layout_marginLeft="35dip"
-        android:layout_marginRight="35dip"
-        />
+        android:layout_marginRight="35dip" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,14 +73,14 @@
             android:minHeight="40dip"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:text="未知" />
+            android:text="保密" />
 
     </LinearLayout>
 
-    <View style="@style/UikitDivider.Horizontal"
+    <View
+        style="@style/UikitDivider.Horizontal"
         android:layout_marginLeft="35dip"
-        android:layout_marginRight="35dip"
-        />
+        android:layout_marginRight="35dip" />
 
     <Button
         android:id="@+id/btn_nickname_submit"

@@ -16,6 +16,11 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="PersonMenuListItemDivider" parent="@style/UikitDivider.Horizontal">
+        <item name="android:layout_marginRight">15dip</item>
+        <item name="android:layout_marginLeft">15dip</item>
+    </style>
+
     <style name="PersonMenuCard">
         <item name="android:background">@drawable/uikit_bg_card_form</item>
     </style>
@@ -111,5 +116,37 @@
         <item name="android:textSize">@dimen/textFontSize_12</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="AuthenticationInfoListItem">
+        <item name="android:layout_width">339dp</item>
+        <item name="android:layout_height">57dip</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">15dip</item>
+        <item name="android:paddingRight">15dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AuthenticationInfoListItemTitle" parent="UikitTextView">
+        <item name="android:textColor">#ff111111</item>
+        <item name="android:textSize">@dimen/textFontSize_16</item>
+    </style>
+
+    <style name="AuthenticationInfoListItemImage">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:src">@mipmap/person_ic_authen_right</item>
+    </style>
+
+    <style name="AuthenticationInfoListItemRemark" parent="UikitTextView">
+        <item name="android:textColor">#ff575b62</item>
+        <item name="android:textSize">@dimen/textFontSize_14</item>
+    </style>
+
+    <style name="AuthenticationInfoListItemDivider" parent="@style/UikitDivider.Horizontal">
+        <item name="android:layout_width">309dp</item>
     </style>
 </resources>

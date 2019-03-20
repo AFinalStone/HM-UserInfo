@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uikit_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.hm.iou.uikit.HMTopBarView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/uikit_topbar_height"
+            app:bottomDividerIsShow="false"
+            app:titleBackground="@color/transparent"
+            app:titleText="我的实名" />
+
+        <RelativeLayout
+            android:id="@+id/rl_header"
+            android:layout_width="339dp"
+            android:layout_height="143dp"
+            android:background="@mipmap/person_ic_authen_header_bg_man">
+
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="23dp"
+                android:src="@mipmap/uikit_icon_header_unknow" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/UikitTextView"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="34dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textFontSize_20"
+                tools:text="小狼狗" />
+
+            <TextView
+                android:id="@+id/tv_id_card"
+                style="@style/UikitTextView"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="68dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textFontSize_14"
+                tools:text="345*************34" />
+
+            <TextView
+                android:id="@+id/tv_id_card_valid_time"
+                style="@style/UikitTextView.Auxiliary.Normal"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="21dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="6dp"
+                android:textColor="#ff495161"
+                android:textSize="@dimen/textFontSize_12"
+                tools:text="有效期：2014.04.25-2034.04.24" />
+
+            <TextView
+                android:id="@+id/tv_update_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="290dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="6dp"
+                android:text="更新 >"
+                android:textColor="#ffe8f0ff"
+                android:textSize="@dimen/textFontSize_12"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <LinearLayout style="@style/AuthenticationInfoListItem">
+
+            <TextView
+                style="@style/AuthenticationInfoListItemTitle"
+                android:text="个人信息" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView style="@style/AuthenticationInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_info_desc"
+                style="@style/AuthenticationInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已完善" />
+        </LinearLayout>
+
+        <View style="@style/AuthenticationInfoListItemDivider" />
+
+        <LinearLayout style="@style/AuthenticationInfoListItem">
+
+
+            <TextView
+                style="@style/AuthenticationInfoListItemTitle"
+                android:text="证件照片" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_id_card_photo_flag"
+                style="@style/AuthenticationInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_id_card_photo_desc"
+                style="@style/AuthenticationInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已上传" />
+        </LinearLayout>
+
+        <View style="@style/AuthenticationInfoListItemDivider" />
+
+        <LinearLayout style="@style/AuthenticationInfoListItem">
+
+
+            <TextView
+                style="@style/AuthenticationInfoListItemTitle"
+                android:text="人像照片" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView style="@style/AuthenticationInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_face_photo_desc"
+                style="@style/AuthenticationInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已录用" />
+        </LinearLayout>
+
+        <View style="@style/AuthenticationInfoListItemDivider" />
+
+        <LinearLayout style="@style/AuthenticationInfoListItem">
+
+
+            <TextView
+                style="@style/AuthenticationInfoListItemTitle"
+                android:text="年满18周岁" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_is_adult_flag"
+                style="@style/AuthenticationInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_is_adult_desc"
+                style="@style/AuthenticationInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已满足" />
+        </LinearLayout>
+
+        <View style="@style/AuthenticationInfoListItemDivider" />
+
+        <LinearLayout style="@style/AuthenticationInfoListItem">
+
+
+            <TextView
+                style="@style/AuthenticationInfoListItemTitle"
+                android:text="手写签名" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_handler_signature_flag"
+                style="@style/AuthenticationInfoListItemImage" />
+
+            <TextView
+                android:id="@+id/tv_handler_signature_desc"
+                style="@style/AuthenticationInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                android:text="已录入" />
+        </LinearLayout>
+
+        <View style="@style/AuthenticationInfoListItemDivider" />
+
+        <LinearLayout style="@style/AuthenticationInfoListItem">
+
+
+            <TextView
+                style="@style/AuthenticationInfoListItemTitle"
+                android:text="认证时间" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_authentication_time_desc"
+                style="@style/AuthenticationInfoListItemRemark"
+                android:layout_marginStart="8dp"
+                tools:text="2018.12.23" />
+        </LinearLayout>
+
+        <View style="@style/AuthenticationInfoListItemDivider" />
+    </LinearLayout>
+
+</ScrollView>

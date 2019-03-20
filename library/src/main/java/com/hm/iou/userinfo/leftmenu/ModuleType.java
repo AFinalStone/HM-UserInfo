@@ -6,11 +6,11 @@ package com.hm.iou.userinfo.leftmenu;
 
 public enum ModuleType {
 
-    AUTHENTICATION("home_left_menu_0001", "实名认证"),
-    BANK_CARD("home_left_menu_0002", "实卡"),
-    EMAIL("home_left_menu_0003", "邮件"),
-    FRIEND("home_left_menu_0004", "亲友"),
-    WORK("home_left_menu_0005", "职业"),
+    AUTHENTICATION("home_left_menu_authentication", "实名认证"),
+    BANK_CARD("home_left_menu_bank_card", "实卡"),
+    EMAIL("home_left_menu_email", "邮件"),
+    SIGHATURE_LIST("home_left_menu_signature_list", "签名"),
+    TASK("home_left_menu_task", "任务"),
     MY_COLLECT("home_left_menu_0006", "我的收藏"),
     MY_SIGNATURE("home_left_menu_0007", "我的签章"),
     MY_CLOUD_SPACE("home_left_menu_0008", "我的空间"),

@@ -111,7 +111,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         getStatisticData();
         getUserThirdPlatformInfo();
         getUpdateInfo();
-
+        getMySignatureListStatus();
         notifyRedCount();
     }
 
@@ -153,6 +153,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         return null;
     }
 
+    /**
+     * 获取我的签章列表的状态
+     */
+    private void getMySignatureListStatus() {
+        mView.updateTopMenuIcon(ModuleType.SIGHATURE_LIST.getValue(), Color.WHITE);
+    }
+
     public void getUserProfile() {
         UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
         //显示用户头像
@@ -178,10 +185,8 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         if (!TextUtils.isEmpty(email)) {
             mView.updateTopMenuIcon(ModuleType.EMAIL.getValue(), Color.WHITE);
         }
-        //主要收入,次要收入
-        if (userInfo.getMainIncome() > 0) {
-            mView.updateTopMenuIcon(ModuleType.WORK.getValue(), Color.WHITE);
-        }
+        //任务
+        mView.updateTopMenuIcon(ModuleType.TASK.getValue(), Color.WHITE);
     }
 
     /**

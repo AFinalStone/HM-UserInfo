@@ -27,24 +27,18 @@ public interface ProfileContract {
         void showNicknameAndSex(String nickname, int sexIcon);
 
         /**
-         * 显示银行卡
-         *
-         * @param bankName
-         * @param textColor
-         */
-        void showBindBank(String bankName, int textColor);
-
-        /**
-         * 显示是否绑定银行卡的标记
-         */
-        void showBindBankFlag();
-
-        /**
          * 显示手机号
          *
          * @param mobile
          */
         void showMobile(String mobile);
+
+        /**
+         * 显示支付宝账号
+         *
+         * @param aliPay
+         */
+        void showAliPay(String aliPay, int textColor);
 
         /**
          * 设置微信号
@@ -53,14 +47,6 @@ public interface ProfileContract {
          * @param textColor 字体颜色
          */
         void showWeixin(String weixin, int textColor);
-
-        /**
-         * 显示游戏账号
-         *
-         * @param visibility
-         * @param email
-         */
-        void showEmail(int visibility, String email);
 
         /**
          * 显示常住城市
