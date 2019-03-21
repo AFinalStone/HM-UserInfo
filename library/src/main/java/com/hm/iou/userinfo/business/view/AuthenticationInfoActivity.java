@@ -8,8 +8,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.tools.ImageLoader;
+import com.hm.iou.uikit.HMTopBarView;
 import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;

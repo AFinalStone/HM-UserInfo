@@ -96,8 +96,8 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
                 if (item == null) {
                     return;
                 }
-                if (ModuleType.SIGHATURE_LIST.getValue() == item.getIModuleId() && !checkHaveAuthentication()) {
-                        return;
+                if (ModuleType.SIGHATURE_LIST.getValue().equals(item.getIModuleId()) && !checkHaveAuthentication()) {
+                    return;
                 }
                 String linkUrl = item.getIModuleRouter();
                 RouterUtil.clickMenuLink(mContext, linkUrl);

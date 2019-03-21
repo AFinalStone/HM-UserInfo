@@ -83,10 +83,7 @@ public class UserEmailInfoActivity extends BaseActivity<UserEmailInfoPresenter> 
             String emailNum = infoBean.getReceiverEmail();
             sb.append(emailNum.substring(0, 2));
             int index = emailNum.indexOf("@");
-            int numOfHide = index - 2;
-            for (int i = 0; i < numOfHide; i++) {
-                sb.append("*");
-            }
+            sb.append("***");
             sb.append(emailNum.substring(index, emailNum.length()));
             mTvEmailNumber.setText(sb.toString());
         } catch (Exception e) {

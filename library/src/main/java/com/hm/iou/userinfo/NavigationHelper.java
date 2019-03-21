@@ -55,7 +55,9 @@ public class NavigationHelper {
      * @param context
      */
     public static void toUpdateAuthentication(Context context) {
-        ToastUtil.showMessage(context, "提示用户进行实名更新");
+        Router.getInstance()
+                .buildWithUrl("hmiou://m.54jietiao.com/facecheck/update_idcard")
+                .navigation(context);
     }
 
 }
