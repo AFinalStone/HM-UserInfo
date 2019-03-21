@@ -22,7 +22,7 @@
       "name": "签名",
       "id": "home_left_menu_signature_list",
       "image": "hmiou://mipmap/person_ic_home_left_menu_signature_list",
-      "url": "hmiou://m.54jietiao.com/signature/signature_list"
+      "url": "hmiou://m.54jietiao.com/signature/check_sign_psd?url=hmiou://m.54jietiao.com/signature/signature_list"
     },
     {
       "name": "任务",
