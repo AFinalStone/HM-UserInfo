@@ -14,6 +14,7 @@ import com.hm.iou.logger.Logger;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.CommBizEvent;
+import com.hm.iou.sharedata.event.RealNameEvent;
 import com.hm.iou.sharedata.model.PersonalCenterInfo;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -407,7 +408,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventRealName(UpdateEmailEvent event) {
+    public void onEventRealName(RealNameEvent event) {
         mNeedRefresh = true;
     }
 
