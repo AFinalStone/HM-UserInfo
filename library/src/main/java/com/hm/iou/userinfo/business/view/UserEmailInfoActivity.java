@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business.view;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -86,6 +87,7 @@ public class UserEmailInfoActivity extends BaseActivity<UserEmailInfoPresenter> 
             sb.append("***");
             sb.append(emailNum.substring(index, emailNum.length()));
             mTvEmailNumber.setText(sb.toString());
+            mTvEmailNumber.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }

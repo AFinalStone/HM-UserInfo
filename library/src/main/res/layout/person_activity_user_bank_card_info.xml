@@ -35,6 +35,7 @@
             android:gravity="center"
             android:paddingEnd="28dp"
             android:paddingStart="28dp"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textSize="@dimen/uikit_main_title_text_size"
             tools:text="6323 **** **** 3243 " />

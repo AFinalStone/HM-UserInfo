@@ -73,7 +73,18 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
     protected void initEventAndData(Bundle bundle) {
         mWarnColor = getResources().getColor(R.color.uikit_function_exception);
         mWarnImage = R.mipmap.person_ic_authen_warn;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mPresenter.getAuthenticationInfo();
+    }
+
+
+    @OnClick(R2.id.tv_update_flag)
+    public void onClick() {
+        NavigationHelper.toUpdateAuthentication(mContext);
     }
 
     @Override
@@ -133,8 +144,4 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         }
     }
 
-    @OnClick(R2.id.tv_update_flag)
-    public void onClick() {
-        NavigationHelper.toUpdateAuthentication(mContext);
-    }
 }

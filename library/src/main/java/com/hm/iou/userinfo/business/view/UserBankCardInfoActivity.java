@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business.view;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
@@ -69,6 +70,7 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
             sb.append("*****");
             sb.append(bankCardNum.substring(bankCardNum.length() - 4, bankCardNum.length()));
             mTvBankCardNumber.setText(sb.toString());
+            mTvBankCardNumber.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
