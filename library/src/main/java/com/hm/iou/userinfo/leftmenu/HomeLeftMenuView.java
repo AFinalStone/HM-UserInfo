@@ -17,12 +17,15 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hm.iou.base.utils.RouterUtil;
 import com.hm.iou.router.Router;
+import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.ViewConcurrencyUtil;
 import com.hm.iou.uikit.ShapedImageView;
+import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
+import com.hm.iou.userinfo.business.presenter.UserDataUtil;
 
 import java.util.List;
 
@@ -52,7 +55,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     @BindView(R2.id.rv_top_menu)
     RecyclerView mRvTopMenu;        //横向的菜单
     @BindView(R2.id.rv_menu)        //竖向的菜单
-    RecyclerView mRvListMenu;
+            RecyclerView mRvListMenu;
 
     private Context mContext;
     private HomeLeftMenuPresenter mPresenter;
@@ -81,7 +84,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         ButterKnife.bind(this, view);
         mIvHeaderArrow.setColorFilter(mContext.getResources().getColor(R.color.uikit_text_sub_content));
 
-        mRvTopMenu.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
+        mRvTopMenu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         mTopMenuAdapter = new TopMenuAdapter(mContext);
         mTopMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -92,6 +95,9 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
                 ITopMenuItem item = (ITopMenuItem) adapter.getData().get(position);
                 if (item == null) {
                     return;
+                }
+                if (ModuleType.SIGHATURE_LIST.getValue() == item.getIModuleId() && !checkHaveAuthentication()) {
+                        return;
                 }
                 String linkUrl = item.getIModuleRouter();
                 RouterUtil.clickMenuLink(mContext, linkUrl);
@@ -160,6 +166,37 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         }
     }
 
+    /**
+     * 检测是否进行了实名认证
+     */
+    private boolean checkHaveAuthentication() {
+        int type = UserManager.getInstance(mContext).getUserInfo().getType();
+        boolean noAuthentication = UserDataUtil.isCClass(type);
+        if (noAuthentication) {//还没有实名认证
+            new HMAlertDialog.Builder(mContext)
+                    .setTitle("实名认证")
+                    .setMessage("通过实名认证后的账户，才能设置签名，是否立即实名认证？")
+                    .setPositiveButton("立即认证")
+                    .setNegativeButton("取消")
+                    .setOnClickListener(new HMAlertDialog.OnClickListener() {
+                        @Override
+                        public void onPosClick() {
+                            Router.getInstance()
+                                    .buildWithUrl("hmiou://m.54jietiao.com/facecheck/authentication")
+                                    .navigation(mContext);
+                        }
+
+                        @Override
+                        public void onNegClick() {
+
+                        }
+                    })
+                    .create()
+                    .show();
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public void showProfileProgress(int progress) {
@@ -195,10 +232,10 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
 
     @Override
     public void showTopMenus(List<ITopMenuItem> list) {
-        if(list == null){
+        if (list == null) {
             return;
         }
-        mRvTopMenu.setLayoutManager(new GridLayoutManager(mContext,list.size()));
+        mRvTopMenu.setLayoutManager(new GridLayoutManager(mContext, list.size()));
         mTopMenuAdapter.setNewData(list);
     }
 
