@@ -412,6 +412,18 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         mNeedRefresh = true;
     }
 
+    /**
+     * 用户设置或者修改了手写签章
+     *
+     * @param commBizEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvenbusChangeSignature(CommBizEvent commBizEvent) {
+        if ("Signature_changeSignature".equals(commBizEvent.key)) {
+            mNeedRefresh = true;
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventCommBiz(CommBizEvent event) {
         if ("bind_email_succ".equals(event.key)) {              //绑定邮箱成功
