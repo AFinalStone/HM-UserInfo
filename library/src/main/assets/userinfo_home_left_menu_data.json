@@ -35,7 +35,7 @@
     {
       "name": "我的实名",
       "id": "home_left_menu_authentication",
-      "url": "hmiou://m.54jietiao.com/person/authentication_info"
+      "url": "hmiou://m.54jietiao.com/facecheck/authentication"
     },
     {
       "name": "我的收藏",
