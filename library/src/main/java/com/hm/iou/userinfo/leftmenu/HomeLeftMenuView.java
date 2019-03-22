@@ -101,9 +101,6 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
                     return;
                 }
                 String linkUrl = item.getIModuleRouter();
-                if (!TextUtils.isEmpty(linkUrl) && linkUrl.startsWith("http://h5.54jietiao.com") && BaseBizAppLike.getInstance().isDebug()) {
-                    linkUrl = linkUrl.replace("http://h5.54jietiao.com", BaseBizAppLike.getInstance().getH5Server());
-                }
                 RouterUtil.clickMenuLink(mContext, linkUrl);
             }
         });
