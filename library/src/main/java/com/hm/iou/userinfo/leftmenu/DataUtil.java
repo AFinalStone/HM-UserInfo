@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.tools.SystemUtil;
-import com.hm.iou.userinfo.BuildConfig;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
 
@@ -65,7 +64,7 @@ public class DataUtil {
 
                 @Override
                 public String getIModuleRouter() {
-                    if (BuildConfig.DEBUG) {
+                    if (BaseBizAppLike.getInstance().isDebug()) {
                         if (bean.getUrl().startsWith("http://h5.54jietiao.com")) {
                             return bean.getUrl().replace("http://h5.54jietiao.com", BaseBizAppLike.getInstance().getH5Server());
                         }
