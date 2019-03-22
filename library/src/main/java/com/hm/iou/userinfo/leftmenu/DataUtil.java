@@ -3,9 +3,9 @@ package com.hm.iou.userinfo.leftmenu;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.hm.iou.sharedata.UserManager;
-import com.hm.iou.sharedata.model.UserInfo;
+import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.tools.SystemUtil;
+import com.hm.iou.userinfo.BuildConfig;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
 
@@ -65,7 +65,14 @@ public class DataUtil {
 
                 @Override
                 public String getIModuleRouter() {
-                    return bean.getUrl();
+                    if (BuildConfig.DEBUG) {
+                        if (bean.getUrl().startsWith("http://h5.54jietiao.com")) {
+                            return bean.getUrl().replace("http://h5.54jietiao.com", BaseBizAppLike.getInstance().getH5Server());
+                        }
+                        return bean.getUrl();
+                    } else {
+                        return bean.getUrl();
+                    }
                 }
             };
             iTopMenuItemList.add(iTopMenuItem);
