@@ -40,6 +40,7 @@ public class AuthenticationInfoPresenter extends MvpActivityPresenter<Authentica
                         @Override
                         public void handleResult(UserAuthenticationInfoResBean infoBean) {
                             mView.dismissLoadingView();
+                            mNeedRefresh = false;
                             mView.showAuthenticationInfo(infoBean);
                         }
 

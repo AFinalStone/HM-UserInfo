@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.IncomeEnum;
+import com.hm.iou.sharedata.model.PersonalCenterInfo;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
@@ -12,6 +13,7 @@ import com.hm.iou.userinfo.business.presenter.UserDataUtil;
 
 /**
  * 获取用户资料完成进度
+ *
  * @author syl
  * @time 2019/1/10 5:50 PM
  */
@@ -38,7 +40,7 @@ public class UserInfoCompleteProgressUtil {
         if (thirdPlatformInfo != null) {
             UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = thirdPlatformInfo.getBankInfoResp();
             if (bankInfoRespBean != null && 1 == bankInfoRespBean.getIsBinded()) {
-                count += 30;
+                count += 25;
             }
         }
 
@@ -58,6 +60,14 @@ public class UserInfoCompleteProgressUtil {
         int income = userInfo.getMainIncome();
         if (income >= IncomeEnum.None.getValue()) {
             count += 5;
+        }
+        //支付宝
+        PersonalCenterInfo personalCenterInfo = UserManager.getInstance(context).getUserExtendInfo().getPersonalCenterInfo();
+        if (personalCenterInfo != null) {
+            PersonalCenterInfo.AlipayInfoRespBean alipayInfoRespBean = personalCenterInfo.getAlipayInfoResp();
+            if (alipayInfoRespBean != null && alipayInfoRespBean.isHasAlipayBinded()) {
+                count += 5;
+            }
         }
         return count;
     }
