@@ -15,6 +15,7 @@ import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.CommBizEvent;
 import com.hm.iou.sharedata.event.RealNameEvent;
+import com.hm.iou.sharedata.event.UpdateUserInfoEvent;
 import com.hm.iou.sharedata.model.PersonalCenterInfo;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
@@ -25,6 +26,7 @@ import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
+import com.hm.iou.userinfo.event.UpdateAliPayEvent;
 import com.hm.iou.userinfo.event.UpdateAvatarEvent;
 import com.hm.iou.userinfo.event.UpdateEmailEvent;
 import com.hm.iou.userinfo.event.UpdateIncomeEvent;
@@ -228,9 +230,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         if (signRespBean != null && signRespBean.isWriteSign()) {
                             mView.updateTopMenuIcon(ModuleType.SIGHATURE_LIST.getValue(), Color.WHITE);
                         }
+                        //存储个人中心摘要信息
                         UserManager userManager = UserManager.getInstance(mContext);
                         UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
                         userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
+                        //更新资料完整进度
+                        showInfoCompleteProgress();
+                        notifyRedCount();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -270,7 +276,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         UserExtendInfo extendInfo = UserManager.getInstance(mContext).getUserExtendInfo();
                         extendInfo.setThirdPlatformInfo(thirdInfo);
                         UserManager.getInstance(mContext).updateOrSaveUserExtendInfo(extendInfo);
-                        //更新进度
+                        //更新资料完整进度
                         showInfoCompleteProgress();
                         notifyRedCount();
                     }
@@ -422,6 +428,26 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         if ("Signature_changeSignature".equals(commBizEvent.key)) {
             mNeedRefresh = true;
         }
+    }
+
+    /**
+     * 更新支付宝账号
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateAliPay(UpdateAliPayEvent event) {
+        mNeedRefresh = true;
+    }
+
+    /**
+     * 用户更新了个人信息
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdateAliPay(UpdateUserInfoEvent event) {
+        mNeedRefresh = true;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

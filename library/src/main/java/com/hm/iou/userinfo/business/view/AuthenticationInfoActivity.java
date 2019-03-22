@@ -119,11 +119,13 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         String validTime = "有效期：" + startTime + " - " + endTime;
         mTvIdCardValidTime.setText(validTime);
         //是否需要更新,证件照片是否过期
-        if (infoBean.isOverDue()) {
-            mTvUpdateFlag.setVisibility(View.VISIBLE);
+        if (!infoBean.isIdCardPhoto()) {
             mTvIdCardPhotoDesc.setText("已过期");
             mTvIdCardPhotoDesc.setTextColor(mWarnColor);
             mIvIdCardPhotoFlag.setImageResource(mWarnImage);
+        }
+        if (!infoBean.isOverDue()) {
+            mTvUpdateFlag.setVisibility(View.VISIBLE);
         }
         //年满18周岁
         if (!infoBean.isUnderAge()) {
