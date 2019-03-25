@@ -26,7 +26,6 @@ public class TucaoActivity extends BaseWebviewActivity {
         super.onCreate(savedInstanceState);
 
         HttpRequestConfig config = HttpReqManager.getInstance().getRequestConfig();
-
         UserInfo userInfo = UserManager.getInstance(this).getUserInfo();
         String nickname = StringUtil.getUnnullString(userInfo.getNickName());
         if (TextUtils.isEmpty(nickname)) {
@@ -50,5 +49,12 @@ public class TucaoActivity extends BaseWebviewActivity {
                 .append("&imei=").append(config.getDeviceId())
                 .append("&netType=").append(NetStateUtil.isMobileNetworkConnected(this) ? "移动网络" : "WIFI或其他非移动网络");
         mWebView.postUrl(TUCAO_URL, sb.toString().getBytes());
+    }
+
+    @Override
+    protected void initEventAndData(Bundle savedInstanceState) {
+        super.initEventAndData(savedInstanceState);
+        mTitle = "帮助与反馈";
+        mTopBar.setTitle(mTitle);
     }
 }
