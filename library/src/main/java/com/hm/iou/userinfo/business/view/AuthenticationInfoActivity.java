@@ -142,6 +142,7 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         //认证时间
         String authenTime = infoBean.getAttestTime();
         if (!TextUtils.isEmpty(authenTime)) {
+            authenTime = authenTime.replaceAll("-",".");
             mTvAuthenticationTimeDesc.setText(authenTime);
         }
     }

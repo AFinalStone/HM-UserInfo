@@ -92,11 +92,16 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
         //绑定手机
         String bankCardBindMobile = infoBean.getMobile();
         if (!TextUtils.isEmpty(bankCardBindMobile)) {
-            mTvBankCardBindMobile.setText(bankCardBindMobile);
+            StringBuffer sb = new StringBuffer();
+            sb.append(bankCardBindMobile.substring(0, 3));
+            sb.append("*****");
+            sb.append(bankCardBindMobile.substring(bankCardBindMobile.length() - 3, bankCardBindMobile.length()));
+            mTvBankCardBindMobile.setText(sb.toString());
         }
         //认证时间
         String bankCardBindTime = infoBean.getBindTime();
         if (!TextUtils.isEmpty(bankCardBindTime)) {
+            bankCardBindTime = bankCardBindTime.replaceAll("-",".");
             mTvBankCardBindTime.setText(bankCardBindTime);
         }
     }
