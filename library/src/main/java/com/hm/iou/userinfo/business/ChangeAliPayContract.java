@@ -10,11 +10,6 @@ import com.hm.iou.base.mvp.BaseContract;
 public interface ChangeAliPayContract {
 
     interface View extends BaseContract.BaseView {
-
-        /**
-         * 保存支付宝账号成功
-         */
-        void saveAliPaySuccess();
     }
 
     interface Presenter extends BaseContract.BasePresenter {

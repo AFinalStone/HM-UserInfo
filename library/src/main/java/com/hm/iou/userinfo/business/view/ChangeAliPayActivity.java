@@ -51,7 +51,9 @@ public class ChangeAliPayActivity extends BaseActivity<ChangeAliPayPresenter> im
         }
         if (!TextUtils.isEmpty(mOldAliPay)) {
             mEtAliPay.setText(mOldAliPay);
-            saveAliPaySuccess();
+            mEtAliPay.setEnabled(false);
+            mBtnSave.setBackgroundResource(R.drawable.uikit_selector_btn_minor_small);
+            mBtnSave.setText("编辑");
         }
     }
 
@@ -61,12 +63,6 @@ public class ChangeAliPayActivity extends BaseActivity<ChangeAliPayPresenter> im
         outState.putString(EXTRA_KEY_ALIPAY_ACCOUNT, mOldAliPay);
     }
 
-    @Override
-    public void saveAliPaySuccess() {
-        mEtAliPay.setEnabled(false);
-        mBtnSave.setBackgroundResource(R.drawable.uikit_selector_btn_minor_small);
-        mBtnSave.setText("编辑");
-    }
 
     @OnClick(R2.id.btn_save)
     public void onClick() {

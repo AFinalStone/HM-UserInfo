@@ -40,10 +40,10 @@ public class ChangeAliPayPresenter extends MvpActivityPresenter<ChangeAliPayCont
                     public void handleResult(Object o) {
                         mView.dismissLoadingView();
                         mView.toastMessage("保存成功");
-                        mView.saveAliPaySuccess();
                         UpdateAliPayEvent updateAliPayEvent = new UpdateAliPayEvent();
                         updateAliPayEvent.setAlipay(aliPay);
                         EventBus.getDefault().post(updateAliPayEvent);
+                        mView.closeCurrPage();
                     }
 
                     @Override
