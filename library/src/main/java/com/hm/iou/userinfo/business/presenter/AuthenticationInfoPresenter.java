@@ -13,6 +13,7 @@ import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.business.AuthenticationInfoContract;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -27,6 +28,13 @@ public class AuthenticationInfoPresenter extends MvpActivityPresenter<Authentica
 
     public AuthenticationInfoPresenter(@NonNull Context context, @NonNull AuthenticationInfoContract.View view) {
         super(context, view);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
