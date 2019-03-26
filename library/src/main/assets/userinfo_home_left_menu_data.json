@@ -10,7 +10,7 @@
       "name": "实卡",
       "id": "home_left_menu_bank_card",
       "image": "hmiou://mipmap/person_ic_home_left_menu_bank_card",
-      "url": "hmiou://m.54jietiao.com/pay/user_bind_bank"
+      "url": "hmiou://m.54jietiao.com/pay/user_bind_bank?source=usercenter"
     },
     {
       "name": "邮箱",
