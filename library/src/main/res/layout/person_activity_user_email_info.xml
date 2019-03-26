@@ -108,7 +108,7 @@
                 android:id="@+id/tv_sign_default_contact_way"
                 style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
-                android:text="已开启" />
+                android:text="已默认" />
         </LinearLayout>
 
         <View style="@style/PersonalInfoListItemDivider" />
