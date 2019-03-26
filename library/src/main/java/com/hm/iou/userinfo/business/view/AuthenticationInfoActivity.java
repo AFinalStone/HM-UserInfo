@@ -95,7 +95,7 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         //性别
         int sex = infoBean.getSex();
         if (sex == SexEnum.FEMALE.getValue()) {
-            mRlHeader.setBackgroundResource(R.mipmap.person_ic_authen_header_bg_man);
+            mRlHeader.setBackgroundResource(R.mipmap.person_ic_authen_header_bg_woman);
         }
         //头像
         String headerUrl = infoBean.getAvatarUrl();
@@ -142,7 +142,7 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         //认证时间
         String authenTime = infoBean.getAttestTime();
         if (!TextUtils.isEmpty(authenTime)) {
-            authenTime = authenTime.replaceAll("-",".");
+            authenTime = authenTime.replaceAll("-", ".");
             mTvAuthenticationTimeDesc.setText(authenTime);
         }
     }
