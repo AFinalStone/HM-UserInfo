@@ -94,6 +94,7 @@ public class UserEmailInfoActivity extends BaseActivity<UserEmailInfoPresenter> 
         //认证时间
         String bindEmailTime = infoBean.getAttestTime();
         if (!TextUtils.isEmpty(bindEmailTime)) {
+            bindEmailTime = bindEmailTime.replace("-", ".");
             mTvBindEmailTimeDesc.setText(bindEmailTime);
         }
     }

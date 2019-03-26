@@ -96,6 +96,8 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         int sex = infoBean.getSex();
         if (sex == SexEnum.FEMALE.getValue()) {
             mRlHeader.setBackgroundResource(R.mipmap.person_ic_authen_header_bg_woman);
+        } else {
+            mRlHeader.setBackgroundResource(R.mipmap.person_ic_authen_header_bg_man);
         }
         //头像
         String headerUrl = infoBean.getAvatarUrl();
@@ -114,10 +116,15 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
             e.printStackTrace();
         }
         //有效期
-        String startTime = infoBean.getIdCardStartTime();
-        String endTime = infoBean.getIdCardEndTime();
-        String validTime = "有效期：" + startTime + " - " + endTime;
-        mTvIdCardValidTime.setText(validTime);
+        try {
+            String startTime = infoBean.getIdCardStartTime().replace("-", ".");
+            String endTime = infoBean.getIdCardEndTime().replace("-", ".");
+            String validTime = "有效期：" + startTime + " - " + endTime;
+            mTvIdCardValidTime.setText(validTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         //是否需要更新,证件照片是否过期
         if (!infoBean.isIdCardPhoto()) {
             mTvIdCardPhotoDesc.setText("已过期");
