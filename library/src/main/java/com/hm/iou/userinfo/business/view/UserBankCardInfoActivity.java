@@ -67,7 +67,7 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
             String bankCardNum = infoBean.getBankCardNo();
             StringBuffer sb = new StringBuffer();
             sb.append(bankCardNum.substring(0, 4));
-            sb.append("*****");
+            sb.append(" **** **** ");
             sb.append(bankCardNum.substring(bankCardNum.length() - 4, bankCardNum.length()));
             mTvBankCardNumber.setText(sb.toString());
             mTvBankCardNumber.setVisibility(View.VISIBLE);

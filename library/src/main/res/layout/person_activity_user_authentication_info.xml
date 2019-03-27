@@ -27,13 +27,14 @@
             android:layout_height="143dp"
             android:background="@mipmap/person_ic_authen_header_bg_man">
 
-            <ImageView
+            <com.hm.iou.uikit.ShapedImageView
                 android:id="@+id/iv_header"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="23dp"
-                android:src="@mipmap/uikit_icon_header_unknow" />
+                android:src="@mipmap/uikit_icon_header_unknow"
+                app:shape_mode="circle" />
 
             <TextView
                 android:id="@+id/tv_name"
