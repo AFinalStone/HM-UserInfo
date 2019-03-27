@@ -121,7 +121,7 @@
                 android:id="@+id/tv_id_card_photo_desc"
                 style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
-                android:text="已上传" />
+                android:text="--" />
         </LinearLayout>
 
         <View style="@style/PersonalInfoListItemDivider" />
@@ -169,7 +169,7 @@
                 android:id="@+id/tv_is_adult_desc"
                 style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
-                android:text="已满足" />
+                android:text="--" />
         </LinearLayout>
 
         <View style="@style/PersonalInfoListItemDivider" />
@@ -194,7 +194,7 @@
                 android:id="@+id/tv_handler_signature_desc"
                 style="@style/PersonalInfoListItemRemark"
                 android:layout_marginStart="8dp"
-                android:text="已录入" />
+                android:text="--" />
         </LinearLayout>
 
         <View style="@style/PersonalInfoListItemDivider" />

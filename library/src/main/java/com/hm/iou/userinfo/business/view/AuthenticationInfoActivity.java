@@ -8,10 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
-import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.tools.ImageLoader;
-import com.hm.iou.uikit.HMTopBarView;
 import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
@@ -59,6 +57,9 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
     private int mWarnColor;
     private int mWarnImage;
 
+    private int mNormalColor;
+    private int mNormalImage;
+
     @Override
     protected int getLayoutId() {
         return R.layout.person_activity_user_authentication_info;
@@ -73,6 +74,8 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
     protected void initEventAndData(Bundle bundle) {
         mWarnColor = getResources().getColor(R.color.uikit_function_exception);
         mWarnImage = R.mipmap.person_ic_authen_warn;
+        mNormalColor = getResources().getColor(R.color.uikit_text_sub_content);
+        mNormalImage = R.mipmap.person_ic_authen_right;
     }
 
     @Override
@@ -130,22 +133,40 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
             mTvIdCardPhotoDesc.setText("已过期");
             mTvIdCardPhotoDesc.setTextColor(mWarnColor);
             mIvIdCardPhotoFlag.setImageResource(mWarnImage);
+        } else {
+            mTvIdCardPhotoDesc.setText("已上传");
+            mTvIdCardPhotoDesc.setTextColor(mNormalColor);
+            mIvIdCardPhotoFlag.setImageResource(mNormalImage);
         }
+
         if (!infoBean.isOverDue()) {
             mTvUpdateFlag.setVisibility(View.VISIBLE);
+        } else {
+            mTvUpdateFlag.setVisibility(View.GONE);
         }
+
         //年满18周岁
         if (!infoBean.isUnderAge()) {
             mTvIsAdultDesc.setTextColor(mWarnColor);
             mTvIsAdultDesc.setText("未满足");
             mIvIsAdultFlag.setImageResource(mWarnImage);
+        } else {
+            mTvIsAdultDesc.setTextColor(mNormalColor);
+            mTvIsAdultDesc.setText("已满足");
+            mIvIsAdultFlag.setImageResource(mNormalImage);
         }
+
         //手写签名
         if (!infoBean.isWriteSign()) {
             mTvHandlerSignatureDesc.setText("未录入");
             mTvHandlerSignatureDesc.setTextColor(mWarnColor);
             mIvHandlerSignatureFlag.setImageResource(mWarnImage);
+        } else {
+            mTvHandlerSignatureDesc.setText("已录入");
+            mTvHandlerSignatureDesc.setTextColor(mNormalColor);
+            mIvHandlerSignatureFlag.setImageResource(mNormalImage);
         }
+
         //认证时间
         String authenTime = infoBean.getAttestTime();
         if (!TextUtils.isEmpty(authenTime)) {
