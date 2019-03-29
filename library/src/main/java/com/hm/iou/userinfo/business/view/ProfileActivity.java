@@ -43,8 +43,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     ImageView mIvAvatar;
     @BindView(R2.id.tv_profile_nickname)
     TextView mTvNickname;
-    @BindView(R2.id.iv_profile_sex)
-    ImageView mIvSex;
     @BindView(R2.id.tv_profile_my_alipay)
     TextView mTvProfileMyAliPay;
     @BindView(R2.id.tv_profile_mobile)
@@ -159,7 +157,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     @Override
     public void showNicknameAndSex(String nickname, int sexIcon) {
         mTvNickname.setText(nickname);
-        mIvSex.setImageResource(sexIcon);
     }
 
     @Override

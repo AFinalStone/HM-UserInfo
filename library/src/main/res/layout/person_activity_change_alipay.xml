@@ -28,7 +28,7 @@
             style="@style/UikitTextView"
             android:text="支付宝" />
 
-        <com.hm.iou.uikit.ClearEditText
+        <EditText
             android:id="@+id/et_alipay"
             style="@style/UikitEditText.Normal"
             android:layout_marginStart="40dp"
