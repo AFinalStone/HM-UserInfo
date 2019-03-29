@@ -84,10 +84,6 @@ public interface ProfileContract {
          */
         void toBindWeixin();
 
-        /**
-         * 注销账户
-         */
-        void logout();
     }
 
 }

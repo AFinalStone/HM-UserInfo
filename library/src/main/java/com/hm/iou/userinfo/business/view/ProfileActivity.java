@@ -2,12 +2,10 @@ package com.hm.iou.userinfo.business.view;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
@@ -16,7 +14,6 @@ import com.hm.iou.logger.Logger;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.UserInfo;
-import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.dialog.HMActionSheetDialog;
@@ -96,7 +93,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_my_qr_code,
             R2.id.ll_profile_my_alipay, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_city
-            , R2.id.ll_profile_income, R2.id.tv_profile_logout, R2.id.ll_profile_changepwd})
+            , R2.id.ll_profile_income, R2.id.ll_profile_changepwd})
     void onClick(View v) {
         if (v.getId() == R.id.ll_profile_avatar) {
             TraceUtil.onEvent(mContext, "profile_avatar_click");
@@ -144,10 +141,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             TraceUtil.onEvent(mContext, "profile_income_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_income")
                     .navigation(this);
-        } else if (v.getId() == R.id.tv_profile_logout) {
-            TraceUtil.onEvent(mContext, "profile_exit_click");
-            showDialogLogoutSafely();
-        } else if (v.getId() == R.id.ll_profile_changepwd) {        //修改密码
+        }  else if (v.getId() == R.id.ll_profile_changepwd) {        //修改密码
             TraceUtil.onEvent(mContext, "profile_modifypwd_click");
             showChangePasswordMenu();
         }
@@ -197,47 +191,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
     }
 
     /**
-     * 显示安全退出对话框
-     */
-    private void showDialogLogoutSafely() {
-        new HMActionSheetDialog.Builder(mContext)
-                .setTitle("是否退出当前账号？")
-                .setActionSheetList(Arrays.asList("安全退出"))
-                .setCanSelected(false)
-                .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int i, String s) {
-                        if (i == 0) {
-                            mPresenter.logout();
-                        }
-                    }
-                })
-                .create()
-                .show();
-    }
-
-    private void toBindBank() {
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        int customerType = userInfo.getType();
-        if (UserDataUtil.isCClass(customerType)) {
-            mPersonalDialogHelper.showBinkBankNeedAuthen();
-        } else {
-            UserThirdPlatformInfo userThirdPlatformInfo = UserManager.getInstance(mContext).getUserExtendInfo().getThirdPlatformInfo();
-            if (userThirdPlatformInfo != null) {
-                UserThirdPlatformInfo.BankInfoRespBean bankInfoRespBean = userThirdPlatformInfo.getBankInfoResp();
-                if (bankInfoRespBean == null || 0 == bankInfoRespBean.getIsBinded()) {
-                    Router.getInstance()
-                            .buildWithUrl("hmiou://m.54jietiao.com/pay/user_bind_bank")
-                            .navigation(mContext);
-                } else {
-                    mPersonalDialogHelper.showBinkBankInfo(bankInfoRespBean.getBankName(), bankInfoRespBean.getBankCard(), bankInfoRespBean.getBankCardType(), bankInfoRespBean.getBankPhone());
-                }
-                return;
-            }
-        }
-    }
-
-    /**
      * 显示变更密码菜单
      */
     private void showChangePasswordMenu() {
@@ -246,7 +199,6 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             String itemChangeSignaturePassword = getString(R.string.personal_changeSignaturePassword);
             List<String> list = Arrays.asList(itemChangeLoginPassword, itemChangeSignaturePassword);
             mChangePwdDialog = new HMActionSheetDialog.Builder(this)
-                    .setTitle("修改密码")
                     .setActionSheetList(list)
                     .setCanSelected(false)
                     .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {

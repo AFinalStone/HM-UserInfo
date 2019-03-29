@@ -230,22 +230,6 @@
 
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tv_profile_logout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="40dip"
-                android:layout_marginLeft="34dp"
-                android:layout_marginRight="34dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/person_bg_logout"
-                android:gravity="center"
-                android:text="@string/personal_logoutSafely"
-                android:textColor="#ff666666"
-                android:textSize="@dimen/textFontSize_16"
-                android:visibility="gone" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

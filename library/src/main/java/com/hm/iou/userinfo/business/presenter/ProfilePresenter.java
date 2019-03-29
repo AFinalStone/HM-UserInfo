@@ -1,10 +1,8 @@
 package com.hm.iou.userinfo.business.presenter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.comm.CommApi;
@@ -12,18 +10,15 @@ import com.hm.iou.base.event.OpenWxResultEvent;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
-import com.hm.iou.logger.Logger;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
-import com.hm.iou.sharedata.event.BindBankSuccessEvent;
 import com.hm.iou.sharedata.event.LogoutEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.PersonalCenterInfo;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserExtendInfo;
 import com.hm.iou.sharedata.model.UserInfo;
-import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
@@ -35,7 +30,6 @@ import com.hm.iou.userinfo.event.UpdateLocationEvent;
 import com.hm.iou.userinfo.event.UpdateMobileEvent;
 import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
 import com.hm.iou.userinfo.event.UpdateWeixinEvent;
-import com.hm.iou.userinfo.leftmenu.ModuleType;
 import com.hm.iou.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -43,11 +37,6 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by hjy on 2018/5/23.
@@ -135,38 +124,6 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
             mWXApi.detach();
         }
         mWXApi = WXEntryActivity.openWxAuth(mContext, EVENT_KEY_BIND_WX);
-    }
-
-    @Override
-    public void logout() {
-        mView.showLoadingView("安全退出中...");
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        PersonApi.logout(userInfo.getMobile())
-                .compose(getProvider().<BaseResponse<Object>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<Object>handleResponse())
-                .subscribeWith(new CommSubscriber<Object>(mView) {
-                    @Override
-                    public void handleResult(Object data) {
-                        mView.dismissLoadingView();
-                        exitApp();
-                    }
-
-                    @Override
-                    public void handleException(Throwable throwable, String s, String s1) {
-                        mView.dismissLoadingView();
-                        exitApp();
-                    }
-
-                    @Override
-                    public boolean isShowCommError() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean isShowBusinessError() {
-                        return false;
-                    }
-                });
     }
 
     /**
