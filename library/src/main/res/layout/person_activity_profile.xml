@@ -68,16 +68,9 @@
                     <TextView
                         android:id="@+id/tv_profile_nickname"
                         style="@style/PersonMenuListHint"
-                        android:layout_marginRight="3dip"
+                        android:layout_marginRight="10dip"
                         android:maxLength="16"
                         tools:text="15986522145" />
-
-                    <ImageView
-                        android:id="@+id/iv_profile_sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dip"
-                        android:src="@mipmap/person_ic_sex_man" />
 
                     <ImageView style="@style/PersonMenuListArrow" />
 

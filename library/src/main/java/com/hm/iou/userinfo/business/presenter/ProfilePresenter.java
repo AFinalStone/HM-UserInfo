@@ -230,13 +230,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
      */
     private void showNickname(UserInfo userInfo) {
         String nickname = userInfo.getNickName();
-        int sex = userInfo.getSex();
         int sexIcon = 0;
-        if (sex == SexEnum.MALE.getValue()) {
-            sexIcon = R.mipmap.person_ic_sex_man;
-        } else if (sex == SexEnum.FEMALE.getValue()) {
-            sexIcon = R.mipmap.person_ic_sex_woman;
-        }
         mView.showNicknameAndSex(nickname, sexIcon);
     }
 
