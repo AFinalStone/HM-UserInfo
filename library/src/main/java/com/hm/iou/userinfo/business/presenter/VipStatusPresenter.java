@@ -16,7 +16,10 @@ import com.hm.iou.userinfo.bean.MemberBean;
 import com.hm.iou.userinfo.bean.PayPackageResBean;
 import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.business.VipStatusContract;
+import com.hm.iou.userinfo.event.UpdateVipEvent;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -75,8 +78,7 @@ public class VipStatusPresenter extends MvpActivityPresenter<VipStatusContract.V
                             userInfo.setMemType(memberBean.getMemType());
                             UserManager.getInstance(mContext).updateOrSaveUserInfo(userInfo);
 
-                            //TODO 通知侧滑页面，更新用户的VIP信息
-
+                            EventBus.getDefault().post(new UpdateVipEvent());
 
                         } else {
                             mView.showCommUserInfoView();

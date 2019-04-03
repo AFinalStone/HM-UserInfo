@@ -32,6 +32,7 @@ import com.hm.iou.userinfo.event.UpdateEmailEvent;
 import com.hm.iou.userinfo.event.UpdateIncomeEvent;
 import com.hm.iou.userinfo.event.UpdateMobileEvent;
 import com.hm.iou.userinfo.event.UpdateNicknameAndSexEvent;
+import com.hm.iou.userinfo.event.UpdateVipEvent;
 import com.hm.iou.userinfo.event.UpdateWeixinEvent;
 import com.hm.iou.userinfo.util.UserInfoCompleteProgressUtil;
 
@@ -455,6 +456,22 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventUpdateAliPay(UpdateUserInfoEvent event) {
         mNeedRefresh = true;
+    }
+
+    /**
+     * VIP状态发生变化
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventVipStatusUpdated(UpdateVipEvent event) {
+        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
+        //110-会员用户
+        if (userInfo.getMemType() == 110) {
+            mView.updateVipStatus("已开通");
+        } else {
+            mView.updateVipStatus("未开通");
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
