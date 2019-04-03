@@ -603,6 +603,11 @@
       "aclass": "com.hm.iou.pay.business.type.SelectPayTypeActivity"
     },
     {
+      "url": "hmiou://m.54jietiao.com/pay/pay_vip?time_card_pay_money=*&time_card_name=*&package_id=*",
+      "iclass": "",
+      "aclass": "com.hm.iou.pay.business.type.PayVipActivity"
+    },
+    {
       "url": "hmiou://m.54jietiao.com/pay/time_card_recharge",
       "iclass": "",
       "aclass": "com.hm.iou.pay.business.timecard.view.TimeCardRechargeActivity"

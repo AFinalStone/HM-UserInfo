@@ -2,14 +2,13 @@ package com.hm.iou.userinfo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.hm.iou.router.Router;
-import com.hm.iou.tools.ToastUtil;
 import com.hm.iou.userinfo.business.view.ChangeAliPayActivity;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
 import com.hm.iou.userinfo.business.view.UserEmailInfoActivity;
+import com.hm.iou.userinfo.business.view.VipStatusActivity;
 
 /**
  * @author syl
@@ -58,6 +57,20 @@ public class NavigationHelper {
         Router.getInstance()
                 .buildWithUrl("hmiou://m.54jietiao.com/facecheck/update_idcard")
                 .navigation(context);
+    }
+
+    public static void toVipStatusPage(Context context) {
+        Intent intent = new Intent(context, VipStatusActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void toPayVipPage(Context context, String price, String packageId, int reqCode) {
+        Router.getInstance()
+                .buildWithUrl("hmiou://m.54jietiao.com/pay/pay_vip")
+                .withString("time_card_pay_money", price)
+                .withString("time_card_name", "VIP会员")
+                .withString("package_id", packageId)
+                .navigation(context, reqCode);
     }
 
 }

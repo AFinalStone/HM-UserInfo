@@ -7,6 +7,8 @@ import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
+import com.hm.iou.userinfo.bean.MemberBean;
+import com.hm.iou.userinfo.bean.PayPackageResBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -15,6 +17,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
 import com.hm.iou.userinfo.bean.req.UnbindWxReqBean;
@@ -299,7 +302,8 @@ public class PersonApi {
 
     /**
      * 获取绑定的邮箱
-     *\
+     * \
+     *
      * @return
      */
     public static Flowable<BaseResponse<UserEmailInfoResBean>> getUserBindEmailInfo() {
@@ -313,6 +317,24 @@ public class PersonApi {
      */
     public static Flowable<BaseResponse<UserBankCardInfoResBean>> getUserBindBankCardInfo() {
         return getService().getUserBindBankCardInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 查询套餐，剩余签章数量
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<PayPackageResBean>> getPackageList(GetPayPackageListReqBean reqBean) {
+        return getService().getPackageList(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取会员信息
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<MemberBean>> getMemberInfo() {
+        return getService().getMemberInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

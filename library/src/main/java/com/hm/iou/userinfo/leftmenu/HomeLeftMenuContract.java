@@ -70,6 +70,12 @@ public interface HomeLeftMenuContract {
          */
         void updateListMenu(String menuId, String desc, String redMsg);
 
+        /**
+         * 显示是否VIP
+         *
+         * @param vipStatus
+         */
+        void updateVipStatus(String vipStatus);
     }
 
     interface Presenter {

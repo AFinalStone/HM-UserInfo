@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.base.utils.RouterUtil;
 import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
@@ -57,6 +56,8 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     RecyclerView mRvTopMenu;        //横向的菜单
     @BindView(R2.id.rv_menu)        //竖向的菜单
             RecyclerView mRvListMenu;
+
+    private View mLayoutVipItem;
 
     private Context mContext;
     private HomeLeftMenuPresenter mPresenter;
@@ -124,6 +125,15 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             }
         });
         mRvListMenu.setAdapter(mListMenuAdapter);
+
+        mLayoutVipItem = LayoutInflater.from(mContext).inflate(R.layout.person_layout_home_left_menu_vip, null);
+        mListMenuAdapter.addFooterView(mLayoutVipItem);
+        mLayoutVipItem.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationHelper.toVipStatusPage(mContext);
+            }
+        });
 
         //初始化数据
         mPresenter = new HomeLeftMenuPresenter(mContext, this);
@@ -218,7 +228,6 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             return;
         }
         ImageLoader.getInstance(mContext).displayImage(url, mIvHeader, defIconResId, defIconResId);
-
     }
 
     @Override
@@ -277,4 +286,11 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
         }
     }
 
+    @Override
+    public void updateVipStatus(String vipStatus) {
+        if (mLayoutVipItem != null) {
+            TextView tvVip = mLayoutVipItem.findViewById(R.id.tv_menu_desc);
+            tvVip.setText(vipStatus);
+        }
+    }
 }

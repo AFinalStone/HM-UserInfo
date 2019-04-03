@@ -186,6 +186,13 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         }
         //任务
         mView.updateTopMenuIcon(ModuleType.TASK.getValue(), Color.WHITE);
+
+        //110-会员用户
+        if (userInfo.getMemType() == 110) {
+            mView.updateVipStatus("已开通");
+        } else {
+            mView.updateVipStatus("未开通");
+        }
     }
 
     /**

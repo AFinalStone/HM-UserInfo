@@ -5,6 +5,8 @@ import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
+import com.hm.iou.userinfo.bean.MemberBean;
+import com.hm.iou.userinfo.bean.PayPackageResBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -13,6 +15,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
 import com.hm.iou.userinfo.bean.req.UnbindWxReqBean;
@@ -101,5 +104,11 @@ public interface PersonService {
 
 // @GET("/pay/iou/v1/ad/getByPosition")
 //    Flowable<BaseResponse<List<AdBean>>> getAdvertise(@Query("adPosition") String adPosition);
+
+    @POST("/pay/iou/package/v2/packageList")
+    Flowable<BaseResponse<PayPackageResBean>> getPackageList(@Body GetPayPackageListReqBean getPayPackageListReqBean);
+
+    @GET("/api/iou/user/v1/getMemberInfo")
+    Flowable<BaseResponse<MemberBean>> getMemberInfo();
 
 }

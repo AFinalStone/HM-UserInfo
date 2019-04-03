@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/HomeLeftMenuListItem"
+    android:background="@drawable/person_bg_menu_vip"
+    android:layout_height="50dip"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+        android:src="@mipmap/person_ic_user_vip"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="7dip"
+        />
+
+    <TextView
+        android:id="@+id/tv_menu_name"
+        style="@style/HomeLeftMenuListTitle"
+        android:text="升级会员"
+        android:textColor="#E4BD9F"
+        />
+
+    <TextView
+        android:id="@+id/tv_menu_desc"
+        style="@style/HomeLeftMenuListHint"
+        android:textColor="#E4BD9F"
+        android:text="未开通"
+        />
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        style="@style/HomeLeftMenuListArrow"
+        android:tint="#E4BD9F"
+        />
+
+
+</LinearLayout>
