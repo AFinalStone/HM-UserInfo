@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/uikit_background"
+    android:orientation="vertical">
+
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:backIcon="@mipmap/uikit_icon_close_black"
+        app:bottomDividerIsShow="false"
+        app:rightText="销户"
+        app:titleBackground="@color/transparent"
+        app:titleText="告知原因" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="22dp"
+                android:text="手机号码"
+                android:textColor="#ff222222"
+                android:textSize="16sp" />
+
+            <com.hm.iou.uikit.ClearEditText
+                android:id="@+id/et_phone"
+                style="@style/UikitEditText.Normal"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:hint="当前账户的手机号码" />
+        </LinearLayout>
+
+        <View style="@style/UikitDivider.Horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="22dp"
+                android:text="登录密码"
+                android:textColor="#ff222222"
+                android:textSize="16sp" />
+
+            <com.hm.iou.uikit.ClearEditText
+                android:id="@+id/et_psd"
+                style="@style/UikitEditText.Normal"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:hint="当前账户的登录密码" />
+        </LinearLayout>
+
+        <View style="@style/UikitDivider.Horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="22dp"
+                android:text="验证码"
+                android:textColor="#ff222222"
+                android:textSize="16sp" />
+
+            <com.hm.iou.uikit.ClearEditText
+                android:id="@+id/et_check_code"
+                style="@style/UikitEditText.Normal"
+                android:layout_width="0dp"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:layout_weight="1"
+                android:hint="获取6位验证码" />
+
+            <com.hm.iou.uikit.HMCountDownTextView
+                android:id="@+id/tv_get_code"
+                style="@style/UikitHMButton.CheckCode"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <View style="@style/UikitDivider.Horizontal" />
+
+        <Button
+            android:id="@+id/btn_quit_and_unregister"
+            style="@style/UikitHMButton.Large.Main"
+            android:layout_marginTop="30dp"
+            android:enabled="false"
+            android:text="退出并注销" />
+
+        <Button
+            android:id="@+id/btn_forever_delete"
+            style="@style/UikitHMButton.Large.Main"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="注销并删除数据" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,10 +1,12 @@
 package com.hm.iou.userinfo.api;
 
+import com.hm.iou.base.adver.AdBean;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
+import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -13,6 +15,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
 import com.hm.iou.userinfo.bean.req.UnbindWxReqBean;
@@ -99,7 +102,16 @@ public interface PersonService {
     @GET("/api/iou/user/v1/getBankCardInfo")
     Flowable<BaseResponse<UserBankCardInfoResBean>> getUserBindBankCardInfo();
 
-// @GET("/pay/iou/v1/ad/getByPosition")
-//    Flowable<BaseResponse<List<AdBean>>> getAdvertise(@Query("adPosition") String adPosition);
+    @GET("/api/iou/user/v1/getNoAgreeReasonList")
+    Flowable<BaseResponse<List<NoAgreeReasonBean>>> getNoAgreeReasonList();
+
+    @GET("/api/iou/user/v1/submitNoAgreeReason")
+    Flowable<BaseResponse<Boolean>> submitNoAgreeReason(@Query("reasonId") String reasonId);
+
+    @POST("/api/iou/user/v1/foreverUnRegister")
+    Flowable<BaseResponse<String>> foreverUnRegister(@Body ForeverUnRegisterReqBean reqBean);
+
+    @GET("/api/iou/user/v1/getCheckCodeForUnRegister")
+    Flowable<BaseResponse<Boolean>> getCheckCodeForUnRegister(@Query("mobile") String mobile);
 
 }

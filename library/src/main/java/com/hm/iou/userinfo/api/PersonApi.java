@@ -7,6 +7,7 @@ import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
+import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -15,6 +16,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
 import com.hm.iou.userinfo.bean.req.UnbindWxReqBean;
@@ -299,7 +301,8 @@ public class PersonApi {
 
     /**
      * 获取绑定的邮箱
-     *\
+     * \
+     *
      * @return
      */
     public static Flowable<BaseResponse<UserEmailInfoResBean>> getUserBindEmailInfo() {
@@ -315,4 +318,43 @@ public class PersonApi {
         return getService().getUserBindBankCardInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 获取不同意的原因列表
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<List<NoAgreeReasonBean>>> getNoAgreeReasonList() {
+        return getService().getNoAgreeReasonList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 提交不同意的原因
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<Boolean>> submitNoAgreeReason(String reasonId) {
+        return getService().submitNoAgreeReason(reasonId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 申请永久销户
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<String>> foreverUnRegister(String mobile, String psdMd5, String checkCode) {
+        ForeverUnRegisterReqBean reqBean = new ForeverUnRegisterReqBean();
+        reqBean.setMobile(mobile);
+        reqBean.setPsdMd5(psdMd5);
+        reqBean.setCheckCode(checkCode);
+        return getService().foreverUnRegister(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取申请永久销户手机验证码
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<Boolean>> getCheckCodeForUnRegister(String mobile) {
+        return getService().getCheckCodeForUnRegister(mobile).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }
