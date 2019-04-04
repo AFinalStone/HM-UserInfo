@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_marginTop="25dip"
+        android:drawableLeft="@mipmap/person_ic_user_vip"
+        android:drawablePadding="12dip"
+        android:text="VIP会员您好！"
+        android:textColor="@color/uikit_text_main_content"
+        android:textSize="24dip" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dip"
-            android:drawableLeft="@mipmap/person_ic_user_vip"
-            android:drawablePadding="12dip"
-            android:text="VIP会员您好！"
-            android:textColor="@color/uikit_text_main_content"
-            android:textSize="24dip" />
+    <TextView
+        android:id="@+id/tv_vip_valid_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dip"
+        android:text="VIP会员有效期至：----年--月--日"
+        android:textColor="@color/uikit_text_sub_content"
+        android:textSize="14dp" />
 
-        <TextView
-            android:id="@+id/tv_vip_valid_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dip"
-            android:text="VIP会员有效期至：----年--月--日"
-            android:textColor="@color/uikit_text_sub_content"
-            android:textSize="14dp" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:src="@mipmap/person_vip_desc_2" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:src="@mipmap/person_vip_desc_2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:text="会员其他权利："
+        android:textColor="@color/uikit_text_sub_content"
+        android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dip"
-            android:text="会员其他权利："
-            android:textColor="@color/uikit_text_sub_content"
-            android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:paddingBottom="30dip"
+        android:paddingLeft="45dip"
+        android:paddingRight="45dip"
+        android:text="每月不定时发放签章2-4个；配专职客服对接。\n投诉举报电话：0571-85456903"
+        android:textColor="@color/uikit_text_auxiliary"
+        android:textSize="14dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:paddingBottom="30dip"
-            android:paddingLeft="45dip"
-            android:paddingRight="45dip"
-            android:text="每月不定时发放签章2-4个；配专职客服对接。\n投诉举报电话：0571-85456903"
-            android:textColor="@color/uikit_text_auxiliary"
-            android:textSize="14dp" />
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
