@@ -17,7 +17,7 @@
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:layout_marginTop="18dip"
-        android:text="补充：普通用户，所有合同都会收入到APP，只是在首页最多只能展示50份。"
+        android:text="补充：普通用户，所有合同都会收录到APP，只是在首页最多只能展示50份。"
         android:textColor="@color/uikit_text_auxiliary"
         android:textSize="12sp" />
 
