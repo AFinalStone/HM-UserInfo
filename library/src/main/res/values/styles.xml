@@ -102,10 +102,10 @@
     </style>
 
     <style name="HomeLeftMenuListArrow">
-        <item name="android:layout_width">6dip</item>
-        <item name="android:layout_height">11dip</item>
+        <item name="android:layout_width">7dip</item>
+        <item name="android:layout_height">12dip</item>
         <item name="android:scaleType">fitXY</item>
-        <item name="android:src">@mipmap/uikit_ic_arrow_right</item>
+        <item name="android:src">@mipmap/persion_ic_left_menu_arrow_right</item>
     </style>
 
     <style name="HomeLeftMenuListHint">
