@@ -12,9 +12,8 @@
         android:layout_height="@dimen/uikit_topbar_height"
         app:backIcon="@mipmap/uikit_icon_close_black"
         app:bottomDividerIsShow="false"
-        app:rightText="销户"
         app:titleBackground="@color/transparent"
-        app:titleText="告知原因" />
+        app:titleText="身份确认" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -107,12 +106,11 @@
             android:id="@+id/btn_quit_and_unregister"
             style="@style/UikitHMButton.Large.Main"
             android:layout_marginTop="30dp"
-            android:enabled="false"
             android:text="退出并注销" />
 
         <Button
             android:id="@+id/btn_forever_delete"
-            style="@style/UikitHMButton.Large.Main"
+            style="@style/UikitHMButton.Large.Red"
             android:layout_marginTop="20dp"
             android:enabled="false"
             android:text="注销并删除数据" />

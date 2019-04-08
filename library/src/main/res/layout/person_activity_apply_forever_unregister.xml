@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uikit_background"
+    android:orientation="vertical">
+
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:backIcon="@mipmap/uikit_icon_close_black"
+        app:bottomDividerIsShow="false"
+        app:titleBackground="@color/transparent"
+        app:titleText="申请永久销户" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="50dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp">
+
+        <TextView
+            style="@style/UikitTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.5"
+            android:text="如果选择终止服务，我们将对您的个人资料，所有 非电子合同的所有数据，30天以后进行永久销毁处 理。在这30天之内允许您重新联系客服启用账户， 30天后直接注销，如果想再次使用，只能重新注册。 "
+            android:textColor="@color/uikit_text_main_content"
+            android:textSize="@dimen/uikit_main_content_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingMultiplier="1.5"
+            android:text="请确保账号下无纠纷业务，在账号注销期间如有纠纷产生，该注销申请自动解除。"
+            android:textColor="@color/uikit_function_exception"
+            android:textSize="@dimen/textFontSize_16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingMultiplier="1.5"
+            android:text="同意：请点击【永久删除数据】 \n拒绝：请点击【返回】 "
+            android:textColor="@color/uikit_text_main_content"
+            android:textSize="@dimen/uikit_main_content_text_size" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_submit_reason"
+            style="@style/UikitHMButton.Large.Red"
+            android:layout_alignParentBottom="true"
+            android:text="30天后永久删除数据" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

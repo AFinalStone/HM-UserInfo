@@ -13,7 +13,8 @@ import com.hm.iou.userinfo.business.presenter.CloseAccountPresenter;
 import butterknife.OnClick;
 
 /**
- * Created by hjy on 2018/6/4.
+ * @author syl
+ * @time 2019/4/8 9:59 AM
  */
 
 public class ApplyForeverUnRegisterActivity extends BaseActivity {
@@ -21,7 +22,7 @@ public class ApplyForeverUnRegisterActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.person_activity_applay_forever_unregister;
+        return R.layout.person_activity_apply_forever_unregister;
     }
 
     @Override
