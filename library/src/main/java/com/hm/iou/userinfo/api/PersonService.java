@@ -11,7 +11,6 @@ import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.bean.UserEmailInfoResBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
-import com.hm.iou.userinfo.bean.req.AddFeedbackReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
@@ -105,8 +104,8 @@ public interface PersonService {
     @GET("/api/iou/user/v1/getCustomerFeedback")
     Flowable<BaseResponse<List<NoAgreeReasonBean>>> getNoAgreeReasonList(@Query("scene") int scene);
 
-    @POST("/api/iou/user/v1/addFeedbackById")
-    Flowable<BaseResponse<Boolean>> submitNoAgreeReason(@Body AddFeedbackReqBean data);
+    @GET("/api/iou/user/v1/addFeedbackById")
+    Flowable<BaseResponse<Boolean>> submitNoAgreeReason(@Query("feedbackId") int feedbackId);
 
     @POST("/api/iou/user/v1/clearAccount")
     Flowable<BaseResponse<String>> foreverUnRegister(@Body ForeverUnRegisterReqBean reqBean);

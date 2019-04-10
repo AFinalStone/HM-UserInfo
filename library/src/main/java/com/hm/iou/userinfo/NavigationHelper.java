@@ -91,4 +91,14 @@ public class NavigationHelper {
         context.startActivity(intent);
     }
 
+    /**
+     * 更新银行卡信息
+     *
+     * @param context
+     */
+    public static void toUpdateBankInfo(Context context) {
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/pay/update_bind_bank?source=updatebank")
+                .navigation(context);
+    }
+
 }

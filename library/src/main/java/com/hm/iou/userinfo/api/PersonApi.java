@@ -13,7 +13,6 @@ import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.bean.UserEmailInfoResBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
-import com.hm.iou.userinfo.bean.req.AddFeedbackReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
@@ -335,10 +334,7 @@ public class PersonApi {
      * @return
      */
     public static Flowable<BaseResponse<Boolean>> submitNoAgreeReason(int reasonId) {
-        AddFeedbackReqBean data = new AddFeedbackReqBean();
-        data.setFeedbackId(reasonId);
-        data.setOsType(2);
-        return getService().submitNoAgreeReason(data).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return getService().submitNoAgreeReason(reasonId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
