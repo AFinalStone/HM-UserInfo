@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="50dp">
+
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:backIcon="@mipmap/uikit_icon_close_black"
+        app:bottomDividerIsShow="false"
+        app:rightText="销户"
+        app:titleBackground="@color/transparent"
+        app:titleText="告知原因" />
+
+
+    <Button
+        android:id="@+id/btn_submit_reason"
+        style="@style/UikitHMButton.Large.Main"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginStart="35dp"
+        android:enabled="false"
+        android:text="提交原因并返回首页" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_submit_reason"
+        android:layout_below="@id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_reason_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tv_online_people_server"
+                style="@style/UikitTextView"
+                android:layout_below="@id/tv_online_people_server"
+                android:paddingBottom="5dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:text="在线客服"
+                android:textColor="@color/uikit_function_remind" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.hm.iou.uikit.HMLoadingView
+        android:id="@+id/hmLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:background="@color/white" />
+</RelativeLayout>

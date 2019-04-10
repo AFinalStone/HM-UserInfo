@@ -9,8 +9,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:paddingLeft="17dip"
-    android:paddingRight="12dip"
-    >
+    android:paddingRight="12dip">
 
     <ImageView
         android:id="@+id/iv_module_image"

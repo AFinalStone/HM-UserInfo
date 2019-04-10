@@ -116,7 +116,7 @@
             <TextView
                 android:id="@+id/tv_bank_card_bind_mobile"
                 style="@style/PersonalInfoListItemRemark"
-                android:text="138*****102" />
+                android:text="" />
         </LinearLayout>
 
         <View style="@style/PersonalInfoListItemDivider" />
@@ -137,7 +137,7 @@
             <TextView
                 android:id="@+id/tv_bank_card_bind_time"
                 style="@style/PersonalInfoListItemRemark"
-                android:text="2019.03.23" />
+                android:text="" />
         </LinearLayout>
 
     </LinearLayout>

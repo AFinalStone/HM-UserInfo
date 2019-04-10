@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="44dip"
+    android:background="@drawable/uikit_bg_item_ripple"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip">
+
+    <TextView
+        android:id="@+id/tv_item_title"
+        style="@style/UikitTextView"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/uikit_text_main_content"
+        android:textSize="@dimen/uikit_sub_title_text_size"
+        tools:text="不同意：《用户注册协议》" />
+
+    <ImageView
+        android:id="@+id/checkBox"
+        android:layout_width="16dp"
+        android:layout_height="16dip"
+        android:src="@mipmap/uikit_icon_check_default" />
+
+</LinearLayout>

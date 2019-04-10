@@ -6,7 +6,10 @@ import android.content.Intent;
 import com.hm.iou.router.Router;
 import com.hm.iou.userinfo.business.view.ChangeAliPayActivity;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
+import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterActivity;
+import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterCheckUserInfoActivity;
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
+import com.hm.iou.userinfo.business.view.TellNoAgreeReasonActivity;
 import com.hm.iou.userinfo.business.view.UserEmailInfoActivity;
 import com.hm.iou.userinfo.business.view.VipStatusActivity;
 
@@ -49,6 +52,16 @@ public class NavigationHelper {
     }
 
     /**
+     * 告知不同意的原因
+     *
+     * @param context
+     */
+    public static void toTellNoAgreeReasonPage(Context context) {
+        Intent intent = new Intent(context, TellNoAgreeReasonActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
      * 去更新实名信息
      *
      * @param context
@@ -71,6 +84,36 @@ public class NavigationHelper {
                 .withString("time_card_name", "VIP会员")
                 .withString("package_id", packageId)
                 .navigation(context, reqCode);
+    }
+
+    /**
+     * 申请永久消号
+     *
+     * @param context
+     */
+    public static void toApplyForeverUnRegister(Context context) {
+        Intent intent = new Intent(context, ApplyForeverUnRegisterActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 客户注销账号校验用户信息
+     *
+     * @param context
+     */
+    public static void toForeverUnRegisterCheckUserInfo(Context context) {
+        Intent intent = new Intent(context, ApplyForeverUnRegisterCheckUserInfoActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 更新银行卡信息
+     *
+     * @param context
+     */
+    public static void toUpdateBankInfo(Context context) {
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/pay/update_bind_bank?source=updatebank")
+                .navigation(context);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.hm.iou.userinfo.demo;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.logger.Logger;
@@ -26,16 +28,18 @@ public class JietiaoApplication extends Application {
         appLike.onCreate(this);
         appLike.initServer("http://192.168.1.217", "http://192.168.1.217",
                 "http://192.168.1.217");
-/*        appLike.initServer("https://api.54jietiao.com", "https://api.54jietiao.com",
-                "https://h5.54jietiao.com");*/
-//        appLike.initServer("http://192.168.1.107:3000", "http://192.168.1.107:3000",
-//                "http://192.168.1.107:3000");
         appLike.setDebug(BuildConfig.DEBUG);
         initNetwork();
 
         SocialShareAppLike shareAppLike = new SocialShareAppLike();
         shareAppLike.onCreate(this);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     private void initNetwork() {

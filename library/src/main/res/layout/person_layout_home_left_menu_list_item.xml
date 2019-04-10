@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/person_bg_home_left_menu_red_msg"
         android:gravity="center"
-        android:minHeight="16dp"
-        android:minWidth="32dp"
+        android:minHeight="17dp"
+        android:minWidth="34dp"
         android:text="认证"
         android:textColor="@color/white"
-        android:textSize="@dimen/textFontSize_10"
+        android:textSize="@dimen/textFontSize_12"
         android:visibility="gone"
         tools:visibility="visible" />
 

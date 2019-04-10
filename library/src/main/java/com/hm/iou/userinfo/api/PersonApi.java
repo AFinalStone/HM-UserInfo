@@ -8,6 +8,7 @@ import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
+import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
 import com.hm.iou.userinfo.bean.PayPackageResBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
@@ -17,6 +18,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
 import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
@@ -335,6 +337,38 @@ public class PersonApi {
      */
     public static Flowable<BaseResponse<MemberBean>> getMemberInfo() {
         return getService().getMemberInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取不同意的原因列表
+     *
+     * @param scene 1:反馈告知原因 2：举报好友
+     * @return
+     */
+    public static Flowable<BaseResponse<List<NoAgreeReasonBean>>> getNoAgreeReasonList(int scene) {
+        return getService().getNoAgreeReasonList(scene).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 提交不同意的原因
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<Boolean>> submitNoAgreeReason(int reasonId) {
+        return getService().submitNoAgreeReason(reasonId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 申请永久销户
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<String>> foreverUnRegister(String mobile, String psdMd5, String checkCode) {
+        ForeverUnRegisterReqBean reqBean = new ForeverUnRegisterReqBean();
+        reqBean.setOldMobile(mobile);
+        reqBean.setQueryPswd(psdMd5);
+        reqBean.setVerifyCode(checkCode);
+        return getService().foreverUnRegister(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

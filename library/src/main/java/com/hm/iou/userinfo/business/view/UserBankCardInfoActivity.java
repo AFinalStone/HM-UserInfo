@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
+import com.hm.iou.uikit.HMTopBarView;
+import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
@@ -23,6 +25,8 @@ import butterknife.BindView;
 public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPresenter> implements UserBankCardInfoContract.View {
 
 
+    @BindView(R2.id.topBar)
+    HMTopBarView mTopBar;
     @BindView(R2.id.tv_bank_card_number)
     TextView mTvBankCardNumber;
     @BindView(R2.id.tv_bank_name)
@@ -48,8 +52,19 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
 
     @Override
     protected void initEventAndData(Bundle bundle) {
-    }
+        mTopBar.setRightText("更新");
+        mTopBar.setOnMenuClickListener(new HMTopBarView.OnTopBarMenuClickListener() {
+            @Override
+            public void onClickTextMenu() {
+                NavigationHelper.toUpdateBankInfo(UserBankCardInfoActivity.this);
+            }
 
+            @Override
+            public void onClickImageMenu() {
+
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
@@ -101,7 +116,7 @@ public class UserBankCardInfoActivity extends BaseActivity<UserBankCardInfoPrese
         //认证时间
         String bankCardBindTime = infoBean.getBindTime();
         if (!TextUtils.isEmpty(bankCardBindTime)) {
-            bankCardBindTime = bankCardBindTime.replaceAll("-",".");
+            bankCardBindTime = bankCardBindTime.replaceAll("-", ".");
             mTvBankCardBindTime.setText(bankCardBindTime);
         }
     }

@@ -46,7 +46,7 @@
                 android:singleLine="true"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="@dimen/textFontSize_17"
+                android:textSize="@dimen/textFontSize_22"
                 tools:text="昵称" />
 
 
@@ -78,41 +78,42 @@
                 android:id="@+id/iv_flag_info_complete"
                 android:layout_width="20dp"
                 android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
                 android:src="@mipmap/person_ic_home_left_menu_crown"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tv_info_complete_progress"
-                android:layout_width="32dp"
+                android:layout_width="34dp"
                 android:layout_height="17dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/person_bg_home_left_menu_red_msg"
                 android:gravity="center"
                 android:text="20%"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textFontSize_10" />
+                android:textSize="@dimen/textFontSize_12" />
 
             <ImageView
                 android:id="@+id/iv_heder_arrow"
-                style="@style/HomeLeftMenuListArrow"
-                android:layout_marginStart="5dp" />
+                style="@style/HomeLeftMenuListArrow" />
         </LinearLayout>
 
 
     </RelativeLayout>
 
-    <View
-        style="@style/HomeLeftMenuDivider"
-        android:layout_marginTop="16dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
+        android:layout_marginTop="15dp"
         android:overScrollMode="never" />
 
-    <View style="@style/HomeLeftMenuDivider" />
+    <View
+        style="@style/HomeLeftMenuDivider"
+        android:layout_marginTop="20dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_menu"

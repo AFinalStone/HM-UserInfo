@@ -20,6 +20,7 @@ import com.hm.iou.router.Router;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.uikit.HMGrayDividerItemDecoration;
 import com.hm.iou.uikit.dialog.HMAlertDialog;
+import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.AboutUsContract;
@@ -80,12 +81,12 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new HMGrayDividerItemDecoration(this, LinearLayout.VERTICAL));
         List<String> list = new ArrayList<>();
-        list.add("检测更新");
         list.add("已同意：《用户注册协议》");
         list.add("已同意：《用户隐私协议》");
         list.add("已同意：《用户支付协议》");
         list.add("已同意：《CFCA数字证书服务协议》");
         list.add("不同意：请告知原因，并手动选择退出。");
+        list.add("检测更新");
 
         if (BaseBizAppLike.getInstance().isDebug()) {
             list.add("切换软件服务器地址");
@@ -96,18 +97,17 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (position == 0) {
-                    mPresenter.checkVersion();
-                } else if (position == 1) {
                     toWebPage("https://app.54jietiao.com/xieyi/1.html");
-                } else if (position == 2) {
+                } else if (position == 1) {
                     toWebPage("https://app.54jietiao.com/xieyi/2.html");
-                } else if (position == 3) {
+                } else if (position == 2) {
                     toWebPage("https://app.54jietiao.com/xieyi/3.html");
-                } else if (position == 4) {
+                } else if (position == 3) {
                     toWebPage("https://app.54jietiao.com/xieyi/4.html");
+                } else if (position == 4) {
+                    NavigationHelper.toTellNoAgreeReasonPage(mContext);
                 } else if (position == 5) {
-                    Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
-                            .navigation(AboutUsActivity.this);
+                    mPresenter.checkVersion();
                 } else {
                     Router.getInstance()
                             .buildWithUrl("hmiou://m.54jietiao.com/environment_switch/index")
