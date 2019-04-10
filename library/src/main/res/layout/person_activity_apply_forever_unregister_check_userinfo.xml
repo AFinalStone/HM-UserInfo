@@ -41,6 +41,7 @@
                 android:layout_marginBottom="10dip"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
+                android:maxLength="11"
                 android:hint="当前账户的手机号码" />
         </LinearLayout>
 
@@ -91,6 +92,8 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
                 android:layout_weight="1"
+                android:maxLength="6"
+                android:inputType="numberSigned"
                 android:hint="获取6位验证码" />
 
             <com.hm.iou.uikit.HMCountDownTextView

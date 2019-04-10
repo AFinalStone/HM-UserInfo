@@ -29,7 +29,7 @@ public class TellNoAgreeReasonPresenter extends MvpActivityPresenter<TellNoAgree
     @Override
     public void getNoAgreeReasonList() {
         mView.showInitLoadingView();
-        PersonApi.getNoAgreeReasonList()
+        PersonApi.getNoAgreeReasonList(1)
                 .compose(getProvider().<BaseResponse<List<NoAgreeReasonBean>>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<List<NoAgreeReasonBean>>handleResponse())
                 .subscribeWith(new CommSubscriber<List<NoAgreeReasonBean>>(mView) {
@@ -57,7 +57,7 @@ public class TellNoAgreeReasonPresenter extends MvpActivityPresenter<TellNoAgree
     }
 
     @Override
-    public void submitReason(String reasonId) {
+    public void submitReason(int reasonId) {
         mView.showLoadingView();
         PersonApi.submitNoAgreeReason(reasonId)
                 .compose(getProvider().<BaseResponse<Boolean>>bindUntilEvent(ActivityEvent.DESTROY))

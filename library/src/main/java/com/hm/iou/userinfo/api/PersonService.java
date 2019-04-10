@@ -1,6 +1,5 @@
 package com.hm.iou.userinfo.api;
 
-import com.hm.iou.base.adver.AdBean;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
@@ -12,6 +11,7 @@ import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.bean.UserEmailInfoResBean;
 import com.hm.iou.userinfo.bean.UserSpaceBean;
+import com.hm.iou.userinfo.bean.req.AddFeedbackReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
@@ -102,16 +102,13 @@ public interface PersonService {
     @GET("/api/iou/user/v1/getBankCardInfo")
     Flowable<BaseResponse<UserBankCardInfoResBean>> getUserBindBankCardInfo();
 
-    @GET("/api/iou/user/v1/getNoAgreeReasonList")
-    Flowable<BaseResponse<List<NoAgreeReasonBean>>> getNoAgreeReasonList();
+    @GET("/api/iou/user/v1/getCustomerFeedback")
+    Flowable<BaseResponse<List<NoAgreeReasonBean>>> getNoAgreeReasonList(@Query("scene") int scene);
 
-    @GET("/api/iou/user/v1/submitNoAgreeReason")
-    Flowable<BaseResponse<Boolean>> submitNoAgreeReason(@Query("reasonId") String reasonId);
+    @POST("/api/iou/user/v1/addFeedbackById")
+    Flowable<BaseResponse<Boolean>> submitNoAgreeReason(@Body AddFeedbackReqBean data);
 
-    @POST("/api/iou/user/v1/foreverUnRegister")
+    @POST("/api/iou/user/v1/clearAccount")
     Flowable<BaseResponse<String>> foreverUnRegister(@Body ForeverUnRegisterReqBean reqBean);
-
-    @GET("/api/iou/user/v1/getCheckCodeForUnRegister")
-    Flowable<BaseResponse<Boolean>> getCheckCodeForUnRegister(@Query("mobile") String mobile);
 
 }

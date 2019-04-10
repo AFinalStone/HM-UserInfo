@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class ForeverUnRegisterReqBean {
 
-    private String mobile;
-    private String psdMd5;
-    private String checkCode;
+    private String oldMobile;
+    private String queryPswd;
+    private String verifyCode;
 
 }

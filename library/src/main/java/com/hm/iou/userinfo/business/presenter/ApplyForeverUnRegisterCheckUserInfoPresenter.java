@@ -14,7 +14,6 @@ import com.hm.iou.sharedata.event.LogoutEvent;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.Md5Util;
-import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.ApplyForeverUnRegisterCheckUserInfoContract;
@@ -36,12 +35,13 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
     @Override
     public void getCheckCode(String mobile) {
         mView.showLoadingView();
-        PersonApi.getCheckCodeForUnRegister(mobile)
-                .compose(getProvider().<BaseResponse<Boolean>>bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.<Boolean>handleResponse())
-                .subscribeWith(new CommSubscriber<Boolean>(mView) {
+        // 11-表示用户注销
+        PersonApi.sendMessage(11, mobile)
+                .compose(getProvider().<BaseResponse<String>>bindUntilEvent(ActivityEvent.DESTROY))
+                .map(RxUtil.<String>handleResponse())
+                .subscribeWith(new CommSubscriber<String>(mView) {
                     @Override
-                    public void handleResult(Boolean aBoolean) {
+                    public void handleResult(String aBoolean) {
                         mView.dismissLoadingView();
                         mView.toastMessage(R.string.uikit_get_check_code_success);
                         mView.startCountDown();
@@ -58,6 +58,11 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
     @Override
     public void foreverUnRegister(String mobile, String pwd, String checkCode) {
         mView.showLoadingView("注销并删除数据中...");
+        String userMobile = UserManager.getInstance(mContext).getUserInfo().getMobile();
+        if (mobile.equals(userMobile)) {
+            mView.toastMessage("手机号码错误");
+            return;
+        }
         String psdMd5 = Md5Util.getMd5ByString(pwd);
         PersonApi.foreverUnRegister(mobile, psdMd5, checkCode)
                 .compose(getProvider().<BaseResponse<String>>bindUntilEvent(ActivityEvent.DESTROY))
@@ -66,7 +71,7 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
                     @Override
                     public void handleResult(String s) {
                         mView.dismissLoadingView();
-                        NavigationHelper.toWarnCanNotRegister(mContext);
+                        exitApp();
                     }
 
                     @Override

@@ -10,7 +10,6 @@ import com.hm.iou.base.constants.HMConstants;
 import com.hm.iou.tools.StringUtil;
 import com.hm.iou.uikit.ClearEditText;
 import com.hm.iou.uikit.HMCountDownTextView;
-import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ApplyForeverUnRegisterCheckUserInfoContract;
@@ -74,10 +73,6 @@ public class ApplyForeverUnRegisterCheckUserInfoActivity extends BaseActivity<Ap
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 mPwd = String.valueOf(charSequence);
-                if (TextUtils.isEmpty(mPwd)) {
-                    mBtnForeverDelete.setEnabled(false);
-                    return;
-                }
                 checkValue();
             }
         });
@@ -85,10 +80,6 @@ public class ApplyForeverUnRegisterCheckUserInfoActivity extends BaseActivity<Ap
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 mCheckCode = String.valueOf(charSequence);
-                if (TextUtils.isEmpty(mCheckCode)) {
-                    mBtnForeverDelete.setEnabled(false);
-                    return;
-                }
                 checkValue();
             }
         });
@@ -112,7 +103,10 @@ public class ApplyForeverUnRegisterCheckUserInfoActivity extends BaseActivity<Ap
     }
 
     private void checkValue() {
-        if (StringUtil.matchRegex(mMobile, HMConstants.REG_MOBILE) && !TextUtils.isEmpty(mPwd) && !TextUtils.isEmpty(mCheckCode)) {
+        if (StringUtil.matchRegex(mMobile, HMConstants.REG_MOBILE) && !TextUtils.isEmpty(mPwd)
+                && mPwd.length() >= 6
+                && !TextUtils.isEmpty(mCheckCode)
+                && mCheckCode.length() >= 6) {
             mBtnForeverDelete.setEnabled(true);
             return;
         }

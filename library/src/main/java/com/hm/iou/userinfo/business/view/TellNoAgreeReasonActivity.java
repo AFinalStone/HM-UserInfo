@@ -132,10 +132,11 @@ public class TellNoAgreeReasonActivity extends BaseActivity<TellNoAgreeReasonPre
         }
     }
 
-    public static interface IReasonItem {
+    public interface IReasonItem {
+
         String getTitle();
 
-        String getReasonId();
+        int getReasonId();
     }
 
     public static class ReasonAdapter extends BaseQuickAdapter<IReasonItem, BaseViewHolder> {

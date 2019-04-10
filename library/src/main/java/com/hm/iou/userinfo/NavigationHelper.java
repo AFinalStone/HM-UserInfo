@@ -11,7 +11,6 @@ import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterCheckUserInfoActi
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
 import com.hm.iou.userinfo.business.view.TellNoAgreeReasonActivity;
 import com.hm.iou.userinfo.business.view.UserEmailInfoActivity;
-import com.hm.iou.userinfo.business.view.WarnCanNotRegisterActivity;
 
 /**
  * @author syl
@@ -89,16 +88,6 @@ public class NavigationHelper {
      */
     public static void toForeverUnRegisterCheckUserInfo(Context context) {
         Intent intent = new Intent(context, ApplyForeverUnRegisterCheckUserInfoActivity.class);
-        context.startActivity(intent);
-    }
-
-    /**
-     * 警告禁止注册
-     *
-     * @param context
-     */
-    public static void toWarnCanNotRegister(Context context) {
-        Intent intent = new Intent(context, WarnCanNotRegisterActivity.class);
         context.startActivity(intent);
     }
 

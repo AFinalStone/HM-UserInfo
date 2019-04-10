@@ -44,7 +44,7 @@ public interface TellNoAgreeReasonContract {
         /**
          * 提交原因
          */
-        void submitReason(String reasonId);
+        void submitReason(int reasonId);
 
     }
 

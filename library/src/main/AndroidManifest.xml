@@ -110,10 +110,6 @@
             android:name=".business.view.ApplyForeverUnRegisterCheckUserInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity
-            android:name=".business.view.WarnCanNotRegisterActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
     </application>
 
