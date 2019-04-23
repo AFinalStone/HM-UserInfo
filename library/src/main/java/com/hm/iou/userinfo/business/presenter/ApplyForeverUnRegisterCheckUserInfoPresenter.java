@@ -22,6 +22,8 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import retrofit2.http.HEAD;
+
 
 /**
  * @author syl
@@ -59,16 +61,14 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
     @Override
     public void foreverUnRegister(String mobile, String pwd, String checkCode) {
         if (TextUtils.isEmpty(mobile)) {
-
-            return;
-        }
-        String userMobile = UserManager.getInstance(mContext).getUserInfo().getMobile();
-        if (!mobile.equals(userMobile)) {
-            mView.toastMessage("手机号码错误");
             return;
         }
         mView.showLoadingView("注销并删除数据中...");
-
+        String userMobile = UserManager.getInstance(mContext).getUserInfo().getMobile();
+        if (mobile.equals(userMobile)) {
+            mView.toastMessage("手机号码错误");
+            return;
+        }
         String psdMd5 = Md5Util.getMd5ByString(pwd);
         PersonApi.foreverUnRegister(mobile, psdMd5, checkCode)
                 .compose(getProvider().<BaseResponse<String>>bindUntilEvent(ActivityEvent.DESTROY))
