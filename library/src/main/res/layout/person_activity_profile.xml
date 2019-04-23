@@ -191,7 +191,7 @@
 
                     <TextView
                         style="@style/PersonMenuListTitle"
-                        android:text="常住城市" />
+                        android:text="常驻城市" />
 
                     <TextView
                         android:id="@+id/tv_profile_city"

@@ -99,8 +99,10 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         int sex = infoBean.getSex();
         if (sex == SexEnum.FEMALE.getValue()) {
             mRlHeader.setBackgroundResource(R.mipmap.person_ic_authen_header_bg_woman);
+            mTvIdCardValidTime.setTextColor(0xff75605c);
         } else {
             mRlHeader.setBackgroundResource(R.mipmap.person_ic_authen_header_bg_man);
+            mTvIdCardValidTime.setTextColor(0xff495161);
         }
         //头像
         String headerUrl = infoBean.getAvatarUrl();
