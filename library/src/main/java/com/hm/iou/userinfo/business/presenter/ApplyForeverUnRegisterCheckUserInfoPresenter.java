@@ -59,6 +59,7 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
     @Override
     public void foreverUnRegister(String mobile, String pwd, String checkCode) {
         if (TextUtils.isEmpty(mobile)) {
+
             return;
         }
         String userMobile = UserManager.getInstance(mContext).getUserInfo().getMobile();
