@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business.presenter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.hm.iou.base.ActivityManager;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
@@ -57,12 +58,16 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
 
     @Override
     public void foreverUnRegister(String mobile, String pwd, String checkCode) {
-        mView.showLoadingView("注销并删除数据中...");
+        if (TextUtils.isEmpty(mobile)) {
+            return;
+        }
         String userMobile = UserManager.getInstance(mContext).getUserInfo().getMobile();
-        if (mobile.equals(userMobile)) {
+        if (!mobile.equals(userMobile)) {
             mView.toastMessage("手机号码错误");
             return;
         }
+        mView.showLoadingView("注销并删除数据中...");
+
         String psdMd5 = Md5Util.getMd5ByString(pwd);
         PersonApi.foreverUnRegister(mobile, psdMd5, checkCode)
                 .compose(getProvider().<BaseResponse<String>>bindUntilEvent(ActivityEvent.DESTROY))
