@@ -62,7 +62,7 @@ public class ApplyForeverUnRegisterCheckUserInfoPresenter extends MvpActivityPre
             return;
         }
         String userMobile = UserManager.getInstance(mContext).getUserInfo().getMobile();
-        if (mobile.equals(userMobile)) {
+        if (!mobile.equals(userMobile)) {
             mView.toastMessage("手机号码错误");
             return;
         }
