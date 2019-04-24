@@ -20,10 +20,8 @@ import com.hm.iou.userinfo.business.ModifyNicknameAndSexContract;
 import com.hm.iou.userinfo.business.presenter.ModifyNicknameAndSexPresenter;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
 import com.hm.iou.userinfo.common.HMTextWatcher;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by hjy on 2018/5/23.
@@ -113,7 +111,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         String ok = "知道了";
         new HMAlertDialog.Builder(this)
                 .setMessage(msg)
-                .setNegativeButton(ok)
+                .setPositiveButton(ok)
                 .create()
                 .show();
     }
@@ -126,7 +124,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         String ok = "知道了";
         new HMAlertDialog.Builder(this)
                 .setMessage(msg)
-                .setNegativeButton(ok)
+                .setPositiveButton(ok)
                 .create()
                 .show();
     }
