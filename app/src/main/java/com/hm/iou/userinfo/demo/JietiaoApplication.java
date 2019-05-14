@@ -26,8 +26,10 @@ public class JietiaoApplication extends Application {
         Logger.init(this, true);
         BaseBizAppLike appLike = new BaseBizAppLike();
         appLike.onCreate(this);
-        appLike.initServer("http://192.168.1.217", "http://192.168.1.217",
-                "http://192.168.1.217");
+//        appLike.initServer("http://192.168.1.217", "http://192.168.1.217",
+//                "http://192.168.1.217");
+        appLike.initServer("http://192.168.1.224:8071", "http://192.168.1.224:8071",
+                "http://192.168.1.224:8071");
         appLike.setDebug(BuildConfig.DEBUG);
         initNetwork();
 

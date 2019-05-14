@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         String pwd = MD5.hexdigest("123456".getBytes());
 //        String pwd = MD5.hexdigest("kaka123ac".getBytes());
         MobileLoginReqBean reqBean = new MobileLoginReqBean();
-//        reqBean.setMobile("15267163669");
-        reqBean.setMobile("15967132742");
+        reqBean.setMobile("15267163669");
+//        reqBean.setMobile("15967132742");
 //        reqBean.setMobile("18969904897");
         reqBean.setQueryPswd(pwd);
         HttpReqManager.getInstance().getService(LoginService.class)
