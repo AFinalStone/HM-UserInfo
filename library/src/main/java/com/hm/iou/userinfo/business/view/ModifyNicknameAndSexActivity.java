@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hm.iou.base.BaseActivity;
@@ -33,7 +34,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
     @BindView(R2.id.topbar)
     HMTopBarView mTopBarView;
     @BindView(R2.id.tv_nickName)
-    ClearEditText mEtNickName;
+    EditText mEtNickName;
     @BindView(R2.id.tv_sex)
     TextView mTvSex;
     @BindView(R2.id.btn_nickname_submit)

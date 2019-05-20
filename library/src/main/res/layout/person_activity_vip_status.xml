@@ -46,7 +46,9 @@
             android:id="@+id/loading_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl_vip_top_container">
+            android:layout_below="@id/rl_vip_top_container"
+            android:layout_marginTop="30dip"
+            >
 
         </com.hm.iou.uikit.HMLoadingView>
 

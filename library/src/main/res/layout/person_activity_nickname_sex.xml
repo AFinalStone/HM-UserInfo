@@ -29,7 +29,7 @@
             android:gravity="center"
             android:text="昵称" />
 
-        <com.hm.iou.uikit.ClearEditText
+        <EditText
             android:id="@+id/tv_nickName"
             style="@style/UikitEditText.Normal"
             android:layout_marginBottom="10dip"

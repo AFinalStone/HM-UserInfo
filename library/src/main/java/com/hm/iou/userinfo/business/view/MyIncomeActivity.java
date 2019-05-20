@@ -253,7 +253,6 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
     private void showMainIncomeDialog() {
         if (mMainIncomeDialog == null) {
             mMainIncomeDialog = new HMActionSheetDialog.Builder(this)
-                    .setTitle("主要收入")
                     .setActionSheetList(mIncomeList)
                     .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
@@ -272,7 +271,6 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
     private void showSecondIncomeDialog() {
         if (mSecondIncomeDialog == null) {
             mSecondIncomeDialog = new HMActionSheetDialog.Builder(this)
-                    .setTitle("次要收入")
                     .setActionSheetList(mIncomeList)
                     .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
