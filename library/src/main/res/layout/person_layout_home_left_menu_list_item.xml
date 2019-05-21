@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/HomeLeftMenuListItem">
+    style="@style/HomeLeftMenuListItem"
+    android:background="@drawable/person_sel_bg_menu_item"
+    >
 
     <TextView
         android:id="@+id/tv_menu_name"
