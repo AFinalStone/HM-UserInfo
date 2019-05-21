@@ -45,7 +45,7 @@ public class SelectUserSexDialog extends Dialog {
                     mCheckBoxMan.setImageResource(R.mipmap.uikit_icon_check_default);
                 } else {
                     mDialog.mCheckBoxMan = true;
-                    mCheckBoxMan.setImageResource(R.mipmap.uikit_icon_check_green);
+                    mCheckBoxMan.setImageResource(R.mipmap.uikit_icon_check_black);
                     mDialog.mCheckBoxWuMan = false;
                     mCheckBoxWuMan.setImageResource(R.mipmap.uikit_icon_check_default);
                 }
@@ -59,19 +59,13 @@ public class SelectUserSexDialog extends Dialog {
                     mCheckBoxWuMan.setImageResource(R.mipmap.uikit_icon_check_default);
                 } else {
                     mDialog.mCheckBoxWuMan = true;
-                    mCheckBoxWuMan.setImageResource(R.mipmap.uikit_icon_check_green);
+                    mCheckBoxWuMan.setImageResource(R.mipmap.uikit_icon_check_black);
                     mDialog.mCheckBoxMan = false;
                     mCheckBoxMan.setImageResource(R.mipmap.uikit_icon_check_default);
                 }
             }
         });
 
-        view.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDialog.dismiss();
-            }
-        });
         view.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,13 +8,40 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="性别设完不允许修改"
-        android:textColor="#ffa3a3a3"
-        android:textSize="@dimen/textFontSize_14" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:text="性别只允许设置一次"
+            android:textColor="@color/uikit_text_sub_content"
+            android:textSize="@dimen/textFontSize_14"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/uikit_function_remind"
+            android:textSize="@dimen/textFontSize_14"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/UikitDivider.Horizontal"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,37 +51,6 @@
         android:orientation="horizontal"
         android:paddingBottom="23dp"
         android:paddingTop="16dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout_man"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.hm.iou.uikit.ShapedImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@mipmap/person_ic_header_man"
-                app:shape_mode="circle" />
-
-            <TextView
-                android:layout_width="28dp"
-                android:layout_height="20dp"
-                android:text="男生"
-                android:textColor="#ffa3a3a3"
-                android:textSize="@dimen/textFontSize_14" />
-
-            <ImageView
-                android:id="@+id/mCheckBox_man"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginTop="16dp"
-                android:src="@mipmap/uikit_icon_check_default" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout_wuMan"
@@ -73,13 +69,6 @@
                 android:src="@mipmap/person_ic_header_wuman"
                 app:shape_mode="circle" />
 
-            <TextView
-                android:layout_width="28dp"
-                android:layout_height="20dp"
-                android:text="女生"
-                android:textColor="#ffa3a3a3"
-                android:textSize="@dimen/textFontSize_14" />
-
             <ImageView
                 android:id="@+id/mCheckBox_wuMan"
                 android:layout_width="22dp"
@@ -87,41 +76,31 @@
                 android:layout_marginTop="16dp"
                 android:src="@mipmap/uikit_icon_check_default" />
         </LinearLayout>
-    </LinearLayout>
 
-    <View style="@style/UikitDivider.Horizontal" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:background="#ffffffff"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/btn_cancel"
+        <LinearLayout
+            android:id="@+id/linearLayout_man"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="12dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#F1F1F1"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:text="取消"
-            android:textColor="#ff666666"
-            android:textSize="@dimen/textFontSize_16" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/btn_ok"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="#FFDD4A"
-            android:gravity="center"
-            android:text="确定"
-            android:textColor="#ff513516"
-            android:textSize="@dimen/textFontSize_16" />
+            <com.hm.iou.uikit.ShapedImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/person_ic_header_man"
+                app:shape_mode="circle" />
+
+            <ImageView
+                android:id="@+id/mCheckBox_man"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="16dp"
+                android:src="@mipmap/uikit_icon_check_default" />
+        </LinearLayout>
 
     </LinearLayout>
 
