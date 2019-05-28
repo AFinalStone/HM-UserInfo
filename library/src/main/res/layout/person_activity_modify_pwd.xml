@@ -12,7 +12,9 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/uikit_topbar_height"
-        app:titleText="变更登录密码" />
+        app:titleText="变更登录密码"
+        app:bottomDividerIsShow="false"
+        />
 
     <com.hm.iou.uikit.ShowHidePasswordEditText
         android:id="@+id/et_oldPassword"

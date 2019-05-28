@@ -44,9 +44,8 @@
         <com.hm.iou.uikit.HMCountDownTextView
             android:id="@+id/tv_getEmailCode"
             style="@style/UikitHMButton.CheckCode"
-            android:gravity="right"
-            android:paddingLeft="40dip"
-            android:paddingRight="35dip" />
+            android:layout_marginRight="35dip"
+            />
     </LinearLayout>
 
     <View
