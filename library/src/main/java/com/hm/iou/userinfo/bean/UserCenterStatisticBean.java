@@ -9,6 +9,7 @@ public class UserCenterStatisticBean {
     private int myCollect;
     private int noReadComplain;
     private long userSpaceSize;
+    private int couponCount;
 
     public int getMyCollect() {
         return myCollect;
@@ -32,5 +33,13 @@ public class UserCenterStatisticBean {
 
     public void setUserSpaceSize(long userSpaceSize) {
         this.userSpaceSize = userSpaceSize;
+    }
+
+    public int getCouponCount() {
+        return couponCount;
+    }
+
+    public void setCouponCount(int couponCount) {
+        this.couponCount = couponCount;
     }
 }

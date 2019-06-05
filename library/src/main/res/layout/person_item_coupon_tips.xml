@@ -1,0 +1,12 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="— — 每个用户最多只能存5张券，允许删掉 — —"
+    android:textColor="#ffcfcfd6"
+    android:textSize="12sp"
+    android:gravity="center"
+    android:paddingTop="15dip"
+    android:paddingBottom="15dip"
+    >
+</TextView>

@@ -1,0 +1,82 @@
+<com.hm.iou.uikit.sidemenu.SideMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="114dip"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:contentView="@+id/ll_coupon_content"
+    app:rightMenuView="@+id/iv_coupon_del"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_coupon_content"
+        android:layout_width="match_parent"
+        android:layout_height="114dip"
+        android:orientation="horizontal"
+        android:background="@drawable/person_bg_coupon_list"
+        >
+
+        <LinearLayout
+            android:layout_width="108dip"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/uikit_money"
+                android:textColor="#ffffffff"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_coupon_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffffff"
+                android:textSize="44dp"
+                android:layout_marginLeft="5dip"
+                tools:text="6"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="28dip"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/tv_coupon_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/uikit_text_sub_content"
+                android:textSize="20dp"
+                tools:text="满10元减2元 "
+                />
+
+            <TextView
+                android:id="@+id/tv_coupon_invalid_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff979eb1"
+                android:textSize="14dp"
+                android:layout_marginTop="10dip"
+                tools:text="截止到2019.12.23后失效"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_coupon_del"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/person_ic_coupon_del"
+        android:scaleType="centerInside"
+        />
+
+</com.hm.iou.uikit.sidemenu.SideMenuLayout>

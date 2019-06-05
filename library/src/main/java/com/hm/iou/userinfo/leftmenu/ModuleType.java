@@ -15,7 +15,8 @@ public enum ModuleType {
     MY_SIGNATURE("home_left_menu_0007", "我的签章"),
     MY_CLOUD_SPACE("home_left_menu_0008", "我的空间"),
     MY_WALLET("home_left_menu_0009", "我的钱包"),
-    ABOUT_SOFT("home_left_menu_00010", "关于软件");
+    ABOUT_SOFT("home_left_menu_00010", "关于软件"),
+    COUPON("home_left_menu_00011", "我的优惠券");
 
     private String value;
     private String desc;

@@ -48,6 +48,11 @@
       "url": "hmiou://m.54jietiao.com/pay/time_card_recharge"
     },
     {
+      "name": "我的优惠券",
+      "id": "home_left_menu_00011",
+      "url": "hmiou://m.54jietiao.com/person/my_coupon"
+    },
+    {
       "name": "我的空间",
       "id": "home_left_menu_0008",
       "url": "hmiou://m.54jietiao.com/person/cloud_space"

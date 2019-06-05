@@ -130,6 +130,8 @@ public class DataUtil {
                     }
                     if (ModuleType.ABOUT_SOFT.getValue().equals(bean.getId())) {
                         return "版本" + SystemUtil.getCurrentAppVersionName(context);
+                    } else if (ModuleType.COUPON.getValue().equals(bean.getId())) {
+                        return "0张";
                     }
                     return "";
                 }
