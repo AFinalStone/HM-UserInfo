@@ -5,6 +5,7 @@ import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
+import com.hm.iou.userinfo.bean.CouponInfo;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
@@ -18,6 +19,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.DelCouponReqBean;
 import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
 import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
@@ -369,6 +371,21 @@ public class PersonApi {
         reqBean.setQueryPswd(psdMd5);
         reqBean.setVerifyCode(checkCode);
         return getService().foreverUnRegister(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取优惠券列表
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<List<CouponInfo>>> getCouponList() {
+        return getService().getCouponList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Flowable<BaseResponse<Object>> delCoupon(String couponId) {
+        DelCouponReqBean reqBean = new DelCouponReqBean();
+        reqBean.setCouponId(couponId);
+        return getService().delCoupon(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

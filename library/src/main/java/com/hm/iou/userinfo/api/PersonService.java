@@ -3,6 +3,7 @@ package com.hm.iou.userinfo.api;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
+import com.hm.iou.userinfo.bean.CouponInfo;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
@@ -16,6 +17,7 @@ import com.hm.iou.userinfo.bean.UserSpaceBean;
 import com.hm.iou.userinfo.bean.req.ChangeEmailReqBean;
 import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
+import com.hm.iou.userinfo.bean.req.DelCouponReqBean;
 import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
 import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
@@ -119,4 +121,9 @@ public interface PersonService {
     @GET("/api/iou/user/v1/getMemberInfo")
     Flowable<BaseResponse<MemberBean>> getMemberInfo();
 
+    @GET("/api/coupon/v1/user/coupons")
+    Flowable<BaseResponse<List<CouponInfo>>> getCouponList();
+
+    @POST("/api/coupon/v1/delCoupons")
+    Flowable<BaseResponse<Object>> delCoupon(@Body DelCouponReqBean reqBean);
 }

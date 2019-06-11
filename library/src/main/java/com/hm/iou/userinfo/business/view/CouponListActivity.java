@@ -20,7 +20,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -153,14 +152,11 @@ public class CouponListActivity extends BaseActivity<CouponListPresenter> implem
         }
 
         public void removeData(String couponId) {
-            System.out.println("remove Dgta = " + couponId);
             List<ICouponItem> list = getData();
             if (list != null) {
                 int pos = -1;
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println("list couponId = " + list.get(i).getCouponId());
                     if (couponId.equals(list.get(i).getCouponId())) {
-                        System.out.println("remove...." + i);
                         pos = i;
                         break;
                     }
