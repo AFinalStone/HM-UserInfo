@@ -4,12 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.hm.iou.base.comm.CommApi;
+import com.hm.iou.base.comm.CouponInfo;
 import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.userinfo.api.PersonApi;
-import com.hm.iou.userinfo.bean.CouponInfo;
 import com.hm.iou.userinfo.business.ConponListContract;
 import com.hm.iou.userinfo.business.view.ICouponItem;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -26,7 +27,7 @@ public class CouponListPresenter extends MvpActivityPresenter<ConponListContract
 
     @Override
     public void getCouponList() {
-        PersonApi.getCouponList()
+        CommApi.getCouponList(0)
                 .compose(getProvider().<BaseResponse<List<CouponInfo>>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<List<CouponInfo>>handleResponse())
                 .subscribeWith(new CommSubscriber<List<CouponInfo>>(mView) {

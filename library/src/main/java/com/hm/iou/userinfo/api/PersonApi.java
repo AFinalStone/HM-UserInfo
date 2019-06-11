@@ -5,7 +5,6 @@ import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
-import com.hm.iou.userinfo.bean.CouponInfo;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
@@ -371,15 +370,6 @@ public class PersonApi {
         reqBean.setQueryPswd(psdMd5);
         reqBean.setVerifyCode(checkCode);
         return getService().foreverUnRegister(reqBean).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
-
-    /**
-     * 获取优惠券列表
-     *
-     * @return
-     */
-    public static Flowable<BaseResponse<List<CouponInfo>>> getCouponList() {
-        return getService().getCouponList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     public static Flowable<BaseResponse<Object>> delCoupon(String couponId) {
