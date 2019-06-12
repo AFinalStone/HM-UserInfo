@@ -10,6 +10,7 @@ import com.hm.iou.base.mvp.MvpActivityPresenter;
 import com.hm.iou.base.utils.CommSubscriber;
 import com.hm.iou.base.utils.RxUtil;
 import com.hm.iou.sharedata.model.BaseResponse;
+import com.hm.iou.tools.MoneyFormatUtil;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.business.ConponListContract;
 import com.hm.iou.userinfo.business.view.ICouponItem;
@@ -49,7 +50,12 @@ public class CouponListPresenter extends MvpActivityPresenter<ConponListContract
 
                                     @Override
                                     public String getCouponAmount() {
-                                        return info.getReducedPrice() / 100 + "";
+                                        try {
+                                            return MoneyFormatUtil.changeF2Y(info.getReducedPrice());
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                            return info.getReducedPrice() / 100 + "";
+                                        }
                                     }
 
                                     @Override

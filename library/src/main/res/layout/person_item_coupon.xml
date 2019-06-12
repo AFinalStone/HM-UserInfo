@@ -37,7 +37,7 @@
                 android:textColor="#ffffffff"
                 android:textSize="44dp"
                 android:layout_marginLeft="5dip"
-                tools:text="6"
+                tools:text="18.9"
                 />
 
         </LinearLayout>

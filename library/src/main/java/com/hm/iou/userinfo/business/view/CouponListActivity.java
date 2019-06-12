@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -177,6 +179,13 @@ public class CouponListActivity extends BaseActivity<CouponListPresenter> implem
             helper.setText(R.id.tv_coupon_amount, item.getCouponAmount());
             helper.setText(R.id.tv_coupon_desc, item.getCouponDesc());
             helper.setText(R.id.tv_coupon_invalid_date, item.getCouponInvalidDate());
+
+            TextView tvAmount = helper.getView(R.id.tv_coupon_amount);
+            if (item.getCouponAmount() != null && item.getCouponAmount().length() >= 3) {
+                tvAmount.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            } else {
+                tvAmount.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 44);
+            }
 
             helper.addOnClickListener(R.id.iv_coupon_del);
             helper.setTag(R.id.iv_coupon_del, item);
