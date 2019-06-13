@@ -15,6 +15,8 @@ public interface ConponListContract {
 
         void showLoading(boolean show);
 
+        void showError(String errMsg);
+
         void showDataEmpty();
 
         void showBottomTips();

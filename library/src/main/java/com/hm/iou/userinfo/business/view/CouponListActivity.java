@@ -102,6 +102,21 @@ public class CouponListActivity extends BaseActivity<CouponListPresenter> implem
     }
 
     @Override
+    public void showError(String errMsg) {
+        if (mAdapter.getData() == null || mAdapter.getData().isEmpty()) {
+            mLoadingView.showDataFail(errMsg, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLoading(true);
+                    mPresenter.getCouponList();
+                }
+            });
+        } else {
+            toastErrorMessage(errMsg);
+        }
+    }
+
+    @Override
     public void showBottomTips() {
         if (mViewBottomTips == null) {
             mViewBottomTips = getLayoutInflater().inflate(R.layout.person_item_coupon_tips, null);

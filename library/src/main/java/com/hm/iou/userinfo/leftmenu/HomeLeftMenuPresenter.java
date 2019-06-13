@@ -212,7 +212,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         int myCollectNum = data.getMyCollect();
                         mView.updateListMenu(ModuleType.MY_COLLECT.getValue(), myCollectNum == 0 ? "共0篇" : "共" + myCollectNum + "篇", null);
                         mView.updateListMenu(ModuleType.MY_CLOUD_SPACE.getValue(), UserDataUtil.formatUserCloudSpace(data.getUserSpaceSize()), null);
-                        mView.updateListMenu(ModuleType.COUPON.getValue(), data.getCouponCount() + "张", null);
+                        mView.updateListMenu(ModuleType.COUPON.getValue(), data.getCouponCount() > 0 ? data.getCouponCount() + "张" : "暂无", null);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

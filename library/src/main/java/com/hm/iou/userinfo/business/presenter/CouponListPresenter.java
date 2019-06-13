@@ -88,11 +88,21 @@ public class CouponListPresenter extends MvpActivityPresenter<ConponListContract
                     }
 
                     @Override
-                    public void handleException(Throwable throwable, String s, String s1) {
+                    public void handleException(Throwable throwable, String code, String msg) {
                         mView.hidePullDownRefresh();
                         mView.showLoading(false);
+                        mView.showError(msg);
                     }
 
+                    @Override
+                    public boolean isShowBusinessError() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isShowCommError() {
+                        return false;
+                    }
                 });
     }
 
