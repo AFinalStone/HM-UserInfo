@@ -1,7 +1,7 @@
 <com.hm.iou.uikit.sidemenu.SideMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="114dip"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     app:contentView="@+id/ll_coupon_content"
     app:rightMenuView="@+id/iv_coupon_del"
@@ -10,9 +10,12 @@
     <LinearLayout
         android:id="@+id/ll_coupon_content"
         android:layout_width="match_parent"
-        android:layout_height="114dip"
+        android:layout_height="88dp"
         android:orientation="horizontal"
         android:background="@drawable/person_bg_coupon_list"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="12dp"
         >
 
         <LinearLayout
