@@ -223,6 +223,32 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                style="@style/PersonMenuCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_login_time"
+                    style="@style/PersonMenuListItem">
+
+                    <TextView
+                        style="@style/PersonMenuListTitle"
+                        android:text="退出登录" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_login_time"
+                        style="@style/PersonMenuListHint"
+                        tools:text="无" />
+
+                    <ImageView style="@style/PersonMenuListArrow" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

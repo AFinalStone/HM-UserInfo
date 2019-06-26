@@ -18,6 +18,7 @@ import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.api.PersonApi;
+import com.hm.iou.userinfo.business.presenter.LogoutUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,69 +48,11 @@ public class MoreSettingActivity extends BaseActivity {
     @OnClick(value = {R2.id.ll_more_feedback, R2.id.ll_more_exit})
     void onClick(View v) {
         if (v.getId() == R.id.ll_more_exit) {
-            showDialogLogoutSafely();
+            LogoutUtil.showLogoutConfirmDialog(this, this);
         } else if (v.getId() == R.id.ll_more_feedback) {
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
                     .navigation(mContext);
         }
     }
 
-
-    private void showDialogLogoutSafely() {
-        new HMAlertDialog.Builder(this)
-                .setMessage("是否退出当前账号？")
-                .setMessageGravity(Gravity.CENTER)
-                .setPositiveButton("取消")
-                .setNegativeButton("退出")
-                .setOnClickListener(new HMAlertDialog.OnClickListener() {
-                    @Override
-                    public void onPosClick() {
-                    }
-
-                    @Override
-                    public void onNegClick() {
-                        logout();
-                    }
-                }).create().show();
-    }
-
-    private void logout() {
-        showLoadingView("安全退出中...");
-        UserInfo userInfo = UserManager.getInstance(mContext).getUserInfo();
-        PersonApi.logout(userInfo.getMobile())
-                .map(RxUtil.<Object>handleResponse())
-                .subscribeWith(new CommSubscriber<Object>(this) {
-                    @Override
-                    public void handleResult(Object data) {
-                        dismissLoadingView();
-                        exitApp();
-                    }
-
-                    @Override
-                    public void handleException(Throwable throwable, String s, String s1) {
-                        dismissLoadingView();
-                        exitApp();
-                    }
-
-                    @Override
-                    public boolean isShowCommError() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean isShowBusinessError() {
-                        return false;
-                    }
-                });
-    }
-
-    private void exitApp() {
-        EventBus.getDefault().post(new LogoutEvent());
-        HttpReqManager.getInstance().setUserId("");
-        HttpReqManager.getInstance().setToken("");
-        UserManager.getInstance(mContext).logout();
-        ActivityManager.getInstance().exitAllActivities();
-        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/login/selecttype")
-                .navigation(mContext);
-    }
 }

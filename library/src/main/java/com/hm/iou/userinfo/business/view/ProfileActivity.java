@@ -22,6 +22,7 @@ import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
 import com.hm.iou.userinfo.R2;
 import com.hm.iou.userinfo.business.ProfileContract;
+import com.hm.iou.userinfo.business.presenter.LogoutUtil;
 import com.hm.iou.userinfo.business.presenter.ProfilePresenter;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
 
@@ -91,7 +92,7 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
 
     @OnClick(value = {R2.id.ll_profile_avatar, R2.id.ll_profile_nickname, R2.id.ll_profile_my_qr_code,
             R2.id.ll_profile_my_alipay, R2.id.ll_profile_mobile, R2.id.ll_profile_weixin, R2.id.ll_profile_city
-            , R2.id.ll_profile_income, R2.id.ll_profile_changepwd})
+            , R2.id.ll_profile_income, R2.id.ll_profile_changepwd, R2.id.ll_profile_login_time})
     void onClick(View v) {
         if (v.getId() == R.id.ll_profile_avatar) {
             TraceUtil.onEvent(mContext, "profile_avatar_click");
@@ -139,9 +140,11 @@ public class ProfileActivity extends BaseActivity<ProfilePresenter> implements P
             TraceUtil.onEvent(mContext, "profile_income_click");
             Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/my_income")
                     .navigation(this);
-        }  else if (v.getId() == R.id.ll_profile_changepwd) {        //修改密码
+        } else if (v.getId() == R.id.ll_profile_changepwd) {        //修改密码
             TraceUtil.onEvent(mContext, "profile_modifypwd_click");
             showChangePasswordMenu();
+        } else if (v.getId() == R.id.ll_profile_login_time) {       //退出登录
+            LogoutUtil.showLogoutConfirmDialog(this, this);
         }
     }
 
