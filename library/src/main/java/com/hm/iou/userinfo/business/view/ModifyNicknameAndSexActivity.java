@@ -92,6 +92,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
     @Override
     public void showNickname(String nickname) {
         mEtNickName.setText(nickname);
+        mEtNickName.setSelection(mEtNickName.length());
     }
 
     @Override

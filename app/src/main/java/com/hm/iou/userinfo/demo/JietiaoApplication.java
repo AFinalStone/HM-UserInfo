@@ -28,8 +28,8 @@ public class JietiaoApplication extends Application {
         appLike.onCreate(this);
 //        appLike.initServer("http://192.168.1.217", "http://192.168.1.217",
 //                "http://192.168.1.217");
-        appLike.initServer("http://192.168.1.224:8071", "http://192.168.1.224:8071",
-                "http://192.168.1.224:8071");
+        appLike.initServer("http://dev.54jietiao.com", "http://dev.54jietiao.com",
+                "http://dev.54jietiao.com");
         appLike.setDebug(BuildConfig.DEBUG);
         initNetwork();
 

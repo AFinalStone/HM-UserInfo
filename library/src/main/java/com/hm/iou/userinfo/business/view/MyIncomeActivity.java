@@ -41,7 +41,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- *
+ * 我的收入
  */
 public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements MyIncomeContract.View {
 
@@ -254,6 +254,7 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         if (mMainIncomeDialog == null) {
             mMainIncomeDialog = new HMActionSheetDialog.Builder(this)
                     .setActionSheetList(mIncomeList)
+                    .setListMaxHeight(0)
                     .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
                         public void onItemClick(int i, String income) {
@@ -272,6 +273,7 @@ public class MyIncomeActivity extends BaseActivity<MyIncomePresenter> implements
         if (mSecondIncomeDialog == null) {
             mSecondIncomeDialog = new HMActionSheetDialog.Builder(this)
                     .setActionSheetList(mIncomeList)
+                    .setListMaxHeight(0)
                     .setOnItemClickListener(new HMActionSheetDialog.OnItemClickListener() {
                         @Override
                         public void onItemClick(int i, String s) {
