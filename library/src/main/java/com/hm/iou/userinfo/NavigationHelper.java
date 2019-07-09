@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.hm.iou.router.Router;
+import com.hm.iou.userinfo.business.view.BlackNameListActivity;
 import com.hm.iou.userinfo.business.view.ChangeAliPayActivity;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
 import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterActivity;
 import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterCheckUserInfoActivity;
+import com.hm.iou.userinfo.business.view.HideContractListActivity;
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
+import com.hm.iou.userinfo.business.view.SetTypeOfAddFriendByOtherActivity;
 import com.hm.iou.userinfo.business.view.TellNoAgreeReasonActivity;
 import com.hm.iou.userinfo.business.view.UserEmailInfoActivity;
 import com.hm.iou.userinfo.business.view.VipStatusActivity;
@@ -114,6 +117,36 @@ public class NavigationHelper {
     public static void toUpdateBankInfo(Context context) {
         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/pay/update_bind_bank?source=updatebank")
                 .navigation(context);
+    }
+
+    /**
+     * 黑名单页面
+     *
+     * @param context
+     */
+    public static void toBlackNamePage(Context context) {
+        Intent intent = new Intent(context, BlackNameListActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 隐藏合同页面
+     *
+     * @param context
+     */
+    public static void toHideContractPage(Context context) {
+        Intent intent = new Intent(context, HideContractListActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 设置被添加好友的方式
+     *
+     * @param context
+     */
+    public static void toSetAddFriendByOtherType(Context context) {
+        Intent intent = new Intent(context, SetTypeOfAddFriendByOtherActivity.class);
+        context.startActivity(intent);
     }
 
 }

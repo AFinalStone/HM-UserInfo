@@ -3,11 +3,15 @@ package com.hm.iou.userinfo.api;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
+import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumBean;
+import com.hm.iou.userinfo.bean.BlackNameBean;
+import com.hm.iou.userinfo.bean.HideContractBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
 import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
 import com.hm.iou.userinfo.bean.PayPackageResBean;
+import com.hm.iou.userinfo.bean.TypeOfAddFriendByOtherBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -22,6 +26,7 @@ import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
 import com.hm.iou.userinfo.bean.req.UnbindWxReqBean;
+import com.hm.iou.userinfo.bean.req.UpdateTypeOfAddFriendByOtherBean;
 import com.hm.iou.userinfo.bean.req.UpdateUserInfoReqBean;
 import com.hm.iou.userinfo.bean.req.VerifyEmailPwdReqBean;
 import com.hm.iou.userinfo.bean.req.VerifyMobilePwdReqBean;
@@ -123,4 +128,20 @@ public interface PersonService {
 
     @POST("/api/coupon/v1/delCoupons")
     Flowable<BaseResponse<Object>> delCoupon(@Body DelCouponReqBean reqBean);
+
+    @GET("/api/iou/user/v1/getHideIOUAndOther")
+    Flowable<BaseResponse<BlackNameAndHideContractNumBean>> getBlackNameAndHideContractNum();
+
+    @GET("/api/iou/front/v1/iou/getHideIOU")
+    Flowable<BaseResponse<List<HideContractBean>>> getHideContractList();
+
+    @GET("/api/news/friend/v1/getBlackFriend")
+    Flowable<BaseResponse<List<BlackNameBean>>> getBlackNameList();
+
+    @GET("/api/news/friend/v1/getApplyMeRelatedSetting")
+    Flowable<BaseResponse<TypeOfAddFriendByOtherBean>> getTypeOfAddFriendByOther();
+
+    @POST("/api/news/friend/v1/updateApplyMeRelatedSetting")
+    Flowable<BaseResponse<UpdateTypeOfAddFriendByOtherBean>> updateTypeOfAddFriendByOther(@Body UpdateTypeOfAddFriendByOtherBean reqBean);
+
 }

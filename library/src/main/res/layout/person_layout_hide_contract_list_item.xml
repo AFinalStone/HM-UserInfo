@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="95dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/tv_money"
+        style="@style/UikitTextView.Auxiliary"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="11dp"
+        tools:text="收条:6666" />
+
+    <TextView
+        android:id="@+id/tv_contract_id"
+        style="@style/UikitTextView.Auxiliary"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="37dp"
+        android:singleLine="true"
+        tools:text="编号：4438272633622… " />
+
+    <TextView
+        android:id="@+id/tv_hide_time"
+        style="@style/UikitTextView.Auxiliary"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="62dp"
+        tools:text="隐藏：2019.03.22 12:34" />
+
+    <Button
+        android:id="@+id/btn_copy"
+        style="@style/UikitHMButton.Small.Bordered"
+        android:layout_width="52dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="27dp"
+        android:text="复制" />
+
+    <View
+        style="@style/UikitDivider.Horizontal"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

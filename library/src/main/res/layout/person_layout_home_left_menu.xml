@@ -46,7 +46,7 @@
                 android:singleLine="true"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="@dimen/textFontSize_22"
+                android:textSize="@dimen/textFontSize_18"
                 tools:text="昵称" />
 
 
@@ -58,7 +58,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="#ffa3a3a3"
-                android:textSize="@dimen/textFontSize_12"
+                android:textSize="@dimen/textFontSize_14"
                 tools:text="ID：1000034" />
 
         </LinearLayout>
@@ -92,28 +92,31 @@
                 android:gravity="center"
                 android:text="20%"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textFontSize_12" />
+                android:textSize="@dimen/textFontSize_10" />
 
             <ImageView
                 android:id="@+id/iv_heder_arrow"
                 style="@style/HomeLeftMenuListArrow" />
         </LinearLayout>
 
-
     </RelativeLayout>
 
+
+    <View
+        style="@style/HomeLeftMenuDivider"
+        android:layout_marginTop="16dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dip"
+        android:layout_marginTop="12dp"
         android:overScrollMode="never" />
 
     <View
         style="@style/HomeLeftMenuDivider"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="12dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_menu"
@@ -146,6 +149,6 @@
             android:background="?android:attr/selectableItemBackground"
             android:padding="10dp"
             android:text="咨询反馈"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 </LinearLayout>
