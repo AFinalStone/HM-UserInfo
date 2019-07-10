@@ -8,6 +8,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.hm.iou.base.BaseActivity
+import com.hm.iou.router.Router
 import com.hm.iou.tools.ImageLoader
 import com.hm.iou.tools.StringUtil
 import com.hm.iou.userinfo.R
@@ -35,7 +36,10 @@ class BlackNameListActivity : BaseActivity<BlackNameListPresenter>(), BlackNameL
             if (R.id.ll_content == view.id) {
                 var bean: BlackNameBean? = mAdapter.getItem(position)
                 if (bean != null) {
-                    toastMessage(bean.nickName)
+                    Router.getInstance()
+                            .buildWithUrl("hmiou://m.54jietiao.com/message/firend_detail")
+                            .withString("userId", bean.friendId)
+                            .navigation(mContext)
                 }
 
             }

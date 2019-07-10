@@ -9,16 +9,18 @@ import com.hm.iou.base.mvp.BaseContract
 interface SetTypeOfAddFriendByOtherContract {
 
     interface View : BaseContract.BaseView {
+        fun showDataEmpty()
 
-        /**
-         * 设置是否添加我为好友的时候是否需要验证
-         */
-        fun setIfCheckAddFriendByOther(isNeedCheck: Boolean)
+        fun showInitView()
 
+        fun hideInitView()
+
+        fun showInitFailed(msg: String)
         /**
-         * 是否能够通过手机号搜索到我
+         * 显示初始化结果
          */
-        fun setIfCanSearchMeByMobile(isCan: Boolean)
+        fun showInitResult(isNeedCheck: Boolean, isCanSearchByMobile: Boolean)
+
     }
 
     interface Presenter : BaseContract.BasePresenter {
@@ -27,5 +29,10 @@ interface SetTypeOfAddFriendByOtherContract {
          * 获取黑名单和隐藏合同
          */
         fun init()
+
+        /**
+         * 更新用户修改的数据
+         */
+        fun updateUserChangeData(isNeedCheck: Boolean, isCanSearchByMobile: Boolean)
     }
 }

@@ -5,7 +5,7 @@ import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
-import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumBean;
+import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumResBean;
 import com.hm.iou.userinfo.bean.BlackNameBean;
 import com.hm.iou.userinfo.bean.HideContractBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
@@ -13,7 +13,8 @@ import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
 import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
 import com.hm.iou.userinfo.bean.PayPackageResBean;
-import com.hm.iou.userinfo.bean.TypeOfAddFriendByOtherBean;
+import com.hm.iou.userinfo.bean.TypeOfAddFriendByOtherResBean;
+import com.hm.iou.userinfo.bean.UpdateTypeOfAddFriendByOtherResBean;
 import com.hm.iou.userinfo.bean.UserAuthenticationInfoResBean;
 import com.hm.iou.userinfo.bean.UserBankCardInfoResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
@@ -28,7 +29,7 @@ import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
 import com.hm.iou.userinfo.bean.req.UnbindWxReqBean;
-import com.hm.iou.userinfo.bean.req.UpdateTypeOfAddFriendByOtherBean;
+import com.hm.iou.userinfo.bean.req.UpdateTypeOfAddFriendByOtherReqBean;
 import com.hm.iou.userinfo.bean.req.UpdateUserInfoReqBean;
 import com.hm.iou.userinfo.bean.req.VerifyEmailPwdReqBean;
 import com.hm.iou.userinfo.bean.req.VerifyMobilePwdReqBean;
@@ -388,7 +389,7 @@ public class PersonApi {
      *
      * @return
      */
-    public static Flowable<BaseResponse<BlackNameAndHideContractNumBean>> getBlackNameAndHideContractNum() {
+    public static Flowable<BaseResponse<BlackNameAndHideContractNumResBean>> getBlackNameAndHideContractNum() {
         return getService().getBlackNameAndHideContractNum().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -415,7 +416,7 @@ public class PersonApi {
      *
      * @return
      */
-    public static Flowable<BaseResponse<TypeOfAddFriendByOtherBean>> getTypeOfAddFriendByOther() {
+    public static Flowable<BaseResponse<TypeOfAddFriendByOtherResBean>> getTypeOfAddFriendByOther() {
         return getService().getTypeOfAddFriendByOther().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -424,8 +425,10 @@ public class PersonApi {
      *
      * @return
      */
-    public static Flowable<BaseResponse<UpdateTypeOfAddFriendByOtherBean>> updateTypeOfAddFriendByOther() {
-        UpdateTypeOfAddFriendByOtherBean req = new UpdateTypeOfAddFriendByOtherBean();
+    public static Flowable<BaseResponse<UpdateTypeOfAddFriendByOtherResBean>> updateTypeOfAddFriendByOther(Boolean isNeedCheck, Boolean isCanSearchByMobile) {
+        UpdateTypeOfAddFriendByOtherReqBean req = new UpdateTypeOfAddFriendByOtherReqBean();
+        req.setFriendValidationStatus(isNeedCheck);
+        req.setFindByMobileStatus(isCanSearchByMobile);
         return getService().updateTypeOfAddFriendByOther(req).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 

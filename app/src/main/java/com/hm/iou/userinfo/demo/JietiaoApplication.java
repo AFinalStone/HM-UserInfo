@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.logger.Logger;
+import com.hm.iou.msg.MsgCenterAppLike;
 import com.hm.iou.network.HttpReqManager;
 import com.hm.iou.network.HttpRequestConfig;
 import com.hm.iou.router.Router;
@@ -26,11 +27,14 @@ public class JietiaoApplication extends Application {
         Logger.init(this, true);
         BaseBizAppLike appLike = new BaseBizAppLike();
         appLike.onCreate(this);
-        appLike.initServer("http://192.168.1.107:3000", "http://192.168.1.107:3000",
-                "http://192.168.1.107:3000");
-//        appLike.initServer("http://dev.54jietiao.com", "http://dev.54jietiao.com",
-//                "http://dev.54jietiao.com");
+//        appLike.initServer("http://192.168.1.107:3000", "http://192.168.1.107:3000",
+//                "http://192.168.1.107:3000");
+        appLike.initServer("http://dev.54jietiao.com", "http://dev.54jietiao.com",
+                "http://dev.54jietiao.com");
         appLike.setDebug(BuildConfig.DEBUG);
+
+        MsgCenterAppLike msgCenterAppLike = new MsgCenterAppLike();
+        msgCenterAppLike.onCreate(this);
         initNetwork();
 
         SocialShareAppLike shareAppLike = new SocialShareAppLike();

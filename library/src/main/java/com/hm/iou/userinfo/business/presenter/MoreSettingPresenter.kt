@@ -5,7 +5,7 @@ import com.hm.iou.base.mvp.MvpActivityPresenter
 import com.hm.iou.base.utils.CommSubscriber
 import com.hm.iou.base.utils.RxUtil
 import com.hm.iou.userinfo.api.PersonApi
-import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumBean
+import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumResBean
 import com.hm.iou.userinfo.business.MoreSettingContract
 import com.trello.rxlifecycle2.android.ActivityEvent
 
@@ -18,10 +18,10 @@ class MoreSettingPresenter(context: Context, view: MoreSettingContract.View) : M
 
         PersonApi.getBlackNameAndHideContractNum()
                 .compose(provider.bindUntilEvent(ActivityEvent.DESTROY))
-                .map(RxUtil.handleResponse<BlackNameAndHideContractNumBean>())
-                .subscribeWith(object : CommSubscriber<BlackNameAndHideContractNumBean>(mView) {
+                .map(RxUtil.handleResponse<BlackNameAndHideContractNumResBean>())
+                .subscribeWith(object : CommSubscriber<BlackNameAndHideContractNumResBean>(mView) {
 
-                    override fun handleResult(p0: BlackNameAndHideContractNumBean?) {
+                    override fun handleResult(p0: BlackNameAndHideContractNumResBean?) {
                         if (p0 == null) {
                             mView.setBlackNameItemVisible(false)
                             mView.setHideContractItemVisible(false)

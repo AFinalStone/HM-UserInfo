@@ -3,7 +3,7 @@ package com.hm.iou.userinfo.bean
 /**
  * Created by syl on 2019/7/8.
  */
-class UpdateTypeOfAddFriendByOtherBean {
+class UpdateTypeOfAddFriendByOtherResBean {
     var ifCreateImToken: Boolean = false
     lateinit var imTokenResp: Item
 
