@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Instrumented person_bg_coupon_list, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() throws Exception {
-        // Context of the app under test.
+        // Context of the app under person_bg_coupon_list.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.hm.iou.library.test", appContext.getPackageName());
+        assertEquals("com.hm.iou.library.person_bg_coupon_list", appContext.getPackageName());
     }
 }

@@ -35,6 +35,17 @@ public class CouponListPresenter extends MvpActivityPresenter<ConponListContract
 
                     @Override
                     public void handleResult(List<CouponInfo> list) {
+                        list = new ArrayList<>();
+                        CouponInfo couponInfo = new CouponInfo();
+                        couponInfo.setCouponId("1234");
+                        couponInfo.setCouponName("满100减30");
+                        couponInfo.setReachPrice(10000);
+                        couponInfo.setReducedPrice(3000);
+                        couponInfo.setExpiryDate("2019-12-25 00:00:00");
+                        couponInfo.setCreateTime("2019-07-10 00:00:00");
+                        couponInfo.setLevel(2);
+                        list.add(couponInfo);
+
                         List<ICouponItem> dataList = null;
                         if (list != null && !list.isEmpty()) {
                             dataList = new ArrayList<>();
