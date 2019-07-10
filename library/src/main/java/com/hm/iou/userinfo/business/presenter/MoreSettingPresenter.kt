@@ -35,6 +35,13 @@ class MoreSettingPresenter(context: Context, view: MoreSettingContract.View) : M
 
                     }
 
+                    override fun isShowBusinessError(): Boolean {
+                        return false
+                    }
+
+                    override fun isShowCommError(): Boolean {
+                        return false
+                    }
                 })
     }
 

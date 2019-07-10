@@ -20,7 +20,6 @@ import com.hm.iou.router.Router;
 import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.tools.ImageLoader;
 import com.hm.iou.tools.ViewConcurrencyUtil;
-import com.hm.iou.uikit.ShapedImageView;
 import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.NavigationHelper;
 import com.hm.iou.userinfo.R;
@@ -41,7 +40,7 @@ import butterknife.OnClick;
 public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContract.View {
 
     @BindView(R2.id.iv_header)
-    ShapedImageView mIvHeader;
+    ImageView mIvHeader;
     @BindView(R2.id.tv_userNickName)
     TextView mTvUserNickName;
     @BindView(R2.id.tv_userId)

@@ -44,7 +44,8 @@
 
             <LinearLayout
                 android:id="@+id/ll_black_name"
-                style="@style/PersonMenuListItem">
+                style="@style/PersonMenuListItem"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -56,11 +57,13 @@
 
             <View
                 android:id="@+id/view_divider_black_name"
-                style="@style/UikitDivider.Horizontal" />
+                style="@style/UikitDivider.Horizontal"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_hide_contract"
-                style="@style/PersonMenuListItem">
+                style="@style/PersonMenuListItem"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/PersonMenuListTitle"
@@ -73,7 +76,8 @@
 
             <View
                 android:id="@+id/view_divider_hide_contract"
-                style="@style/UikitDivider.Horizontal" />
+                style="@style/UikitDivider.Horizontal"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_more_exit"

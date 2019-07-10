@@ -72,7 +72,7 @@ class HideContractListActivity : BaseActivity<HideContractListPresenter>(), Hide
     class HideContractAdapter : BaseQuickAdapter<HideContractBean, BaseViewHolder>(R.layout.person_layout_hide_contract_list_item) {
 
         override fun convert(helper: BaseViewHolder, item: HideContractBean) {
-            helper.setText(R.id.tv_money, item.showThing)
+            helper.setText(R.id.tv_money, item.title)
             helper.setText(R.id.tv_contract_id, "编号：" + item.justiceId)
             helper.setText(R.id.tv_hide_time, "隐藏：" + item.hideDate)
             helper.addOnClickListener(R.id.btn_copy)

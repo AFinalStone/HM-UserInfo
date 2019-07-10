@@ -19,14 +19,13 @@
         android:focusable="true"
         android:paddingTop="10dp">
 
-        <com.hm.iou.uikit.ShapedImageView
+        <com.hm.iou.uikit.CircleImageView
             android:id="@+id/iv_header"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="19dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/uikit_icon_header_unknow"
-            app:shape_mode="circle" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/uikit_icon_header_unknow" />
 
         <LinearLayout
             android:layout_width="match_parent"

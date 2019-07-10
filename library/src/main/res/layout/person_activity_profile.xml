@@ -42,12 +42,11 @@
                         style="@style/PersonMenuListTitle"
                         android:text="我的头像" />
 
-                    <com.hm.iou.uikit.ShapedImageView
+                    <com.hm.iou.uikit.CircleImageView
                         android:id="@+id/iv_profile_avatar"
                         android:layout_width="35dip"
                         android:layout_height="35dip"
-                        android:layout_marginRight="10dip"
-                        app:shape_mode="circle" />
+                        android:layout_marginEnd="10dip" />
 
                     <ImageView style="@style/PersonMenuListArrow" />
 

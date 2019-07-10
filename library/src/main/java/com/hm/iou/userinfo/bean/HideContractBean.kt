@@ -7,5 +7,5 @@ class HideContractBean {
     lateinit var hideDate: String
     lateinit var iouKind: String
     lateinit var justiceId: String
-    lateinit var showThing: String
+    lateinit var title: String
 }
