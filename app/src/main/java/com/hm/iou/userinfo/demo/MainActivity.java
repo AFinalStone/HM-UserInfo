@@ -10,6 +10,7 @@ import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.BaseResponse;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.ToastUtil;
+import com.hm.iou.userinfo.business.view.SetTypeOfAddFriendByOtherActivity;
 import com.sina.weibo.sdk.utils.MD5;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
                         .navigation(MainActivity.this);*/
 
                 startActivity(new Intent(MainActivity.this, PersonalActivity.class));
+            }
+        });
+        findViewById(R.id.btn_setAddFriend).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SetTypeOfAddFriendByOtherActivity.class));
             }
         });
 

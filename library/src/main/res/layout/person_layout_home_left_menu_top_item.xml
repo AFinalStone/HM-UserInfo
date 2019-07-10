@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/uikit_text_sub_content"
-        android:textSize="@dimen/textFontSize_14"
+        android:textSize="@dimen/textFontSize_12"
         tools:text="实名" />
 
 </LinearLayout>

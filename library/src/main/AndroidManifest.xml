@@ -120,6 +120,21 @@
             android:name=".business.view.CouponListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".business.view.SetTypeOfAddFriendByOtherActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/UikitTranslucentThemeActivity.FromBottom"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".business.view.BlackNameListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/UikitTranslucentThemeActivity.FromBottom"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".business.view.HideContractListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/UikitTranslucentThemeActivity.FromBottom"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
     </application>
 

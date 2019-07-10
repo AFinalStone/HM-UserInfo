@@ -20,7 +20,7 @@
         android:minWidth="34dp"
         android:text="认证"
         android:textColor="@color/white"
-        android:textSize="@dimen/textFontSize_12"
+        android:textSize="@dimen/textFontSize_10"
         android:visibility="gone"
         tools:visibility="visible" />
 

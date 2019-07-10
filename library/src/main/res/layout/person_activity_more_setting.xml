@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -15,7 +14,7 @@
         app:titleBackground="#ffffff"
         app:titleText="更多设置" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,55 +23,72 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="20dip"
-            android:paddingLeft="6dip"
-            android:paddingRight="6dip"
+            android:paddingEnd="20dip"
+            android:paddingStart="20dip"
             android:paddingTop="10dip">
 
             <LinearLayout
-                style="@style/PersonMenuCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:orientation="vertical">
+                android:id="@+id/ll_set_type_of_add_friend_by_other"
+                style="@style/PersonMenuListItem">
 
-                <LinearLayout
-                    android:id="@+id/ll_more_feedback"
-                    style="@style/PersonMenuListItem">
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="添加方式" />
 
-                    <TextView
-                        style="@style/PersonMenuListTitle"
-                        android:text="咨询反馈" />
-
-                    <com.hm.iou.uikit.ShapedImageView
-                        android:id="@+id/iv_profile_avatar"
-                        android:layout_width="35dip"
-                        android:layout_height="35dip"
-                        android:layout_marginRight="10dip"
-                        app:shape_mode="circle" />
-
-                    <ImageView style="@style/PersonMenuListArrow" />
-
-                </LinearLayout>
-
-                <View style="@style/UikitDivider.Horizontal" />
-
-                <LinearLayout
-                    android:id="@+id/ll_more_exit"
-                    style="@style/PersonMenuListItem"
-                    android:background="@null">
-
-                    <TextView
-                        style="@style/PersonMenuListTitle"
-                        android:text="安全退出" />
-
-                    <ImageView style="@style/PersonMenuListArrow" />
-
-                </LinearLayout>
-
-                <View style="@style/UikitDivider.Horizontal" />
+                <ImageView style="@style/PersonMenuListArrow" />
 
             </LinearLayout>
 
+
+            <View style="@style/UikitDivider.Horizontal" />
+
+            <LinearLayout
+                android:id="@+id/ll_black_name"
+                style="@style/PersonMenuListItem">
+
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="黑名单" />
+
+                <ImageView style="@style/PersonMenuListArrow" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_divider_black_name"
+                style="@style/UikitDivider.Horizontal" />
+
+            <LinearLayout
+                android:id="@+id/ll_hide_contract"
+                style="@style/PersonMenuListItem">
+
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="隐藏的合同" />
+
+                <ImageView style="@style/PersonMenuListArrow" />
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/view_divider_hide_contract"
+                style="@style/UikitDivider.Horizontal" />
+
+            <LinearLayout
+                android:id="@+id/ll_more_exit"
+                style="@style/PersonMenuListItem">
+
+                <TextView
+                    style="@style/PersonMenuListTitle"
+                    android:text="退出登陆" />
+
+                <ImageView style="@style/PersonMenuListArrow" />
+
+            </LinearLayout>
+
+            <View style="@style/UikitDivider.Horizontal" />
+
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

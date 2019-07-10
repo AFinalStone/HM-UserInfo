@@ -1,0 +1,113 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_close"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="191dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/UikitDivider.Horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="19dp"
+                android:paddingStart="38dp">
+
+                <TextView
+                    style="@style/UikitTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="不需要验证直接添加我"
+                    android:textSize="@dimen/textFontSize_16" />
+
+                <com.hm.iou.uikit.SmoothCheckBox
+                    android:id="@+id/cb_not_need_check"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:color_checked="#4d5157"
+                    app:color_unchecked="@color/white"
+                    app:padding="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="19dp"
+                android:paddingStart="38dp">
+
+                <TextView
+                    style="@style/UikitTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="需要验证通过后添加我"
+                    android:textSize="@dimen/textFontSize_16" />
+
+                <com.hm.iou.uikit.SmoothCheckBox
+                    android:id="@+id/cb_need_check"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:color_checked="#4d5157"
+                    app:color_unchecked="@color/white"
+                    app:padding="15dp" />
+            </LinearLayout>
+
+            <View
+                style="@style/UikitDivider.Horizontal"
+                android:layout_marginTop="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="69dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="34dp"
+                android:paddingStart="38dp">
+
+                <TextView
+                    style="@style/UikitTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="允许通过手机号搜索到我"
+                    android:textSize="@dimen/textFontSize_16" />
+
+                <Switch
+                    android:id="@+id/switch_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:thumb="@drawable/person_switch_custom_thumb_selector"
+                    android:track="@drawable/person_switch_custom_track_selector" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.hm.iou.uikit.HMLoadingView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="191dp"
+            android:background="@color/white" />
+    </RelativeLayout>
+
+</LinearLayout>

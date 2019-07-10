@@ -33,7 +33,10 @@ dependencies {
     compile 'com.heima.iou:hmselectpiclocal:1.0.0'
     //签约密码，签章
     compile 'com.heima.iou:hmsignaturelocal:1.0.0'
+    //支付
     compile 'com.heima.iou:hmpaylocal:1.0.0'
+    //好友
+    compile 'com.heima.iou:hmmessagecenterlocal:1.0.0'
 
     compile 'com.android.support:multidex:1.0.0'
 
