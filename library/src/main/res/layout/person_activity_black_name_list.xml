@@ -17,6 +17,8 @@
         android:gravity="center"
         android:text="黑名单" />
 
+    <View style="@style/UikitDivider.Horizontal" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -47,6 +47,10 @@ class BlackNameListActivity : BaseActivity<BlackNameListPresenter>(), BlackNameL
         }
         rv_black_name.layoutManager = LinearLayoutManager(mContext)
         rv_black_name.adapter = mAdapter;
+    }
+
+    override fun onResume() {
+        super.onResume()
         mPresenter.getBlackNameList()
     }
 
@@ -77,7 +81,7 @@ class BlackNameListActivity : BaseActivity<BlackNameListPresenter>(), BlackNameL
 
     override fun showDataEmpty() {
         loading.visibility = VISIBLE
-        loading.showDataEmpty("");
+        loading.showDataEmpty("")
     }
 
     class BlackNameAdapter : BaseQuickAdapter<BlackNameBean, BaseViewHolder>(R.layout.person_layout_black_name_list_item) {
