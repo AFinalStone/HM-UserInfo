@@ -1,7 +1,6 @@
 package com.hm.iou.userinfo.business.presenter
 
 import android.content.Context
-import android.text.TextUtils
 import com.hm.iou.base.mvp.MvpActivityPresenter
 import com.hm.iou.base.utils.CommSubscriber
 import com.hm.iou.base.utils.RxUtil
@@ -27,9 +26,9 @@ class HideContractListPresenter(context: Context, view: HideContractListContract
                             return
                         }
                         for (bean: HideContractBean in list) {
-                            var hideDate = bean.hideDate;
-                            if (!TextUtils.isEmpty(hideDate) && hideDate.length > 3) {
-                                bean.hideDate = hideDate.replace("-", ".").substring(0, hideDate.length - 3)
+                            var hideDate: String? = bean.hideDate;
+                            if (!hideDate.isNullOrEmpty()) {
+                                bean.hideDate = hideDate!!.replace("-", ".").substring(0, hideDate.length - 3)
                             }
                         }
                         mView.hideInitView()

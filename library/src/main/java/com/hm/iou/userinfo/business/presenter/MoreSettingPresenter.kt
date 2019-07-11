@@ -27,21 +27,18 @@ class MoreSettingPresenter(context: Context, view: MoreSettingContract.View) : M
                             mView.setHideContractItemVisible(false)
                             return
                         }
-                        mView.setBlackNameItemVisible(p0.blackFriendCount > 0)
-                        mView.setHideContractItemVisible(p0.hideIouCount > 0)
+                        mView.setBlackNameItemVisible(p0.blackFriendCount!! > 0)
+                        mView.setHideContractItemVisible(p0.hideIouCount!! > 0)
                     }
 
                     override fun handleException(p0: Throwable?, p1: String?, p2: String?) {
 
                     }
 
-                    override fun isShowBusinessError(): Boolean {
-                        return false
-                    }
+                    override fun isShowBusinessError() = false
 
-                    override fun isShowCommError(): Boolean {
-                        return false
-                    }
+                    override fun isShowCommError() = false
+
                 })
     }
 
