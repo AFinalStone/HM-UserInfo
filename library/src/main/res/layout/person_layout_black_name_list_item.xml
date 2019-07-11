@@ -19,7 +19,6 @@
             android:id="@+id/iv_header"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:scaleType="centerCrop"
             android:src="@mipmap/uikit_icon_header_unknow" />
 
         <TextView

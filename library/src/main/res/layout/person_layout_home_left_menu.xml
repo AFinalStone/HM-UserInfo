@@ -24,7 +24,6 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="19dp"
-            android:scaleType="centerCrop"
             android:src="@mipmap/uikit_icon_header_unknow" />
 
         <LinearLayout
