@@ -1,5 +1,6 @@
 package com.hm.iou.userinfo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -124,7 +125,7 @@ public class NavigationHelper {
      *
      * @param context
      */
-    public static void toBlackNamePage(Context context) {
+    public static void toBlackNamePage(Activity context) {
         Intent intent = new Intent(context, BlackNameListActivity.class);
         context.startActivity(intent);
     }
@@ -134,7 +135,7 @@ public class NavigationHelper {
      *
      * @param context
      */
-    public static void toHideContractPage(Context context) {
+    public static void toHideContractPage(Activity context) {
         Intent intent = new Intent(context, HideContractListActivity.class);
         context.startActivity(intent);
     }
@@ -144,7 +145,7 @@ public class NavigationHelper {
      *
      * @param context
      */
-    public static void toSetAddFriendByOtherType(Context context) {
+    public static void toSetAddFriendByOtherType(Activity context) {
         Intent intent = new Intent(context, SetTypeOfAddFriendByOtherActivity.class);
         context.startActivity(intent);
     }

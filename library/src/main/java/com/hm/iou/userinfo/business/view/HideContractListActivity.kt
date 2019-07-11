@@ -27,6 +27,7 @@ class HideContractListActivity : BaseActivity<HideContractListPresenter>(), Hide
     }
 
     override fun initEventAndData(p0: Bundle?) {
+        overridePendingTransition(R.anim.uikit_activity_open_from_bottom, 0)
         view_close.setOnClickListener { onBackPressed() }
         mAdapter.setOnItemChildClickListener { _, view, position
             ->
@@ -42,6 +43,12 @@ class HideContractListActivity : BaseActivity<HideContractListPresenter>(), Hide
         rv_hide_contract.layoutManager = LinearLayoutManager(mContext)
         rv_hide_contract.adapter = mAdapter;
         mPresenter.getHideContractList()
+    }
+
+    //关闭Activity的切换动画
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, R.anim.uikit_activity_to_bottom)
     }
 
     override fun showHideContractList(list: List<HideContractBean>) {

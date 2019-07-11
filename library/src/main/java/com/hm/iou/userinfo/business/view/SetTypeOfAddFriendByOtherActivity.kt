@@ -21,6 +21,7 @@ class SetTypeOfAddFriendByOtherActivity : BaseActivity<SetTypeOfAddFriendByOther
     }
 
     override fun initEventAndData(p0: Bundle?) {
+        overridePendingTransition(R.anim.uikit_activity_open_from_bottom, 0)
         view_close.setOnClickListener {
             onBackPressed()
         }
@@ -30,6 +31,12 @@ class SetTypeOfAddFriendByOtherActivity : BaseActivity<SetTypeOfAddFriendByOther
     override fun onBackPressed() {
         super.onBackPressed()
         mPresenter.updateUserChangeData(cb_need_check.isChecked, switch_search.isChecked)
+    }
+
+    //关闭Activity的切换动画
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, R.anim.uikit_activity_to_bottom)
     }
 
     override fun showInitView() {

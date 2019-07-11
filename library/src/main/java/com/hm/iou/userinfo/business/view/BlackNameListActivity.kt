@@ -31,6 +31,7 @@ class BlackNameListActivity : BaseActivity<BlackNameListPresenter>(), BlackNameL
     }
 
     override fun initEventAndData(p0: Bundle?) {
+        overridePendingTransition(R.anim.uikit_activity_open_from_bottom, 0)
         view_close.setOnClickListener { onBackPressed() }
         mAdapter.setOnItemChildClickListener { _, view, position ->
             if (R.id.ll_content == view.id) {
@@ -47,6 +48,12 @@ class BlackNameListActivity : BaseActivity<BlackNameListPresenter>(), BlackNameL
         rv_black_name.layoutManager = LinearLayoutManager(mContext)
         rv_black_name.adapter = mAdapter;
         mPresenter.getBlackNameList()
+    }
+
+    //关闭Activity的切换动画
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, R.anim.uikit_activity_to_bottom)
     }
 
     override fun showBlackNameList(list: List<BlackNameBean>) {
