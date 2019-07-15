@@ -6,7 +6,6 @@ import com.hm.iou.base.utils.CommSubscriber
 import com.hm.iou.base.utils.RxUtil
 import com.hm.iou.sharedata.UserManager
 import com.hm.iou.sharedata.event.CommBizEvent
-import com.hm.iou.tools.StringUtil
 import com.hm.iou.userinfo.api.PersonApi
 import com.hm.iou.userinfo.bean.TypeOfAddFriendByOtherResBean
 import com.hm.iou.userinfo.bean.UpdateTypeOfAddFriendByOtherResBean
@@ -43,15 +42,7 @@ class SetTypeOfAddFriendByOtherPresenter(context: Context, view: SetTypeOfAddFri
                     }
 
                     override fun handleException(p0: Throwable?, p1: String?, p2: String?) {
-                        mView.showInitFailed(StringUtil.getUnnullString(p2))
-                    }
-
-                    override fun isShowBusinessError(): Boolean {
-                        return false
-                    }
-
-                    override fun isShowCommError(): Boolean {
-                        return false
+                        mView.closeCurrPage()
                     }
 
                 })

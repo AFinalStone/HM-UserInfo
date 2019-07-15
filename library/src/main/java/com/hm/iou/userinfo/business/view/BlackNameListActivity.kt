@@ -89,7 +89,7 @@ class BlackNameListActivity : BaseActivity<BlackNameListPresenter>(), BlackNameL
         override fun convert(helper: BaseViewHolder, item: BlackNameBean) {
             helper.setText(R.id.tv_name, StringUtil.getUnnullString(item.nickName))
             var ivHeader: ImageView = helper.getView(R.id.iv_header)
-            ImageLoader.getInstance(mContext).displayImage(item.avatarUrl, ivHeader)
+            ImageLoader.getInstance(mContext).displayImage(item.avatarUrl, ivHeader, R.drawable.uikit_bg_pic_loading_place, R.mipmap.uikit_icon_header_unknow)
             helper.addOnClickListener(R.id.ll_content)
         }
 

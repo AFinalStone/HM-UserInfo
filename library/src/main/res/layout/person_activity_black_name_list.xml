@@ -33,7 +33,8 @@
         <com.hm.iou.uikit.HMLoadingView
             android:id="@+id/loading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/white" />
     </RelativeLayout>
 
 

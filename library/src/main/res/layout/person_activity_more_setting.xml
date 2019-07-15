@@ -85,7 +85,7 @@
 
                 <TextView
                     style="@style/PersonMenuListTitle"
-                    android:text="退出登陆" />
+                    android:text="退出登录" />
 
                 <ImageView style="@style/PersonMenuListArrow" />
 
