@@ -269,6 +269,11 @@
       "url": "hmiou://m.54jietiao.com/person/my_coupon",
       "iclass": "",
       "aclass": "com.hm.iou.userinfo.business.view.CouponListActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/person/set_type_of_add_friend_by_other",
+      "iclass": "",
+      "aclass": "com.hm.iou.userinfo.business.view.SetTypeOfAddFriendByOtherActivity"
     }
   ],
   "message": [

@@ -146,8 +146,8 @@ public class NavigationHelper {
      * @param context
      */
     public static void toSetAddFriendByOtherType(Activity context) {
-        Intent intent = new Intent(context, SetTypeOfAddFriendByOtherActivity.class);
-        context.startActivity(intent);
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/set_type_of_add_friend_by_other")
+                .navigation(context);
     }
 
 }
