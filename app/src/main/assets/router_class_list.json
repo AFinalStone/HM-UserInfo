@@ -354,6 +354,11 @@
       "url": "hmiou://m.54jietiao.com/qrcode/index?show_type=*",
       "iclass": "",
       "aclass": "com.hm.iou.qrcode.business.view.QRCodeActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/qrcode/personal_card",
+      "iclass": "",
+      "aclass": "com.hm.iou.qrcode.business.view.PersonalCardV2Activity"
     }
   ],
   "iou": [
