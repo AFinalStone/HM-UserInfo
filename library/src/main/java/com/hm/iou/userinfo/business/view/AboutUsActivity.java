@@ -85,7 +85,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         list.add("已同意：《用户隐私协议》");
         list.add("已同意：《用户支付协议》");
         list.add("已同意：《CFCA数字证书服务协议》");
-        list.add("不同意：请告知原因，并手动选择退出。");
+        list.add("不同意：请告知原因，我们努力改进，谢谢！");
         list.add("检测更新");
 
         if (BaseBizAppLike.getInstance().isDebug()) {
