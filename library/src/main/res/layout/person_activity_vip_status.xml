@@ -21,15 +21,13 @@
                 app:titleBackground="@android:color/transparent"
                 app:titleText="VIP会员" />
 
-            <com.hm.iou.uikit.ShapedImageView
+            <com.hm.iou.uikit.CircleImageView
                 android:id="@+id/iv_vip_header"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_below="@id/topbar"
                 android:layout_centerHorizontal="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/uikit_icon_header_unknow"
-                app:shape_mode="circle" />
+                android:src="@mipmap/uikit_icon_header_unknow" />
 
             <ImageView
                 android:id="@+id/iv_vip_flag"
@@ -47,8 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_vip_top_container"
-            android:layout_marginTop="30dip"
-            >
+            android:layout_marginTop="30dip">
 
         </com.hm.iou.uikit.HMLoadingView>
 

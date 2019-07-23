@@ -54,7 +54,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     @BindView(R2.id.rv_top_menu)
     RecyclerView mRvTopMenu;        //横向的菜单
     @BindView(R2.id.rv_menu)        //竖向的菜单
-            RecyclerView mRvListMenu;
+    RecyclerView mRvListMenu;
 
     private View mLayoutVipItem;
 

@@ -6,22 +6,6 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:src="@mipmap/person_vip_desc_1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dip"
-        android:layout_marginRight="25dip"
-        android:layout_marginTop="18dip"
-        android:text="补充：普通用户，所有合同都会收录到APP，只是在首页最多只能展示50份。"
-        android:textColor="@color/uikit_text_auxiliary"
-        android:textSize="12sp" />
-
-    <ImageView
         android:id="@+id/iv_vip_open_vip"
         android:layout_width="305dip"
         android:layout_height="54dip"

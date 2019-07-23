@@ -24,11 +24,6 @@
         android:textColor="@color/uikit_text_sub_content"
         android:textSize="14dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:src="@mipmap/person_vip_desc_2" />
 
     <TextView
         android:layout_width="wrap_content"
