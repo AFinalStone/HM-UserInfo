@@ -432,4 +432,21 @@ public class PersonApi {
         return getService().updateTypeOfAddFriendByOther(req).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 获取VIP页面的套餐列表
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<String>> getMemberPageList() {
+        return getService().getMemberPageList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 获取VIP页面的套餐列表
+     *
+     * @return
+     */
+    public static Flowable<BaseResponse<String>> getMemberCoupon() {
+        return getService().getMemberCoupon().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }

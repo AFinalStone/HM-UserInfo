@@ -145,4 +145,10 @@ public interface PersonService {
     @POST("/api/news/friend/v1/updateApplyMeRelatedSetting")
     Flowable<BaseResponse<UpdateTypeOfAddFriendByOtherResBean>> updateTypeOfAddFriendByOther(@Body UpdateTypeOfAddFriendByOtherReqBean reqBean);
 
+    @GET("/api/coupon/v1/member/page")
+    Flowable<BaseResponse<String>> getMemberPageList();
+
+    @POST("/api/coupon/v1/getMemberCoupon")
+    Flowable<BaseResponse<String>> getMemberCoupon();
+
 }

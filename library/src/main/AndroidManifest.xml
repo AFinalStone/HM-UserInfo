@@ -115,6 +115,7 @@
         <activity
             android:name=".business.view.VipStatusActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/UikitTranslucentThemeActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".business.view.CouponListActivity"

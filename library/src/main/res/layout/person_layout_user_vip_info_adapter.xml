@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_content"
+    android:layout_width="165dp"
+    android:layout_height="76dp">
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/UikitTextView.Auxiliary"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:text="¥ 2"
+        android:textColor="#ff575b62"
+        android:textSize="@dimen/textFontSize_30" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        style="@style/UikitTextView.Auxiliary"
+        android:layout_below="@id/tv_price"
+        android:layout_marginStart="33dp"
+        android:text="满10元可用" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="41dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:text="领\n取"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textFontSize_16" />
+</RelativeLayout>

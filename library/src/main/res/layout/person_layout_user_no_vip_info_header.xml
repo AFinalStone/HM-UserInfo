@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_vip_top_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/person_bg_vip_not">
+
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:bottomDividerIsShow="false"
+        app:titleBackground="@android:color/transparent"
+        app:titleText="VIP会员" />
+
+    <com.hm.iou.uikit.ShapedImageView
+        android:id="@+id/iv_header"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/topBar"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/uikit_icon_header_unknow"
+        app:shape_mode="circle" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:src="@mipmap/persion_user_flag_not_vip" />
+
+</RelativeLayout>
