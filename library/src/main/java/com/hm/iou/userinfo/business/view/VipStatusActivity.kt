@@ -1,9 +1,12 @@
 package com.hm.iou.userinfo.business.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
@@ -40,6 +43,15 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
             }
         }
         mPresenter.init()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQ_CODE_TO_PAY_VIP_PAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                mPresenter.init()
+            }
+        }
     }
 
     override fun showHeaderInfo(headerUrl: String?, defaultAvatarResId: Int) {

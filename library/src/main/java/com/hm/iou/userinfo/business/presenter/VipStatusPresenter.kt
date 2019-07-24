@@ -64,7 +64,7 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                         getMemberPageList()
                     }
 
-                    override fun handleException(throwable: Throwable, s: String, s1: String) {
+                    override fun handleException(throwable: Throwable, s: String?, s1: String?) {
                         mView.closeCurrPage()
                     }
                 })
