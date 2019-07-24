@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/uikit_background"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/ll_vip_valid_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dip"
+            android:drawableLeft="@mipmap/person_ic_user_vip"
+            android:drawablePadding="12dip"
+            android:text="VIP会员您好！"
+            android:textColor="@color/uikit_text_main_content"
+            android:textSize="@dimen/textFontSize_24" />
+
+        <TextView
+            android:id="@+id/tv_vip_valid_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dip"
+            android:text="VIP会员有效期至：----年--月--日"
+            android:textColor="@color/uikit_text_sub_content"
+            android:textSize="@dimen/textFontSize_14" />
+
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_model"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,12 +52,23 @@
         android:padding="13dp">
 
         <TextView
-            android:layout_width="90dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="每天领金券"
             android:textColor="#ff575b62"
             android:textSize="@dimen/textFontSize_18" />
+
+        <TextView
+            android:id="@+id/tv_coupon_valid_date"
+            style="@style/UikitTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="#ff575b62"
+            android:textSize="@dimen/textFontSize_14"
+            android:visibility="invisible"
+            tools:text="（剩余27天）" />
 
         <View
             android:layout_width="0dp"
@@ -32,11 +76,14 @@
             android:layout_weight="1" />
 
         <TextView
-            android:layout_width="85dp"
-            android:layout_height="20dp"
+            android:id="@+id/tv_coupon_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
             android:text="12张签章金券"
             android:textColor="#ff575b62"
-            android:textSize="@dimen/textFontSize_14" />
+            android:textSize="@dimen/textFontSize_14"
+            android:visibility="invisible" />
 
     </LinearLayout>
 

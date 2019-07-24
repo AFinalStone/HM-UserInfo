@@ -26,6 +26,7 @@ import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
 import com.hm.iou.userinfo.bean.req.DelCouponReqBean;
 import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
+import com.hm.iou.userinfo.bean.req.GetMemberCouPonReqBean;
 import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
@@ -434,7 +435,7 @@ public class PersonApi {
     }
 
     /**
-     * 获取VIP页面的套餐列表
+     * 获取VIP页面的优惠券套餐列表
      *
      * @return
      */
@@ -443,11 +444,11 @@ public class PersonApi {
     }
 
     /**
-     * 获取VIP页面的套餐列表
+     * 获取优惠券
      *
      * @return
      */
-    public static Flowable<BaseResponse<String>> getMemberCoupon() {
-        return getService().getMemberCoupon().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public static Flowable<BaseResponse<String>> getMemberCoupon(GetMemberCouPonReqBean req) {
+        return getService().getMemberCoupon(req).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

@@ -24,6 +24,7 @@ import com.hm.iou.userinfo.bean.req.ChangeMobileReqBean;
 import com.hm.iou.userinfo.bean.req.DelAccountReqBean;
 import com.hm.iou.userinfo.bean.req.DelCouponReqBean;
 import com.hm.iou.userinfo.bean.req.ForeverUnRegisterReqBean;
+import com.hm.iou.userinfo.bean.req.GetMemberCouPonReqBean;
 import com.hm.iou.userinfo.bean.req.GetPayPackageListReqBean;
 import com.hm.iou.userinfo.bean.req.ModifyPwdReqBean;
 import com.hm.iou.userinfo.bean.req.SendMessageReqBean;
@@ -150,6 +151,6 @@ public interface PersonService {
     Flowable<BaseResponse<GetMemberPageListRespBean>> getMemberPageList();
 
     @POST("/api/coupon/v1/getMemberCoupon")
-    Flowable<BaseResponse<String>> getMemberCoupon();
+    Flowable<BaseResponse<String>> getMemberCoupon(@Body GetMemberCouPonReqBean req);
 
 }

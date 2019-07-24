@@ -1,11 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/uikit_background"
+    android:orientation="vertical"
+    android:visibility="invisible"
+    tools:visibility="visible">
 
     <RelativeLayout
+        android:id="@+id/rl_header_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/person_bg_vip_not">
@@ -18,17 +23,16 @@
             app:titleBackground="@android:color/transparent"
             app:titleText="VIP会员" />
 
-        <com.hm.iou.uikit.ShapedImageView
+        <com.hm.iou.uikit.CircleImageView
             android:id="@+id/iv_header"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@id/topBar"
             android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:src="@mipmap/uikit_icon_header_unknow"
-            app:shape_mode="circle" />
+            android:src="@mipmap/uikit_icon_header_unknow" />
 
         <ImageView
+            android:id="@+id/iv_header_flag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_header"
@@ -38,12 +42,21 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/iv_vip_open_vip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:src="@mipmap/person_btn_open_vip" />
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_coupon_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:visibility="invisible" />
+        android:layout_above="@id/iv_vip_open_vip"
+        android:layout_below="@id/rl_header_bg" />
 
 
-</LinearLayout>
+</RelativeLayout>

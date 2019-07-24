@@ -7,11 +7,11 @@ interface VipICouponItem {
 
     fun getCouponId(): String
 
-    fun getCouponPrice(): String
+    fun getCouponName(): String
 
     fun getCouponDesc(): String
 
     fun getCouponStatus(): String
 
-    fun getBackgroundResId(): Int
+    fun getRightResId(): Int
 }

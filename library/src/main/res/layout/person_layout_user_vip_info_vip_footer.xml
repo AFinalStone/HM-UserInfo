@@ -8,26 +8,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dip"
-        android:drawableLeft="@mipmap/person_ic_user_vip"
-        android:drawablePadding="12dip"
-        android:text="VIP会员您好！"
-        android:textColor="@color/uikit_text_main_content"
-        android:textSize="24dip" />
-
-    <TextView
-        android:id="@+id/tv_vip_valid_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dip"
-        android:text="VIP会员有效期至：----年--月--日"
-        android:textColor="@color/uikit_text_sub_content"
-        android:textSize="14dp" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="30dip"
         android:text="会员其他权利："
         android:textColor="@color/uikit_text_sub_content"

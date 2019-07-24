@@ -4,6 +4,8 @@
     android:id="@+id/rl_content"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="3dp">
@@ -11,16 +13,17 @@
     <LinearLayout
         android:layout_width="124dp"
         android:layout_height="76dp"
+        android:background="@drawable/person_ic_coupon_left"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tv_name"
             style="@style/UikitTextView"
             android:singleLine="true"
-            android:text="¥ 2"
+            android:text="@string/uikit_money"
             android:textColor="#ff575b62"
-            android:textSize="@dimen/textFontSize_30" />
+            android:textSize="38dp" />
 
         <TextView
             android:id="@+id/tv_desc"

@@ -11,6 +11,6 @@ interface VipIHeaderModuleItem {
 
     fun getModuleDesc(): String
 
-    fun getModuleFiltrateColor(): String
+    fun getModuleFiltrateColor(): String?
 
 }

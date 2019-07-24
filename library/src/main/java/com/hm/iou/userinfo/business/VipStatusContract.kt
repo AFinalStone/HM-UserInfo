@@ -9,21 +9,22 @@ interface VipStatusContract {
     interface View : BaseContract.BaseView {
 
         /**
-         * 显示普通用户信息
-         * @param headerUrl
-         * @param defaultAvatarResId
+         * 显示头部头像
          */
-        fun showNoVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?)
+        fun showHeaderInfo(headerUrl: String?, defaultAvatarResId: Int)
+
+        /**
+         * 显示普通用户信息
+         */
+        fun showNoVipUserInfoView(remindDay: Int?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?)
 
         /**
          * 显示VIP用户信息
          *
-         * @param headerUrl
-         * @param defaultAvatarResId
          * @param list
          * @param vipValidDate
          */
-        fun showVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, vipValidDate: String?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?)
+        fun showVipUserInfoView(remindDay: Int?, vipValidDate: String?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?)
 
     }
 
@@ -32,6 +33,9 @@ interface VipStatusContract {
         fun init()
 
         fun getPayInfo()
+
+        fun getCoupon(couponId: String)
+
     }
 
 }

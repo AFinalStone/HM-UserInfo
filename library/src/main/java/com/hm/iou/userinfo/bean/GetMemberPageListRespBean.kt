@@ -7,15 +7,15 @@ data class GetMemberPageListRespBean(
         val coupons: List<Coupon>?,
         val getToday: Boolean?,
         val modules: List<Module>?,
-        val remainDays: Int?
+        val remainDays: Int?,
+        val couponCount: Int?
 )
 
 data class Coupon(
         val couponId: String?,
         val couponName: String?,
-        val reachPrice: String?,
-        val reducePrice: String?,
-        val status: Int?
+        val couponDesc: String?,
+        val status: Int?//1未领取 2已领取未使用 3已使用
 )
 
 data class Module(
