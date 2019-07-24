@@ -7,6 +7,7 @@ import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumResBean;
 import com.hm.iou.userinfo.bean.BlackNameBean;
+import com.hm.iou.userinfo.bean.GetMemberPageListRespBean;
 import com.hm.iou.userinfo.bean.HideContractBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
@@ -437,7 +438,7 @@ public class PersonApi {
      *
      * @return
      */
-    public static Flowable<BaseResponse<String>> getMemberPageList() {
+    public static Flowable<BaseResponse<GetMemberPageListRespBean>> getMemberPageList() {
         return getService().getMemberPageList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 

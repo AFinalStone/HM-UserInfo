@@ -5,6 +5,7 @@ import com.hm.iou.sharedata.model.UserThirdPlatformInfo;
 import com.hm.iou.userinfo.bean.BitmapAndFileIdBean;
 import com.hm.iou.userinfo.bean.BlackNameAndHideContractNumResBean;
 import com.hm.iou.userinfo.bean.BlackNameBean;
+import com.hm.iou.userinfo.bean.GetMemberPageListRespBean;
 import com.hm.iou.userinfo.bean.HideContractBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
@@ -146,7 +147,7 @@ public interface PersonService {
     Flowable<BaseResponse<UpdateTypeOfAddFriendByOtherResBean>> updateTypeOfAddFriendByOther(@Body UpdateTypeOfAddFriendByOtherReqBean reqBean);
 
     @GET("/api/coupon/v1/member/page")
-    Flowable<BaseResponse<String>> getMemberPageList();
+    Flowable<BaseResponse<GetMemberPageListRespBean>> getMemberPageList();
 
     @POST("/api/coupon/v1/getMemberCoupon")
     Flowable<BaseResponse<String>> getMemberCoupon();

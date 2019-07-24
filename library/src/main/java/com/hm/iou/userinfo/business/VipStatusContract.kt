@@ -2,6 +2,7 @@ package com.hm.iou.userinfo.business;
 
 import com.hm.iou.base.mvp.BaseContract;
 import com.hm.iou.userinfo.business.view.VipICouponItem
+import com.hm.iou.userinfo.business.view.VipIHeaderModuleItem
 
 interface VipStatusContract {
 
@@ -12,7 +13,7 @@ interface VipStatusContract {
          * @param headerUrl
          * @param defaultAvatarResId
          */
-        fun showNoVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, list: List<VipICouponItem>?)
+        fun showNoVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?)
 
         /**
          * 显示VIP用户信息
@@ -22,15 +23,13 @@ interface VipStatusContract {
          * @param list
          * @param vipValidDate
          */
-        fun showVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, vipValidDate: String?, list: List<VipICouponItem>?)
+        fun showVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, vipValidDate: String?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?)
 
     }
 
     interface Presenter : BaseContract.BasePresenter {
 
         fun init()
-
-        fun getMemberInfo()
 
         fun getPayInfo()
     }

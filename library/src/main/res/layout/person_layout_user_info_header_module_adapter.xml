@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_module"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        tools:src="@mipmap/uikit_ic_more_black" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/UikitTextView"
+        android:layout_marginTop="5dp"
+        android:textColor="#ff575b62"
+        android:textSize="@dimen/textFontSize_14"
+        tools:text="百元金券" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        style="@style/UikitTextView.Auxiliary.Small"
+        android:layout_marginTop="1dp"
+        tools:text="可省600多元" />
+</LinearLayout>

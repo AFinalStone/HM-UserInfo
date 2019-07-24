@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_content"
-    android:layout_width="165dp"
-    android:layout_height="76dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="3dp">
 
-    <TextView
-        android:id="@+id/tv_price"
-        style="@style/UikitTextView.Auxiliary"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="¥ 2"
-        android:textColor="#ff575b62"
-        android:textSize="@dimen/textFontSize_30" />
+    <LinearLayout
+        android:layout_width="124dp"
+        android:layout_height="76dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_desc"
-        style="@style/UikitTextView.Auxiliary"
-        android:layout_below="@id/tv_price"
-        android:layout_marginStart="33dp"
-        android:text="满10元可用" />
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/UikitTextView"
+            android:singleLine="true"
+            android:text="¥ 2"
+            android:textColor="#ff575b62"
+            android:textSize="@dimen/textFontSize_30" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            style="@style/UikitTextView.Auxiliary"
+            android:singleLine="true"
+            android:text="满10元可用" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="41dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
+        android:layout_height="76dp"
+        android:background="@drawable/person_bg_coupon_right_blue"
+        android:ems="1"
         android:gravity="center"
-        android:text="领\n取"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/textFontSize_16" />
-</RelativeLayout>
+        android:textDirection="1"
+        android:textSize="@dimen/textFontSize_16"
+        tools:text="领取" />
+</LinearLayout>

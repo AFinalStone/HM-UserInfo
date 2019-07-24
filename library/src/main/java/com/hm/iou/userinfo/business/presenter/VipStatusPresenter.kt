@@ -2,8 +2,19 @@ package com.hm.iou.userinfo.business.presenter
 
 import android.content.Context
 import com.hm.iou.base.mvp.MvpActivityPresenter
+import com.hm.iou.base.utils.CommSubscriber
+import com.hm.iou.base.utils.RxUtil
 import com.hm.iou.sharedata.UserManager
+import com.hm.iou.sharedata.model.BaseResponse
+import com.hm.iou.userinfo.R
+import com.hm.iou.userinfo.api.PersonApi
+import com.hm.iou.userinfo.bean.Coupon
+import com.hm.iou.userinfo.bean.GetMemberPageListRespBean
+import com.hm.iou.userinfo.bean.Module
 import com.hm.iou.userinfo.business.VipStatusContract
+import com.hm.iou.userinfo.business.view.VipICouponItem
+import com.hm.iou.userinfo.business.view.VipIHeaderModuleItem
+import com.trello.rxlifecycle2.android.ActivityEvent
 
 
 /**
@@ -13,12 +24,32 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
 
 
     override fun init() {
-        val userInfo = UserManager.getInstance(mContext).userInfo
-        val avatarUrl = userInfo.avatarUrl
-        //头像
-        val sex = userInfo.sex
-        val defaultAvatarResId = UserDataUtil.getDefaultAvatarBySex(sex)
-        mView.showNoVipUserInfoView(avatarUrl, defaultAvatarResId, null)
+        mView.showLoadingView()
+        PersonApi.getMemberPageList()
+                .compose(provider.bindUntilEvent<BaseResponse<GetMemberPageListRespBean>>(ActivityEvent.DESTROY))
+                .map(RxUtil.handleResponse<GetMemberPageListRespBean>())
+                .subscribeWith(object : CommSubscriber<GetMemberPageListRespBean>(mView) {
+
+                    override fun handleResult(bean: GetMemberPageListRespBean?) {
+                        mView.dismissLoadingView()
+                        //用户头像
+                        val userInfo = UserManager.getInstance(mContext).userInfo
+                        val avatarUrl = userInfo.avatarUrl
+                        val sex = userInfo.sex
+                        val defaultAvatarResId = UserDataUtil.getDefaultAvatarBySex(sex)
+                        //优惠券套餐
+                        val packageList = bean?.coupons
+                        val moduleList = bean?.modules
+                        mView.showNoVipUserInfoView(avatarUrl, defaultAvatarResId, changeModuleToVipIHeaderModuleItem(moduleList), changeCouponToVipICouponItem(packageList))
+                    }
+
+                    override fun handleException(p0: Throwable?, p1: String?, p2: String?) {
+                        mView.dismissLoadingView()
+                        mView.closeCurrPage()
+                    }
+
+
+                })
     }
 
     override fun getPayInfo() {
@@ -57,21 +88,46 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
 //                })
     }
 
-    override fun getMemberInfo() {
-        mView.showLoadingView()
+    fun changeCouponToVipICouponItem(list: List<Coupon>?): List<VipICouponItem> {
+        val listResult: ArrayList<VipICouponItem> = ArrayList()
+        list?.let {
+            for (bean: Coupon in list) {
+                var item = object : VipICouponItem {
+                    override fun getCouponId(): String = bean.couponId ?: ""
 
+                    override fun getCouponPrice(): String = bean.reachPrice ?: ""
+
+                    override fun getCouponDesc(): String = bean.couponName ?: ""
+
+                    override fun getCouponStatus(): String = "领取"
+
+                    override fun getBackgroundResId(): Int = R.color.uikit_red
+                }
+                listResult.add(item)
+            }
+        }
+        return listResult
     }
 
-//    /**
-//     * 显示用户头像
-//     */
-//    private fun showUserAvatar() {
-//        val userInfo = UserManager.getInstance(mContext).userInfo
-//        val avatarUrl = userInfo.avatarUrl
-//        //头像
-//        val sex = userInfo.sex
-//        val defaultAvatarResId = UserDataUtil.getDefaultAvatarBySex(sex)
-//        mView.showAvatar(avatarUrl, defaultAvatarResId)
-//    }
+    fun changeModuleToVipIHeaderModuleItem(list: List<Module>?): List<VipIHeaderModuleItem> {
+        val listResult: ArrayList<VipIHeaderModuleItem> = ArrayList()
+        list?.let {
+            for (bean: Module in list) {
+                var item = object : VipIHeaderModuleItem {
+
+                    override fun getModuleUrl(): String = bean.picUrl ?: ""
+
+                    override fun getModuleTitle(): String = bean.mainTitle ?: ""
+
+                    override fun getModuleDesc(): String = bean.subTitle ?: ""
+
+                    override fun getModuleFiltrateColor(): String = bean.picUrl ?: ""
+
+                }
+                listResult.add(item)
+            }
+        }
+        return listResult
+    }
 
 }
