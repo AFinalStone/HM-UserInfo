@@ -15,14 +15,14 @@
         android:textSize="18sp" />
 
     <TextView
+        style="@style/UikitTextView.Auxiliary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
+        android:gravity="center"
         android:paddingBottom="30dip"
         android:paddingLeft="45dip"
         android:paddingRight="45dip"
-        android:text="每月不定时发放签章2-4个；配专职客服对接。\n投诉举报电话：0571-85456903"
-        android:textColor="@color/uikit_text_auxiliary"
-        android:textSize="14dp" />
+        android:text="配专职客服对接。\n投诉举报电话：0571-85456903" />
 
 </LinearLayout>

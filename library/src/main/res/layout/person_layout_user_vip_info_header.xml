@@ -4,7 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/uikit_background"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/person_bg_vip_not"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.hm.iou.uikit.HMTopBarView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/uikit_topbar_height"
+            android:visibility="invisible" />
+
+        <com.hm.iou.uikit.CircleImageView
+            android:id="@+id/iv_header"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/uikit_icon_header_unknow" />
+
+        <ImageView
+            android:id="@+id/iv_header_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:src="@mipmap/persion_user_flag_not_vip" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_vip_valid_date"

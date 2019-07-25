@@ -2,21 +2,25 @@ package com.hm.iou.userinfo.business.view
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hm.iou.base.BaseActivity
+import com.hm.iou.router.Router
 import com.hm.iou.tools.ImageLoader
 import com.hm.iou.tools.kt.clickWithDuration
 import com.hm.iou.userinfo.R
 import com.hm.iou.userinfo.business.VipStatusContract
 import com.hm.iou.userinfo.business.presenter.VipStatusPresenter
+import com.hm.iou.userinfo.dict.CouPinStatusType
 import kotlinx.android.synthetic.main.person_activity_vip_status.*
 
 
@@ -38,7 +42,13 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
             if (R.id.tv_status == view.id) {
                 val item: VipICouponItem? = mAdapter.getItem(position)
                 item?.let {
-                    mPresenter.getCoupon(item.getCouponId())
+                    if (CouPinStatusType.TO_EXPENSE == item.getCouponStatus()) {
+                        Router.getInstance()
+                                .buildWithUrl("hmiou://m.54jietiao.com/iou/draftlist?if_create=true")
+                                .navigation()
+                    } else {
+                        mPresenter.getCoupon(item.getCouponId(), position)
+                    }
                 }
             }
         }
@@ -54,23 +64,35 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         }
     }
 
-    override fun showHeaderInfo(headerUrl: String?, defaultAvatarResId: Int) {
-        ImageLoader.getInstance(mContext).displayImage(headerUrl, iv_header, defaultAvatarResId, defaultAvatarResId)
-    }
-
-    override fun showNoVipUserInfoView(remindDay: Int?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?) {
+    override fun showNoVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, remindDay: Int?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?) {
         rl_content.visibility = VISIBLE
         iv_vip_open_vip.clickWithDuration {
             mPresenter.getPayInfo()
         }
-        iv_header_flag.setImageResource(R.mipmap.persion_user_flag_not_vip)
-        rl_header_bg.setBackgroundResource(R.mipmap.person_bg_vip_not)
 
         //优惠券列表
         rv_coupon_list.layoutManager = GridLayoutManager(mContext, 2)
         rv_coupon_list.adapter = mAdapter
         //优惠券列表头部View
         val viewHeader = LayoutInflater.from(mContext).inflate(R.layout.person_layout_user_vip_info_header, null)
+
+        rv_coupon_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val distance = viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).height - rv_coupon_list.computeVerticalScrollOffset()
+                if (distance > 0) {
+                    topBar.setBackgroundColor(Color.TRANSPARENT)
+                } else {
+                    topBar.setBackgroundColor(Color.WHITE)
+                }
+            }
+        })
+        //头像
+        val ivHeader: ImageView = viewHeader.findViewById(R.id.iv_header)
+        ImageLoader.getInstance(mContext).displayImage(headerUrl, ivHeader, defaultAvatarResId, defaultAvatarResId)
+        viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).setBackgroundResource(R.mipmap.person_bg_vip_not)
+        viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setBackgroundResource(R.mipmap.persion_user_flag_not_vip)
+        //剩余天数
         remindDay?.let {
             viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).visibility = VISIBLE
             viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).text = "（剩余$remindDay 天）"
@@ -90,16 +112,31 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         mAdapter.setNewData(listCoupon)
     }
 
-    override fun showVipUserInfoView(remindDay: Int?, vipValidDate: String?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?) {
+    override fun showVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, remindDay: Int?, vipValidDate: String?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?) {
         rl_content.visibility = VISIBLE
         iv_vip_open_vip.visibility = GONE
-        iv_header_flag.setImageResource(R.mipmap.persion_user_flag_vip)
-        rl_header_bg.setBackgroundResource(R.mipmap.person_bg_vip)
         //优惠券列表
         rv_coupon_list.layoutManager = GridLayoutManager(mContext, 2)
         rv_coupon_list.adapter = mAdapter
         //优惠券列表头部View
         val viewHeader = LayoutInflater.from(mContext).inflate(R.layout.person_layout_user_vip_info_header, null)
+        rv_coupon_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val distance = viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).height - rv_coupon_list.computeVerticalScrollOffset()
+                if (distance > 0) {
+                    topBar.setBackgroundColor(Color.TRANSPARENT)
+                } else {
+                    topBar.setBackgroundColor(Color.WHITE)
+                }
+            }
+        })
+        //头像
+        val ivHeader: ImageView = viewHeader.findViewById(R.id.iv_header)
+        ImageLoader.getInstance(mContext).displayImage(headerUrl, ivHeader, defaultAvatarResId, defaultAvatarResId)
+        viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).setBackgroundResource(R.mipmap.person_bg_vip)
+        viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setBackgroundResource(R.mipmap.persion_user_flag_vip)
+        //剩余天数
         remindDay?.let {
             viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).visibility = VISIBLE
             viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).text = "（剩余$remindDay 天）"
@@ -124,4 +161,11 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         mAdapter.setNewData(listCoupon)
     }
 
+    override fun updateCouPonItem(position: Int) {
+        val item: VipICouponItem? = mAdapter.getItem(position)
+        item?.let {
+            item.setCouponStatus(CouPinStatusType.TO_EXPENSE)
+            mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
+        }
+    }
 }

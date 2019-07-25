@@ -8,7 +8,6 @@ import com.hm.iou.sharedata.UserManager
 import com.hm.iou.sharedata.model.BaseResponse
 import com.hm.iou.tools.MoneyFormatUtil
 import com.hm.iou.userinfo.NavigationHelper
-import com.hm.iou.userinfo.R
 import com.hm.iou.userinfo.api.PersonApi
 import com.hm.iou.userinfo.bean.*
 import com.hm.iou.userinfo.bean.req.GetMemberCouPonReqBean
@@ -17,6 +16,7 @@ import com.hm.iou.userinfo.business.VipStatusContract
 import com.hm.iou.userinfo.business.view.VipICouponItem
 import com.hm.iou.userinfo.business.view.VipIHeaderModuleItem
 import com.hm.iou.userinfo.business.view.VipStatusActivity
+import com.hm.iou.userinfo.dict.CouPinStatusType
 import com.hm.iou.userinfo.event.UpdateVipEvent
 import com.trello.rxlifecycle2.android.ActivityEvent
 import org.greenrobot.eventbus.EventBus
@@ -38,12 +38,6 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                 .map(RxUtil.handleResponse<MemberBean>())
                 .subscribeWith(object : CommSubscriber<MemberBean>(mView) {
                     override fun handleResult(memberBean: MemberBean) {
-                        //用户头像
-                        val userInfo = UserManager.getInstance(mContext).userInfo
-                        val avatarUrl = userInfo.avatarUrl
-                        val sex = userInfo.sex
-                        val defaultAvatarResId = UserDataUtil.getDefaultAvatarBySex(sex)
-                        mView.showHeaderInfo(avatarUrl, defaultAvatarResId)
                         //是否是VIP
                         if (memberBean.memType == 110) {   //如果是VIP
                             try {
@@ -81,11 +75,16 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                         //优惠券套餐
                         val moduleList = bean?.modules
                         val packageList = bean?.coupons
+                        //用户头像
+                        val userInfo = UserManager.getInstance(mContext).userInfo
+                        val avatarUrl = userInfo.avatarUrl
+                        val sex = userInfo.sex
+                        val defaultAvatarResId = UserDataUtil.getDefaultAvatarBySex(sex)
                         //会员有效期
                         if (mIsVIP) {
-                            mView.showVipUserInfoView(bean?.couponCount, mVipEndTime, changeModuleToVipIHeaderModuleItem(moduleList), changeCouponToVipICouponItem(packageList))
+                            mView.showVipUserInfoView(avatarUrl, defaultAvatarResId, bean?.remainDays, mVipEndTime, changeModuleToVipIHeaderModuleItem(moduleList), changeCouponToVipICouponItem(packageList))
                         } else {
-                            mView.showNoVipUserInfoView(bean?.couponCount, changeModuleToVipIHeaderModuleItem(moduleList), changeCouponToVipICouponItem(packageList))
+                            mView.showNoVipUserInfoView(avatarUrl, defaultAvatarResId, bean?.remainDays, changeModuleToVipIHeaderModuleItem(moduleList), changeCouponToVipICouponItem(packageList))
                         }
                     }
 
@@ -96,23 +95,28 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                 })
     }
 
-    override fun getCoupon(couponId: String) {
-        mView.showLoadingView()
-        val req = GetMemberCouPonReqBean(couponId)
-        PersonApi.getMemberCoupon(req)
-                .compose(provider.bindUntilEvent<BaseResponse<String>>(ActivityEvent.DESTROY))
-                .map(RxUtil.handleResponse())
-                .subscribeWith(object : CommSubscriber<String>(mView) {
+    override fun getCoupon(couponId: String, position: Int) {
+        if (mIsVIP) {
+            mView.showLoadingView()
+            val req = GetMemberCouPonReqBean(couponId)
+            PersonApi.getMemberCoupon(req)
+                    .compose(provider.bindUntilEvent<BaseResponse<String>>(ActivityEvent.DESTROY))
+                    .map(RxUtil.handleResponse())
+                    .subscribeWith(object : CommSubscriber<String>(mView) {
 
-                    override fun handleException(p0: Throwable?, p1: String?, p2: String?) {
-                        mView.dismissLoadingView()
-                    }
+                        override fun handleException(p0: Throwable?, p1: String?, p2: String?) {
+                            mView.dismissLoadingView()
+                        }
 
-                    override fun handleResult(p0: String?) {
-                        getMemberPageList()
-                    }
+                        override fun handleResult(p0: String?) {
+                            mView.dismissLoadingView()
+                            mView.updateCouPonItem(position)
+                        }
 
-                })
+                    })
+        } else {
+            getPayInfo();
+        }
     }
 
     override fun getPayInfo() {
@@ -154,6 +158,10 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
         list?.let {
             for (bean: Coupon in list) {
                 var item = object : VipICouponItem {
+                    override fun isVIP(): Boolean = mIsVIP
+
+                    var status: CouPinStatusType? = null
+
                     override fun getCouponId(): String = bean.couponId ?: ""
 
                     override fun getCouponName(): String {
@@ -166,33 +174,21 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
 
                     override fun getCouponDesc(): String = bean.couponDesc ?: ""
 
-                    override fun getCouponStatus(): String {
-                        var statusDesc = "领取"
-                        bean.status?.let {
-                            when (bean.status) {
-                                1 -> statusDesc = "领取"
-                                2 -> statusDesc = "去使用"
-                                3 -> statusDesc = "已使用"
-                            }
-                        }
-                        return statusDesc
+                    override fun getCouponStatus(): CouPinStatusType {
+                        return status ?: CouPinStatusType.WAIT_GET
                     }
 
-                    override fun getRightResId(): Int {
-                        var rightBgResId = R.drawable.person_bg_coupon_right_blue
-                        bean.status?.let {
-                            when (bean.status) {
-                                1 -> {
-                                    rightBgResId = if (mIsVIP) R.drawable.person_bg_coupon_right_orangered
-                                    else R.drawable.person_bg_coupon_right_blue
-                                }
-                                2 -> rightBgResId = R.drawable.person_bg_coupon_right_blue
-                                3 -> rightBgResId = R.drawable.person_bg_coupon_right_gray
-                            }
-                        }
-                        return rightBgResId
+                    override fun setCouponStatus(status: CouPinStatusType) {
+                        this.status = status
                     }
                 }
+                val status = when {
+                    1 == bean.status -> CouPinStatusType.WAIT_GET
+                    2 == bean.status -> CouPinStatusType.TO_EXPENSE
+                    3 == bean.status -> CouPinStatusType.HAVE_USE
+                    else -> CouPinStatusType.WAIT_GET
+                }
+                item.setCouponStatus(status)
                 listResult.add(item)
             }
         }
@@ -226,4 +222,8 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
         return listResult
     }
 
+
 }
+
+
+

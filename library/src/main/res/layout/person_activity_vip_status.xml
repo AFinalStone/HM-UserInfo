@@ -9,39 +9,6 @@
     android:visibility="invisible"
     tools:visibility="visible">
 
-    <RelativeLayout
-        android:id="@+id/rl_header_bg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/person_bg_vip_not">
-
-        <com.hm.iou.uikit.HMTopBarView
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/uikit_topbar_height"
-            app:bottomDividerIsShow="false"
-            app:titleBackground="@android:color/transparent"
-            app:titleText="VIP会员" />
-
-        <com.hm.iou.uikit.CircleImageView
-            android:id="@+id/iv_header"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_below="@id/topBar"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/uikit_icon_header_unknow" />
-
-        <ImageView
-            android:id="@+id/iv_header_flag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_header"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dip"
-            android:src="@mipmap/persion_user_flag_not_vip" />
-
-    </RelativeLayout>
-
     <ImageView
         android:id="@+id/iv_vip_open_vip"
         android:layout_width="match_parent"
@@ -55,8 +22,13 @@
         android:id="@+id/rv_coupon_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/iv_vip_open_vip"
-        android:layout_below="@id/rl_header_bg" />
+        android:layout_above="@id/iv_vip_open_vip" />
 
-
+    <com.hm.iou.uikit.HMTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uikit_topbar_height"
+        app:bottomDividerIsShow="false"
+        app:titleBackground="@android:color/transparent"
+        app:titleText="VIP会员" />
 </RelativeLayout>
