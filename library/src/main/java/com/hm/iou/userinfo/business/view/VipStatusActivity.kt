@@ -45,7 +45,7 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         mPresenter.init()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQ_CODE_TO_PAY_VIP_PAGE) {
             if (resultCode == Activity.RESULT_OK) {
