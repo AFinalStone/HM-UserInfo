@@ -41,6 +41,10 @@ dependencies {
     compile 'com.heima.iou:hmpaylocal:1.0.0'
     //好友
     compile 'com.heima.iou:hmmessagecenterlocal:1.0.0'
+    //借条创建
+    compile 'com.heima.iou:hmioucreatelocal:1.0.0'
+    //首页、借条创建、编辑、展示等相关功能
+    compile 'com.heima.iou:hmjietiaolocal:1.0.0'
 
     compile 'com.android.support:multidex:1.0.0'
 

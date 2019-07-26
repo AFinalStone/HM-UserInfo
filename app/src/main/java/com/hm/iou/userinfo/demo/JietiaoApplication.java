@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.hm.iou.base.BaseBizAppLike;
+import com.hm.iou.create.IOUCreateAppLike;
+import com.hm.iou.jietiao.JietiaoAppLike;
 import com.hm.iou.logger.Logger;
 import com.hm.iou.msg.MsgCenterAppLike;
 import com.hm.iou.network.HttpReqManager;
@@ -33,12 +35,19 @@ public class JietiaoApplication extends Application {
 //                "http://dev.54jietiao.com");
         appLike.setDebug(BuildConfig.DEBUG);
 
+        initNetwork();
+
         MsgCenterAppLike msgCenterAppLike = new MsgCenterAppLike();
         msgCenterAppLike.onCreate(this);
-        initNetwork();
 
         SocialShareAppLike shareAppLike = new SocialShareAppLike();
         shareAppLike.onCreate(this);
+
+        JietiaoAppLike jietiaoAppLike = new JietiaoAppLike();
+        jietiaoAppLike.onCreate(this);
+
+        IOUCreateAppLike iouCreateAppLike = new IOUCreateAppLike();
+        iouCreateAppLike.onCreate(this);
 
     }
 

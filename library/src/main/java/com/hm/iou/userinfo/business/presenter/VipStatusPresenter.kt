@@ -115,7 +115,7 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
 
                     })
         } else {
-            getPayInfo();
+            getPayInfo()
         }
     }
 

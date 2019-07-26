@@ -42,7 +42,7 @@
         android:gravity="center"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textDirection="1"
         android:textSize="@dimen/textFontSize_16"
         tools:text="领取" />

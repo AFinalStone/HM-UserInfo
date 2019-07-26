@@ -24,6 +24,8 @@ class VipCouponAdapter : BaseQuickAdapter<VipICouponItem, BaseViewHolder>(R.layo
         tvName.text = msp
         helper.setText(R.id.tv_desc, item.getCouponDesc())
 
+        //状态
+        helper.setText(R.id.tv_status, item.getCouponStatus().des)
         when (item.getCouponStatus()) {
             CouPinStatusType.WAIT_GET -> {//等待领取
                 if (item.isVIP()) {
@@ -31,17 +33,12 @@ class VipCouponAdapter : BaseQuickAdapter<VipICouponItem, BaseViewHolder>(R.layo
                 } else {
                     helper.setBackgroundRes(R.id.tv_status, R.drawable.person_bg_coupon_right_blue)
                 }
-                helper.setText(R.id.tv_status, "领取")
-                helper.addOnClickListener(R.id.tv_status)
             }
             CouPinStatusType.TO_EXPENSE -> {//去使用
-                helper.setText(R.id.tv_status, "去使用")
                 helper.setBackgroundRes(R.id.tv_status, R.drawable.person_bg_coupon_right_blue)
-                helper.addOnClickListener(R.id.tv_status)
 
             }
             CouPinStatusType.HAVE_USE -> {//已使用
-                helper.setText(R.id.tv_status, "已使用")
                 helper.setBackgroundRes(R.id.tv_status, R.drawable.person_bg_coupon_right_gray)
                 tvName.setTextColor(Color.parseColor("#9faabd"))
                 helper.setTextColor(R.id.tv_desc, Color.parseColor("#c7cddd"))

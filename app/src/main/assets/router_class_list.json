@@ -321,6 +321,11 @@
       "url": "hmiou://m.54jietiao.com/message/firend_detail?userId=*",
       "iclass": "",
       "aclass": "com.hm.iou.msg.business.friend.view.FriendDetailActivity"
+    },
+    {
+      "url": "hmiou://m.54jietiao.com/message/session_detail?friend_im_id=*&if_check_status",
+      "iclass": "",
+      "aclass": "com.hm.iou.msg.business.message.view.SessionDetailPreviewActivity"
     }
   ],
   "webview": [
@@ -423,7 +428,7 @@
       "aclass": "com.hm.iou.jietiao.business.detail.v2.ElecBorrowDetailV2Activity"
     },
     {
-      "url": "hmiou://m.54jietiao.com/iou/draftlist",
+      "url": "hmiou://m.54jietiao.com/iou/draftlist?if_create=",
       "iclass": "",
       "aclass": "com.hm.iou.jietiao.business.draft.view.DraftListActivity"
     },

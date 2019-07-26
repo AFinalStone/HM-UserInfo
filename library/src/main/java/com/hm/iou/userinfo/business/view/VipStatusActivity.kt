@@ -38,17 +38,16 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
     override fun initPresenter(): VipStatusPresenter = VipStatusPresenter(mContext, this)
 
     override fun initEventAndData(p0: Bundle?) {
-        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { _, view, position ->
-            if (R.id.tv_status == view.id) {
-                val item: VipICouponItem? = mAdapter.getItem(position)
-                item?.let {
-                    if (CouPinStatusType.TO_EXPENSE == item.getCouponStatus()) {
-                        Router.getInstance()
-                                .buildWithUrl("hmiou://m.54jietiao.com/iou/draftlist?if_create=true")
-                                .navigation()
-                    } else {
-                        mPresenter.getCoupon(item.getCouponId(), position)
-                    }
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { _, _, position ->
+            val item: VipICouponItem? = mAdapter.getItem(position)
+            item?.let {
+                if (CouPinStatusType.TO_EXPENSE == item.getCouponStatus()) {
+                    Router.getInstance()
+                            .buildWithUrl("hmiou://m.54jietiao.com/iou/draftlist?if_create=true")
+                            .navigation()
+                } else if (CouPinStatusType.HAVE_USE == item.getCouponStatus()) {
+                } else {
+                    mPresenter.getCoupon(item.getCouponId(), position)
                 }
             }
         }
@@ -136,6 +135,10 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         ImageLoader.getInstance(mContext).displayImage(headerUrl, ivHeader, defaultAvatarResId, defaultAvatarResId)
         viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).setBackgroundResource(R.mipmap.person_bg_vip)
         viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setBackgroundResource(R.mipmap.persion_user_flag_vip)
+        //VIP有效期
+        viewHeader.findViewById<LinearLayout>(R.id.ll_vip_valid_date).visibility = VISIBLE
+        viewHeader.findViewById<TextView>(R.id.tv_vip_valid_date).text = vipValidDate
+
         //剩余天数
         remindDay?.let {
             viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).visibility = VISIBLE
