@@ -7,8 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -90,12 +89,9 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         val ivHeader: ImageView = viewHeader.findViewById(R.id.iv_header)
         ImageLoader.getInstance(mContext).displayImage(headerUrl, ivHeader, defaultAvatarResId, defaultAvatarResId)
         viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).setBackgroundResource(R.mipmap.person_bg_vip_not)
-        viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setBackgroundResource(R.mipmap.persion_user_flag_not_vip)
+        viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setImageResource(R.mipmap.persion_user_flag_not_vip)
         //剩余天数
-        remindDay?.let {
-            viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).visibility = VISIBLE
-            viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).text = "（剩余$remindDay 天）"
-        }
+        viewHeader.findViewById<TextView>(R.id.tv_coupon_valid_date).visibility = INVISIBLE
         listCoupon?.let {
             if (listCoupon.isNotEmpty()) {
                 viewHeader.findViewById<TextView>(R.id.tv_coupon_count).visibility = VISIBLE
@@ -134,7 +130,7 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         val ivHeader: ImageView = viewHeader.findViewById(R.id.iv_header)
         ImageLoader.getInstance(mContext).displayImage(headerUrl, ivHeader, defaultAvatarResId, defaultAvatarResId)
         viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).setBackgroundResource(R.mipmap.person_bg_vip)
-        viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setBackgroundResource(R.mipmap.persion_user_flag_vip)
+        viewHeader.findViewById<ImageView>(R.id.iv_header_flag).setImageResource(R.mipmap.persion_user_flag_vip)
         //VIP有效期
         viewHeader.findViewById<LinearLayout>(R.id.ll_vip_valid_date).visibility = VISIBLE
         viewHeader.findViewById<TextView>(R.id.tv_vip_valid_date).text = vipValidDate
