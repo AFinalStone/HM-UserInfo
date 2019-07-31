@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View.*
@@ -77,11 +78,16 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         rv_coupon_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val distance = viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).height - rv_coupon_list.computeVerticalScrollOffset()
-                if (distance > 0) {
-                    topBar.setBackgroundColor(Color.TRANSPARENT)
+                val firstVisible = (rv_coupon_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                val top = rv_coupon_list.getChildAt(0).top
+                if (firstVisible == 0) {
+                    if (-top > 5) {
+                        topBar.setBackgroundColor(Color.parseColor("#AAFFFFFF"))
+                    } else {
+                        topBar.setBackgroundColor(Color.TRANSPARENT)
+                    }
                 } else {
-                    topBar.setBackgroundColor(Color.WHITE)
+                    topBar.setBackgroundColor(Color.parseColor("#AAFFFFFF"))
                 }
             }
         })
@@ -107,6 +113,7 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         mAdapter.setNewData(listCoupon)
     }
 
+
     override fun showVipUserInfoView(headerUrl: String?, defaultAvatarResId: Int, remindDay: Int?, vipValidDate: String?, listModule: List<VipIHeaderModuleItem>?, listCoupon: List<VipICouponItem>?) {
         rl_content.visibility = VISIBLE
         iv_vip_open_vip.visibility = GONE
@@ -118,11 +125,16 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         rv_coupon_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val distance = viewHeader.findViewById<LinearLayout>(R.id.ll_header_bg).height - rv_coupon_list.computeVerticalScrollOffset()
-                if (distance > 0) {
-                    topBar.setBackgroundColor(Color.TRANSPARENT)
+                val firstVisible = (rv_coupon_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                val top = rv_coupon_list.getChildAt(0).top
+                if (firstVisible == 0) {
+                    if (-top > 5) {
+                        topBar.setBackgroundColor(Color.parseColor("#AAFFFFFF"))
+                    } else {
+                        topBar.setBackgroundColor(Color.TRANSPARENT)
+                    }
                 } else {
-                    topBar.setBackgroundColor(Color.WHITE)
+                    topBar.setBackgroundColor(Color.parseColor("#AAFFFFFF"))
                 }
             }
         })
