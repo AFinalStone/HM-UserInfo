@@ -106,7 +106,10 @@ public class AuthenticationInfoActivity extends BaseActivity<AuthenticationInfoP
         }
         //头像
         String headerUrl = infoBean.getAvatarUrl();
-        ImageLoader.getInstance(mContext).displayImage(headerUrl, mIvHeader);
+        if (!TextUtils.isEmpty(headerUrl)) {
+            ImageLoader.getInstance(mContext).displayImage(headerUrl, mIvHeader, R.mipmap.uikit_icon_header_unknow, R.mipmap.uikit_icon_header_unknow);
+        }
+
         //姓名
         String name = infoBean.getRealName();
         mTvName.setText(name);
