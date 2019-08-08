@@ -37,28 +37,30 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                 .compose(provider.bindUntilEvent<BaseResponse<MemberBean>>(ActivityEvent.DESTROY))
                 .map(RxUtil.handleResponse<MemberBean>())
                 .subscribeWith(object : CommSubscriber<MemberBean>(mView) {
-                    override fun handleResult(memberBean: MemberBean) {
+                    override fun handleResult(memberBean: MemberBean?) {
                         //是否是VIP
-                        if (memberBean.memType == 110) {   //如果是VIP
-                            try {
-                                mIsVIP = true
-                                val sf01 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                                val endTime = sf01.parse(memberBean.endDate)
-                                val sf02 = SimpleDateFormat("yyyy年MM月dd日")
-                                mVipEndTime = "VIP会员有效期至：" + sf02.format(endTime)
-                                //更新用户VIP信息
-                                val userInfo = UserManager.getInstance(mContext).userInfo
-                                userInfo.memType = memberBean.memType
-                                UserManager.getInstance(mContext).updateOrSaveUserInfo(userInfo)
-                                EventBus.getDefault().post(UpdateVipEvent())
-                            } catch (e: Exception) {
+                        memberBean?.let {
+                            if (memberBean.memType == 110) {   //如果是VIP
+                                try {
+                                    mIsVIP = true
+                                    val sf01 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                                    val endTime = sf01.parse(memberBean.endDate)
+                                    val sf02 = SimpleDateFormat("yyyy年MM月dd日")
+                                    mVipEndTime = "VIP会员有效期至：" + sf02.format(endTime)
+                                    //更新用户VIP信息
+                                    val userInfo = UserManager.getInstance(mContext).userInfo
+                                    userInfo.memType = memberBean.memType
+                                    UserManager.getInstance(mContext).updateOrSaveUserInfo(userInfo)
+                                    EventBus.getDefault().post(UpdateVipEvent())
+                                } catch (e: Exception) {
 
+                                }
                             }
                         }
                         getMemberPageList()
                     }
 
-                    override fun handleException(throwable: Throwable, s: String?, s1: String?) {
+                    override fun handleException(throwable: Throwable?, s: String?, s1: String?) {
                         mView.closeCurrPage()
                     }
                 })
