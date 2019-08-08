@@ -126,9 +126,9 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                 .compose(provider.bindUntilEvent<BaseResponse<PayPackageResBean>>(ActivityEvent.DESTROY))
                 .map(RxUtil.handleResponse<PayPackageResBean>())
                 .subscribeWith(object : CommSubscriber<PayPackageResBean>(mView) {
-                    override fun handleResult(payPackageResBean: PayPackageResBean) {
+                    override fun handleResult(payPackageResBean: PayPackageResBean?) {
                         mView.dismissLoadingView()
-                        val list: List<PayPackageResBean.PackageRespListBean>? = payPackageResBean.packageRespList
+                        val list: List<PayPackageResBean.PackageRespListBean>? = payPackageResBean?.packageRespList
                         if (!list.isNullOrEmpty()) {
                             val data = list?.get(0)
                             val payMoney: String?
@@ -147,7 +147,7 @@ class VipStatusPresenter(context: Context, view: VipStatusContract.View) : MvpAc
                         }
                     }
 
-                    override fun handleException(throwable: Throwable, s: String, s1: String) {
+                    override fun handleException(throwable: Throwable?, s: String?, s1: String?) {
                         mView.dismissLoadingView()
                     }
                 })
