@@ -109,7 +109,7 @@ public class CloudSpacePresenter extends MvpActivityPresenter<CloudSpaceContract
             }
         }
         final CharSequence[] nameArr = new CharSequence[]{
-                "吕约借条", "吕约欠条", "吕约收条", "娱乐借条", "平台债务", "纸质借条", "纸质收条", "房贷合同", "房租合同", "银行卡债"
+                "吕约借条", "吕约欠条", "吕约收条", "娱乐借条", "平台债务", "纸质借条", "纸质收条", "房贷合同", "房租合同", "信用卡债"
         };
         final int[] iouKindArr = new int[]{
                 IOUKindEnum.ElecBorrowReceipt.getValue(), IOUKindEnum.Qiantiao.getValue(), IOUKindEnum.ElecReceiveReceipt.getValue(),
