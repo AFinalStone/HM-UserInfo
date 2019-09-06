@@ -127,7 +127,7 @@ public class TellNoAgreeReasonActivity extends BaseActivity<TellNoAgreeReasonPre
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
-            RouterUtil.toSubmitFeedback(this, "Complain_User_Center", "Other_Question");
+            RouterUtil.toSubmitFeedback(this, "Personal_Feedback", "Other_Question");
         }
     }
 
