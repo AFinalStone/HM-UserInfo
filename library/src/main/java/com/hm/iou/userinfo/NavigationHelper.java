@@ -162,20 +162,6 @@ public class NavigationHelper {
                 .navigation(context);
     }
 
-    /**
-     * 进入反馈提交页面
-     *
-     * @param context
-     * @param sceneCode
-     * @param labelCode
-     */
-    public static void toSubmitFeedback(Context context, String sceneCode, String labelCode) {
-        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
-                .withString("url", BaseBizAppLike.getInstance().getH5Server() + ConstantsKt.URL_SUBMIT_FEEDBACK)
-                .withString("sceneCode", sceneCode)
-                .withString("labelCode", labelCode)
-                .navigation(context);
-    }
 
     /**
      * 进入客服反馈入口页面

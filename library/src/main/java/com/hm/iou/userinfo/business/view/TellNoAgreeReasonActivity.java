@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hm.iou.base.BaseActivity;
-import com.hm.iou.router.Router;
+import com.hm.iou.base.utils.RouterUtil;
 import com.hm.iou.tools.ViewConcurrencyUtil;
 import com.hm.iou.uikit.HMLoadingView;
 import com.hm.iou.uikit.HMTopBarView;
@@ -127,7 +127,7 @@ public class TellNoAgreeReasonActivity extends BaseActivity<TellNoAgreeReasonPre
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
-            NavigationHelper.toSubmitFeedback(this, "Complain_User_Center", "Other_Question");
+            RouterUtil.toSubmitFeedback(this, "Complain_User_Center", "Other_Question");
         }
     }
 
