@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.hm.iou.base.BaseBizAppLike;
 import com.hm.iou.router.Router;
+import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterActivity;
+import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterCheckUserInfoActivity;
 import com.hm.iou.userinfo.business.view.BlackNameListActivity;
 import com.hm.iou.userinfo.business.view.ChangeAliPayActivity;
 import com.hm.iou.userinfo.business.view.ChangeEmailVerifyActivity;
-import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterActivity;
-import com.hm.iou.userinfo.business.view.ApplyForeverUnRegisterCheckUserInfoActivity;
 import com.hm.iou.userinfo.business.view.HideContractListActivity;
 import com.hm.iou.userinfo.business.view.MoreSettingActivity;
-import com.hm.iou.userinfo.business.view.SetTypeOfAddFriendByOtherActivity;
 import com.hm.iou.userinfo.business.view.TellNoAgreeReasonActivity;
 import com.hm.iou.userinfo.business.view.UserEmailInfoActivity;
 import com.hm.iou.userinfo.business.view.VipStatusActivity;
@@ -147,6 +147,45 @@ public class NavigationHelper {
      */
     public static void toSetAddFriendByOtherType(Activity context) {
         Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/set_type_of_add_friend_by_other")
+                .navigation(context);
+    }
+
+    /**
+     * 用户进入反馈历史页面
+     *
+     * @param context
+     */
+    public static void toFeedbackListPage(Context context) {
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                .withString("url", BaseBizAppLike.getInstance().getH5Server() + ConstantsKt.URL_USER_FEEDBACK_LIST)
+                .withString("showtitlebar", "false")
+                .navigation(context);
+    }
+
+    /**
+     * 进入反馈提交页面
+     *
+     * @param context
+     * @param sceneCode
+     * @param labelCode
+     */
+    public static void toSubmitFeedback(Context context, String sceneCode, String labelCode) {
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                .withString("url", BaseBizAppLike.getInstance().getH5Server() + ConstantsKt.URL_SUBMIT_FEEDBACK)
+                .withString("sceneCode", sceneCode)
+                .withString("labelCode", labelCode)
+                .navigation(context);
+    }
+
+    /**
+     * 进入客服反馈入口页面
+     *
+     * @param context
+     */
+    public static void toCustomerFeedbackList(Context context) {
+        Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/webview/index")
+                .withString("url", BaseBizAppLike.getInstance().getH5Server() + ConstantsKt.URL_CUSTOMER_FEEDBACK_INDEX)
+                .withString("showtitlebar", "false")
                 .navigation(context);
     }
 

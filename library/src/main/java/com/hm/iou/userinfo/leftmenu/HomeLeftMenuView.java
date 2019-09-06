@@ -54,9 +54,10 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     @BindView(R2.id.rv_top_menu)
     RecyclerView mRvTopMenu;        //横向的菜单
     @BindView(R2.id.rv_menu)        //竖向的菜单
-    RecyclerView mRvListMenu;
+            RecyclerView mRvListMenu;
 
-    private View mLayoutVipItem;
+    private View mLayoutVipItem;        //升级会员
+    private View mLayoutHeimaStarff;    //嘿马员工
 
     private Context mContext;
     private HomeLeftMenuPresenter mPresenter;
@@ -150,7 +151,8 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
     }
 
     public void refreshView() {
-        mPresenter.onResume();
+        mPresenter.refreshData();
+        mPresenter.isHeimaStaff();
     }
 
     @OnClick({R2.id.rl_header, R2.id.tv_more_set, R2.id.tv_feedback})
@@ -171,8 +173,7 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
-                    .navigation(mContext);
+            NavigationHelper.toFeedbackListPage(mContext);
         }
     }
 
@@ -292,4 +293,21 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
             tvVip.setText(vipStatus);
         }
     }
+
+    @Override
+    public void showHeimaStaffItem(String msg) {
+        if (mLayoutHeimaStarff == null) {
+            mLayoutHeimaStarff = LayoutInflater.from(mContext).inflate(R.layout.person_layout_home_left_menu_list_item, null);
+            mListMenuAdapter.addFooterView(mLayoutHeimaStarff);
+            ((TextView) mLayoutHeimaStarff.findViewById(R.id.tv_menu_name)).setText("嘿马员工");
+            mLayoutHeimaStarff.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavigationHelper.toCustomerFeedbackList(mContext);
+                }
+            });
+        }
+        ((TextView) mLayoutHeimaStarff.findViewById(R.id.tv_menu_desc)).setText(msg);
+    }
+
 }

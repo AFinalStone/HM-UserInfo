@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.hm.plugin.commconfig'
 
 android {
     compileSdkVersion 26
@@ -8,7 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.person_bg_coupon_list.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     buildTypes {
@@ -22,16 +23,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    //兼容ndk,能够让ndk正常编译
-    packagingOptions {
-        exclude 'META-INF/library_release.kotlin_module'
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     //图片选择
     compile 'com.heima.iou:hmselectpiclocal:1.0.0'

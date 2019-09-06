@@ -127,8 +127,7 @@ public class TellNoAgreeReasonActivity extends BaseActivity<TellNoAgreeReasonPre
             if (ViewConcurrencyUtil.isFastClicks()) {
                 return;
             }
-            Router.getInstance().buildWithUrl("hmiou://m.54jietiao.com/person/helper_center")
-                    .navigation(mContext);
+            NavigationHelper.toSubmitFeedback(this, "Complain_User_Center", "Other_Question");
         }
     }
 

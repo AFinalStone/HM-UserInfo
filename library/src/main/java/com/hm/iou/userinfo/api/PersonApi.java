@@ -10,6 +10,7 @@ import com.hm.iou.userinfo.bean.BlackNameBean;
 import com.hm.iou.userinfo.bean.GetMemberPageListRespBean;
 import com.hm.iou.userinfo.bean.HideContractBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
+import com.hm.iou.userinfo.bean.InnerCustomerResBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
 import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
@@ -451,4 +452,9 @@ public class PersonApi {
     public static Flowable<BaseResponse<String>> getMemberCoupon(GetMemberCouPonReqBean req) {
         return getService().getMemberCoupon(req).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
+    public static Flowable<BaseResponse<InnerCustomerResBean>> isInnerCustomerService() {
+        return getService().isInnerCustomerService().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
 }

@@ -8,6 +8,7 @@ import com.hm.iou.userinfo.bean.BlackNameBean;
 import com.hm.iou.userinfo.bean.GetMemberPageListRespBean;
 import com.hm.iou.userinfo.bean.HideContractBean;
 import com.hm.iou.userinfo.bean.IOUCountBean;
+import com.hm.iou.userinfo.bean.InnerCustomerResBean;
 import com.hm.iou.userinfo.bean.IsWXExistBean;
 import com.hm.iou.userinfo.bean.MemberBean;
 import com.hm.iou.userinfo.bean.NoAgreeReasonBean;
@@ -152,5 +153,8 @@ public interface PersonService {
 
     @POST("/api/coupon/v1/getMemberCoupon")
     Flowable<BaseResponse<String>> getMemberCoupon(@Body GetMemberCouPonReqBean req);
+
+    @GET("/api/complain/v1/isCustServicer")
+    Flowable<BaseResponse<InnerCustomerResBean>> isInnerCustomerService();
 
 }

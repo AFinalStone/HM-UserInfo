@@ -76,6 +76,13 @@ public interface HomeLeftMenuContract {
          * @param vipStatus
          */
         void updateVipStatus(String vipStatus);
+
+        /**
+         * 显示"嘿马员工"
+         *
+         * @param msg
+         */
+        void showHeimaStaffItem(String msg);
     }
 
     interface Presenter {
@@ -91,5 +98,10 @@ public interface HomeLeftMenuContract {
          * 刷新数据
          */
         void refreshData();
+
+        /**
+         * 是否嘿马员工
+         */
+        void isHeimaStaff();
     }
 }

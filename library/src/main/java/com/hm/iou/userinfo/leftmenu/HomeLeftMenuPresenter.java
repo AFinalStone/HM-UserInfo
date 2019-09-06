@@ -24,6 +24,7 @@ import com.hm.iou.tools.ACache;
 import com.hm.iou.tools.SystemUtil;
 import com.hm.iou.userinfo.api.PersonApi;
 import com.hm.iou.userinfo.bean.HomeLeftMenuBean;
+import com.hm.iou.userinfo.bean.InnerCustomerResBean;
 import com.hm.iou.userinfo.bean.UserCenterStatisticBean;
 import com.hm.iou.userinfo.business.presenter.UserDataUtil;
 import com.hm.iou.userinfo.event.UpdateAliPayEvent;
@@ -58,8 +59,9 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private Disposable mStatisticDisposable;
     private Disposable mThirdPlatformInfoDisposable;//获取第三方平台的状态
     private Disposable mPersonalInfo;//获取个人中心的用户信息
+    private Disposable mIsCustomerServiceDisposable;
 
-    private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
+//    private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
     private boolean mNeedRefresh = false;
 
     private boolean mIsRealNameFlag;
@@ -73,14 +75,10 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     }
 
     public void onDestroy() {
-        if (mStatisticDisposable != null && !mStatisticDisposable.isDisposed()) {
-            mStatisticDisposable.dispose();
-            mStatisticDisposable = null;
-        }
-        if (mThirdPlatformInfoDisposable != null && !mThirdPlatformInfoDisposable.isDisposed()) {
-            mThirdPlatformInfoDisposable.dispose();
-            mThirdPlatformInfoDisposable = null;
-        }
+        cancelRequest(mStatisticDisposable);
+        cancelRequest(mThirdPlatformInfoDisposable);
+        cancelRequest(mPersonalInfo);
+        cancelRequest(mIsCustomerServiceDisposable);
         EventBus.getDefault().unregister(this);
     }
 
@@ -95,7 +93,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
 
         mNeedRefresh = false;
         refreshData();
-        mLastUpdateStatisticData = System.currentTimeMillis();
+//        mLastUpdateStatisticData = System.currentTimeMillis();
     }
 
     @Override
@@ -103,12 +101,12 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         if (mNeedRefresh) {
             mNeedRefresh = false;
             refreshData();
-            mLastUpdateStatisticData = System.currentTimeMillis();
+//            mLastUpdateStatisticData = System.currentTimeMillis();
         } else {
-            if (System.currentTimeMillis() - mLastUpdateStatisticData > 30000) {
+/*            if (System.currentTimeMillis() - mLastUpdateStatisticData > 30000) {
                 refreshData();
                 mLastUpdateStatisticData = System.currentTimeMillis();
-            }
+            }*/
         }
     }
 
@@ -120,6 +118,28 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         getUpdateInfo();
         getPersonalInfo();
         notifyRedCount();
+    }
+
+    /**
+     * 判断是否为内部客户账号
+     */
+    @Override
+    public void isHeimaStaff() {
+        cancelRequest(mIsCustomerServiceDisposable);
+        mIsCustomerServiceDisposable = PersonApi.isInnerCustomerService().map(RxUtil.<InnerCustomerResBean>handleResponse())
+                .subscribe(new Consumer<InnerCustomerResBean>() {
+                    @Override
+                    public void accept(InnerCustomerResBean data) throws Exception {
+                        if (data != null && data.isCustServicer()) {
+                            mView.showHeimaStaffItem(String.format("待处理%d条", data.getComplainCount()));
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
     }
 
     /**
@@ -196,14 +216,17 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
         }
     }
 
+    private void cancelRequest(Disposable disposable) {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
+
     /**
      * 获取个人中心用户相关信息，例如收藏数量，云空间
      */
     public void getStatisticData() {
-        if (mStatisticDisposable != null && !mStatisticDisposable.isDisposed()) {
-            mStatisticDisposable.dispose();
-            mStatisticDisposable = null;
-        }
+        cancelRequest(mStatisticDisposable);
         mStatisticDisposable = PersonApi.getUserCenterStatistic()
                 .map(RxUtil.<UserCenterStatisticBean>handleResponse())
                 .subscribe(new Consumer<UserCenterStatisticBean>() {
@@ -226,10 +249,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
      * 获取个人中心用户的摘要信息
      */
     private void getPersonalInfo() {
-        if (mPersonalInfo != null && !mPersonalInfo.isDisposed()) {
-            mPersonalInfo.dispose();
-            mPersonalInfo = null;
-        }
+        cancelRequest(mPersonalInfo);
         mPersonalInfo = CommApi.getPersonalCenter()
                 .map(RxUtil.<PersonalCenterInfo>handleResponse())
                 .subscribe(new Consumer<PersonalCenterInfo>() {
@@ -267,10 +287,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                 return;
             }
         }
-        if (mThirdPlatformInfoDisposable != null && !mThirdPlatformInfoDisposable.isDisposed()) {
-            mThirdPlatformInfoDisposable.dispose();
-            mThirdPlatformInfoDisposable = null;
-        }
+        cancelRequest(mThirdPlatformInfoDisposable);
         mThirdPlatformInfoDisposable = PersonApi.getUserThirdPlatformInfo()
                 .map(RxUtil.<UserThirdPlatformInfo>handleResponse())
                 .subscribe(new Consumer<UserThirdPlatformInfo>() {

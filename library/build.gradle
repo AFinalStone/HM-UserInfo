@@ -2,11 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.hm.plugin.commconfig'
 
 android {
     compileSdkVersion 26
-
-
 
     defaultConfig {
         minSdkVersion 19
