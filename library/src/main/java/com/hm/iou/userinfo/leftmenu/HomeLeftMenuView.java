@@ -307,7 +307,14 @@ public class HomeLeftMenuView extends FrameLayout implements HomeLeftMenuContrac
                 }
             });
         }
+        mLayoutHeimaStarff.setVisibility(View.VISIBLE);
         ((TextView) mLayoutHeimaStarff.findViewById(R.id.tv_menu_desc)).setText(msg);
     }
 
+    @Override
+    public void hideHeimaStaffItem() {
+        if (mLayoutHeimaStarff != null) {
+            mLayoutHeimaStarff.setVisibility(View.GONE);
+        }
+    }
 }

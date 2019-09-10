@@ -83,6 +83,11 @@ public interface HomeLeftMenuContract {
          * @param msg
          */
         void showHeimaStaffItem(String msg);
+
+        /**
+         * 隐藏"嘿马员工"
+         */
+        void hideHeimaStaffItem();
     }
 
     interface Presenter {

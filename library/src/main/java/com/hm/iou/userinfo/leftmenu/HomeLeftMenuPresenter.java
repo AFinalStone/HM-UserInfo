@@ -61,7 +61,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
     private Disposable mPersonalInfo;//获取个人中心的用户信息
     private Disposable mIsCustomerServiceDisposable;
 
-//    private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
+    //    private long mLastUpdateStatisticData = System.currentTimeMillis();  //记录上一次刷新统计数据的时间
     private boolean mNeedRefresh = false;
 
     private boolean mIsRealNameFlag;
@@ -130,8 +130,12 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                 .subscribe(new Consumer<InnerCustomerResBean>() {
                     @Override
                     public void accept(InnerCustomerResBean data) throws Exception {
-                        if (data != null && data.isCustServicer()) {
-                            mView.showHeimaStaffItem(String.format("待处理%d条", data.getComplainCount()));
+                        if (data != null) {
+                            if (data.isCustServicer()) {
+                                mView.showHeimaStaffItem(String.format("待处理%d条", data.getComplainCount()));
+                            } else {
+
+                            }
                         }
                     }
                 }, new Consumer<Throwable>() {
