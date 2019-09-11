@@ -154,7 +154,7 @@ public interface PersonService {
     @POST("/api/coupon/v1/getMemberCoupon")
     Flowable<BaseResponse<String>> getMemberCoupon(@Body GetMemberCouPonReqBean req);
 
-    @GET("/api/complain/v1/isCustServicer")
+    @GET("/api/manager/v1/isBackendUser")
     Flowable<BaseResponse<InnerCustomerResBean>> isInnerCustomerService();
 
 }

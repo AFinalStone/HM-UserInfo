@@ -6,8 +6,8 @@ package com.hm.iou.userinfo.bean
 class InnerCustomerResBean {
 
     //true-当前登录用户为客服，false-不是客服
-    var isCustServicer: Boolean = false
+    var isBackendUser: Boolean = false
     //待处理反馈数目
-    var complainCount: Int = 0
+    var dealEventCount: Int = 0
 
 }

@@ -131,10 +131,11 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                     @Override
                     public void accept(InnerCustomerResBean data) throws Exception {
                         if (data != null) {
-                            if (data.isCustServicer()) {
-                                mView.showHeimaStaffItem(String.format("待处理%d条", data.getComplainCount()));
+                            if (data.isBackendUser()) {
+                                int c = data.getDealEventCount();
+                                mView.showHeimaStaffItem(String.format("待处理%s条", c > 999 ? "999+" : c + ""));
                             } else {
-
+                                mView.hideHeimaStaffItem();
                             }
                         }
                     }
