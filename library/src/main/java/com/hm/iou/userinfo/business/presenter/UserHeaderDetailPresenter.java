@@ -43,7 +43,7 @@ public class UserHeaderDetailPresenter extends MvpActivityPresenter<UserHeaderDe
     @Override
     public void uploadFile(File file) {
         mView.showLoadingView("图片上传中...");
-        FileApi.uploadImage(file, FileBizType.Avatar)
+        FileApi.INSTANCE.uploadImage(file, FileBizType.Avatar)
                 .compose(getProvider().<BaseResponse<FileUploadResult>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<FileUploadResult>handleResponse())
                 .subscribeWith(new CommSubscriber<FileUploadResult>(mView) {

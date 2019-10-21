@@ -76,7 +76,7 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         val viewHeader = LayoutInflater.from(mContext).inflate(R.layout.person_layout_user_vip_info_header, null)
 
         rv_coupon_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val firstVisible = (rv_coupon_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 val top = rv_coupon_list.getChildAt(0).top
@@ -123,7 +123,7 @@ class VipStatusActivity : BaseActivity<VipStatusPresenter>(), VipStatusContract.
         //优惠券列表头部View
         val viewHeader = LayoutInflater.from(mContext).inflate(R.layout.person_layout_user_vip_info_header, null)
         rv_coupon_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val firstVisible = (rv_coupon_list.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 val top = rv_coupon_list.getChildAt(0).top

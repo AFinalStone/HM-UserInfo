@@ -105,7 +105,7 @@ public class MyIncomePresenter extends MvpActivityPresenter<MyIncomeContract.Vie
     @Override
     public void uploadImage(File file) {
         mView.showLoadingView();
-        FileApi.uploadImage(file, FileBizType.Income)
+        FileApi.INSTANCE.uploadImage(file, FileBizType.Income)
                 .compose(getProvider().<BaseResponse<FileUploadResult>>bindUntilEvent(ActivityEvent.DESTROY))
                 .map(RxUtil.<FileUploadResult>handleResponse())
                 .subscribeWith(new CommSubscriber<FileUploadResult>(mView) {

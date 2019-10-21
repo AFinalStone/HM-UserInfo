@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.hm.plugin.commconfig'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.hm.iou.userinfo.demo"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.person_bg_coupon_list.runner.AndroidJUnitRunner"
@@ -30,19 +30,19 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //图片选择
-    compile 'com.heima.iou:hmselectpiclocal:1.0.0'
+    api 'com.heima.iou:hmselectpiclocal:1.0.0'
     //签约密码，签章
-    compile 'com.heima.iou:hmsignaturelocal:1.0.0'
+    api 'com.heima.iou:hmsignaturelocal:1.0.0'
     //支付
-    compile 'com.heima.iou:hmpaylocal:1.0.0'
+    api 'com.heima.iou:hmpaylocal:1.0.0'
     //好友
-    compile 'com.heima.iou:hmmessagecenterlocal:1.0.0'
+    api 'com.heima.iou:hmmessagecenterlocal:1.0.0'
     //借条创建
-    compile 'com.heima.iou:hmioucreatelocal:1.0.0'
+    api 'com.heima.iou:hmioucreatelocal:1.0.0'
     //首页、借条创建、编辑、展示等相关功能
-    compile 'com.heima.iou:hmjietiaolocal:1.0.0'
+    api 'com.heima.iou:hmjietiaolocal:1.0.0'
 
-    compile 'com.android.support:multidex:1.0.0'
+    api 'com.android.support:multidex:1.0.0'
 
-    compile project(':library')
+    api project(':library')
 }
