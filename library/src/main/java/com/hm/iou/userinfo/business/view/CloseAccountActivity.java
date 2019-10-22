@@ -62,6 +62,7 @@ public class CloseAccountActivity extends BaseActivity<CloseAccountPresenter> im
             }
         });
 
+        mEtPhone.requestFocus();
         mEtPhone.postDelayed(new Runnable() {
             @Override
             public void run() {

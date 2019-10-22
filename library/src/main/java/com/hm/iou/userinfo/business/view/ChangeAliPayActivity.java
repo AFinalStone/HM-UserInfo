@@ -49,6 +49,7 @@ public class ChangeAliPayActivity extends BaseActivity<ChangeAliPayPresenter> im
         if (bundle != null) {
             mOldAliPay = bundle.getString(EXTRA_KEY_ALIPAY_ACCOUNT);
         }
+        mEtAliPay.requestFocus();
         if (!TextUtils.isEmpty(mOldAliPay)) {
             mEtAliPay.setText(mOldAliPay);
             mEtAliPay.setEnabled(false);

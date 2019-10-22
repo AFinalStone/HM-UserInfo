@@ -29,10 +29,10 @@ public class JietiaoApplication extends Application {
         Logger.init(this, true);
         BaseBizAppLike appLike = new BaseBizAppLike();
         appLike.onCreate(this);
-        appLike.initServer("http://192.168.1.107:3000", "http://192.168.1.107:3000",
-                "http://192.168.1.107:3000");
-//        appLike.initServer("http://dev.54jietiao.com", "http://dev.54jietiao.com",
-//                "http://dev.54jietiao.com");
+//        appLike.initServer("http://192.168.1.107:3000", "http://192.168.1.107:3000",
+//                "http://192.168.1.107:3000");
+        appLike.initServer("http://dev.54jietiao.com", "http://dev.54jietiao.com",
+                "http://dev.54jietiao.com");
         appLike.setDebug(BuildConfig.DEBUG);
 
         initNetwork();
@@ -62,7 +62,7 @@ public class JietiaoApplication extends Application {
         HttpRequestConfig config = new HttpRequestConfig.Builder(this)
                 .setDebug(true)
                 .setAppChannel("guanfang")
-                .setAppVersion("1.0.2")
+                .setAppVersion("2.8.0")
                 .setDeviceId("123abc123")
                 .setBaseUrl(BaseBizAppLike.getInstance().getApiServer())
                 .setUserId(UserManager.getInstance(this).getUserId())

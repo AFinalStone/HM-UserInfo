@@ -66,6 +66,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             }
         });
 
+        mEtOldPassword.requestFocus();
         mEtOldPassword.postDelayed(new Runnable() {
             @Override
             public void run() {

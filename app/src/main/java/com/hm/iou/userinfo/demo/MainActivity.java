@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         MobileLoginReqBean reqBean = new MobileLoginReqBean();
         reqBean.setMobile("15267163669");
 //        reqBean.setMobile("17681832816");
-//        reqBean.setMobile("18969904897");
+        reqBean.setMobile("15967132742");
+//        reqBean.setMobile("15757126170");
         reqBean.setQueryPswd(pwd);
         HttpReqManager.getInstance().getService(LoginService.class)
                 .mobileLogin(reqBean)

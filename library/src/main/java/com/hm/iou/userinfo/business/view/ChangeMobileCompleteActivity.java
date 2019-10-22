@@ -81,6 +81,7 @@ public class ChangeMobileCompleteActivity extends BaseActivity<ChangeMobilePrese
             }
         });
 
+        mEtPhone.requestFocus();
         mEtPhone.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -78,6 +78,7 @@ public class ChangeMobileVerifyActivity extends BaseActivity<ChangeMobilePresent
             }
         });
 
+        mEtPhone.requestFocus();
         mEtPhone.postDelayed(new Runnable() {
             @Override
             public void run() {

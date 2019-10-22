@@ -59,6 +59,7 @@ public class UnbindWeixinActivity extends BaseActivity<UnbindWeixinPresenter> im
                 }
             }
         });
+        mEtPassword.requestFocus();
         mEtPassword.postDelayed(new Runnable() {
             @Override
             public void run() {

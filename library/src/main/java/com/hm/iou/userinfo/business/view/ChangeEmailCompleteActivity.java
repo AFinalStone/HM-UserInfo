@@ -95,6 +95,7 @@ public class ChangeEmailCompleteActivity extends BaseActivity<ChangeEmailPresent
             }
         });
 
+        mEtEmail.requestFocus();
         mEtEmail.postDelayed(new Runnable() {
             @Override
             public void run() {

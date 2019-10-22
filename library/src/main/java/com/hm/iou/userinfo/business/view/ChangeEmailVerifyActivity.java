@@ -78,6 +78,7 @@ public class ChangeEmailVerifyActivity extends BaseActivity<ChangeEmailPresenter
             }
         });
 
+        mEtEmail.requestFocus();
         mEtEmail.postDelayed(new Runnable() {
             @Override
             public void run() {

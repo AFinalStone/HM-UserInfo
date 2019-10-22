@@ -83,6 +83,8 @@ public class ApplyForeverUnRegisterCheckUserInfoActivity extends BaseActivity<Ap
                 checkValue();
             }
         });
+
+        mEtPhone.requestFocus();
     }
 
     @OnClick({R2.id.tv_get_code, R2.id.btn_quit_and_unregister, R2.id.btn_forever_delete})

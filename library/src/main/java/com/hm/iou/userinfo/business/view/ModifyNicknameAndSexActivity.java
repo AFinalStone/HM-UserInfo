@@ -12,7 +12,6 @@ import com.hm.iou.sharedata.UserManager;
 import com.hm.iou.sharedata.model.SexEnum;
 import com.hm.iou.sharedata.model.UserInfo;
 import com.hm.iou.tools.ToastUtil;
-import com.hm.iou.uikit.ClearEditText;
 import com.hm.iou.uikit.HMTopBarView;
 import com.hm.iou.uikit.dialog.HMAlertDialog;
 import com.hm.iou.userinfo.R;
@@ -56,6 +55,7 @@ public class ModifyNicknameAndSexActivity extends BaseActivity<ModifyNicknameAnd
         findViewById(R.id.tv_sex).setOnClickListener(this);
         mBtnSubmit.setEnabled(false);
         mPresenter.init();
+        mEtNickName.requestFocus();
         mEtNickName.addTextChangedListener(new HMTextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
