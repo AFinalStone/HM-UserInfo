@@ -266,6 +266,7 @@ public class HomeLeftMenuPresenter implements HomeLeftMenuContract.Presenter {
                         }
                         //存储个人中心摘要信息
                         UserManager userManager = UserManager.getInstance(mContext);
+                        userManager.setAuthLawyer(personalCenterInfo.isLawyer());
                         UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
                         userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
                         //更新资料完整进度

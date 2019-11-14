@@ -150,6 +150,7 @@ public class ProfilePresenter extends MvpActivityPresenter<ProfileContract.View>
                         UserExtendInfo userExtendInfo = userManager.getUserExtendInfo();
                         userExtendInfo.setPersonalCenterInfo(personalCenterInfo);
                         userManager.updateOrSaveUserExtendInfo(userExtendInfo);
+                        userManager.setAuthLawyer(personalCenterInfo.isLawyer());
                     }
 
                     @Override
