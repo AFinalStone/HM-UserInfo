@@ -39,7 +39,7 @@ dependencies {
     //黄油刀
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    compile 'com.heima.iou:hmbasebizlocal:1.0.0'
+    implementation 'com.heima.iou:hmbasebizlocal:1.0.0'
 }
 apply from: './maven_local.gradle'
 

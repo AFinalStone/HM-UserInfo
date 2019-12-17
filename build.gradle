@@ -27,8 +27,8 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
-        maven { url 'file:///Users/hjy/.m2/repository/' }
         maven { url 'file:///Users/shilei/.m2/repository/' }
+        maven { url 'file:C:\\Users\\Administrator\\.m2\\repository\\' }
     }
 }
 
